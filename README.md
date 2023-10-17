@@ -8,7 +8,7 @@
     - **`feature/기능명`** 또는 **`feature/이슈번호-기능명`** 과 같은 형식을 사용합니다.
     - 예: **`feature/user-authentication`** 또는 **`feature/42-dashboard-widget`**.
 2. **버그 수정 브랜치 (Bugfix Branches)**:
-    - **`bugfix/버그명`** 또는 **`bugfix/이슈번호-버그명`**과 같은 형식을 사용합니다.
+    - **`bugfix/버그명`** 또는 **`bugfix/이슈번호-버그명`** 과 같은 형식을 사용합니다.
     - 예: **`bugfix/null-pointer-error`** 또는 **`bugfix/53-login-issue`**.
 3. **릴리스 브랜치 (Release Branches)**:
     - 릴리스 브랜치는 특정 버전의 릴리스를 준비하는 데 사용됩니다.
