@@ -1,8 +1,8 @@
 ---
-name: "♻️ Refactor:"
-about: 리팩터할 내용을 입력해주세요
-title: ''
-labels: 리팩터
+name: "✨Feature:"
+about: 기능 개발 사항을 입력해주세요
+title: "[Feature]"
+labels: Feature
 assignees: ''
 
 ---
