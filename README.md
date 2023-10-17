@@ -4,7 +4,7 @@
 
 🖇️Branch name 컨벤션
 -----
-```HTML
+```md
     1. **기능 브랜치 (Feature Branches)**:
     - **`feature/기능명`** 또는 **`feature/이슈번호-기능명`**과 같은 형식을 사용합니다.
     - 예: **`feature/user-authentication`** 또는 **`feature/42-dashboard-widget`**.
