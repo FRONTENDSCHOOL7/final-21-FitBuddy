@@ -1,6 +1,6 @@
 ---
 name: "🐛 Bug:"
-about: 기능 개발 사항을 입력해주세요
+about: Bug 발생 시 작성해주세요.
 title: "[Bug]"
 labels: Bug
 assignees: ''
