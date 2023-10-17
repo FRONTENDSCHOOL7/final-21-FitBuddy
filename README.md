@@ -4,6 +4,7 @@
 
 🖇️Branch name 컨벤션
 -----
+```HTML
     1. **기능 브랜치 (Feature Branches)**:
     - **`feature/기능명`** 또는 **`feature/이슈번호-기능명`**과 같은 형식을 사용합니다.
     - 예: **`feature/user-authentication`** 또는 **`feature/42-dashboard-widget`**.
@@ -23,6 +24,7 @@
     - **`hotfix/버전번호-버그명`**과 같은 형식을 사용합니다.
     - 예: **`hotfix/1.0.1-security-patch`**.
     7. **Pull Request와 머지 커밋**: Pull Request 또는 머지 커밋 메시지에서 해당 브랜치의 내용을 요약하고 이슈 번호를 참조하는 것이 도움이 됩니다.
+```
 
 
 🍡Commit 컨벤션
