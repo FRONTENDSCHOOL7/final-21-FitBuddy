@@ -1,20 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import plus from '../../../assets/icons/icon-plus.svg';
+import picture from '../../../assets/icons/icon-picture.svg';
 
 const StyledButton = styled.button`
-  width: 56px;
-  height: 56px;
+  width: 42px;
+  height: 42px;
   margin: 0;
   border: none;
   border-radius: 50%;
-  background-color: #a6ff4d;
+  background-color: #c4c4c4;
 `;
 
-export default function ButtonFloating() {
+export default function Button_Img() {
   return (
     <StyledButton>
-      <img src={plus} alt='plus' />
+      <img src={picture} alt='sns_picture' />
     </StyledButton>
   );
 }

@@ -1,7 +1,5 @@
-import React from 'react'
+import React from 'react';
 
 export default function Input() {
-  return (
-    <div>Input</div>
-  )
+  return <div>Input</div>;
 }
