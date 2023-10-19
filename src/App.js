@@ -1,4 +1,5 @@
+import NavBottom from './components/Common/Nav/NavBottom';
 function App() {
-  return <div />;
+  return <NavBottom />;
 }
 export default App;
