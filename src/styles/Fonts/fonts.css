@@ -1,0 +1,38 @@
+@font-face {
+  font-family: 'Pretendard-Thin';
+  font-style: normal;
+  font-weight: 100;
+  src: url('./Pretendard-Thin.woff') format('woff');
+}
+@font-face {
+  font-family: 'Pretendard-ExtraLight';
+  src: url('./Pretendard-ExtraLight.woff');
+}
+@font-face {
+  font-family: 'Pretendard-Light';
+  src: url('./Pretendard-Light.woff');
+}
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('./Pretendard-Regular.woff');
+}
+@font-face {
+  font-family: 'Pretendard-Medium';
+  src: url('./Pretendard-Medium.woff');
+}
+@font-face {
+  font-family: 'Pretendard-SemiBold';
+  src: url('./Pretendard-SemiBold.woff');
+}
+@font-face {
+  font-family: 'Pretendard-Bold';
+  src: url('./Pretendard-Bold.woff');
+}
+@font-face {
+  font-family: 'Pretendard-ExtraBold';
+  src: url('./Pretendard-ExtraBold.woff');
+}
+@font-face {
+  font-family: 'Pretendard-Black';
+  src: url('./Pretendard-Black.woff');
+}
