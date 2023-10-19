@@ -1,0 +1,87 @@
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import imgMore from '../../../assets/icons/icon-more.svg';
+
+const ImageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
+// 모달 배경 컨테이너
+const AlertBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+// 모달 내용을 감싸는 컨테이너
+const AlertContent = styled.div`
+  min-width: 320px;
+  min-height: 148.57px;
+  padding-top: 35px;
+  background-color: #141414;
+  box-sizing: border-box;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+`;
+
+// 닫기 버튼
+const CloseButton = styled.button`
+  background-color: #141414;
+  color: #fff;
+  border: 0.5px solid #8f8f8f;
+  min-width: 160px;
+  padding: 14px 63px;
+  box-sizing: border-box;
+  cursor: pointer;
+  margin-top: 44px;
+  &.default {
+    border-radius: 0 0 0 10px;
+  }
+  &.secondary {
+    border-radius: 0 0 10px 0;
+    color: #a6ff4d;
+  }
+`;
+
+// 모달 컴포넌트
+const Alert = ({ isOpen, onClose, children }) => {
+  if (!isOpen) return null;
+
+  return (
+    <AlertBackground>
+      <AlertContent>
+        {children}
+        <CloseButton onClick={onClose} className='default'>
+          닫기
+        </CloseButton>
+        <CloseButton onClick={onClose} className='secondary'>
+          삭제
+        </CloseButton>
+      </AlertContent>
+    </AlertBackground>
+  );
+};
+
+export default function AlertDelete() {
+  const [AlertOpen, setAlertOpen] = useState(false);
+  return (
+    <div>
+      {/* <button onClick={() => setAlertOpen(true)}>모달 열기</button> */}
+      <ImageWrapper onClick={() => setAlertOpen(true)}>
+        <img src={imgMore} />
+      </ImageWrapper>
+      <Alert isOpen={AlertOpen} onClose={() => setAlertOpen(false)}>
+        <h3>피드를 삭제하시겠습니까?</h3>
+      </Alert>
+    </div>
+  );
+}
