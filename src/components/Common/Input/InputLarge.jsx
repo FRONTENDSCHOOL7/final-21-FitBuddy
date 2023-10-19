@@ -9,11 +9,15 @@ const StyledInput = styled.input`
   border: 2px solid #8f8f8f;
   background: #141414;
 
+  &::placeholder {
+    color: #fff;
+  }
+
   &:focus {
     outline: none;
   }
 `;
 
-export default function InputLarge() {
-  return <StyledInput placeholder='안녕하세요' />;
+export default function InputLarge(props) {
+  return <StyledInput placeholder={props.placeholder} />;
 }

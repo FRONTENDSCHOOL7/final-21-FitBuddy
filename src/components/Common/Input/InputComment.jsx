@@ -9,6 +9,9 @@ const StyledInput = styled.input`
   margin-left: 15px;
   padding-right: 90px;
 
+  &::placeholder {
+    color: #fff;
+  }
   &:focus {
     outline: none;
   }
@@ -26,11 +29,11 @@ const StyledButton = styled.button`
   color: #fff;
 `;
 
-export default function InputComment() {
+export default function InputComment(props) {
   return (
     <StyledDiv>
       <ButtonImg />
-      <StyledInput placeholder='댓글 입력하기...' />
+      <StyledInput placeholder={props.placeholder} />
       <StyledButton>등록</StyledButton>
     </StyledDiv>
   );

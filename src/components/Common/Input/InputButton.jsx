@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-
 const StyledButton = styled.button`
   display: flex;
   justify-content: space-between;
@@ -15,6 +14,6 @@ const StyledButton = styled.button`
   }
 `;
 
-export default function InputButton() {
-  return <StyledButton>운동 종목을 선택해주세요</StyledButton>;
+export default function InputButton(props) {
+  return <StyledButton>{props.placeholder}</StyledButton>;
 }

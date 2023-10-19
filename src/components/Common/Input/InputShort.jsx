@@ -9,11 +9,14 @@ const StyledInput = styled.input`
   color: #fff;
   padding-left: 15px;
 
+  &::placeholder {
+    color: #fff;
+  }
   &:focus {
     outline: none;
   }
 `;
 
-export default function InputShort() {
-  return <StyledInput placeholder='박지수' />;
+export default function InputShort(props) {
+  return <StyledInput placeholder={props.placeholder} />;
 }
