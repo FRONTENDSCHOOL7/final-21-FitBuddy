@@ -1,3 +1,4 @@
+import AlertDelete from './components/Common/Alert/AlertDelete';
 import NavBottom from './components/Common/Nav/NavBottom';
 import NavTopBack from './components/Common/Nav/NavTopBack';
 import NavTopBasic from './components/Common/Nav/NavTopBasic';
@@ -8,6 +9,7 @@ function App() {
       {/* <NavTopDetails /> */}
       {/* <NavTopBack /> */}
       <NavTopBasic />
+      <AlertDelete />
       <NavBottom />
     </>
   );
