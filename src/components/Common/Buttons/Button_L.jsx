@@ -20,6 +20,6 @@ const StyledButton = styled.button`
   }
 `;
 
-export default function Button_L() {
-  return <StyledButton>로그인</StyledButton>;
+export default function Button_L({ name }) {
+  return <StyledButton>{name}</StyledButton>;
 }
