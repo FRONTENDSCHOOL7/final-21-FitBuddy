@@ -34,24 +34,22 @@ const ImgContainer = styled.div`
 const ContentsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  &.id {
-    margin-bottom: 20px;
-  }
-  &.pw {
-    margin-bottom: 132px;
-  }
-  &.loginbutton {
-    margin-bottom: 30px;
-  }
-  &.txt-btn {
-    margin-bottom: 65px;
-  }
+  gap: 20px;
+  margin-bottom: 132px;
 `;
 
 const SnsButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 198px;
+`;
+
+const StyledButtonL = styled(Button_L)`
+  margin-bottom: 40px;
+`;
+const StyledTextButton = styled(TextButton)`
+  margin-top: 50px;
+  margin-bottom: 35px;
 `;
 
 export default function LoginPage() {
@@ -62,16 +60,10 @@ export default function LoginPage() {
       </ImgContainer>
       <ContentsContainer className='id'>
         <InputLine content='아이디' />
-      </ContentsContainer>
-      <ContentsContainer className='pw'>
         <InputLine content='비밀번호' />
       </ContentsContainer>
-      <ContentsContainer className='loginbutton'>
-        <Button_L name='로그인' />
-      </ContentsContainer>
-      <ContentsContainer className='txt-btn'>
-        <TextButton>이메일로 회원가입</TextButton>
-      </ContentsContainer>
+      <StyledButtonL name='로그인' />
+      <StyledTextButton>이메일로 회원가입</StyledTextButton>
       <SnsButtonContainer>
         <Button_sns snsIcon={kakao} />
         <Button_sns snsIcon={google} />
