@@ -13,6 +13,6 @@ const StyledInput = styled.input`
   }
 `;
 
-export default function InputLine() {
-  return <StyledInput placeholder='아이디' />;
+export default function InputLine({ content }) {
+  return <StyledInput placeholder={content} />;
 }
