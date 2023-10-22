@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import snsIcon from '../../../assets/icons/sns.svg';
 
 const StyledButton = styled.button`
   width: 42px;
@@ -11,7 +10,7 @@ const StyledButton = styled.button`
   background-color: #fff;
 `;
 
-export default function Button_sns() {
+export default function Button_sns({ snsIcon }) {
   return (
     <StyledButton>
       <img src={snsIcon} alt='snsIcon' />
