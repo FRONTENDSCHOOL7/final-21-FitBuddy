@@ -13,6 +13,7 @@ const StyledButton = styled.button`
   font-size: 16px;
   font-weight: 600;
   line-height: 27px;
+  cursor: pointer;
 
   // disabled
   &:disabled {
