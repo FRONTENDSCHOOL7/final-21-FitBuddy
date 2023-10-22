@@ -18,12 +18,4 @@ assignees: ''
 
 ## :round_pushpin:ETC
 
-## Git
-
-git pull origin develop
-git checkout -b feature/(이슈번호)-(기능이름)
-코드 작성
-git add .
-git commit -m " "
-git push origin feature/(이슈번호)-(기능이름)
 기타사항
