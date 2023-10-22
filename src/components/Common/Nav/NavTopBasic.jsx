@@ -14,6 +14,7 @@ const NavTopTitle = styled.h1`
   float: left;
   color: #ffffff;
   font-family: 'Pretendard-bold', sans-serif;
+  font-size: var(--font-size-title);
   padding-left: 30px;
 `;
 
