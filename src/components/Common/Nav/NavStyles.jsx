@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 export const StyledNavIcons = styled.img`
@@ -7,7 +6,7 @@ export const StyledNavIcons = styled.img`
 `;
 export const Nav = styled.nav`
   overflow: hidden;
-  background-color: #141414;
+  background-color: var(--color-bg);
   color: white;
   position: fixed;
   bottom: 0;
