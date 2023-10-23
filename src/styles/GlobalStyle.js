@@ -53,7 +53,7 @@ const GlobalStyle = createGlobalStyle`
   background-color: var(--color-bg);
   color: var(--color-secondary);
   height: 100%;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
   html, body, div, span, applet, object, iframe,
