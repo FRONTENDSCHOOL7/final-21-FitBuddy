@@ -1,5 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ReactComponent as Iconlocation } from '../../../src/assets/icons/icon-location-fill.svg';
+import { ReactComponent as Iconperson } from '../../../src/assets/icons/icon-person.svg';
+import { ReactComponent as Placeholdersquare } from '../../assets/placeholder/Placeholder-square.svg';
+import { ReactComponent as Placeholderimg } from '../../assets/placeholder/Placeholder-img.svg';
 
 const StyledCard = styled.div`
   position: relative;
@@ -7,17 +11,30 @@ const StyledCard = styled.div`
   border-radius: 10px;
   padding: 20px;
   width: 300px;
+  display: flex;
+  align-items: start;
 `;
 
-const StyledImagePlaceholder = styled.div`
-  /* 플레이스 홀더 이미지 */
+const StyledholderWrapper = styled.div`
+  margin-right: 20px;
+`;
+
+const StyledimgiconWrapper = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 150px;
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  & > svg:not(:last-child) {
+    margin-top: 5px;
+    margin-right: 5px;
+  }
+`;
+
+const StylediconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+  & > svg:not(:last-child) {
+    margin-width: 5px;
+  }
 `;
 
 const EventInfo = styled.div`
@@ -34,12 +51,33 @@ const EventInfo = styled.div`
 export default function Card() {
   return (
     <StyledCard>
-      <StyledImagePlaceholder></StyledImagePlaceholder>
-      <EventInfo>
-        <h3>헬스 배우고 싶은 분</h3>
-        <p>2023.10.12 (목) 19:00</p>
-        <p>핏버디 체육관 · 4명</p>
-      </EventInfo>
+      <StyledholderWrapper>
+        <Placeholdersquare />
+      </StyledholderWrapper>
+      <div>
+        <EventInfo>
+          <h3>헬스 배우고 싶은 분</h3>
+          <p>2023.10.12 (목) 19:00</p>
+          <p>
+            <StylediconWrapper>
+              <Iconlocation style={{ width: '16px', height: '16px' }} />
+              핏버디 체육관
+            </StylediconWrapper>
+          </p>
+          <p>
+            <StylediconWrapper>
+              <Iconperson style={{ width: '16px', height: '16px' }} />
+              4명
+            </StylediconWrapper>
+          </p>
+        </EventInfo>
+
+        <StyledimgiconWrapper>
+          <Placeholderimg />
+          <Placeholderimg />
+          <Placeholderimg />
+        </StyledimgiconWrapper>
+      </div>
     </StyledCard>
   );
 }
