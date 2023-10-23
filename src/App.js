@@ -16,6 +16,7 @@ import ErrorPage from './pages/ErrorPage';
 function App() {
   return (
     <Router>
+      <Onboard />
       <Routes>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/onboard' element={<Onboard />} />
