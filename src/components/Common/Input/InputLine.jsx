@@ -8,17 +8,26 @@ export const InputBox = styled.input`
   border-radius: 30px;
   border: 1px solid ${(props) => props.borderColor};
   box-sizing: border-box;
-  margin-bottom: 6px;
+  margin-bottom: ${(props) => `${props.marginBottom}px`};
   font-size: var(--font-size-btn);
+  background-color: transparent;
+  color: var(--color-secondary);
   &:focus {
     outline: none;
   }
   &::placeholder {
-    color: ${(props) => (props.hasInput ? 'var(--color-bg)' : 'var(--color-gray)')};
+    color: ${(props) => (props.hasInput ? 'var(--color-secondary)' : 'var(--color-gray)')};
   }
 `;
 
-export default function InputLine({ width, height, borderColor, placeholder, hasInput }) {
+export default function InputLine({
+  width,
+  height,
+  borderColor,
+  placeholder,
+  marginBottom,
+  hasInput,
+}) {
   const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (event) => {
@@ -31,6 +40,7 @@ export default function InputLine({ width, height, borderColor, placeholder, has
       height='43px'
       borderColor='var(--color-primary)'
       placeholder={placeholder}
+      marginBottom={marginBottom}
       hasInput={inputValue.length > 0}
       value={inputValue}
       onChange={handleInputChange}
