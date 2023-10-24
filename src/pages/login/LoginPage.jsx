@@ -9,7 +9,10 @@ import kakao from '../../assets/icons/icon-kakao.svg';
 import google from '../../assets/icons/icon-google.svg';
 import facebook from '../../assets/icons/icon-facebook.svg';
 import { LoginWrapper, ContentsContainer, SnsButtonContainer } from './Form.style';
-import { loginApi } from '../../api/loginApi';
+import { PostLogin } from '../../api/loginApi';
+import Home from '../mainhome/Home';
+import { useNavigate } from 'react-router-dom';
+import { LoginInputBox } from './Form.style';
 
 export default function LoginPage({ marginBottom }) {
   const [email, setEmail] = useState('');
@@ -19,6 +22,8 @@ export default function LoginPage({ marginBottom }) {
   const [passwordValid, setPasswordValid] = useState(false);
 
   const [notAllow, setNotAllow] = useState(true);
+
+  const navigate = useNavigate();
 
   // const Login = async () => {
   //   try {
@@ -34,6 +39,7 @@ export default function LoginPage({ marginBottom }) {
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+
     const regex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
     if (regex.test(email)) {
       setEmailValid(true);
@@ -41,22 +47,26 @@ export default function LoginPage({ marginBottom }) {
       setEmailValid(false);
     }
   };
+  const handleLoginSubmit = async () => {
+    try {
+      const response = await PostLogin({
+        user: {
+          email,
+          password,
+        },
+      });
+      console.log(response.data);
 
-  const handlePasswordChange = (e) => {
-    if (e.target.id === 'user-pw') {
-      setPassword(e.target.value);
+      if (response.status === 200) {
+        return navigate('/login');
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
-  const handleLoginSubmit = async () => {
-    try {
-      const res = await loginApi(email, password);
-      console.log(res);
-      console.log('Submitted Email:', email);
-      console.log('Submitted Password:', password);
-    } catch (error) {
-      console.error('로그인 오류:', error);
-    }
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
   };
 
   useEffect(() => {
@@ -71,20 +81,19 @@ export default function LoginPage({ marginBottom }) {
     <LoginWrapper>
       <img src={logo} className='logoImg' />
       <ContentsContainer marginBottom={132}>
-        <InputLine
+        <LoginInputBox
           type='text'
-          id='user-email'
+          // id='user-email'
           placeholder='이메일'
           marginBottom={20}
-          value={email}
+          // value={email}
           onChange={handleEmailChange}
         />
         <div className='errorMessageWrap'>
           {!emailValid && email.length > 0 && <div>올바른 이메일을 입력해주세요.</div>}
         </div>
-        <InputLine
+        <LoginInputBox
           type='password'
-          id='user-pw'
           placeholder='비밀번호'
           marginBottom={0}
           value={password}
@@ -92,6 +101,7 @@ export default function LoginPage({ marginBottom }) {
         />
       </ContentsContainer>
       <Button_L name='로그인' marginBottom={30} onClick={handleLoginSubmit} />
+      <button onClick={handleLoginSubmit}>테스트 버튼</button>
       {/* disabled={notAllow}는 나중에 넣기*/}
       <Button_text marginBottom={20} content='이메일로 회원가입' />
       <SnsButtonContainer>

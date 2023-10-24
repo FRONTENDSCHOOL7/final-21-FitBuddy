@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-export const InputBox = styled.input`
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
+export const LoginInputBox = styled.input`
+  width: 340px;
+  height: 43px;
   padding-left: 31px;
   border-radius: 30px;
-  border: 1px solid ${(props) => props.borderColor};
-  box-sizing: border-box;
+  border: 1px solid var(--color-primary);
   margin-bottom: ${(props) => `${props.marginBottom}px`};
   font-size: var(--font-size-btn);
-  background-color: transparent;
   color: var(--color-secondary);
   &:focus {
     outline: none;
   }
   &::placeholder {
-    color: ${(props) => (props.hasInput ? 'var(--color-secondary)' : 'var(--color-gray)')};
+    color: ${(props) => (props.hasInput ? 'var(--color-bg)' : 'var(--color-gray)')};
   }
+  background-color: transparent;
 `;
 
 export default function InputLine({
@@ -39,7 +38,7 @@ export default function InputLine({
   };
 
   return (
-    <InputBox
+    <LoginInputBox
       width='340px'
       height='43px'
       borderColor='var(--color-primary)'
