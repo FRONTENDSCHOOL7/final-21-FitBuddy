@@ -12,12 +12,32 @@ import { Nav, NavDiv, StyledNavIcons, NavText } from './NavStyles';
 
 export default function NavBottom() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleTabClick = (tabIndex) => {
+    setActiveTab(tabIndex);
+    switch (tabIndex) {
+      case 0:
+        goHome();
+        break;
+      case 1:
+        goCalendar();
+        break;
+      case 2:
+        goCommunity();
+        break;
+      case 3:
+        goMypage();
+        break;
+      default:
+        break;
+    }
+  };
 
   const goHome = () => {
     navigate('/Home');
   };
-  const goCalender = () => {
+  const goCalendar = () => {
     navigate('/calender');
   };
   const goCommunity = () => {
@@ -27,53 +47,23 @@ export default function NavBottom() {
     navigate('/mypage');
   };
 
-  const handleClick = (tab) => {
-    setActiveTab(tab);
-  };
   return (
     <Nav>
-      <NavDiv
-        onClick={() => {
-          handleClick('home');
-          goHome();
-        }}
-      >
-        <StyledNavIcons src={activeTab === 'home' ? home_fill : home} alt='home icon' />
-        <NavText isActive={activeTab === 'home'}>홈</NavText>
+      <NavDiv onClick={() => handleTabClick(0)}>
+        <StyledNavIcons src={activeTab === 0 ? home_fill : home} alt='home icon' />
+        <NavText isActive={activeTab === 0}>홈</NavText>
       </NavDiv>
-      <NavDiv
-        onClick={() => {
-          handleClick('calender');
-          goCalender();
-        }}
-      >
-        <StyledNavIcons
-          src={activeTab === 'calender' ? calender_fill : calender}
-          alt='calender icon'
-        />
-        <NavText isActive={activeTab === 'calender'}>캘린더</NavText>
+      <NavDiv onClick={() => handleTabClick(1)}>
+        <StyledNavIcons src={activeTab === 1 ? calender_fill : calender} alt='calender icon' />
+        <NavText isActive={activeTab === 1}>캘린더</NavText>
       </NavDiv>
-
-      <NavDiv
-        onClick={() => {
-          handleClick('community');
-          goCommunity();
-        }}
-      >
-        <StyledNavIcons
-          src={activeTab === 'community' ? community_fill : community}
-          alt='community icon'
-        />
-        <NavText isActive={activeTab === 'community'}>커뮤니티</NavText>
+      <NavDiv onClick={() => handleTabClick(2)}>
+        <StyledNavIcons src={activeTab === 2 ? community_fill : community} alt='community icon' />
+        <NavText isActive={activeTab === 2}>커뮤니티</NavText>
       </NavDiv>
-      <NavDiv
-        onClick={() => {
-          handleClick('profile');
-          goMypage();
-        }}
-      >
-        <StyledNavIcons src={activeTab === 'profile' ? profile_fill : profile} alt='profile icon' />
-        <NavText isActive={activeTab === 'profile'}>마이페이지</NavText>
+      <NavDiv onClick={() => handleTabClick(3)}>
+        <StyledNavIcons src={activeTab === 3 ? profile_fill : profile} alt='profile icon' />
+        <NavText isActive={activeTab === 3}>홈</NavText>
       </NavDiv>
     </Nav>
   );
