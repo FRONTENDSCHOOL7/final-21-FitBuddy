@@ -27,11 +27,15 @@ export default function InputLine({
   placeholder,
   marginBottom,
   hasInput,
+  onChange,
 }) {
   const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
+    if (onChange) {
+      onChange(event); // 부모 컴포넌트에서 전달된 onChange 함수 호출
+    }
   };
 
   return (
