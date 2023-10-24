@@ -49,11 +49,17 @@ const Button = styled.div`
   cursor: pointer;
   max-height: 2rem;
   line-height: 2rem;
+  font-size: 14px;
 
   &.hide {
     display: none;
   }
 `;
+const CommentButton = styled.div`
+  color: gray;
+  font-size: 10px;
+`;
+
 export default function PostProfile() {
   const [isShowReadMore, setIsShowReadMore] = useState(true);
   const [expanded, setExpanded] = useState(false);
@@ -78,15 +84,15 @@ export default function PostProfile() {
             ? '옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의 위하여, 뿐이다. 이상의 청춘의 뼈 따뜻한 그들의 그와 약동하다. 대고, 못할 풍부하게 뛰노는 인생의 더 가나다라마바사아자차카나타파나아나나나나'
             : '옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의 위하여, 뿐이다. 이상의 청춘의 뼈 따뜻한 그들의 그와 약동하다. 대고, 못할 풍부하게 뛰노는 인생의 더'}
         </StyleTextArea>
-        {isShowReadMore && (
-          <Button onClick={toggleReadMore}>{expanded ? '간략히' : '더보기'}</Button>
-        )}
       </div>
+      {isShowReadMore && (
+        <Button onClick={toggleReadMore}>{expanded ? '간략히' : '...더보기'}</Button>
+      )}
       <p className='date'>2020년 10월 21일</p>
       <StyleCommnet>
         <CommentPriview />
         <CommentPriview />
-        <p>댓글 더보기</p>
+        <CommentButton>댓글더보기</CommentButton>
       </StyleCommnet>
     </StyledDiv>
   );
