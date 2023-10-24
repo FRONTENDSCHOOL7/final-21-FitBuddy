@@ -10,7 +10,7 @@ const StyledCard = styled.div`
   background-color: var(--color-neutral);
   border-radius: 10px;
   padding: 20px;
-  width: 300px;
+  width: auto;
   display: flex;
   align-items: start;
 `;
@@ -38,6 +38,7 @@ const StylediconWrapper = styled.div`
 `;
 
 const EventInfo = styled.div`
+  color: #fff;
   h3 {
     font-size: var(--font-size-sm);
     margin-bottom: 10px;
@@ -45,6 +46,9 @@ const EventInfo = styled.div`
   p {
     font-size: var(--font-size-xs);
     margin-bottom: 5px;
+  }
+  .date {
+    color: #a6ff4d;
   }
 `;
 
@@ -57,16 +61,12 @@ export default function Card() {
       <div>
         <EventInfo>
           <h3>헬스 배우고 싶은 분</h3>
-          <p>2023.10.12 (목) 19:00</p>
+          <p className='date'>2023.10.12 (목) 19:00</p>
           <p>
             <StylediconWrapper>
               <Iconlocation style={{ width: '16px', height: '16px' }} />
               핏버디 체육관
-            </StylediconWrapper>
-          </p>
-          <p>
-            <StylediconWrapper>
-              <Iconperson style={{ width: '16px', height: '16px' }} />
+              <Iconperson style={{ width: '16px', height: '16px', marginLeft: '5px' }} />
               4명
             </StylediconWrapper>
           </p>

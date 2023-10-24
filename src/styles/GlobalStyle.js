@@ -1,8 +1,26 @@
 import { createGlobalStyle } from 'styled-components';
 import './Fonts/fonts.css';
+import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
-
+  ${reset};
+  
+  body {
+    display: flex;
+    justify-content: center;
+    font-family: 'Pretendard-Regular', sans-serif;
+    background-color: var()(--color-primary);
+  }
+  
+  #root{
+    width: 520px;
+    background-color: #fff;
+  }
+  
+  *{
+  box-sizing: border-box;
+  }
+  
   :root{
     /* Primary */
     --color-primary: #a6ff4d;
@@ -42,21 +60,11 @@ const GlobalStyle = createGlobalStyle`
     --font-weight-medium: normal; 
     --font-weight-semibold: 600; 
     --font-weight-bold: bold; 
+
   }
 
-*{
-  box-sizing: border-box;
-}
-  body {
-  margin: auto;
-  font-family: 'Pretendard-Regular', sans-serif;
-  background-color: var(--color-bg);
-  color: var(--color-secondary);
-  height: 100%;
-  /* overflow-y: scroll; */
-}
 
-  html, body, div, span, applet, object, iframe,
+html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -76,7 +84,7 @@ time, mark, audio, video {
     font: inherit;
     vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
+
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
     display: block;

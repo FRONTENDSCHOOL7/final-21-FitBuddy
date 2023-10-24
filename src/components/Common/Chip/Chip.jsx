@@ -13,6 +13,6 @@ const StyledChip = styled.button`
   line-height: 27px;
 `;
 
-export default function chip() {
+export default function Chip() {
   return <StyledChip type='radio'>🏃🏻‍♀️러닝</StyledChip>;
 }
