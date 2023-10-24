@@ -1,37 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const SelectWrapper = styled.div`
-  padding: 15px 10px;
-`;
-
-const RadioInput = styled.input.attrs({ type: 'radio' })`
-  display: none;
-  + label {
-    display: inline-block;
-    cursor: pointer;
-    height: 32px;
-    min-width: 66px;
-    width: auto;
-    border: none;
-    line-height: 24px;
-    text-align: center;
-    font-weight: bold;
-    font-size: var(--font-size-sm);
-    background-color: transparent;
-    color: #fff;
-    border-radius: 16px;
-    border: 1px solid #fff;
-    margin-right: 10px;
-    padding: 0px 10px;
-  }
-  &:checked + label {
-    background-color: var(--color-primary);
-    color: #000;
-  }
-`;
-
-const Label = styled.label``;
+import { SelectWrapper, RadioInput, Label } from './ChipsStyles';
 
 export default function chipsHome() {
   return (

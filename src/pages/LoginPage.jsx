@@ -8,6 +8,8 @@ import kakao from '../assets/icons/icon-kakao.svg';
 import google from '../assets/icons/icon-google.svg';
 import facebook from '../assets/icons/icon-facebook.svg';
 
+const url = 'https://api.mandarin.weniv.co.kr';
+
 const OnboardWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -59,8 +61,8 @@ export default function LoginPage() {
         <img src={logo} />
       </ImgContainer>
       <ContentsContainer className='id'>
-        <InputLine content='아이디' />
-        <InputLine content='비밀번호' />
+        <InputLine placeholder='아이디' />
+        <InputLine placeholder='비밀번호' />
       </ContentsContainer>
       <StyledButtonL name='로그인' />
       <StyledTextButton>이메일로 회원가입</StyledTextButton>

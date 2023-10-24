@@ -17,10 +17,20 @@ import CalendarComponent from './components/Calendar/CalendarComponent';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 function App() {
   return (
-    <>
-      <CalendarContent emoji='💪' title='헬스 배우고 싶은 분' time='오후:6:00 ~ 오후 7:00' />
-      <CalendarComponent />
-    </>
+    <Router>
+      <Onboard />
+      <Routes>
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/onboard' element={<Onboard />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/calender' element={<Calender />} />
+        <Route path='/community' element={<Community />} />
+        <Route path='/mypage' element={<Mypage />} />
+        <Route path='/join' element={<JoinPage />} />
+        <Route path='/error' element={<ErrorPage />} />
+      </Routes>
+      <NavBottom />
+    </Router>
   );
 }
 export default App;
