@@ -16,6 +16,8 @@ export const Nav = styled.nav`
   right: 0;
   height: 70px;
   border-top: 0.5px solid var(--color-secondary);
+  width: 590px;
+  margin: auto;
 `;
 
 export const NavDiv = styled.div`
