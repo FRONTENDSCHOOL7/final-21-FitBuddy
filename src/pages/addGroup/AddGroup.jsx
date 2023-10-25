@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import InputText from '../../components/Common/Input/InputText';
 import PlaceHolder from '../../components/Common/Placeholder/PlaceHolder';
 import Button_L from '../../components/Common/Buttons/Button_L';
+import { PostCreate } from '../../api/postApi';
 
 const StyleAddGroup = styled.div`
   color: gray;
@@ -29,6 +30,25 @@ const InputBox = styled.div`
 `;
 
 export default function AddGroup() {
+  const handlePostAdd = async () => {
+    try {
+      const response = await PostCreate({
+        post: {
+          content: content,
+          image: 'http://146.56.183.55:5050/Ellipse.png',
+        },
+      });
+      console.log(response.data);
+
+      if (response.status === 200) {
+        console.log('성공');
+        console.log(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const [formData, setFormData] = useState({
     title: '',
     sport: '',
@@ -38,6 +58,15 @@ export default function AddGroup() {
     attendees: '',
     cost: '',
   });
+  const content = `
+  제목: ${formData.title},
+  종목: ${formData.sport},
+  날짜: ${formData.day},
+  시간: ${formData.time},
+  장소: ${formData.location},
+  인원: ${formData.attendees},
+  비용: ${formData.cost}
+`;
 
   const [disabled, setDisabled] = useState(false);
 
@@ -46,14 +75,13 @@ export default function AddGroup() {
     setDisabled(!isFormValid);
   }, [formData]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
     setFormData({
       ...formData,
       [name]: value,
     });
   };
-
   return (
     <StyleAddGroup>
       <InputBox>
@@ -125,7 +153,7 @@ export default function AddGroup() {
           />
         </InputBox>
       </div>
-      <Button_L name='완료' disabled={disabled} />
+      <Button_L name='완료' disabled={disabled} onClick={handlePostAdd} />
     </StyleAddGroup>
   );
 }
