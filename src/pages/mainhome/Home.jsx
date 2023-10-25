@@ -12,7 +12,6 @@ const StyleHome = styled.div`
   background-color: #000;
   width: inherit;
   height: 900px;
-  border: 1px solid red;
   padding-left: 22px;
   padding-right: 22px;
 

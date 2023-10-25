@@ -11,7 +11,7 @@ import {
 } from './FormStyles';
 import logo from '../../assets/icons/icon-logo.svg';
 import { useNavigate } from 'react-router-dom';
-import { postSignUp } from '../../api/signupApi';
+import { postSignUp } from '../../api/signupAPI';
 
 export default function JoinPage() {
   const navigate = useNavigate();

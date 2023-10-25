@@ -16,6 +16,7 @@ import ErrorPage from '../pages/ErrorPage';
 import CalendarContent from '../components/Calendar/CalendarContent';
 import CalendarComponent from '../components/Calendar/CalendarComponent';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
+import AddGroup from '../pages/addGroup/AddGroup';
 
 export default function Router() {
   return (
@@ -23,6 +24,7 @@ export default function Router() {
       <Routes>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/home' element={<Home />} />
+        <Route path='/addgroup' element={<AddGroup />} />
         <Route path='/calender' element={<Calender />} />
         <Route path='/community' element={<Community />} />
         <Route path='/mypage' element={<Mypage />} />
