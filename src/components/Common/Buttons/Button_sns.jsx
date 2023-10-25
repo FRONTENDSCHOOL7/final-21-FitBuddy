@@ -8,6 +8,7 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 50%;
   background-color: #fff;
+  cursor: pointer;
 `;
 
 export default function Button_sns({ snsIcon }) {
