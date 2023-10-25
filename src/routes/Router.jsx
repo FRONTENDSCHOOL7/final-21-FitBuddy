@@ -16,20 +16,16 @@ import ErrorPage from '../pages/ErrorPage';
 import CalendarContent from '../components/Calendar/CalendarContent';
 import CalendarComponent from '../components/Calendar/CalendarComponent';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
-import SignUpForm from '../pages/join/Joinpp';
 
 export default function Router() {
   return (
     <RouterAlias>
       <Routes>
         <Route path='/login' element={<LoginPage />} />
-        <Route path='/login22' element={<SignUpForm />} />
-        {/* <Route path='/onboard' element={<Onboard />} /> */}
         <Route path='/home' element={<Home />} />
         <Route path='/calender' element={<Calender />} />
         <Route path='/community' element={<Community />} />
         <Route path='/mypage' element={<Mypage />} />
-        <Route path='/join' element={<JoinPage />} />
         <Route path='/error' element={<ErrorPage />} />
         <Route path='/signup' element={<JoinPage />} />
       </Routes>
