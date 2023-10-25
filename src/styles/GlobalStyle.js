@@ -9,12 +9,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     justify-content: center;
     font-family: 'Pretendard-Regular', sans-serif;
-    background-color: var()(--color-primary);
-  }
-  
-  #root{
-    width: 520px;
-    background-color: #fff;
+    background-color: var(--color-bg);
   }
   
   *{
