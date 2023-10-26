@@ -23,13 +23,8 @@ const StyledButton = styled.button`
 `;
 
 export default function Button_L({ name, marginBottom, onClick, disabled }) {
-  const handleClick = () => {
-    if (onClick) {
-      onClick();
-    }
-  };
   return (
-    <StyledButton onClick={handleClick} marginBottom={marginBottom} disabled={disabled}>
+    <StyledButton onClick={onClick} marginBottom={marginBottom} disabled={disabled}>
       {name}
     </StyledButton>
   );
