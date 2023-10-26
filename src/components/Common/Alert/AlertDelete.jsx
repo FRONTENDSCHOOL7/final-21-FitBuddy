@@ -10,12 +10,11 @@ const ImageWrapper = styled.div`
 
 // 모달 배경 컨테이너
 const AlertBackground = styled.div`
-  position: fixed;
-  top: 0;
+  position: absolute;
+  bottom: 250%;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,14 +57,19 @@ const CloseButton = styled.button`
 `;
 
 // 모달 컴포넌트
-const Alert = ({ isOpen, onClose, children }) => {
+const Alert = ({ isOpen, onClose, handleFeedDelete, children }) => {
   if (!isOpen) return null;
+
+  const closeHandler = () => {
+    onClose();
+    handleFeedDelete();
+  };
 
   return (
     <AlertBackground>
       <AlertContent>
         {children}
-        <CloseButton onClick={onClose} className='default'>
+        <CloseButton onClick={closeHandler} className='default'>
           닫기
         </CloseButton>
         <CloseButton onClick={onClose} className='secondary'>
@@ -75,16 +79,19 @@ const Alert = ({ isOpen, onClose, children }) => {
     </AlertBackground>
   );
 };
-
-export default function AlertDelete() {
-  const [AlertOpen, setAlertOpen] = useState(false);
+export default function AlertDelete(props) {
+  const [AlertOpen, setAlertOpen] = useState(true);
   return (
     <div>
       {/* <button onClick={() => setAlertOpen(true)}>모달 열기</button> */}
-      <ImageWrapper onClick={() => setAlertOpen(true)}>
+      {/* <ImageWrapper onClick={() => setAlertOpen(true)}>
         <img src={imgMore} />
-      </ImageWrapper>
-      <Alert isOpen={AlertOpen} onClose={() => setAlertOpen(false)}>
+      </ImageWrapper> */}
+      <Alert
+        isOpen={AlertOpen}
+        onClose={() => setAlertOpen(false)}
+        handleFeedDelete={props.handleFeedDelete}
+      >
         <h3>피드를 삭제하시겠습니까?</h3>
       </Alert>
     </div>
