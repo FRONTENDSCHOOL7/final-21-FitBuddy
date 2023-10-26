@@ -12,7 +12,7 @@ export const instance = axios.create({
   },
 });
 
-// 기본 POST 요청 API
+/* 푸시 전 삭제 */
 export const axiosApi = axios.create({
   baseURL: URL,
   headers: {

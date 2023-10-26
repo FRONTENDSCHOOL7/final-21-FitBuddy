@@ -1,7 +1,7 @@
 import React from 'react';
 import { SelectWrapper, RadioInput, Label } from './ChipsStyles';
 
-export default function chipsHome() {
+export default function ChipsHome() {
   return (
     <SelectWrapper>
       <RadioInput id='all' name='shop' />

@@ -8,7 +8,11 @@ const StyledButton = styled.button`
   margin: 0;
   border: none;
   border-radius: 50%;
-  background-color: #a6ff4d;
+  background-color: var(--color-primary);
+  position: fixed;
+  bottom: 100px;
+  right: 35px;
+  cursor: pointer;
 `;
 
 export default function ButtonFloating() {

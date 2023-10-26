@@ -15,6 +15,7 @@ const StyledButton = styled.button`
   line-height: 27px;
   cursor: pointer;
   margin-bottom: ${(props) => `${props.marginBottom}px`};
+  margin-top: ${(props) => `${props.marginTop}px`};
 
   // disabled
   &:disabled {
@@ -24,7 +25,12 @@ const StyledButton = styled.button`
 
 export default function Button_L({ name, marginBottom, onClick, disabled }) {
   return (
-    <StyledButton onClick={onClick} marginBottom={marginBottom} disabled={disabled}>
+    <StyledButton
+      onClick={onClick}
+      marginBottom={marginBottom}
+      disabled={disabled}
+      marginTop={marginTop}
+    >
       {name}
     </StyledButton>
   );

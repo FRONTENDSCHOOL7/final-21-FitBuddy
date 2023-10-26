@@ -56,9 +56,10 @@ export default function LoginPage({ marginBottom }) {
         },
       });
       console.log(response.data);
+      alert('로그인 성공!');
 
       if (response.status === 200) {
-        return navigate('/login');
+        return navigate('/community');
       }
     } catch (err) {
       console.error(err);

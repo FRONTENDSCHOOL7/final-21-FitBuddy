@@ -8,12 +8,20 @@ const StyledInput = styled.input`
   border-radius: 8px;
   border: 2px solid #8f8f8f;
   background: #141414;
+  color: var(--color-secondary);
 
   &:focus {
     outline: none;
   }
 `;
 
-export default function InputLarge() {
-  return <StyledInput placeholder='안녕하세요' />;
+export default function InputLarge(props) {
+  return (
+    <StyledInput
+      placeholder='안녕하세요'
+      onChange={props.onChange}
+      name={props.name}
+      value={props.value}
+    />
+  );
 }

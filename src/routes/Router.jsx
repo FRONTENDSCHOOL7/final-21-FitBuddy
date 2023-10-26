@@ -17,12 +17,14 @@ import CalendarContent from '../components/Calendar/CalendarContent';
 import CalendarComponent from '../components/Calendar/CalendarComponent';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import AddGroup from '../pages/addGroup/AddGroup';
+import Community_feed from '../pages/community/Community_feed';
 
 export default function Router() {
   return (
     <RouterAlias>
       <Routes>
         <Route path='/login' element={<LoginPage />} />
+        <Route path='/onboard' element={<Onboard />} />
         <Route path='/home' element={<Home />} />
         <Route path='/addgroup' element={<AddGroup />} />
         <Route path='/calender' element={<Calender />} />
@@ -30,6 +32,7 @@ export default function Router() {
         <Route path='/mypage' element={<Mypage />} />
         <Route path='/error' element={<ErrorPage />} />
         <Route path='/signup' element={<JoinPage />} />
+        <Route path='/feedWrite' element={<Community_feed />} />
       </Routes>
     </RouterAlias>
   );
