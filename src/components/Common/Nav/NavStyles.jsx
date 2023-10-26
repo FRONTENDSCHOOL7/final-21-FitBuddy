@@ -41,12 +41,13 @@ export const NavText = styled.span`
 /* Nav */
 
 export const BackIcon = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
+  margin-right: auto;
+  cursor: pointer;
   background-image: url(${backIcon});
   background-repeat: no-repeat;
   background-size: contain;
-  position: absolute;
   left: 30px;
   cursor: pointer;
 `;
@@ -55,18 +56,22 @@ export const BackIcon = styled.div`
 
 export const NavTop = styled.div`
   background-color: var(--color-bg);
+  width: 414px;
   height: 70px;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
 
-  flex-direction: ${(props) => (props.direction === 'column' ? 'column' : 'row')};
-  align-items: ${(props) => (props.alignItems === 'center' ? 'center' : '')};
+  /* flex-direction: ${(props) => (props.direction === 'column' ? 'column' : 'row')}; */
+  /* align-items: ${(props) => (props.alignItems === 'center' ? 'center' : '')}; */
 `;
 
 export const NavTopTitle = styled.h1`
   color: var(--color-secondary);
   font-family: 'Pretendard-Semibold', sans-serif;
-  float: ${(props) => (props.float === 'left' ? 'left' : '')};
+  /* float: ${(props) => (props.float === 'left' ? 'left' : '')}; */
   font-size: ${(props) => (props.fontSize === 'title' ? 'var(--font-size-title)' : '')};
   padding-left: ${(props) => (props.paddingLeft === '30px' ? '30px' : '')};
+  margin-right: auto;
+  padding-right: 30px;
 `;
