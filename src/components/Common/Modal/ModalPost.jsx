@@ -72,14 +72,13 @@ export default function ModalComment({ visible }, props) {
   const [alertVisible, setAlertVisible] = useState(false);
 
   const handleFeedDelete = () => {
-    setAlertVisible(true);
-    alert('경고');
+    setAlertVisible(!alertVisible);
   };
   return (
     <StyledModal visible={visible}>
       <DeleteBtn onClick={handleFeedDelete}>피드 삭제</DeleteBtn>
       <DeleteBtn>피드 수정</DeleteBtn>
-      {alertVisible && <AlertDelete />}
+      {alertVisible && <AlertDelete handleFeedDelete={handleFeedDelete} />}
     </StyledModal>
   );
 }
