@@ -4,11 +4,15 @@ import InputText from '../../components/Common/Input/InputText';
 import PlaceHolder from '../../components/Common/Placeholder/PlaceHolder';
 import Button_L from '../../components/Common/Buttons/Button_L';
 import { PostCreate } from '../../api/postApi';
+import NavTopBack from '../../components/Common/Nav/NavTopBack';
+import NavTopDetails from '../../components/Common/Nav/NavTopDetails';
 
 const StyleAddGroup = styled.div`
   color: gray;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: #000;
   height: 900px;
   padding-left: 22px;
@@ -84,6 +88,7 @@ export default function AddGroup() {
   };
   return (
     <StyleAddGroup>
+      <NavTopDetails title='핏버디 그룹 만들기' />
       <InputBox>
         <p>이미지 등록</p>
         <PlaceHolder type='Ractangle' />

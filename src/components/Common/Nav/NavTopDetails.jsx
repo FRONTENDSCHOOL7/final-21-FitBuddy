@@ -1,11 +1,17 @@
 import React from 'react';
 import { BackIcon, NavTop, NavTopTitle } from './NavStyles';
+import { useNavigate } from 'react-router-dom';
 
-export default function NavTopDetails() {
+export default function NavTopDetails(props) {
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate(-1);
+  };
   return (
-    <NavTop direction='row' alignItems='center'>
-      <BackIcon />
-      <NavTopTitle>핏버디 그룹 만들기</NavTopTitle>
+    <NavTop>
+      <BackIcon onClick={handleBackClick} />
+      <NavTopTitle fontSize='title'>{props.title}</NavTopTitle>
     </NavTop>
   );
 }
