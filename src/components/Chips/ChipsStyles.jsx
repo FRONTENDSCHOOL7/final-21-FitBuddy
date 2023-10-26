@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components';
 export const SelectWrapper = styled.div`
   padding: 15px 10px;
   margin-bottom: ${(props) => (props.marginBottom === '40px' ? '40px' : '')};
-  margin-left: 20px;
 `;
 
 /* Input */

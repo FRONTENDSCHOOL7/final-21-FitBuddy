@@ -6,6 +6,7 @@ const CommentWrapper = styled.div`
   width: 348px;
   display: flex;
   align-items: center;
+  color: white;
 `;
 
 const StyledP = styled.p`
@@ -17,6 +18,7 @@ const StyledP = styled.p`
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 280px;
+    color: white;
   }
 `;
 

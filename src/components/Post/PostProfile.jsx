@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import PostCommunity from './PostCommunity';
 import styled from 'styled-components';
-import heart from '../../assets/icons/icon-heart-on.svg';
+import heartOn from '../../assets/icons/icon-heart-on.svg';
+import heartOff from '../../assets/icons/icon-heart-off.svg';
 import circle from '../../assets/icons/icon-message-circle.svg';
 import CommentPriview from '../Common/Comment/CommentPriview';
 import PlaceHolder from '../Common/Placeholder/PlaceHolder';
@@ -12,6 +13,7 @@ const StyledDiv = styled.div`
   width: 414px;
   padding: 20px;
   border: 1px solid #fff;
+  border-radius: 20px;
 
   .reaction {
     display: flex;
@@ -55,17 +57,32 @@ const Button = styled.div`
     display: none;
   }
 `;
-const CommentButton = styled.div`
+const CommentButton = styled.button`
+  display: inline;
+  background-color: transparent;
+  border: none;
+  width: 70px;
   color: gray;
   font-size: 10px;
+  cursor: pointer;
 `;
-
 export default function PostProfile() {
   const [isShowReadMore, setIsShowReadMore] = useState(true);
   const [expanded, setExpanded] = useState(false);
+  const [heartCount, setHeartCount] = useState(0);
+  const [isLinked, setIsLinked] = useState(false);
+  const [reply, setReply] = useState(0);
 
   const toggleReadMore = () => {
     setExpanded(!expanded);
+  };
+  const HandleHeart = () => {
+    if (isLinked) {
+      setHeartCount(heartCount - 1);
+    } else {
+      setHeartCount(heartCount + 1);
+    }
+    setIsLinked(!isLinked);
   };
 
   return (
@@ -74,10 +91,10 @@ export default function PostProfile() {
         <PostCommunity />
         <PlaceHolder type='Ractangle' />
         <div className='reaction'>
-          <img src={heart} alt='heart' />
-          <p>58</p>
+          <img src={isLinked ? heartOn : heartOff} alt='heart' onClick={HandleHeart} />
+          <p style={{ color: 'white', paddingTop: '3px' }}>{heartCount}</p>
           <img src={circle} alt='comment' />
-          <p>21</p>
+          <p style={{ color: 'white', paddingTop: '3px' }}>{reply}</p>
         </div>
         <StyleTextArea>
           {expanded
@@ -86,13 +103,15 @@ export default function PostProfile() {
         </StyleTextArea>
       </div>
       {isShowReadMore && (
-        <Button onClick={toggleReadMore}>{expanded ? '간략히' : '...더보기'}</Button>
+        <Button style={{ color: 'white' }} onClick={toggleReadMore}>
+          {expanded ? '간략히' : '...더보기'}
+        </Button>
       )}
       <p className='date'>2020년 10월 21일</p>
       <StyleCommnet>
         <CommentPriview />
         <CommentPriview />
-        <CommentButton>댓글더보기</CommentButton>
+        <CommentButton>댓글더보기...</CommentButton>
       </StyleCommnet>
     </StyledDiv>
   );

@@ -1,12 +1,10 @@
 import React from 'react';
 import { NavTop, NavTopTitle } from './NavStyles';
 
-export default function NavTopBasic() {
+export default function NavTopBasic({ title }) {
   return (
     <NavTop direction='column'>
-      <NavTopTitle fontSize='title' float='left' paddingLeft='30px'>
-        채팅
-      </NavTopTitle>
+      <NavTopTitle fontSize={title}>{title}</NavTopTitle>
     </NavTop>
   );
 }

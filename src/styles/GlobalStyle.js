@@ -5,17 +5,6 @@ import reset from 'styled-reset';
 const GlobalStyle = createGlobalStyle`
   ${reset};
   
-  body {
-    display: flex;
-    justify-content: center;
-    font-family: 'Pretendard-Regular', sans-serif;
-    background-color: var(--color-bg);
-  }
-  
-  *{
-  box-sizing: border-box;
-  }
-  
   :root{
     /* Primary */
     --color-primary: #a6ff4d;
@@ -57,6 +46,18 @@ const GlobalStyle = createGlobalStyle`
     --font-weight-bold: bold; 
 
   }
+  body {
+    display: flex;
+    justify-content: center;
+    font-family: 'Pretendard-Regular', sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-secondary);
+  }
+  
+  *{
+  box-sizing: border-box;
+  }
+  
 
 
 html, body, div, span, applet, object, iframe,
@@ -101,6 +102,9 @@ q:before, q:after {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+button {
+    cursor: pointer;
 }
 `;
 
