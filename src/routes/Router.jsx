@@ -16,8 +16,9 @@ import ErrorPage from '../pages/ErrorPage';
 import CalendarContent from '../components/Calendar/CalendarContent';
 import CalendarComponent from '../components/Calendar/CalendarComponent';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
-import AddGroup from '../pages/addGroup/AddGroup';
 import Community_feed from '../pages/community/Community_feed';
+import AddGroup from '../pages/mainhome/addGroup/AddGroup';
+import GroupDetailPage from '../pages/mainhome/groupDetail/GroupDetailPage';
 
 export default function Router() {
   return (
@@ -27,6 +28,7 @@ export default function Router() {
         <Route path='/onboard' element={<Onboard />} />
         <Route path='/home' element={<Home />} />
         <Route path='/addgroup' element={<AddGroup />} />
+        <Route path='/groupdetail' element={<GroupDetailPage />} />
         <Route path='/calender' element={<Calender />} />
         <Route path='/community' element={<Community />} />
         <Route path='/mypage' element={<Mypage />} />
