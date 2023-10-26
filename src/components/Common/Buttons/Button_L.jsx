@@ -23,7 +23,7 @@ const StyledButton = styled.button`
   }
 `;
 
-export default function Button_L({ name, marginBottom, onClick, disabled }) {
+export default function Button_L({ name, marginBottom, onClick, disabled, marginTop }) {
   return (
     <StyledButton
       onClick={onClick}

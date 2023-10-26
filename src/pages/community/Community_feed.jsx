@@ -7,7 +7,6 @@ import Button_L from '../../components/Common/Buttons/Button_L';
 import { CommunityPlaceHolder, CommunityWrapper, CategoryTitle, IconBtn } from './CommunityStyle';
 import { useNavigate } from 'react-router-dom';
 import { PostCreate } from '../../api/postApi';
-import { uploadFile } from '../../Utils/uploadFile';
 
 export default function Community_feed() {
   const navigate = useNavigate();
@@ -31,32 +30,6 @@ export default function Community_feed() {
       [name]: value,
     });
   };
-
-  const handlePostAdd = async () => {
-    try {
-      let imageUrl = '';
-      if (imageFile && imageFile.files) {
-        imageUrl = await uploadFile(imageFile);
-      }
-
-      // 게시글 작성 API 호출
-      const response = await PostCreate({
-        post: {
-          content: formData.content,
-          image: imageUrl, // 이미지 URL 전달
-        },
-      });
-
-      if (response.status === 200) {
-        console.log('게시글 작성 성공');
-        console.log(response.data);
-        navigate('/community');
-      }
-    } catch (error) {
-      console.error('게시글 작성 오류:', error);
-    }
-  };
-
   return (
     <>
       <NavTopDetails name='새 게시글' />
@@ -72,7 +45,7 @@ export default function Community_feed() {
         <CategoryTitle>카테고리 선택</CategoryTitle>
         <ChipsHome />
         <InputLarge onChange={handleInputChange} value={formData.content} name='content' />
-        <Button_L name='완료' marginTop={50} onClick={handlePostAdd} />
+        <Button_L name='완료' marginTop={50} />
       </CommunityWrapper>
     </>
   );

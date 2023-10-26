@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import InputText from '../../components/Common/Input/InputText';
-import PlaceHolder from '../../components/Common/Placeholder/PlaceHolder';
-import Button_L from '../../components/Common/Buttons/Button_L';
-import { PostCreate } from '../../api/postApi';
-import NavTopBack from '../../components/Common/Nav/NavTopBack';
-import NavTopDetails from '../../components/Common/Nav/NavTopDetails';
+import InputText from '../../../components/Common/Input/InputText';
+import PlaceHolder from '../../../components/Common/Placeholder/PlaceHolder';
+import Button_L from '../../../components/Common/Buttons/Button_L';
+import { PostCreate } from '../../../api/postApi';
+import NavTopBack from '../../../components/Common/Nav/NavTopBack';
+import NavTopDetails from '../../../components/Common/Nav/NavTopDetails';
 
 const StyleAddGroup = styled.div`
   color: gray;
