@@ -63,13 +63,13 @@ export default function AddGroup() {
     cost: '',
   });
   const content = `
-  제목: ${formData.title},
-  종목: ${formData.sport},
-  날짜: ${formData.day},
-  시간: ${formData.time},
-  장소: ${formData.location},
-  인원: ${formData.attendees},
-  비용: ${formData.cost}
+  title: ${formData.title},
+  sport: ${formData.sport},
+  day: ${formData.day},
+  time: ${formData.time},
+  location: ${formData.location},
+  attendees: ${formData.attendees},
+  cost: ${formData.cost}
 `;
 
   const [disabled, setDisabled] = useState(false);

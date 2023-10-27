@@ -1,9 +1,10 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import titleIcon from '../../assets/icons/icon-logo.svg';
 import Chip from '../../components/Common/Chip/Chip';
 import Card from '../../components/Card/Card';
 import ButtonFloating from '../../components/Common/Buttons/ButtonFloating';
+import { getPosts } from '../../api/postApi';
 
 const StyleHome = styled.div`
   display: flex;
@@ -38,6 +39,21 @@ const StyleAddButton = styled.div`
 `;
 
 export default function Home() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    // getPosts 함수를 호출하여 데이터를 가져옴
+    getPosts()
+      .then((data) => {
+        // 데이터를 상태에 저장
+        setPosts(data.posts);
+        console.log(data.posts);
+      })
+      .catch((error) => {
+        console.error('Error fetching posts:', error);
+      });
+  }, []);
+
   return (
     <StyleHome>
       <img src={titleIcon} alt='title' className='titleIcon' />
@@ -48,10 +64,33 @@ export default function Home() {
         <Chip />
       </StyleChips>
       <StyleCards>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {posts.map((item) => {
+          let content = item.content;
+          let data = content.split('\n');
+          const result = {};
+
+          for (let i = 1; i < data.length - 1; i++) {
+            const line = data[i].trim();
+            const [key, value] = line.split(':');
+            result[key.trim()] = value.trim();
+          }
+          console.log(result);
+
+          // <Card key={item._id} content={item.content} />;
+
+          return (
+            <Card
+              key={item._id}
+              title={result.title}
+              time={result.time}
+              sport={result.sport}
+              location={result.location}
+              day={result.day}
+              cost={result.cost}
+              attendees={result.attendees}
+            />
+          );
+        })}
       </StyleCards>
       <StyleAddButton>
         <ButtonFloating />

@@ -52,7 +52,7 @@ const EventInfo = styled.div`
   }
 `;
 
-export default function Card() {
+export default function Card(props) {
   return (
     <StyledCard>
       <StyledholderWrapper>
@@ -60,14 +60,17 @@ export default function Card() {
       </StyledholderWrapper>
       <div>
         <EventInfo>
-          <h3>헬스 배우고 싶은 분</h3>
-          <p className='date'>2023.10.12 (목) 19:00</p>
+          <h3>{props.title}</h3>
+          <p className='date'>
+            {props.day}
+            {props.time}
+          </p>
           <p>
             <StylediconWrapper>
               <Iconlocation style={{ width: '16px', height: '16px' }} />
-              핏버디 체육관
+              {props.location}
               <Iconperson style={{ width: '16px', height: '16px', marginLeft: '5px' }} />
-              4명
+              {props.attendees}
             </StylediconWrapper>
           </p>
         </EventInfo>
