@@ -7,7 +7,7 @@ const CommentWrapper = styled.div`
   display: flex;
   align-items: center;
   padding: 5px 5px 5px 0;
-  gap: 10px;
+  gap: 20px;
 `;
 const InfoWrapper = styled.div`
   display: flex;

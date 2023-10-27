@@ -34,7 +34,7 @@ const StyledPostEdit = styled.button`
   border: none;
 `;
 
-export default function PostCommunity() {
+export default function PostCommunity(props) {
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
@@ -45,8 +45,8 @@ export default function PostCommunity() {
       <StyledPost>
         <img src={person} alt='profileImg' />
         <div>
-          <h1>핏버디핏버디</h1>
-          <p>@FitBuddy0012</p>
+          <h1>{props.accountname}</h1>
+          <p></p>
         </div>
 
         <StyledPostEdit onClick={toggleModal}>

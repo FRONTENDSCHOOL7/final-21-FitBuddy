@@ -34,28 +34,6 @@ export default function JoinPage() {
     return passwordRegex.test(password);
   };
 
-  // const handleEmailChange = (e) => {
-  //   const newEmail = e.target.value;
-  //   setEmail(newEmail);
-
-  //   if (!isEmailValid(newEmail)) {
-  //     setEmailError('유효한 이메일 주소를 입력하세요.');
-  //   } else {
-  //     setEmailError('');
-  //   }
-  // };
-
-  // const handlePasswordChange = (e) => {
-  //   const newPassword = e.target.value;
-  //   setPassword(newPassword); // 비밀번호를 먼저 설정
-
-  //   if (!isPasswordValid(newPassword)) {
-  //     setPasswordError('영문+숫자+특수기호 조합으로 6자리 이상 입력하세요.');
-  //   } else {
-  //     setPasswordError('');
-  //   }
-  // };
-
   const Signup = async () => {
     setEmailError('');
     setPasswordError('');
@@ -99,43 +77,55 @@ export default function JoinPage() {
       </ImgContainer>
       <ContentsContainer>
         <div className='signup_input'>
-          <label>name</label>
+          <label htmlFor='userNameInput' style={{ display: 'none' }}>
+            name
+          </label>
           <br />
           <LoginInputBox
             type='text'
-            placeholder='username'
+            placeholder='회원 이름'
+            id='userNameInput'
             onChange={(e) => {
               setUsername(e.target.value);
             }}
           />
         </div>
         <div className='signup_input'>
-          <label>Email</label>
+          <label htmlFor='emailInput' style={{ display: 'none' }}>
+            Email
+          </label>
           <br />
           <LoginInputBox
             type='text'
-            placeholder='email'
+            placeholder='이메일'
+            id='userNameInput'
             onChange={(e) => setEmail(e.target.value)}
           />
           {emailError && <ErrorMessage>{emailError}</ErrorMessage>}
         </div>
         <div className='signup_input'>
-          <label>accountname</label>
+          <label htmlFor='accountnameInput' style={{ display: 'none' }}>
+            accountname
+          </label>
           <br />
           <LoginInputBox
             type='text'
-            placeholder='accountname'
+            placeholder='닉네임'
+            id='accountnameInput'
             onChange={(e) => {
               setAccountname(e.target.value);
             }}
           />
         </div>
         <div className='signup_input'>
-          <label>password</label>
+          <label htmlFor='passwordInput' style={{ display: 'none' }}>
+            password
+          </label>
           <br />
           <LoginInputBox
             type='password'
-            placeholder='password'
+            placeholder='비밀번호'
+            id='passwordInput'
             onChange={(e) => setPassword(e.target.value)}
           />
           {password.length > 0 && passwordError && <ErrorMessage>{passwordError}</ErrorMessage>}

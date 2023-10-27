@@ -12,7 +12,6 @@ export const instance = axios.create({
   },
 });
 
-/* 푸시 전 삭제 */
 export const axiosApi = axios.create({
   baseURL: URL,
   headers: {
@@ -20,3 +19,30 @@ export const axiosApi = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+//auth
+export const authInstance = axios.create({
+  baseURL: URL,
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+    'Content-Type': 'application/json',
+  },
+});
+
+authInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (config.headers.Authorization.includes('null')) {
+      config.headers = {
+        ...config.headers,
+        Authorization: `Bearer ${token}`,
+      };
+    }
+    console.log('intercepter2', config);
+    return config;
+  },
+  (error) => {
+    console.log(error.message);
+    return Promise.reject(error);
+  },
+);

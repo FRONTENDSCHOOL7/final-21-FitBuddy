@@ -21,15 +21,29 @@ const StyledButton = styled.button`
   &:disabled {
     background-color: #d2ffa6;
   }
+  &:hover,
+  &:active {
+    opacity: 0.8;
+  }
 `;
 
-export default function Button_L({ name, marginBottom, onClick, disabled, marginTop }) {
+export default function Button_L({
+  name,
+  marginBottom,
+  onClick,
+  disabled,
+  marginTop,
+  type,
+  value,
+}) {
   return (
     <StyledButton
       onClick={onClick}
       marginBottom={marginBottom}
       disabled={disabled}
       marginTop={marginTop}
+      type={type}
+      value={value}
     >
       {name}
     </StyledButton>

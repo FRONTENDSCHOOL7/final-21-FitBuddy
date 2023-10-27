@@ -11,6 +11,10 @@ const StyledButton = styled.button`
   margin-bottom: ${(props) => `${props.marginBottom}px`};
 `;
 
-export default function Button_Text({ marginBottom, content }) {
-  return <StyledButton marginBottom={marginBottom}>{content}</StyledButton>;
+export default function Button_Text({ marginBottom, content, onClick }) {
+  return (
+    <StyledButton marginBottom={marginBottom} onClick={onClick}>
+      {content}
+    </StyledButton>
+  );
 }

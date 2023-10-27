@@ -6,6 +6,7 @@ import heartOff from '../../assets/icons/icon-heart-off.svg';
 import circle from '../../assets/icons/icon-message-circle.svg';
 import CommentPriview from '../Common/Comment/CommentPriview';
 import PlaceHolder from '../Common/Placeholder/PlaceHolder';
+import { useNavigate } from 'react-router-dom';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -14,6 +15,7 @@ const StyledDiv = styled.div`
   padding: 20px;
   border: 1px solid #fff;
   border-radius: 20px;
+  margin-bottom: 70px;
 
   .reaction {
     display: flex;
@@ -66,12 +68,13 @@ const CommentButton = styled.button`
   font-size: 10px;
   cursor: pointer;
 `;
-export default function PostProfile() {
+export default function PostProfile(props) {
   const [isShowReadMore, setIsShowReadMore] = useState(true);
   const [expanded, setExpanded] = useState(false);
   const [heartCount, setHeartCount] = useState(0);
   const [isLinked, setIsLinked] = useState(false);
   const [reply, setReply] = useState(0);
+  const navigate = useNavigate();
 
   const toggleReadMore = () => {
     setExpanded(!expanded);
@@ -85,10 +88,15 @@ export default function PostProfile() {
     setIsLinked(!isLinked);
   };
 
+  // 댓글 상세 페이지
+  const handleReply = () => {
+    navigate('/feedReply');
+  };
+
   return (
     <StyledDiv>
       <div className='community'>
-        <PostCommunity />
+        <PostCommunity name={props.accountname} />
         <PlaceHolder type='Ractangle' />
         <div className='reaction'>
           <img src={isLinked ? heartOn : heartOff} alt='heart' onClick={HandleHeart} />
@@ -96,22 +104,18 @@ export default function PostProfile() {
           <img src={circle} alt='comment' />
           <p style={{ color: 'white', paddingTop: '3px' }}>{reply}</p>
         </div>
-        <StyleTextArea>
-          {expanded
-            ? '옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의 위하여, 뿐이다. 이상의 청춘의 뼈 따뜻한 그들의 그와 약동하다. 대고, 못할 풍부하게 뛰노는 인생의 더 가나다라마바사아자차카나타파나아나나나나'
-            : '옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의 위하여, 뿐이다. 이상의 청춘의 뼈 따뜻한 그들의 그와 약동하다. 대고, 못할 풍부하게 뛰노는 인생의 더'}
-        </StyleTextArea>
+        <StyleTextArea>{props.content}</StyleTextArea>
       </div>
       {isShowReadMore && (
         <Button style={{ color: 'white' }} onClick={toggleReadMore}>
           {expanded ? '간략히' : '...더보기'}
         </Button>
       )}
-      <p className='date'>2020년 10월 21일</p>
+      <p className='date'>{props.createAt}</p>
       <StyleCommnet>
         <CommentPriview />
         <CommentPriview />
-        <CommentButton>댓글더보기...</CommentButton>
+        <CommentButton onClick={handleReply}>댓글더보기...</CommentButton>
       </StyleCommnet>
     </StyledDiv>
   );
