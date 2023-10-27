@@ -6,6 +6,7 @@ import IconWrite from '../../assets/icons/icon-write.svg';
 import Iconnext from '../../assets/icons/icon-next.svg';
 import Card from '../../components/Card/Card.jsx';
 import Chips from '../../components/Chips/ChipsHome.jsx';
+import { useNavigate } from 'react-router-dom';
 import { Router, Route, Switch } from 'react-router-dom';
 import Mypagemywrite from './Mypagemywrite';
 import Mypagemyjoin from './Mypagemyjoin';
@@ -15,8 +16,9 @@ const MypageWrapper = styled.div`
 `;
 
 const MypageHeader = styled.h1`
-  font-size: 24px; //var(--font-size-title);
+  font-size: var(--font-size-title);
   text-align: left;
+  font-family: 'Pretendard-Medium';
 `;
 
 const ProfileWrapper = styled.div`
@@ -24,6 +26,7 @@ const ProfileWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
+  font-family: 'Pretendard-Medium';
 `;
 
 const ProfileImageWrapper = styled.div`
@@ -52,20 +55,25 @@ const Introduction = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Pretendard-Medium';
 `;
 
 const TitleWithEdit = styled.div`
   display: flex;
   align-items: center;
-  font-size: 14px; //글로벌 스타일
+  font-size: var(--font-size-m);
   justify-content: space-between;
   width: 100%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-family: 'Pretendard-Medium';
 `;
 
 const IntroductionInput = styled.textarea`
   width: 100%;
   padding: 10px;
   margin-top: 10px;
+  font-family: 'Pretendard-Medium';
 `;
 
 const Interests = styled.div`
@@ -80,6 +88,11 @@ const Posts = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+const CardWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 export default function Mypage() {
@@ -109,18 +122,18 @@ export default function Mypage() {
           <img src={IconWrite} alt='수정 아이콘' />
         </TitleWithEdit>
         <Chips />
-        <Chips />
       </Interests>
 
       <Posts>
         <TitleWithEdit>
           <p>작성한 모집글</p>
-          {/* <Link to='/Mypagemyjoin'> */}
           <img src={Iconnext} alt='다음 버튼' />
-          {/* </Link> */}
+          {/* <button onClick={Mypagemyjoin} /> */}
         </TitleWithEdit>
-        <Card />
-        <Card />
+        <CardWrap>
+          <Card />
+          <Card />
+        </CardWrap>
       </Posts>
 
       <TitleWithEdit>
@@ -130,3 +143,7 @@ export default function Mypage() {
     </MypageWrapper>
   );
 }
+
+// function Mypagemyjoin = () => {
+//   navigate("/Mypagejoin");
+// }
