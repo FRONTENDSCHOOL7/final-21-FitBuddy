@@ -5,6 +5,7 @@ import Chip from '../../components/Common/Chip/Chip';
 import Card from '../../components/Card/Card';
 import ButtonFloating from '../../components/Common/Buttons/ButtonFloating';
 import { getPosts } from '../../api/postApi';
+import { Link } from 'react-router-dom';
 
 const StyleHome = styled.div`
   display: flex;
@@ -61,7 +62,6 @@ export default function Home() {
         <Chip />
         <Chip />
         <Chip />
-        <Chip />
       </StyleChips>
       <StyleCards>
         {posts.map((item) => {
@@ -79,16 +79,18 @@ export default function Home() {
           // <Card key={item._id} content={item.content} />;
 
           return (
-            <Card
-              key={item._id}
-              title={result.title}
-              time={result.time}
-              sport={result.sport}
-              location={result.location}
-              day={result.day}
-              cost={result.cost}
-              attendees={result.attendees}
-            />
+            <Link to={`/group/${item._id}`} key={item._id}>
+              <Card
+                key={item._id}
+                title={result.title}
+                time={result.time}
+                sport={result.sport}
+                location={result.location}
+                day={result.day}
+                cost={result.cost}
+                attendees={result.attendees}
+              />
+            </Link>
           );
         })}
       </StyleCards>

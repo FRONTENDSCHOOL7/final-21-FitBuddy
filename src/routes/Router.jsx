@@ -28,7 +28,7 @@ export default function Router() {
         <Route path='/onboard' element={<Onboard />} />
         <Route path='/home' element={<Home />} />
         <Route path='/addgroup' element={<AddGroup />} />
-        <Route path='/groupdetail' element={<GroupDetailPage />} />
+        <Route path='/group/:groupId' element={<GroupDetailPage />} />
         <Route path='/calender' element={<Calender />} />
         <Route path='/community' element={<Community />} />
         <Route path='/mypage' element={<Mypage />} />
