@@ -13,7 +13,7 @@ const MypageHeader = styled.h1`
   font-size: var(--font-size-title);
   text-align: left;
   margin-bottom: 50px;
-  font-family: 'Pretendard-Medium';
+  font-family: 'Pretendard-Medium'; /* 글로벌 스타일 한 번에 */
 `;
 
 export default function Mypagemywrite() {

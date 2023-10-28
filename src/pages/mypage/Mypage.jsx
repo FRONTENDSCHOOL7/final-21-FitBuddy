@@ -47,7 +47,7 @@ const EditImage = styled.img`
 
 const ProfileName = styled.p`
   margin-top: 20px;
-  font-size: 20px; //글로벌 스타일
+  font-size: var(--font-size-sm);
 `;
 
 const Introduction = styled.div`

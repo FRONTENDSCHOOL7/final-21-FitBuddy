@@ -17,7 +17,7 @@ const MypageHeader = styled.h1`
 const Myjointitle = styled.p`
   display: flex;
   align-items: left;
-  font-family: 'Pretendard-Medium';
+  font-family: 'Pretendard-Medium'; /* 글로벌 스타일 한 번에 */
   margin-top: 20px;
   margin-bottom: 20px;
 `;
