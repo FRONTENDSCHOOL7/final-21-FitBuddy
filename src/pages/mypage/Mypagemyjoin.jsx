@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Iconnext from '../../assets/icons/icon-next.svg';
 import Card from '../../components/Card/Card.jsx';
 
 const MypageWrapper = styled.div`
@@ -7,9 +8,24 @@ const MypageWrapper = styled.div`
 `;
 
 const MypageHeader = styled.h1`
-  font-size: 24px; //var(--font-size-title);
+  font-size: var(--font-size-title);
   text-align: left;
+  margin-bottom: 50px;
+  font-family: 'Pretendard-Medium';
+`;
+
+const Myjointitle = styled.p`
+  display: flex;
+  align-items: left;
+  font-family: 'Pretendard-Medium'; /* 글로벌 스타일 한 번에 */
+  margin-top: 20px;
   margin-bottom: 20px;
+`;
+
+const CardWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 const Myjoinpost = styled.div`
@@ -18,34 +34,30 @@ const Myjoinpost = styled.div`
   align-items: center;
 `;
 
-const myjointitle = styled.p`
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-`;
-
 export default function Mypagemyjoin() {
   return (
     <MypageWrapper>
       <MypageHeader>작성한 모집글</MypageHeader>
-      <myjointitle>
+      <Myjointitle>
         <p>2023. 10. 12</p>
-      </myjointitle>
+      </Myjointitle>
       <Myjoinpost>
         <Card />
       </Myjoinpost>
-      <myjointitle>
+      <Myjointitle>
         <p>2023. 10. 10</p>
-      </myjointitle>
+      </Myjointitle>
       <Myjoinpost>
         <Card />
       </Myjoinpost>
-      <myjointitle>
+      <Myjointitle>
         <p>2023. 10. 5</p>
-      </myjointitle>
+      </Myjointitle>
       <Myjoinpost>
-        <Card />
-        <Card />
+        <CardWrap>
+          <Card />
+          <Card />
+        </CardWrap>
       </Myjoinpost>
     </MypageWrapper>
   );
