@@ -26,7 +26,6 @@ export default function Community_feed() {
     const form = new FormData();
 
     form.append('image', imageFile);
-    //폼바디 넣어서 요청하기
     const res = await fetch(reqUrl, {
       method: 'POST',
       body: form,
@@ -38,48 +37,9 @@ export default function Community_feed() {
   };
 
   const handleChangeImage = (e) => {
-    // 파일 가져오기
     const imageFile = e.target.files[0];
     uploadImage(imageFile);
   };
-
-  //게시글 작성
-
-  //   const handlePostAdd = async () => {
-  //     if (loading) return;
-  //     try {
-  //       setLoding(true);
-  //       const response = await PostCreate({
-  //         post: {
-  //           content,
-  //           image,
-  //           createAt: Date.now(),
-  //         },
-  //       });
-
-  //       if (response.status === 200) {
-  //         console.log(response.data);
-  //         // navigate('/community');
-  //       }
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-
-  //   const [formData, setFormData] = useState({
-  //     content: '',
-  //   });
-  //   const content = `
-  //   content: ${formData.content},
-  // `;
-
-  //   const handleInputChange = (event) => {
-  //     const { name, value } = event.target;
-  //     setFormData({
-  //       ...formData,
-  //       [name]: value,
-  //     });
-  //   };
 
   const submitAddPost = (e) => {
     e.preventDefault();
