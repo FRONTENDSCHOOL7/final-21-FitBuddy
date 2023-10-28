@@ -15,10 +15,13 @@ const StyledInput = styled.input`
 `;
 const StyledDiv = styled.div`
   display: flex;
-  width: 360px;
+  width: 400px;
   background-color: #141414;
   padding: 10px;
   border: 1px solid #ccc;
+  justify-content: center;
+  bottom: 69px;
+  position: fixed;
 `;
 const StyledButton = styled.button`
   background-color: #141414;

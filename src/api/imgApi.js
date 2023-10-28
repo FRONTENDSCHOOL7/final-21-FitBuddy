@@ -1,20 +1,15 @@
+import axios from 'axios';
 import { URL } from './axiosInstance';
 
-const postUploadImg = async (file) => {
-  const formData = new FormData();
-  formData.append('image', file);
-
+export const postUploadImg = async (formData) => {
   try {
-    const response = await fetch(URL + '/image/uploadfile', {
-      method: 'POST',
-      body: formData,
+    const res = await axios.post(`${URL}/image/uploadfile`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     });
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('API 응답에 실패하였습니다.', error);
+    return res;
+  } catch (err) {
+    console.log(err);
   }
 };
-
-export default postUploadImg;

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import home from '../../../assets/icons/icon-home.svg';
 import calender from '../../../assets/icons/icon-calendar.svg';
 import community from '../../../assets/icons/icon-community.svg';
@@ -7,45 +8,52 @@ import home_fill from '../../../assets/icons/icon-home-fill.svg';
 import calender_fill from '../../../assets/icons/icon-calendar-fill.svg';
 import community_fill from '../../../assets/icons/icon-community-fill.svg';
 import profile_fill from '../../../assets/icons/icon-my-fill.svg';
-import { useNavigate } from 'react-router-dom';
 import { Nav, NavDiv, StyledNavIcons, NavText } from './NavStyles';
 
 export default function NavBottom() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState(0);
+  const location = useLocation();
+
+  const getInitialTab = () => {
+    switch (location.pathname) {
+      case '/Home':
+        return 0;
+      case '/calender':
+        return 1;
+      case '/community':
+        return 2;
+      case '/mypage':
+        return 3;
+      default:
+        return 0;
+    }
+  };
+
+  const [activeTab, setActiveTab] = useState(getInitialTab());
 
   const handleTabClick = (tabIndex) => {
     setActiveTab(tabIndex);
     switch (tabIndex) {
       case 0:
-        goHome();
+        navigate('/Home');
         break;
       case 1:
-        goCalendar();
+        navigate('/calender');
         break;
       case 2:
-        goCommunity();
+        navigate('/community');
         break;
       case 3:
-        goMypage();
+        navigate('/mypage');
         break;
       default:
         break;
     }
   };
 
-  const goHome = () => {
-    navigate('/Home');
-  };
-  const goCalendar = () => {
-    navigate('/calender');
-  };
-  const goCommunity = () => {
-    navigate('/community');
-  };
-  const goMypage = () => {
-    navigate('/mypage');
-  };
+  useEffect(() => {
+    setActiveTab(getInitialTab());
+  }, [location.pathname]);
 
   return (
     <Nav>
@@ -63,7 +71,7 @@ export default function NavBottom() {
       </NavDiv>
       <NavDiv onClick={() => handleTabClick(3)}>
         <StyledNavIcons src={activeTab === 3 ? profile_fill : profile} alt='profile icon' />
-        <NavText isActive={activeTab === 3}>홈</NavText>
+        <NavText isActive={activeTab === 3}>마이페이지</NavText>
       </NavDiv>
     </Nav>
   );

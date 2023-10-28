@@ -36,7 +36,9 @@ export const CategoryTitle = styled.p`
   font-size: var(--font-size-sm);
 `;
 
-export const CommunityPlaceHolder = styled.img`
+export const CommunityPlaceHolder = styled.img.attrs((props) => ({
+  src: props.src || BasicImg,
+}))`
   width: 414px;
   height: 228px;
   background-color: #f2f2f2;
@@ -45,13 +47,11 @@ export const CommunityPlaceHolder = styled.img`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(${BasicImg});
+  background-image: ${(props) => (props.src ? 'none' : `url(${BasicImg})`)};
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 50px;
-  position: relative;
 `;
-
 export const IconBtn = styled.button`
   border-radius: 50%;
   border: none;
@@ -63,6 +63,6 @@ export const IconBtn = styled.button`
   background-size: 100px;
   position: absolute;
   background-size: cover;
-  right: 40%;
-  bottom: 69%;
+  bottom: 10px;
+  right: 10px;
 `;

@@ -13,6 +13,8 @@ import { PostLogin } from '../../api/loginApi';
 import Home from '../mainhome/Home';
 import { useNavigate } from 'react-router-dom';
 import { LoginInputBox } from './Form.style';
+import { useSetRecoilState } from 'recoil';
+import userTokenAtom from '../../Recoil/userTokenAtom';
 
 export default function LoginPage({ marginBottom }) {
   const [email, setEmail] = useState('');
@@ -25,18 +27,11 @@ export default function LoginPage({ marginBottom }) {
 
   const navigate = useNavigate();
 
-  // const Login = async () => {
-  //   try {
-  //     const userData = {
-  //       email,
-  //       password,
-  //     };
-  //     console.log(userData);
-  //   } catch (error) {
-  //     console.error('로그인 오류:', error);
-  //   }
-  // };
-
+  // 토큰 로컬 저장
+  const setUserTokenAtom = useSetRecoilState(userTokenAtom);
+  const saveToken = (token) => {
+    setUserTokenAtom(token);
+  };
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
 
@@ -55,11 +50,12 @@ export default function LoginPage({ marginBottom }) {
           password,
         },
       });
-      console.log(response.data);
+
       alert('로그인 성공!');
 
       if (response.status === 200) {
-        return navigate('/community');
+        saveToken(response.data.user);
+        navigate('/Home');
       }
     } catch (err) {
       console.error(err);
@@ -77,6 +73,10 @@ export default function LoginPage({ marginBottom }) {
     }
     setNotAllow(true);
   }, [emailValid, passwordValid]);
+
+  const moveSignup = () => {
+    navigate('/signup');
+  };
 
   return (
     <LoginWrapper>
@@ -103,7 +103,7 @@ export default function LoginPage({ marginBottom }) {
       </ContentsContainer>
       <Button_L name='로그인' marginBottom={30} onClick={handleLoginSubmit} />
       {/* disabled={notAllow}는 나중에 넣기*/}
-      <Button_text marginBottom={20} content='이메일로 회원가입' />
+      <Button_text marginBottom={20} content='이메일로 회원가입' onClick={moveSignup} />
       <SnsButtonContainer>
         <Button_sns snsIcon={kakao} />
         <Button_sns snsIcon={google} />

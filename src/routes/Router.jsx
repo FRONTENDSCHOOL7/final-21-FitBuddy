@@ -19,11 +19,14 @@ import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import Community_feed from '../pages/community/Community_feed';
 import AddGroup from '../pages/mainhome/addGroup/AddGroup';
 import GroupDetailPage from '../pages/mainhome/groupDetail/GroupDetailPage';
+import Community_Comment from '../pages/community/Community_Comment';
+import Splash from '../pages/Splash';
 
 export default function Router() {
   return (
     <RouterAlias>
       <Routes>
+        <Route path='/' element={<Splash />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/onboard' element={<Onboard />} />
         <Route path='/home' element={<Home />} />
@@ -35,6 +38,7 @@ export default function Router() {
         <Route path='/error' element={<ErrorPage />} />
         <Route path='/signup' element={<JoinPage />} />
         <Route path='/feedWrite' element={<Community_feed />} />
+        <Route path='/feedReply' element={<Community_Comment />} />
       </Routes>
     </RouterAlias>
   );
