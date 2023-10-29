@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import titleIcon from '../assets/icons/icon-logo.svg';
 import { LoginWrapper } from './join/FormStyles';
 import { useNavigate } from 'react-router-dom';
-import SplashRun from '../components/\bSplashRun';
+import SplashRun from '../components/SplashRun';
 
 export default function Splash() {
   const navigate = useNavigate();
