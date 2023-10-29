@@ -97,7 +97,7 @@ export default function PostProfile(props) {
     <StyledDiv>
       <div className='community'>
         <PostCommunity name={props.accountname} />
-        <PlaceHolder type='Ractangle' />
+        <PlaceHolder type='Ractangle' src={props.image} />
         <div className='reaction'>
           <img src={isLinked ? heartOn : heartOff} alt='heart' onClick={HandleHeart} />
           <p style={{ color: 'white', paddingTop: '3px' }}>{heartCount}</p>
@@ -111,7 +111,7 @@ export default function PostProfile(props) {
           {expanded ? '간략히' : '...더보기'}
         </Button>
       )}
-      <p className='date'>{props.createAt}</p>
+      <p className='date'>{props.updatedAt}</p>
       <StyleCommnet>
         <CommentPriview />
         <CommentPriview />

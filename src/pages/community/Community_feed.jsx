@@ -12,8 +12,6 @@ import { axiosApi } from '../../api/axiosInstance';
 import PlaceHolder from '../../components/Common/Placeholder/PlaceHolder';
 
 export default function Community_feed() {
-  const token = useRecoilValue(userToken);
-
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const [loading, setLoding] = useState(false);
@@ -43,9 +41,8 @@ export default function Community_feed() {
     uploadImage(imageFile);
   };
 
-  // const submitAddPost = (e) => {
-  //   e.preventDefault();
-
+  const submitAddPost = (e) => {
+    e.preventDefault();
 
     const addPostData = {
       post: {
@@ -57,10 +54,8 @@ export default function Community_feed() {
     addPost(addPostData);
   };
 
-
-  const submitAddPost = async () => {
+  const addPost = async (addPostData) => {
     try {
-
       const res = await axiosApi.post('post', addPostData);
       if (res.status !== 200) {
         console.error('HTTP 응답 코드:', res.status, '상태 메시지:', res.statusText);
@@ -80,30 +75,11 @@ export default function Community_feed() {
       } else {
         alert('아이템 등록에 실패했습니다!');
       }
-
-//       const response = await PostCreate({
-//         post: {
-//           content: content,
-//           image: 'http://146.56.183.55:5050/Ellipse.png',
-//         },
-//       });
-//       console.log(response.data);
-
-//       if (response.status === 200) {
-//         console.log('성공');
-//         console.log(response.data);
-//       }
-//     } catch (err) {
-//       console.error(err);
-
     }
   };
 
   const inputContent = (e) => {
     setContent(e.target.value);
-
-    console.log(content);
-
   };
 
   const handleCategory = () => {
