@@ -22,6 +22,7 @@ import GroupDetailPage from '../pages/mainhome/groupDetail/GroupDetailPage';
 import Community_Comment from '../pages/community/Community_Comment';
 import Splash from '../pages/Splash';
 import SplashRun from '../components/SplashRun';
+import Mypagemyjoin from '../pages/mypage/Mypagemyjoin';
 
 export default function Router() {
   return (
@@ -41,6 +42,7 @@ export default function Router() {
         <Route path='/signup' element={<JoinPage />} />
         <Route path='/feedWrite' element={<Community_feed />} />
         <Route path='/feedReply' element={<Community_Comment />} />
+        <Route path='/mypagejoin' element={<Mypagemyjoin />} />
       </Routes>
     </RouterAlias>
   );
