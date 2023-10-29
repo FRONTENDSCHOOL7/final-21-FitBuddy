@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { Router, Route, Switch } from 'react-router-dom';
 import Mypagemywrite from './Mypagemywrite';
 import Mypagemyjoin from './Mypagemyjoin';
+import { Link } from 'react-router-dom';
 
 const MypageWrapper = styled.div`
   padding: 20px;
@@ -127,8 +128,9 @@ export default function Mypage() {
       <Posts>
         <TitleWithEdit>
           <p>작성한 모집글</p>
-          <img src={Iconnext} alt='다음 버튼' />
-          {/* <button onClick={Mypagemyjoin} /> */}
+          <Link to='/mypagejoin'>
+            <img src={Iconnext} alt='다음 버튼' style={{ cursor: 'pointer' }} />
+          </Link>
         </TitleWithEdit>
         <CardWrap>
           <Card />
