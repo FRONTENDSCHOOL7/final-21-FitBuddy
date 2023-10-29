@@ -8,6 +8,8 @@ import { CommunityPlaceHolder, CommunityWrapper, CategoryTitle, IconBtn } from '
 import { useNavigate } from 'react-router-dom';
 import { PostCreate } from '../../api/postApi';
 import userToken from '../../Recoil/userTokenAtom';
+import { axiosApi } from '../../api/axiosInstance';
+import PlaceHolder from '../../components/Common/Placeholder/PlaceHolder';
 
 export default function Community_feed() {
   const token = useRecoilValue(userToken);
@@ -50,28 +52,36 @@ export default function Community_feed() {
         image,
       },
     };
+    console.log(addPostData);
     addPost(addPostData);
   };
 
   const addPost = async (addPostData) => {
     try {
-      const res = await fetch('https://api.mandarin.weniv.co.kr/post', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify(addPostData),
-      });
-      const json = await res.json();
-      console.log(json);
+      const res = await axiosApi.post('post', addPostData);
+      if (res.status !== 200) {
+        console.error('HTTP 응답 코드:', res.status, '상태 메시지:', res.statusText);
+      }
+      const data = res.data;
+      console.log(data);
+      navigate('/community');
+
+      if (data.error) {
+        console.error('서버에서 반환한 에러:', data.error);
+      }
     } catch (error) {
-      alert('아이템 등록에 실패했습니다!');
+      console.error('요청 중 에러 발생:', error.message);
+      // error.response를 확인하여 서버에서 보내는 오류 메시지를 확인
+      if (error.response && error.response.data && error.response.data.message) {
+        alert('아이템 등록에 실패했습니다: ' + error.response.data.message);
+      } else {
+        alert('아이템 등록에 실패했습니다!');
+      }
     }
   };
 
   const inputContent = (e) => {
-    setContent(e.target.vale);
+    setContent(e.target.value);
   };
 
   const handleCategory = () => {
@@ -85,7 +95,7 @@ export default function Community_feed() {
       <NavTopDetails title='새 게시글' />
       <CommunityWrapper>
         <div style={{ position: 'relative' }}>
-          <CommunityPlaceHolder type='Photo' src={image} />
+          <PlaceHolder type='Photo' src={image} />
           <input
             ref={inputRef}
             type='file'

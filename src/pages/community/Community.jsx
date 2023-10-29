@@ -6,41 +6,48 @@ import PostProfile from '../../components/Post/PostProfile';
 import ChipsHome from '../../components/Chips/ChipsHome';
 import { CommunityButton } from './CommunityStyle';
 import { useNavigate } from 'react-router-dom';
-import AlertDelete from '../../components/Common/Alert/AlertDelete';
 import { getPosts } from '../../api/postApi';
 
 export default function Community() {
-  const [posts, setFosts] = useState([]);
+  const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
+  const fetchPosts = () => {
     getPosts()
       .then((data) => {
-        setFosts(data.posts);
-        console.log(data.posts);
+        if (data && Array.isArray(data.posts)) {
+          setPosts(data.posts);
+          console.log(data.posts);
+        } else {
+          console.error('예상되지 않은 데이터 형식:', data);
+        }
       })
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  };
+
+  useEffect(fetchPosts, []);
+
   const navigate = useNavigate();
   const handleButtonClick = () => {
     navigate('/feedWrite');
   };
   return (
-    <>
+    <div style={{ paddingBottom: '70px' }}>
       <NavTopBasic title='커뮤니티' />
       <ChipsHome />
       {posts.map((item) => {
         let content = item.content;
-        let data = content.split('\n');
+        let data = content ? content.split('\n') : [];
         const result = {};
 
         for (let i = 1; i < data.length - 1; i++) {
           const line = data[i].trim();
           const [key, value] = line.split(':');
-          result[key.trim()] = value.trim();
+          if (key && value) {
+            result[key.trim()] = value.trim();
+          }
         }
-        console.log(result);
 
         return (
           <PostProfile
@@ -54,6 +61,6 @@ export default function Community() {
       })}
       <CommunityButton onClick={handleButtonClick} />
       <NavBottom />
-    </>
+    </div>
   );
 }

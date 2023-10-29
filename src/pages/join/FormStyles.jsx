@@ -43,6 +43,7 @@ export const StyledButtonL = styled(Button_L)`
 export const StyledTextButton = styled(TextButton)`
   margin-top: 50px;
   margin-bottom: 35px;
+  color: var(--color-gray);
 `;
 
 export const LoginInputBox = styled.input`

@@ -8,8 +8,6 @@ import kakao from '../assets/icons/icon-kakao.svg';
 import google from '../assets/icons/icon-google.svg';
 import facebook from '../assets/icons/icon-facebook.svg';
 
-const url = 'https://api.mandarin.weniv.co.kr';
-
 const OnboardWrapper = styled.div`
   display: flex;
   justify-content: center;

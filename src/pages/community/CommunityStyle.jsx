@@ -52,6 +52,7 @@ export const CommunityPlaceHolder = styled.img.attrs((props) => ({
   background-position: center center;
   background-size: 50px;
 `;
+
 export const IconBtn = styled.button`
   border-radius: 50%;
   border: none;

@@ -57,7 +57,10 @@ const GlobalStyle = createGlobalStyle`
   *{
   box-sizing: border-box;
   }
-  
+  #root{
+    height: 100vh;
+    margin: 0 100px;
+  }
 
 
 html, body, div, span, applet, object, iframe,
