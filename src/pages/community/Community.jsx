@@ -31,26 +31,9 @@ export default function Community() {
       <NavTopBasic title='커뮤니티' />
       <ChipsHome />
       {posts.map((item) => {
-        let content = item.content;
-        let data = content.split('\n');
-        const result = {};
+        console.log(item.content);
 
-        for (let i = 1; i < data.length - 1; i++) {
-          const line = data[i].trim();
-          const [key, value] = line.split(':');
-          result[key.trim()] = value.trim();
-        }
-        console.log(result);
-
-        return (
-          <PostProfile
-            key={item._id}
-            content={result.content}
-            createAt={result.createAt}
-            name={result.accountname}
-            image={result.image}
-          />
-        );
+        return <PostProfile key={item._id} content={item.content} image={item.image} />;
       })}
       <CommunityButton onClick={handleButtonClick} />
       <NavBottom />
