@@ -41,37 +41,57 @@ export default function Community_feed() {
     uploadImage(imageFile);
   };
 
-  const submitAddPost = (e) => {
-    e.preventDefault();
+  // const submitAddPost = (e) => {
+  //   e.preventDefault();
 
-    const addPostData = {
-      post: {
-        content,
-        image,
-      },
-    };
-    addPost(addPostData);
-  };
+  //   const addPostData = {
+  //     post: {
+  //       content,
+  //       image,
+  //     },
+  //   };
+  //   addPost(addPostData);
+  // };
 
-  const addPost = async (addPostData) => {
+  // const addPost = async (addPostData) => {
+  //   try {
+  //     const res = await fetch('https://api.mandarin.weniv.co.kr/post', {
+  //       method: 'POST',
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         'Content-type': 'application/json',
+  //       },
+  //       body: JSON.stringify(addPostData),
+  //     });
+  //     const json = await res.json();
+  //     console.log(json);
+  //   } catch (error) {
+  //     alert('아이템 등록에 실패했습니다!');
+  //   }
+  // };
+
+  const submitAddPost = async () => {
     try {
-      const res = await fetch('https://api.mandarin.weniv.co.kr/post', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-type': 'application/json',
+      const response = await PostCreate({
+        post: {
+          content: content,
+          image: 'http://146.56.183.55:5050/Ellipse.png',
         },
-        body: JSON.stringify(addPostData),
       });
-      const json = await res.json();
-      console.log(json);
-    } catch (error) {
-      alert('아이템 등록에 실패했습니다!');
+      console.log(response.data);
+
+      if (response.status === 200) {
+        console.log('성공');
+        console.log(response.data);
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
   const inputContent = (e) => {
-    setContent(e.target.vale);
+    setContent(e.target.value);
+    console.log(content);
   };
 
   const handleCategory = () => {
