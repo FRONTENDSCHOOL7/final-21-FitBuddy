@@ -58,6 +58,7 @@ export default function Community() {
             image={result.image}
           />
         );
+
       })}
       <CommunityButton onClick={handleButtonClick} />
       <NavBottom />

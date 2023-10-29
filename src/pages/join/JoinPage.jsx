@@ -12,6 +12,7 @@ import {
 import logo from '../../assets/icons/icon-logo.svg';
 import { useNavigate } from 'react-router-dom';
 import { postSignUp } from '../../api/signupAPI';
+import { emailValid } from '../../api/emailValidAPi';
 
 export default function JoinPage() {
   const navigate = useNavigate();
@@ -22,8 +23,9 @@ export default function JoinPage() {
   const [accountname, setAccountname] = useState('');
   const [image, setImage] = useState('https://api.mandarin.weniv.co.kr/Ellipse.png');
   const [intro, setIntro] = useState('');
-  const [emailError, setEmailError] = useState('');
+  const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState('');
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
   /* 정규표현식 */
   const isEmailValid = (email) => {
     const emailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
@@ -34,18 +36,61 @@ export default function JoinPage() {
     return passwordRegex.test(password);
   };
 
+  // const handleEmailChange = (e) => {
+  //   const newEmail = e.target.value;
+  //   setEmail(newEmail);
+
+  //   if (!isEmailValid(newEmail)) {
+  //     setEmailError('유효한 이메일 주소를 입력하세요.');
+  //   } else {
+  //     setEmailError('');
+  //   }
+  // };
+
+  // const handlePasswordChange = (e) => {
+  //   const newPassword = e.target.value;
+  //   setPassword(newPassword); // 비밀번호를 먼저 설정
+
+  //   if (!isPasswordValid(newPassword)) {
+  //     setPasswordError('영문+숫자+특수기호 조합으로 6자리 이상 입력하세요.');
+  //   } else {
+  //     setPasswordError('');
+  //   }
+  // };
   const Signup = async () => {
-    setEmailError('');
     setPasswordError('');
 
-    if (!isEmailValid(email)) {
-      setEmailError('이메일를 다시 입력하세요.');
-      return;
-    }
     if (!isPasswordValid(password)) {
       setPasswordError('영문+숫자+특수기호 포함 6자리 이상 입력하세요.');
       return;
     }
+
+    async function checkDuplicateEmail() {
+      try {
+        const response = await emailValid({
+          user: {
+            email: email,
+          },
+        });
+        if (response.status === 200) {
+          const message = response.data.message;
+          setEmailErrorMessage(message);
+
+          if (message === '이미 가입된 이메일 주소 입니다.') {
+            setEmailError(true);
+          } else {
+            setEmailError(false);
+          }
+          console.log(response.data.message);
+        }
+      } catch (error) {
+        console.error('이메일 중복 확인 중 오류 발생:', error);
+        return false;
+      }
+
+      return true;
+    }
+
     try {
       const userData = {
         user: {
@@ -57,6 +102,12 @@ export default function JoinPage() {
           intro,
         },
       };
+      // 이메일 중복 확인
+      const isEmailUnique = await checkDuplicateEmail(userData);
+
+      if (!isEmailUnique) {
+        return;
+      }
 
       const response = await postSignUp(userData);
       console.log(response.data);
@@ -101,7 +152,7 @@ export default function JoinPage() {
             id='userNameInput'
             onChange={(e) => setEmail(e.target.value)}
           />
-          {emailError && <ErrorMessage>{emailError}</ErrorMessage>}
+          {emailError && <ErrorMessage>{emailErrorMessage}</ErrorMessage>}
         </div>
         <div className='signup_input'>
           <label htmlFor='accountnameInput' style={{ display: 'none' }}>

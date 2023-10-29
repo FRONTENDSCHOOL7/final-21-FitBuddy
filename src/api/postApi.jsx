@@ -29,3 +29,14 @@ export const getDetailPost = async (postId) => {
     throw error;
   }
 };
+
+export const getDetailPost = async (postId) => {
+  try {
+    const response = await axiosApi.get(`/post/${postId}`);
+
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    throw error;
+  }
+};
