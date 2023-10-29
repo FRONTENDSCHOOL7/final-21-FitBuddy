@@ -21,11 +21,13 @@ import AddGroup from '../pages/mainhome/addGroup/AddGroup';
 import GroupDetailPage from '../pages/mainhome/groupDetail/GroupDetailPage';
 import Community_Comment from '../pages/community/Community_Comment';
 import Splash from '../pages/Splash';
+import SplashRun from '../components/SplashRun';
 
 export default function Router() {
   return (
     <RouterAlias>
       <Routes>
+        <Route path='/run' element={<SplashRun />} />
         <Route path='/' element={<Splash />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/onboard' element={<Onboard />} />

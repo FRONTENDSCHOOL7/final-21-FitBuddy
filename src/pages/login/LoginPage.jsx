@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import InputLine from '../../components/Common/Input/InputLine';
 import Button_L from '../../components/Common/Buttons/Button_L';
 import logo from '../../assets/icons/icon-logo.svg';
 import Button_sns from '../../components/Common/Buttons/Button_sns';
@@ -51,10 +49,12 @@ export default function LoginPage({ marginBottom }) {
         },
       });
 
-      alert('로그인 성공!');
-
       if (response.status === 200) {
+        const receivedToken = response.data.user.token;
+        localStorage.setItem('token', receivedToken);
         saveToken(response.data.user);
+
+        alert('로그인 성공!');
         navigate('/Home');
       }
     } catch (err) {
