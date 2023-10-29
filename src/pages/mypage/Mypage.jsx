@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Placeholderavatar from '../../assets/placeholder/Placeholder-avatar.svg';
 import PlaceholderImg from '../../assets/placeholder/Placeholder-img.svg';
@@ -6,11 +6,9 @@ import IconWrite from '../../assets/icons/icon-write.svg';
 import Iconnext from '../../assets/icons/icon-next.svg';
 import Card from '../../components/Card/Card.jsx';
 import Chips from '../../components/Chips/ChipsHome.jsx';
+import { getMyInfo } from '../../api/Mypagemainapi';
 import { useNavigate } from 'react-router-dom';
 import { Router, Route, Switch } from 'react-router-dom';
-import Mypagemywrite from './Mypagemywrite';
-import Mypagemyjoin from './Mypagemyjoin';
-import { Link } from 'react-router-dom';
 
 const MypageWrapper = styled.div`
   padding: 20px;
@@ -47,8 +45,10 @@ const EditImage = styled.img`
 `;
 
 const ProfileName = styled.p`
-  margin-top: 20px;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xl);
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const Introduction = styled.div`
@@ -90,13 +90,34 @@ const Posts = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
 const CardWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
 `;
 
+const ProfileandiconWrapper = styled.div`
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+
 export default function Mypage() {
+  const [profiles, setProfiles] = useState([]);
+
+  useEffect(() => {
+    getMyInfo()
+      .then((data) => {
+        console.log(data.user.username);
+        setProfiles(data.user.username);
+      })
+      .catch((error) => {
+        console.error('Error fetching profiles:', error);
+      });
+  }, []);
+
   return (
     <MypageWrapper>
       <MypageHeader>마이페이지</MypageHeader>
@@ -106,7 +127,11 @@ export default function Mypage() {
           <ProfileImage src={Placeholderavatar} alt='프로필 사진' />
           <EditImage src={PlaceholderImg} alt='프로필 변경 버튼' />
         </ProfileImageWrapper>
-        <ProfileName>박규경</ProfileName>
+        <ProfileandiconWrapper>
+          <ProfileName>{profiles ? profiles : '사용자 없음'}</ProfileName>
+          {/* <Button onClick={handleNameChange}><img src={IconWrite} alt='수정 아이콘' /></Button>
+           */}
+        </ProfileandiconWrapper>
       </ProfileWrapper>
 
       <Introduction>
@@ -128,9 +153,7 @@ export default function Mypage() {
       <Posts>
         <TitleWithEdit>
           <p>작성한 모집글</p>
-          <Link to='/mypagejoin'>
-            <img src={Iconnext} alt='다음 버튼' style={{ cursor: 'pointer' }} />
-          </Link>
+          <img src={Iconnext} alt='다음 버튼' />
         </TitleWithEdit>
         <CardWrap>
           <Card />
@@ -145,7 +168,3 @@ export default function Mypage() {
     </MypageWrapper>
   );
 }
-
-// function Mypagemyjoin = () => {
-//   navigate("/Mypagejoin");
-// }
