@@ -40,6 +40,7 @@ export default function Mypagemyjoin() {
   // const { accountname } = useParams();
   const { accountname = 'gitbuddy98' } = useParams();
   const [myProduct, setMyProduct] = useState([]);
+  let processedData = [];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,17 +57,23 @@ export default function Mypagemyjoin() {
   }, [accountname]);
 
   let result = {};
-  if (myProduct.product && myProduct.product.link) {
-    const postData = myProduct.product.link;
-    // let data = postData.split('\n');
-    // for (let i = 1; i < data.length - 1; i++) {
-    //   const line = data[i].trim();
-    //   const [key, value] = line.split(':');
-    //   result[key.trim()] = value.trim();
-    // }
-    console.log(postData);
+  if (myProduct.product) {
+    const myJoinData = myProduct.product;
+    processedData = myJoinData.map((product) => {
+      return {
+        createdAt: product.createdAt,
+        author: product.author.accountname,
+        itemName: product.itemName,
+        itemImage: product.itemImage,
+        link: product.link,
+        //보낼 때 링크에 인원수, 장소,
+        price: product.price,
+        // 다른 필요한 정보도 추가할 수 있습니다
+      };
+    });
+    console.log(processedData);
+    console.log('이건 ');
   } else {
-    console.log(myProduct.product);
     console.log('로딩중 ');
   }
   // console.log(result);
@@ -74,7 +81,35 @@ export default function Mypagemyjoin() {
   return (
     <MypageWrapper>
       <MypageHeader>작성한 모집글</MypageHeader>
-      <Myjointitle>
+      {processedData.map((data, index) => (
+        <div key={index}>
+          <Myjointitle>
+            <p>{data.createdAt}</p>
+          </Myjointitle>
+          <Myjoinpost>
+            {/* 같은날짜가 있을 때에는 그 렝스만큼 반복문 */}
+            <Card
+              // key={item._id}
+              // title={result.title}
+              // time={result.time}
+              // sport={result.sport}
+              // location={result.location}
+              // day={result.day}
+              // cost={result.cost}
+              // attendees={result.attendees}
+              key={index}
+              title={data.itemName}
+              time={data.link}
+              sport={data.link}
+              location={data.link}
+              day={data.link}
+              cost={data.link}
+              attendees={data.link}
+            />
+          </Myjoinpost>
+        </div>
+      ))}
+      {/* <Myjointitle>
         <p>2023. 10. 12</p>
       </Myjointitle>
       <Myjoinpost>
@@ -94,7 +129,7 @@ export default function Mypagemyjoin() {
           <Card />
           <Card />
         </CardWrap>
-      </Myjoinpost>
+      </Myjoinpost> */}
     </MypageWrapper>
   );
 }
