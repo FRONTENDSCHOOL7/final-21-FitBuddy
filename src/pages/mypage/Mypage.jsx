@@ -9,6 +9,7 @@ import Chips from '../../components/Chips/ChipsHome.jsx';
 import { getMyInfo } from '../../api/Mypagemainapi';
 import { useNavigate } from 'react-router-dom';
 import { Router, Route, Switch } from 'react-router-dom';
+import Button_Ms from '../../components/Common/Buttons/Button_Ms';
 
 const MypageWrapper = styled.div`
   padding: 20px;
@@ -18,6 +19,13 @@ const MypageHeader = styled.h1`
   font-size: var(--font-size-title);
   text-align: left;
   font-family: 'Pretendard-Medium';
+  display: flex;
+  justify-content: space-between;
+
+  & > button {
+    margin-top: 3px;
+    margin-left: 20px;
+  }
 `;
 
 const ProfileWrapper = styled.div`
@@ -118,9 +126,19 @@ export default function Mypage() {
       });
   }, []);
 
+  const handleLogout = () => {
+    // 로컬 스토리지의 모든 항목 삭제
+    localStorage.clear();
+
+    console.log('로그아웃 되었습니다.');
+  };
+
   return (
     <MypageWrapper>
-      <MypageHeader>마이페이지</MypageHeader>
+      <MypageHeader>
+        마이페이지
+        <Button_Ms name='로그아웃' onClick={handleLogout} />
+      </MypageHeader>
 
       <ProfileWrapper>
         <ProfileImageWrapper>
