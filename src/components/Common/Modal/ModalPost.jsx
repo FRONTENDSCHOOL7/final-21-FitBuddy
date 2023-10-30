@@ -2,7 +2,9 @@ import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import AlertDelete from '../Alert/AlertDelete';
 import { useState } from 'react';
-
+import { PostDelete } from '../../../api/postApi';
+import { useRecoilState } from 'recoil';
+import userTokenAtom from '../../../Recoil/userTokenAtom';
 const slideIn = keyframes`
   from{
     bottom: -500px;
@@ -68,14 +70,21 @@ const DeleteBtn = styled.button`
   }
 `;
 
-export default function ModalComment({ visible }, props) {
+export default function ModalComment(props) {
   const [alertVisible, setAlertVisible] = useState(false);
-
-  const handleFeedDelete = () => {
-    setAlertVisible(!alertVisible);
+  const token = useRecoilState(userTokenAtom);
+  console.log(token);
+  const handleFeedDelete = async (data) => {
+    try {
+      const res = await PostDelete(data, token);
+      console.log(data);
+      return res;
+    } catch (error) {
+      console.error('게시물 삭제 중 오류:', error);
+    }
   };
   return (
-    <StyledModal visible={visible}>
+    <StyledModal visible={props.visible}>
       <DeleteBtn onClick={handleFeedDelete}>피드 삭제</DeleteBtn>
       <DeleteBtn>피드 수정</DeleteBtn>
       {alertVisible && <AlertDelete handleFeedDelete={handleFeedDelete} />}

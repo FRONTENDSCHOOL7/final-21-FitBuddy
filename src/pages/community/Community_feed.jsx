@@ -1,13 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { useRecoilValue } from 'recoil';
 import NavTopDetails from '../../components/Common/Nav/NavTopDetails';
 import ChipsHome from '../../components/Chips/ChipsHome';
 import InputLarge from '../../components/Common/Input/InputLarge';
 import Button_L from '../../components/Common/Buttons/Button_L';
-import { CommunityPlaceHolder, CommunityWrapper, CategoryTitle, IconBtn } from './CommunityStyle';
+import { CommunityWrapper, CategoryTitle, IconBtn } from './CommunityStyle';
 import { useNavigate } from 'react-router-dom';
 import { PostCreate } from '../../api/postApi';
-import userToken from '../../Recoil/userTokenAtom';
 import { axiosApi } from '../../api/axiosInstance';
 import PlaceHolder from '../../components/Common/Placeholder/PlaceHolder';
 
@@ -69,7 +67,7 @@ export default function Community_feed() {
       }
     } catch (error) {
       console.error('요청 중 에러 발생:', error.message);
-      // error.response를 확인하여 서버에서 보내는 오류 메시지를 확인
+
       if (error.response && error.response.data && error.response.data.message) {
         alert('아이템 등록에 실패했습니다: ' + error.response.data.message);
       } else {
