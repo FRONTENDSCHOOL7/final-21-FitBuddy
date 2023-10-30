@@ -34,7 +34,7 @@ export const getDetailPost = async (postId) => {
 //게시글 삭제
 export const PostDelete = async (postId) => {
   try {
-    const response = await authInstance.post(`/post/${postId}`);
+    const response = await authInstance.delete(`/post/${postId}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching posts:', error);

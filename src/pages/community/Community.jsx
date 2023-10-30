@@ -46,7 +46,7 @@ export default function Community() {
             image={item.image}
             updatedAt={dated}
             name={item.author.accountname}
-            post={item}
+            postId={item._id}
           />
         );
       })}

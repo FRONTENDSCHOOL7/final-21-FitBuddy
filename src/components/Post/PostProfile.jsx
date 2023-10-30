@@ -72,7 +72,7 @@ const CommentButton = styled.button`
 export default function PostProfile(props) {
   const [isShowReadMore, setIsShowReadMore] = useState(true);
   const [expanded, setExpanded] = useState(false);
-  const [heartCount, setHeartCount] = useState(props.post.heartCount);
+  // const [heartCount, setHeartCount] = useState(props.post.heartCount);
   const [isHearted, setIsHearted] = useState(props.post?.hearted);
   const [reply, setReply] = useState(0);
   const [isLinked, setIsLinked] = useState(false);
@@ -87,7 +87,7 @@ export default function PostProfile(props) {
       const response = await postLike(props.post._id, isHearted);
       console.log(response);
       setIsHearted(!isHearted);
-      setHeartCount(response.heartCount);
+      // setHeartCount(response.heartCount);
       setIsLinked(!isLinked);
     } catch (error) {
       console.log(error.message);
@@ -111,7 +111,7 @@ export default function PostProfile(props) {
             alt='heart'
             onClick={HandleHeart}
           />
-          <p style={{ color: 'white', paddingTop: '3px' }}>{heartCount}</p>
+          {/* <p style={{ color: 'white', paddingTop: '3px' }}>{heartCount}</p> */}
           <img src={circle} alt='comment' />
           <p style={{ color: 'white', paddingTop: '3px' }}>{reply}</p>
         </div>

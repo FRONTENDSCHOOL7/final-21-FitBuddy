@@ -73,11 +73,13 @@ const DeleteBtn = styled.button`
 export default function ModalComment(props) {
   const [alertVisible, setAlertVisible] = useState(false);
   const token = useRecoilState(userTokenAtom);
+  const postId = props.postId;
   console.log(token);
-  const handleFeedDelete = async (data) => {
+  const handleFeedDelete = async () => {
     try {
-      const res = await PostDelete(data, token);
-      console.log(data);
+      const res = await PostDelete(postId);
+      console.log(res);
+      console.log('삭제성공');
       return res;
     } catch (error) {
       console.error('게시물 삭제 중 오류:', error);
