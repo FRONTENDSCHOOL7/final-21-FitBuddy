@@ -5,8 +5,8 @@ import Chip from '../../components/Common/Chip/Chip';
 import Card from '../../components/Card/Card';
 import ButtonFloating from '../../components/Common/Buttons/ButtonFloating';
 import { getPosts } from '../../api/postApi';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import NavBottom from '../../components/Common/Nav/NavBottom';
 const StyleHome = styled.div`
   display: flex;
   position: relative;
@@ -41,6 +41,11 @@ const StyleAddButton = styled.div`
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+    navigate('/addgroup');
+  };
 
   useEffect(() => {
     // getPosts 함수를 호출하여 데이터를 가져옴
@@ -94,9 +99,10 @@ export default function Home() {
           );
         })}
       </StyleCards>
-      <StyleAddButton>
+      <StyleAddButton onClick={handleButtonClick}>
         <ButtonFloating />
       </StyleAddButton>
+      <NavBottom />
     </StyleHome>
   );
 }
