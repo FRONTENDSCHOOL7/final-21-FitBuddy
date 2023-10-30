@@ -45,8 +45,7 @@ export default function PostCommunity(props) {
       <StyledPost>
         <img src={person} alt='profileImg' />
         <div>
-          <h1>{props.accountname}</h1>
-          <p></p>
+          <p style={{ color: 'var(--color-secondary)', paddingTop: '3px' }}>{props.name}</p>
         </div>
 
         <StyledPostEdit onClick={toggleModal}>
@@ -54,7 +53,7 @@ export default function PostCommunity(props) {
         </StyledPostEdit>
         <StyledOverlay visible={modal} onClick={toggleModal} />
       </StyledPost>
-      {modal && <ModalComment visible={modal} />}
+      {modal && <ModalComment visible={modal} postId={props.postId} />}
     </>
   );
 }

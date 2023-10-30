@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PostCommunity from './PostCommunity';
 import styled from 'styled-components';
 import heartOn from '../../assets/icons/icon-heart-on.svg';
@@ -7,6 +7,7 @@ import circle from '../../assets/icons/icon-message-circle.svg';
 import CommentPriview from '../Common/Comment/CommentPriview';
 import PlaceHolder from '../Common/Placeholder/PlaceHolder';
 import { useNavigate } from 'react-router-dom';
+import { postLike } from '../../api/postApi';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -71,21 +72,26 @@ const CommentButton = styled.button`
 export default function PostProfile(props) {
   const [isShowReadMore, setIsShowReadMore] = useState(true);
   const [expanded, setExpanded] = useState(false);
-  const [heartCount, setHeartCount] = useState(0);
-  const [isLinked, setIsLinked] = useState(false);
+  // const [heartCount, setHeartCount] = useState(props.post.heartCount);
+  const [isHearted, setIsHearted] = useState(props.post?.hearted);
   const [reply, setReply] = useState(0);
+  const [isLinked, setIsLinked] = useState(false);
+
   const navigate = useNavigate();
 
   const toggleReadMore = () => {
     setExpanded(!expanded);
   };
-  const HandleHeart = () => {
-    if (isLinked) {
-      setHeartCount(heartCount - 1);
-    } else {
-      setHeartCount(heartCount + 1);
+  const HandleHeart = async () => {
+    try {
+      const response = await postLike(props.post._id, isHearted);
+      console.log(response);
+      setIsHearted(!isHearted);
+      // setHeartCount(response.heartCount);
+      setIsLinked(!isLinked);
+    } catch (error) {
+      console.log(error.message);
     }
-    setIsLinked(!isLinked);
   };
 
   // 댓글 상세 페이지
@@ -96,11 +102,16 @@ export default function PostProfile(props) {
   return (
     <StyledDiv>
       <div className='community'>
-        <PostCommunity name={props.accountname} />
+        <PostCommunity name={props.name} postId={props.postId} />
         <PlaceHolder type='Ractangle' src={props.image} />
         <div className='reaction'>
-          <img src={isLinked ? heartOn : heartOff} alt='heart' onClick={HandleHeart} />
-          <p style={{ color: 'white', paddingTop: '3px' }}>{heartCount}</p>
+          <img
+            src={isLinked ? heartOn : heartOff}
+            isHearted={isHearted}
+            alt='heart'
+            onClick={HandleHeart}
+          />
+          {/* <p style={{ color: 'white', paddingTop: '3px' }}>{heartCount}</p> */}
           <img src={circle} alt='comment' />
           <p style={{ color: 'white', paddingTop: '3px' }}>{reply}</p>
         </div>

@@ -37,13 +37,16 @@ export default function Community() {
       <NavTopBasic title='커뮤니티' />
       <ChipsHome />
       {posts.map((item) => {
-        console.log(item.updatedAt);
+        const date = new Date(item.updatedAt);
+        const dated = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
         return (
           <PostProfile
             key={item._id}
             content={item.content}
             image={item.image}
-            updatedAt={item.updatedAt}
+            updatedAt={dated}
+            name={item.author.accountname}
+            postId={item._id}
           />
         );
       })}

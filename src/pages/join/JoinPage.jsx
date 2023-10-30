@@ -36,27 +36,6 @@ export default function JoinPage() {
     return passwordRegex.test(password);
   };
 
-  // const handleEmailChange = (e) => {
-  //   const newEmail = e.target.value;
-  //   setEmail(newEmail);
-
-  //   if (!isEmailValid(newEmail)) {
-  //     setEmailError('유효한 이메일 주소를 입력하세요.');
-  //   } else {
-  //     setEmailError('');
-  //   }
-  // };
-
-  // const handlePasswordChange = (e) => {
-  //   const newPassword = e.target.value;
-  //   setPassword(newPassword); // 비밀번호를 먼저 설정
-
-  //   if (!isPasswordValid(newPassword)) {
-  //     setPasswordError('영문+숫자+특수기호 조합으로 6자리 이상 입력하세요.');
-  //   } else {
-  //     setPasswordError('');
-  //   }
-  // };
   const Signup = async () => {
     setPasswordError('');
 
