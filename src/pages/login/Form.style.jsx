@@ -17,6 +17,14 @@ export const ContentsContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: ${(props) => `${props.marginBottom}px`};
+
+  .errorMessageWrap,
+  .loginValid {
+    color: #ff5b5b;
+  }
+  .loginValid {
+    margin-top: 12px;
+  }
 `;
 
 export const SnsButtonContainer = styled.div`
@@ -32,6 +40,7 @@ export const LoginInputBox = styled.input`
   border-radius: 30px;
   border: 1px solid var(--color-primary);
   margin-bottom: ${(props) => `${props.marginBottom}px`};
+  margin-top: ${(props) => `${props.marginTop}px`};
   font-size: var(--font-size-btn);
   color: var(--color-secondary);
   &:focus {
