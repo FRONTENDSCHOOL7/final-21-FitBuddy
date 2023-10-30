@@ -19,7 +19,7 @@ export default function LoginPage({ marginBottom }) {
   const [password, setPassword] = useState('');
 
   const [emailValid, setEmailValid] = useState(false);
-  const [passwordValid, setPasswordValid] = useState(false);
+  const [loginValid, setLoginValid] = useState('');
 
   const [notAllow, setNotAllow] = useState(true);
 
@@ -50,6 +50,7 @@ export default function LoginPage({ marginBottom }) {
       });
 
       if (response.status === 200) {
+        setLoginValid(response.data.message);
         const receivedToken = response.data.user.token;
         localStorage.setItem('token', receivedToken);
         saveToken(response.data.user);
@@ -67,48 +68,57 @@ export default function LoginPage({ marginBottom }) {
   };
 
   useEffect(() => {
-    if (emailValid && passwordValid) {
+    if (emailValid) {
       setNotAllow(false);
       return;
     }
     setNotAllow(true);
-  }, [emailValid, passwordValid]);
+  }, [emailValid]);
 
   const moveSignup = () => {
     navigate('/signup');
   };
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    if (!notAllow) {
+      handleLoginSubmit();
+    }
+  };
 
   return (
-    <LoginWrapper>
-      <img src={logo} className='logoImg' />
-      <ContentsContainer marginBottom={132}>
-        <LoginInputBox
-          type='text'
-          // id='user-email'
-          placeholder='이메일'
-          marginBottom={20}
-          // value={email}
-          onChange={handleEmailChange}
-        />
-        <div className='errorMessageWrap'>
-          {!emailValid && email.length > 0 && <div>올바른 이메일을 입력해주세요.</div>}
-        </div>
-        <LoginInputBox
-          type='password'
-          placeholder='비밀번호'
-          marginBottom={0}
-          value={password}
-          onChange={handlePasswordChange}
-        />
-      </ContentsContainer>
-      <Button_L name='로그인' marginBottom={30} onClick={handleLoginSubmit} />
-      {/* disabled={notAllow}는 나중에 넣기*/}
-      <Button_text marginBottom={20} content='이메일로 회원가입' onClick={moveSignup} />
-      <SnsButtonContainer>
-        <Button_sns snsIcon={kakao} />
-        <Button_sns snsIcon={google} />
-        <Button_sns snsIcon={facebook} />
-      </SnsButtonContainer>
-    </LoginWrapper>
+    <form onSubmit={handleFormSubmit}>
+      <LoginWrapper>
+        <img src={logo} className='logoImg' />
+        <ContentsContainer marginBottom={132}>
+          <LoginInputBox
+            type='text'
+            // id='user-email'
+            placeholder='이메일'
+            marginBottom={10}
+            // value={email}
+            onChange={handleEmailChange}
+          />
+          <div className='errorMessageWrap'>
+            {!emailValid && email.length > 0 && <div>올바른 이메일을 입력해주세요.</div>}
+          </div>
+          <LoginInputBox
+            type='password'
+            placeholder='비밀번호'
+            marginTop={10}
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          <div className='loginValid'>{loginValid}</div>
+        </ContentsContainer>
+        <Button_L name='로그인' marginBottom={30} onClick={handleLoginSubmit} />
+        {/* disabled={notAllow}는 나중에 넣기*/}
+        <Button_text marginBottom={20} content='이메일로 회원가입' type='submit' />
+        <SnsButtonContainer>
+          <Button_sns snsIcon={kakao} />
+          <Button_sns snsIcon={google} />
+          <Button_sns snsIcon={facebook} />
+        </SnsButtonContainer>
+      </LoginWrapper>
+    </form>
   );
 }

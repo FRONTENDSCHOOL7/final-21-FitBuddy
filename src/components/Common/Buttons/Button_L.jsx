@@ -35,6 +35,7 @@ export default function Button_L({
   marginTop,
   type,
   value,
+  onKeyDown,
 }) {
   return (
     <StyledButton
@@ -44,6 +45,7 @@ export default function Button_L({
       marginTop={marginTop}
       type={type}
       value={value}
+      onKeyDown={onKeyDown}
     >
       {name}
     </StyledButton>
