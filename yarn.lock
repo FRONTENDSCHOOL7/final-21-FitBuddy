@@ -5071,11 +5071,6 @@
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
 
-"fsevents@^2.3.2", "fsevents@~2.3.2":
-  "integrity" "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw=="
-  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
-  "version" "2.3.3"
-
 "fullcalendar@^6.1.9":
   "integrity" "sha512-b3y22EqOtV1cGjOlPE6krs1CwQA/8p5lsylllp35tqDLOK7kLIXDQotpXgsDBY4qAKTgdiSauqzdkdvyrbjAgQ=="
   "resolved" "https://registry.npmjs.org/fullcalendar/-/fullcalendar-6.1.9.tgz"
