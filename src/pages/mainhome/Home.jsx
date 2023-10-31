@@ -5,7 +5,7 @@ import Chip from '../../components/Common/Chip/Chip';
 import Card from '../../components/Card/Card';
 import ButtonFloating from '../../components/Common/Buttons/ButtonFloating';
 import { getProducts } from '../../api/productApi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const StyleHome = styled.div`
   display: flex;
@@ -84,7 +84,7 @@ export default function Home() {
             for (let i = 1; i < data.length - 1; i++) {
               const line = data[i].trim();
               const [key, value] = line.split(':');
-              result[key.trim()] = value.trim();
+              result[key.trim()] = value.trim().replace(/,+$/, '');
             }
 
             // <Card key={item._id} content={item.content} />;
