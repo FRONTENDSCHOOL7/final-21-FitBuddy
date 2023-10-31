@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Placeholderavatar from '../../assets/placeholder/Placeholder-avatar.svg';
 import PlaceholderImg from '../../assets/placeholder/Placeholder-img.svg';
+import Button_Ms from '../../components/Common/Buttons/Button_Ms';
 import IconWrite from '../../assets/icons/icon-write.svg';
 import Iconnext from '../../assets/icons/icon-next.svg';
 import Card from '../../components/Card/Card.jsx';
 import Chips from '../../components/Chips/ChipsHome.jsx';
-import { getMyInfo } from '../../api/Mypagemainapi';
+import InputLarge from '../../components/Common/Input/InputLarge';
+import { getMyInfo } from '../../api/mypageapi';
 import { useNavigate } from 'react-router-dom';
 import { Router, Route, Switch } from 'react-router-dom';
-import Button_Ms from '../../components/Common/Buttons/Button_Ms';
+import { editProfile } from '../../api/mypageapi';
 
 const MypageWrapper = styled.div`
   padding: 20px;
@@ -24,7 +27,7 @@ const MypageHeader = styled.h1`
 
   & > button {
     margin-top: 3px;
-    margin-left: 20px;
+    margin-left: 10px;
   }
 `;
 
@@ -34,6 +37,9 @@ const ProfileWrapper = styled.div`
   align-items: center;
   margin-top: 20px;
   font-family: 'Pretendard-Medium';
+  img {
+    cursor: pointer;
+  }
 `;
 
 const ProfileImageWrapper = styled.div`
@@ -76,6 +82,9 @@ const TitleWithEdit = styled.div`
   margin-top: 10px;
   margin-bottom: 20px;
   font-family: 'Pretendard-Medium';
+  img {
+    cursor: pointer;
+  }
 `;
 
 const IntroductionInput = styled.textarea`
@@ -112,8 +121,23 @@ const ProfileandiconWrapper = styled.div`
   gap: 5px;
 `;
 
+// const TransparentInput = styled.input`
+//   background: transparent;
+//   border: none;
+//   outline: none;
+
+//   &:focus {
+//     background: transparent; // 또는 다른 배경색
+//     border: 2px solid gray;
+//   }
+// `;
+
 export default function Mypage() {
   const [profiles, setProfiles] = useState([]);
+  const [editName, setEditName] = useState(profiles);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isEditingIntroduction, setIsEditingIntroduction] = useState(false);
+  const [editIntroduction, setEditIntroduction] = useState('');
 
   useEffect(() => {
     getMyInfo()
@@ -126,10 +150,11 @@ export default function Mypage() {
       });
   }, []);
 
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     // 로컬 스토리지의 모든 항목 삭제
     localStorage.clear();
-
     console.log('로그아웃 되었습니다.');
   };
 
@@ -145,19 +170,46 @@ export default function Mypage() {
           <ProfileImage src={Placeholderavatar} alt='프로필 사진' />
           <EditImage src={PlaceholderImg} alt='프로필 변경 버튼' />
         </ProfileImageWrapper>
+
         <ProfileandiconWrapper>
-          <ProfileName>{profiles ? profiles : '사용자 없음'}</ProfileName>
-          {/* <Button onClick={handleNameChange}><img src={IconWrite} alt='수정 아이콘' /></Button>
-           */}
+          {isEditing ? (
+            <input
+              value={editName}
+              onChange={(e) => setEditName(e.target.value)}
+              onBlur={() => {
+                editProfile({ username: editName }).then(() => {
+                  setProfiles(editName);
+                  setIsEditing(false);
+                });
+              }}
+            />
+          ) : (
+            <ProfileName onClick={() => setIsEditing(true)}>
+              {profiles ? profiles : '사용자 없음'}
+            </ProfileName>
+          )}
+
+          <img src={IconWrite} alt='수정 아이콘' onClick={() => setIsEditing(true)} />
         </ProfileandiconWrapper>
       </ProfileWrapper>
 
       <Introduction>
         <TitleWithEdit>
-          <p>소개글</p>
-          <img src={IconWrite} alt='수정 아이콘' />
+          <p onClick={() => setIsEditingIntroduction(true)}>소개글</p>
+          <img src={IconWrite} alt='수정 아이콘' onClick={() => setIsEditingIntroduction(true)} />
         </TitleWithEdit>
-        <IntroductionInput placeholder='안녕하세요' />
+        <InputLarge
+          value={editIntroduction || ''}
+          onChange={(e) => setEditIntroduction(e.target.value)}
+          onBlur={async () => {
+            if (isEditingIntroduction) {
+              await editProfile({ introduction: editIntroduction });
+              setIsEditingIntroduction(false);
+            }
+          }}
+          onClick={() => !isEditingIntroduction && setIsEditingIntroduction(true)}
+          readOnly={!isEditingIntroduction}
+        />
       </Introduction>
 
       <Interests>
@@ -181,7 +233,7 @@ export default function Mypage() {
 
       <TitleWithEdit>
         <p>내가 쓴 글</p>
-        <img src={Iconnext} alt='다음 버튼' />
+        <img src={Iconnext} alt='다음 버튼' onClick={() => navigate('/Mypagemywrite')} />
       </TitleWithEdit>
     </MypageWrapper>
   );
