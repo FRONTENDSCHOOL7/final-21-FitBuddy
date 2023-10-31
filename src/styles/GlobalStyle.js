@@ -50,7 +50,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     justify-content: center;
     font-family: 'Pretendard-Regular', sans-serif;
-    background-color: var(--color-bg);
+    /* background-color: var(--color-bg); */
     color: var(--color-secondary);
   }
   

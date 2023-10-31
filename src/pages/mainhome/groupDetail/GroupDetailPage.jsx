@@ -4,7 +4,7 @@ import PlaceHolder from '../../../components/Common/Placeholder/PlaceHolder';
 import Button_L from '../../../components/Common/Buttons/Button_L';
 import Button_Img from '../../../components/Common/Buttons/Button_Img';
 import { useParams } from 'react-router-dom';
-import { getDetailPost } from '../../../api/postApi';
+import { getDetailProduct } from '../../../api/productApi';
 const StyleGroupDetail = styled.div`
   color: #fff;
   display: flex;
@@ -50,12 +50,13 @@ const ComFirmButton = styled.div`
 export default function GroupDetailPage() {
   const { groupId } = useParams();
   const [groupData, setGroupData] = useState([]);
+  const [people, setPeople] = useState(3);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // getDetailPost 함수를 호출하여 게시물 정보 가져오기
-        const data = await getDetailPost(groupId);
+        // getDetailProduct 함수를 호출하여 게시물 정보 가져오기
+        const data = await getDetailProduct(groupId);
         setGroupData(data);
       } catch (error) {
         console.error('Error fetching group data:', error);
@@ -66,13 +67,13 @@ export default function GroupDetailPage() {
   }, [groupId]);
 
   let result = {};
-  if (groupData.post && groupData.post.content) {
-    const postData = groupData.post.content;
+  if (groupData.product && groupData.product.link) {
+    const postData = groupData.product.link;
     let data = postData.split('\n');
     for (let i = 1; i < data.length - 1; i++) {
       const line = data[i].trim();
       const [key, value] = line.split(':');
-      result[key.trim()] = value.trim();
+      result[key.trim()] = value.trim().replace(/,+$/, '');
     }
   } else {
     console.log('로딩중 ');
@@ -103,15 +104,17 @@ export default function GroupDetailPage() {
         </ul>
       </div>
 
-      <div className='description'>참여맴버 3명 / 7명</div>
+      <div className='description'>
+        참여멤버 {people}명 / {result.attendees}명
+      </div>
       <div className='imgBox'>
         <Button_Img />
         <Button_Img />
         <Button_Img />
       </div>
 
-      <h2 className='description'>일정소개</h2>
-      <p>{result.description}</p>
+      <h2 className='description'>소개</h2>
+      <p>{result.contents}</p>
       <ComFirmButton>
         <Button_L name='참여하기' />
       </ComFirmButton>

@@ -4,18 +4,19 @@ import titleIcon from '../../assets/icons/icon-logo.svg';
 import Chip from '../../components/Common/Chip/Chip';
 import Card from '../../components/Card/Card';
 import ButtonFloating from '../../components/Common/Buttons/ButtonFloating';
-import { getPosts } from '../../api/postApi';
-import { Link, useNavigate } from 'react-router-dom';
-import NavBottom from '../../components/Common/Nav/NavBottom';
+import { getProducts } from '../../api/productApi';
+import { Link } from 'react-router-dom';
+
 const StyleHome = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
-  background-color: #000;
+  background-color: var(--color-bg);
   width: inherit;
   height: 900px;
   padding-left: 22px;
   padding-right: 22px;
+  max-height: 800px;
 
   .titleIcon {
     max-width: 40%;
@@ -32,6 +33,9 @@ const StyleCards = styled.div`
   display: flex;
   flex-direction: column;
   gap: 13px;
+  a {
+    text-decoration: none; /* 링크의 밑줄을 제거합니다 */
+  }
 `;
 const StyleAddButton = styled.div`
   position: absolute;
@@ -40,7 +44,7 @@ const StyleAddButton = styled.div`
 `;
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
+  const [products, setProducts] = useState([]);
 
   const navigate = useNavigate();
   const handleButtonClick = () => {
@@ -48,16 +52,17 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // getPosts 함수를 호출하여 데이터를 가져옴
-    getPosts()
-      .then((data) => {
-        // 데이터를 상태에 저장
-        setPosts(data.posts);
-        console.log(data.posts);
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        const data = await getProducts();
+        console.log(data);
+
+        setProducts(data.product);
+      } catch (error) {
         console.error('Error fetching posts:', error);
-      });
+      }
+    };
+    fetchData();
   }, []);
 
   return (
@@ -69,40 +74,44 @@ export default function Home() {
         <Chip />
       </StyleChips>
       <StyleCards>
-        {posts.map((item) => {
-          let content = item.content;
-          let data = content.split('\n');
-          const result = {};
+        {products
+          .filter((item) => item.itemName === 'FitBuddy') // 조건에 맞는 아이템만 필터링
+          .map((item) => {
+            let link = item.link;
+            let data = link.split('\n');
+            const result = {};
 
-          for (let i = 1; i < data.length - 1; i++) {
-            const line = data[i].trim();
-            const [key, value] = line.split(':');
-            result[key.trim()] = value.trim();
-          }
-          console.log(result);
+            for (let i = 1; i < data.length - 1; i++) {
+              const line = data[i].trim();
+              const [key, value] = line.split(':');
+              result[key.trim()] = value.trim();
+            }
 
-          // <Card key={item._id} content={item.content} />;
+            // <Card key={item._id} content={item.content} />;
 
-          return (
-            <Link to={`/group/${item._id}`} key={item._id}>
-              <Card
-                key={item._id}
-                title={result.title}
-                time={result.time}
-                sport={result.sport}
-                location={result.location}
-                day={result.day}
-                cost={result.cost}
-                attendees={result.attendees}
-              />
-            </Link>
-          );
-        })}
+            return (
+              <Link to={`/group/${item._id}`} key={item._id}>
+                <Card
+                  key={item._id}
+                  image={item.itemImage}
+                  title={result.title}
+                  time={result.time}
+                  sport={result.sport}
+                  location={result.location}
+                  day={result.day}
+                  cost={result.cost}
+                  attendees={result.attendees}
+                  contents={result.contents}
+                />
+              </Link>
+            );
+          })}
       </StyleCards>
-      <StyleAddButton onClick={handleButtonClick}>
-        <ButtonFloating />
-      </StyleAddButton>
-      <NavBottom />
+      <Link to='/addgroup'>
+        <StyleAddButton>
+          <ButtonFloating />
+        </StyleAddButton>
+      </Link>
     </StyleHome>
   );
 }
