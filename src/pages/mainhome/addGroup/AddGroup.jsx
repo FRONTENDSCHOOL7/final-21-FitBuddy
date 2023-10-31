@@ -14,6 +14,7 @@ import OnBoardingPage from '../../onBoard/OnBoardingPage';
 import Modal from 'react-modal';
 import Chip from '../../../components/Common/Chip/Chip';
 import { useParams } from 'react-router-dom';
+import KakaoMap from '../../../components/KakaoMap/KakaoMap';
 
 const StyleAddGroup = styled.div`
   color: gray;
@@ -58,6 +59,19 @@ const customModalStyles = {
     transform: 'translate(-50%, -50%)',
     backgroundColor: 'black',
   },
+};
+const modalStyle = {
+  position: 'fixed',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '80%',
+  maxHeight: '80%',
+  overflowY: 'auto',
+  backgroundColor: '#FFF',
+  padding: '20px',
+  boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+  zIndex: 1000,
 };
 
 export const ImageBtn = styled.button`
@@ -241,6 +255,20 @@ export default function AddGroup() {
 `;
 
   const [disabled, setDisabled] = useState(false);
+  const [isKakaoMapOpen, setKakaoMapOpen] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [kakaoData, setKakaoData] = useState({ location: '' });
+  const openKakaoMapModal = () => {
+    setKakaoMapOpen(true);
+  };
+
+  const closeKakaoMapModal = () => {
+    setKakaoMapOpen(false);
+  };
+
+  const handleLocationSelect = (location) => {
+    setSelectedLocation(location);
+  };
 
   useEffect(() => {
     console.log(formData);
@@ -287,6 +315,16 @@ export default function AddGroup() {
   }, [selectedSports]);
 
   const navigate = useNavigate();
+  // const handleLocationInputClick = () => {
+  //   const kakaoMapApiKey = 'a05e3ab7123c2df81d7871294cd1fb12';
+
+  //   const kakaoMapUrl = `https://map.kakao.com/link/map/${encodeURIComponent(
+  //     formData.location,
+  //   )},${encodeURIComponent(formData.title)}`;
+
+  //   window.open(kakaoMapUrl, '_blank');
+  // };
+
   return (
     <StyleAddGroup>
       <NavTopDetails title={isEditMode ? '그룹 만들기 수정' : '핏버디 그룹 만들기'} />
@@ -375,9 +413,16 @@ export default function AddGroup() {
             name='location'
             placeholder='장소를 입력해주세요'
             onChange={handleInputChange}
-            value={formData.location}
+            value={kakaoData.location}
+            onClick={openKakaoMapModal}
           />
         </InputBox>
+        {isKakaoMapOpen && (
+          <div style={modalStyle}>
+            <button onClick={closeKakaoMapModal}>닫기</button>
+            <KakaoMap onRequestClose={closeKakaoMapModal} onSelectLocation={handleLocationSelect} />
+          </div>
+        )}
         <InputBox>
           <p>인원</p>
           <InputText

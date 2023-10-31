@@ -23,6 +23,7 @@ export default function InputText(props) {
       onChange={props.onChange}
       name={props.name}
       value={props.value}
+      onClick={props.onClick}
     />
   );
 }
