@@ -8,6 +8,8 @@ import CommentPriview from '../Common/Comment/CommentPriview';
 import PlaceHolder from '../Common/Placeholder/PlaceHolder';
 import { useNavigate } from 'react-router-dom';
 import { postLike, postUnlike } from '../../api/postApi';
+import { useRecoilValue } from 'recoil';
+import { commentCount } from '../../Recoil/commentCount';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -75,7 +77,7 @@ export default function PostProfile(props) {
   const [liked, setLiked] = useState(false);
   const [heartCount, setHeartCount] = useState(props.heartCount || 0);
   const [isHearted, setIsHearted] = useState(props.hearted);
-  const [reply, setReply] = useState(0);
+  const replyCount = useRecoilValue(commentCount);
 
   const navigate = useNavigate();
   const toggleReadMore = () => {
@@ -136,7 +138,7 @@ export default function PostProfile(props) {
             {heartCount}
           </p>
           <img src={circle} alt='comment' />
-          <p style={{ color: 'white', paddingTop: '3px' }}>{reply}</p>
+          <p style={{ color: 'white', paddingTop: '3px' }}>{replyCount}</p>
         </div>
         <StyleTextArea>{props.content}</StyleTextArea>
       </div>

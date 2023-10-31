@@ -8,7 +8,7 @@ export default function InputComment(props) {
       <ButtonImg />
       <StyledInput
         type={props.type}
-        value={props.inputValue}
+        value={props.value}
         onChange={props.onChange}
         placeholder='댓글 입력하기...'
       />
