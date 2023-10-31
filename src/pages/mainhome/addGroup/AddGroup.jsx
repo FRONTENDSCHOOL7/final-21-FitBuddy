@@ -9,6 +9,7 @@ import NavTopDetails from '../../../components/Common/Nav/NavTopDetails';
 import { ProductCreate } from '../../../api/productApi';
 import UploadImg from '../../../assets/placeholder/Placeholder-img.svg';
 import { useNavigate } from 'react-router-dom';
+import InputButton from '../../../components/Common/Input/InputButton';
 
 const StyleAddGroup = styled.div`
   color: gray;
@@ -107,7 +108,6 @@ export default function AddGroup() {
           itemName: 'FitBuddy',
           price: 1, //1원 이상
           link: link,
-          //나중에 이미지 추가 버튼 만들어서 이미지 넣기
           itemImage: image ? image : UploadImg,
         },
       });
@@ -208,7 +208,7 @@ export default function AddGroup() {
         </InputBox>
         <InputBox>
           <p>운동종목</p>
-          <InputText
+          <InputButton
             name='sport'
             placeholder='운동종목을 입력해주세요'
             onChange={handleInputChange}
@@ -223,7 +223,7 @@ export default function AddGroup() {
             onChange={handleInputChange}
             value={formData.day}
           />
-          {dateError && <p style={{ color: 'red' }}>{dateError}</p>}
+          {dateError && <p style={{ color: '#FF5B5B' }}>{dateError}</p>}
         </InputBox>
         <InputBox>
           <p>시간</p>
@@ -233,7 +233,7 @@ export default function AddGroup() {
             onChange={handleInputChange}
             value={formData.time}
           />
-          {timeError && <p style={{ color: 'red' }}>{timeError}</p>}
+          {timeError && <p style={{ color: '#FF5B5B' }}>{timeError}</p>}
         </InputBox>
         <InputBox>
           <p>장소</p>
