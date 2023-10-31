@@ -2,8 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Iconlocation } from '../../../src/assets/icons/icon-location-fill.svg';
 import { ReactComponent as Iconperson } from '../../../src/assets/icons/icon-person.svg';
-import { ReactComponent as Placeholdersquare } from '../../assets/placeholder/Placeholder-square.svg';
 import { ReactComponent as Placeholderimg } from '../../assets/placeholder/Placeholder-img.svg';
+import PlaceHolder from '../Common/Placeholder/PlaceHolder';
+import BasicImg from '../../assets/placeholder/Placeholder-icon.svg';
+import Button_Img from '../../components/Common/Buttons/Button_Img';
 
 const StyledCard = styled.div`
   position: relative;
@@ -22,10 +24,11 @@ const StyledholderWrapper = styled.div`
 const StyledimgiconWrapper = styled.div`
   display: flex;
   align-items: center;
-  & > svg:not(:last-child) {
+  gap: 5px;
+  /* & > svg:not(:last-child) {
     margin-top: 5px;
     margin-right: 5px;
-  }
+  } */
 `;
 
 const StylediconWrapper = styled.div`
@@ -56,7 +59,7 @@ export default function Card(props) {
   return (
     <StyledCard>
       <StyledholderWrapper>
-        <Placeholdersquare />
+        <PlaceHolder src={props.image} />
       </StyledholderWrapper>
       <div>
         <EventInfo>
@@ -76,9 +79,10 @@ export default function Card(props) {
         </EventInfo>
 
         <StyledimgiconWrapper>
-          <Placeholderimg />
-          <Placeholderimg />
-          <Placeholderimg />
+          {/* 참여하는 사람 프로필 받아오기, 참여한는 사람 명수 대로 map 돌리기, 대신 3명까지만 */}
+          <PlaceHolder type='Person' src={props.image ? props.image : Button_Img} />
+          <PlaceHolder type='Person' src={props.image} />
+          <PlaceHolder type='Person' src={props.image} />
         </StyledimgiconWrapper>
       </div>
     </StyledCard>
