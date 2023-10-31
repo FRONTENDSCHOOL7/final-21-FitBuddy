@@ -10,6 +10,8 @@ import { ProductCreate } from '../../../api/productApi';
 import UploadImg from '../../../assets/placeholder/Placeholder-img.svg';
 import { useNavigate } from 'react-router-dom';
 import InputButton from '../../../components/Common/Input/InputButton';
+import OnBoardingPage from '../../onBoard/OnBoardingPage';
+import Modal from 'react-modal';
 
 const StyleAddGroup = styled.div`
   color: gray;
@@ -36,6 +38,16 @@ const InputBox = styled.div`
   flex-direction: column;
   gap: 9px;
 `;
+const customModalStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: 'black',
+  },
+};
 
 export const ImageBtn = styled.button`
   border-radius: 50%;
@@ -57,6 +69,9 @@ export default function AddGroup() {
   const [image, setImage] = useState('');
   const [dateError, setDateError] = useState('');
   const [timeError, setTimeError] = useState('');
+  const [inputValue, setInputValue] = useState('');
+  const [showOnBoarding, setShowOnBoarding] = useState(false);
+  const [selectedSports, setSelectedSports] = useState([]);
 
   const uploadImage = async (imageFile) => {
     const baseUrl = 'https://api.mandarin.weniv.co.kr/';
@@ -79,7 +94,10 @@ export default function AddGroup() {
     const imageFile = e.target.files[0];
     uploadImage(imageFile);
   };
-  const [inputValue, setInputValue] = useState('');
+  const handleOpenOnBoarding = () => {
+    setShowOnBoarding(!showOnBoarding);
+  };
+
   const handleChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -178,9 +196,11 @@ export default function AddGroup() {
       inputRef.current.click();
     }
   };
+  useEffect(() => {
+    console.log(selectedSports);
+  }, [selectedSports]);
 
   const navigate = useNavigate();
-
   return (
     <StyleAddGroup>
       <NavTopDetails title='핏버디 그룹 만들기' />
@@ -212,9 +232,22 @@ export default function AddGroup() {
             name='sport'
             placeholder='운동종목을 입력해주세요'
             onChange={handleInputChange}
+            onClick={handleOpenOnBoarding}
             value={formData.sport}
           />
         </InputBox>
+        <Modal
+          isOpen={showOnBoarding}
+          onRequestClose={handleOpenOnBoarding}
+          style={customModalStyles}
+        >
+          <OnBoardingPage
+            onClick={handleOpenOnBoarding}
+            selectedSports={selectedSports}
+            setSelectedSports={setSelectedSports}
+          />
+        </Modal>
+
         <InputBox>
           <p>날짜</p>
           <InputText

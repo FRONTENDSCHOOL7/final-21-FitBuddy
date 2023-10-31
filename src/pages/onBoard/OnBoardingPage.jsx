@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ChipsOnboarding from '../../components/Chips/ChipsOnboarding';
 import styled from 'styled-components';
 import Button_L from '../../components/Common/Buttons/Button_L';
@@ -14,11 +14,20 @@ const OnboardWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  overflow: scroll;
+  overflow: hidden;
   padding-bottom: 70px;
 `;
 
-export default function OnBoardingPage({ name }) {
+export default function OnBoardingPage({ name, onClick, selectedSports, setSelectedSports }) {
+  const [selectedSport, setSelectedSport] = useState([]);
+
+  const handleSelect = (selectedSport) => {
+    const updatedSports = [...selectedSports];
+    updatedSports.push(selectedSport);
+    setSelectedSports(updatedSports);
+  };
+  console.log(selectedSports);
+
   return (
     <div>
       <OnboardWrapper>
@@ -28,12 +37,25 @@ export default function OnBoardingPage({ name }) {
           선택해 주세요.
         </OnboardTitle>
         <ChipsOnboarding
-          id='onboard1'
-          items={['전체', '🏃🏻‍♀️러닝', '등산', '🏊수영', '러닝2', '러닝3', '러닝4', '러닝5']}
+          id='outdoor'
+          category='아웃도어'
+          items={['🏌골프', '🎣낚시', '🏕캠핑', '🏍바이크', '🚴자전거', '⛰등산', '🏃‍♂️러닝']}
+          onSelect={handleSelect}
         />
-        <ChipsOnboarding id='onboard2' items={['🚴자전거', '⛷️스키', '🏌️골프']} />
-        <ChipsOnboarding id='onboard3' items={['🏀농구', '⚽️축구', '🏸배드민턴']} />
-        <Button_L name='다음' />
+        <ChipsOnboarding
+          id='fitness'
+          category='피트니스'
+          items={['🏋헬스', '🤸필라테스', '🏋️‍♂️크로스핏', '🧘🏽‍♂️요가', '🏊수영']}
+          onSelect={handleSelect}
+        />
+        <ChipsOnboarding
+          id='ballgame'
+          category='구기'
+          items={['⚽축구', '🏀농구', '⚾야구', '🎱당구', '🎱포켓볼', '⚽풋살']}
+          onSelect={handleSelect}
+        />
+
+        <Button_L name='완료' onClick={onClick} />
       </OnboardWrapper>
     </div>
   );
