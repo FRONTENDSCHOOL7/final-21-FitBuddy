@@ -25,14 +25,17 @@ const StyledP = styled.p`
   &.email {
     font-size: var(--font-size-sm);
   }
+  &.text {
+    font-size: var(--font-size-sm);
+  }
   &.time {
     font-size: var(--font-size-sm);
     margin-bottom: 20px;
   }
 `;
 
-export default function CommentList() {
-  const [currentTime, setCurrentTime] = useState(new Date()); // 초기값으로 현재 시간 설정
+export default function CommentList(props) {
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -60,8 +63,8 @@ export default function CommentList() {
     <CommentWrapper>
       <img src={avatar} />
       <InfoWrapper>
-        <StyledP className='name'>홍길동</StyledP>
-        <StyledP className='email'>maciej.kowalski@email.com</StyledP>
+        <StyledP className='name'>{props.accountname}</StyledP>
+        <StyledP className='text'>{props.content}</StyledP>
       </InfoWrapper>
       <StyledP className='time'>{formatAMPM(currentTime)}</StyledP>
     </CommentWrapper>

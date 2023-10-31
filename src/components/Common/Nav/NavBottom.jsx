@@ -25,6 +25,7 @@ export default function NavBottom() {
       case '/mypage':
         return 3;
       default:
+        if (location.pathname.includes('/feedReply/')) return 2;
         return 0;
     }
   };

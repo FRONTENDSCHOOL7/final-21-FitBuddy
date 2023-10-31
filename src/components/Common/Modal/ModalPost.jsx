@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { PostDelete } from '../../../api/postApi';
 import { useRecoilState } from 'recoil';
 import userTokenAtom from '../../../Recoil/userTokenAtom';
+import { useNavigate } from 'react-router-dom';
 const slideIn = keyframes`
   from{
     bottom: -500px;
@@ -70,10 +71,11 @@ const DeleteBtn = styled.button`
   }
 `;
 
-export default function ModalComment(props) {
+export default function ModalPost(props) {
   const [alertVisible, setAlertVisible] = useState(false);
   const token = useRecoilState(userTokenAtom);
   const postId = props.postId;
+  const navigate = useNavigate();
   console.log(token);
   const handleFeedDelete = async () => {
     try {
@@ -85,10 +87,14 @@ export default function ModalComment(props) {
       console.error('게시물 삭제 중 오류:', error);
     }
   };
+
+  const handleEditPost = () => {
+    navigate(`/edit/${postId}`);
+  };
   return (
     <StyledModal visible={props.visible}>
       <DeleteBtn onClick={handleFeedDelete}>피드 삭제</DeleteBtn>
-      <DeleteBtn>피드 수정</DeleteBtn>
+      <DeleteBtn onClick={handleEditPost}>피드 수정</DeleteBtn>
       {alertVisible && <AlertDelete handleFeedDelete={handleFeedDelete} />}
     </StyledModal>
   );

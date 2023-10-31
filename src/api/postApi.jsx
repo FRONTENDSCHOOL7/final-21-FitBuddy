@@ -3,7 +3,6 @@ import { authInstance } from './axiosInstance';
 // 게시글 생성
 export const PostCreate = async (postData) => {
   const response = await authInstance.post(`/post`, postData);
-
   return response;
 };
 
@@ -31,6 +30,17 @@ export const getDetailPost = async (postId) => {
   }
 };
 
+//게시글 수정
+export const putEditPost = async (postId, postData, token) => {
+  try {
+    const response = await authInstance.put(`/post/${postId}`, postData);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching posts: ', error);
+    throw error;
+  }
+};
+
 //게시글 삭제
 export const PostDelete = async (postId) => {
   try {
@@ -43,20 +53,20 @@ export const PostDelete = async (postId) => {
 };
 
 // 좋아요
-export const postLike = async (postId, isHearted) => {
+export const postLike = async (postId) => {
   try {
-    const response = await authInstance.post(`/post/${postId}/${isHearted ? 'unheart' : 'heart'}`);
+    const response = await authInstance.post(`/post/${postId}/heart`);
     return response.data;
   } catch (error) {
     console.error('Error', error);
   }
 };
-// 좋아요 취소
-// export const postUnlike = async (postId) => {
-//   try {
-//     const response = await authInstance.post(`/post/${postId}/heart`);
-//     return response.data;
-//   } catch (error) {
-//     console.error('Error', error);
-//   }
-// };
+//좋아요 취소
+export const postUnlike = async (postId) => {
+  try {
+    const response = await authInstance.delete(`/post/${postId}/unheart`);
+    return response.data;
+  } catch (error) {
+    console.error('Error', error);
+  }
+};

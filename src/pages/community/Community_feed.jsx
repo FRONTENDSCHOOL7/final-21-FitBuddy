@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import NavTopDetails from '../../components/Common/Nav/NavTopDetails';
 import ChipsHome from '../../components/Chips/ChipsHome';
 import InputLarge from '../../components/Common/Input/InputLarge';
@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { PostCreate } from '../../api/postApi';
 import { axiosApi } from '../../api/axiosInstance';
 import PlaceHolder from '../../components/Common/Placeholder/PlaceHolder';
+import { putEditPost } from '../../api/postApi';
+import { useParams } from 'react-router-dom';
 
 export default function Community_feed() {
   const inputRef = useRef(null);
@@ -15,6 +17,53 @@ export default function Community_feed() {
   const [loading, setLoding] = useState(false);
   const [image, setImage] = useState('');
   const [content, setContent] = useState('');
+  const { postId } = useParams();
+
+  //수정 페이지인지 판별
+  const isEditMode = !!postId;
+
+  useEffect(() => {
+    if (isEditMode) {
+      const EditPost = async () => {
+        try {
+          const response = await putEditPost(postId);
+          if (response) {
+            setContent(response.post.content);
+            setImage(response.post.image);
+          }
+        } catch (error) {
+          console.error('데이터 불러오기 오류', error);
+        }
+      };
+      EditPost();
+    }
+  }, [postId]);
+
+  const handleSubmission = async (e) => {
+    e.preventDefault();
+    console.log('클릭!');
+    const postData = {
+      post: {
+        content,
+        image,
+      },
+    };
+    if (isEditMode) {
+      updatePost(postId, postData);
+    } else {
+      addPost(postData);
+    }
+  };
+
+  const updatePost = async (postId, postData) => {
+    try {
+      const res = await putEditPost(postId, postData);
+      navigate('/community');
+    } catch (error) {
+      console.error('요청 중 에러 발생:', error.message);
+      alert('게시물 수정에 실패했습니다!');
+    }
+  };
 
   //이미지 업로드
   const uploadImage = async (imageFile) => {
@@ -39,18 +88,18 @@ export default function Community_feed() {
     uploadImage(imageFile);
   };
 
-  const submitAddPost = (e) => {
-    e.preventDefault();
+  // const submitAddPost = (e) => {
+  //   e.preventDefault();
 
-    const addPostData = {
-      post: {
-        content,
-        image,
-      },
-    };
-    console.log(addPostData);
-    addPost(addPostData);
-  };
+  //   const addPostData = {
+  //     post: {
+  //       content,
+  //       image,
+  //     },
+  //   };
+  //   console.log(addPostData);
+  //   addPost(addPostData);
+  // };
 
   const addPost = async (addPostData) => {
     try {
@@ -75,7 +124,6 @@ export default function Community_feed() {
       }
     }
   };
-
   const inputContent = (e) => {
     setContent(e.target.value);
   };
@@ -88,7 +136,7 @@ export default function Community_feed() {
 
   return (
     <>
-      <NavTopDetails title='새 게시글' />
+      <NavTopDetails title={isEditMode ? '게시글 수정' : '새 게시글'} />
       <CommunityWrapper>
         <div style={{ position: 'relative' }}>
           <PlaceHolder type='Photo' src={image} />
@@ -107,10 +155,18 @@ export default function Community_feed() {
         <InputLarge onChange={inputContent} value={content} name='content' />
         <Button_L
           type='submit'
-          name='완료'
+          name={isEditMode ? '수정하기' : '완료'}
           marginTop={50}
-          onClick={submitAddPost}
-          value={loading ? 'Posting...' : 'Post Feed'}
+          onClick={handleSubmission}
+          value={
+            loading
+              ? isEditMode
+                ? 'Updating...'
+                : 'Posting...'
+              : isEditMode
+              ? 'Update Feed'
+              : 'Post Feed'
+          }
         />
       </CommunityWrapper>
     </>

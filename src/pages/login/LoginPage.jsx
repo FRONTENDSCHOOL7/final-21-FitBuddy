@@ -26,8 +26,9 @@ export default function LoginPage({ marginBottom }) {
   const navigate = useNavigate();
 
   // 토큰 로컬 저장
-  const setUserTokenAtom = useSetRecoilState(userTokenAtom);
+  const setUserTokenAtom = useSetRecoilState(userTokenAtom); //리코일 구독
   const saveToken = (token) => {
+    //토큰값
     setUserTokenAtom(token);
   };
   const handleEmailChange = (e) => {
@@ -54,7 +55,6 @@ export default function LoginPage({ marginBottom }) {
         const receivedToken = response.data.user.token;
         localStorage.setItem('token', receivedToken);
         saveToken(response.data.user);
-
         alert('로그인 성공!');
         navigate('/Home');
       }

@@ -22,14 +22,12 @@ const StyledP = styled.p`
   }
 `;
 
-export default function CommentPriview() {
+export default function CommentPriview(props) {
   return (
     <CommentWrapper>
       <img src={avatar} style={{ width: '20px', height: '20px' }} />
-      <StyledP>홍길동</StyledP>
-      <StyledP className='contents'>
-        가나다라마바사아자차카타파하가나다라마바사아자차카타파하
-      </StyledP>
+      <StyledP>{props.accountname}</StyledP>
+      <StyledP className='contents'>{props.comment}</StyledP>
     </CommentWrapper>
   );
 }

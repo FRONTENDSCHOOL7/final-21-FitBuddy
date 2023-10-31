@@ -2,6 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import ButtonImg from '../Buttons/Button_Img';
 
+export default function InputComment(props) {
+  return (
+    <StyledDiv>
+      <ButtonImg />
+      <StyledInput
+        type={props.type}
+        value={props.inputValue}
+        onChange={props.onChange}
+        placeholder='댓글 입력하기...'
+      />
+      <StyledButton onClick={props.onClick}>등록</StyledButton>
+    </StyledDiv>
+  );
+}
+
 const StyledInput = styled.input`
   background: none;
   border: none;
@@ -28,13 +43,3 @@ const StyledButton = styled.button`
   border: none;
   color: #fff;
 `;
-
-export default function InputComment() {
-  return (
-    <StyledDiv>
-      <ButtonImg />
-      <StyledInput placeholder='댓글 입력하기...' />
-      <StyledButton>등록</StyledButton>
-    </StyledDiv>
-  );
-}

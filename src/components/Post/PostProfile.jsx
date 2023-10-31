@@ -7,7 +7,7 @@ import circle from '../../assets/icons/icon-message-circle.svg';
 import CommentPriview from '../Common/Comment/CommentPriview';
 import PlaceHolder from '../Common/Placeholder/PlaceHolder';
 import { useNavigate } from 'react-router-dom';
-import { postLike } from '../../api/postApi';
+import { postLike, postUnlike } from '../../api/postApi';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -72,23 +72,44 @@ const CommentButton = styled.button`
 export default function PostProfile(props) {
   const [isShowReadMore, setIsShowReadMore] = useState(true);
   const [expanded, setExpanded] = useState(false);
-  // const [heartCount, setHeartCount] = useState(props.post.heartCount);
-  const [isHearted, setIsHearted] = useState(props.post?.hearted);
+  const [liked, setLiked] = useState(false);
+  const [heartCount, setHeartCount] = useState(props.heartCount || 0);
+  const [isHearted, setIsHearted] = useState(props.hearted);
   const [reply, setReply] = useState(0);
-  const [isLinked, setIsLinked] = useState(false);
 
   const navigate = useNavigate();
-
   const toggleReadMore = () => {
     setExpanded(!expanded);
   };
-  const HandleHeart = async () => {
+
+  //좋아요 토글
+  const handleToggleLike = async () => {
+    if (liked) {
+      await handleUnHeart();
+      setLiked(false);
+    } else {
+      await handleHeart();
+      setLiked(true);
+    }
+  };
+
+  const handleUnHeart = async () => {
     try {
-      const response = await postLike(props.post._id, isHearted);
+      const response = await postUnlike(props.postId, isHearted);
+      setHeartCount(response.post.heartCount);
+      setIsHearted(false);
       console.log(response);
-      setIsHearted(!isHearted);
-      // setHeartCount(response.heartCount);
-      setIsLinked(!isLinked);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleHeart = async () => {
+    try {
+      const response = await postLike(props.postId, isHearted);
+      console.log(response);
+      setIsHearted(true);
+      setHeartCount(response.post.heartCount);
     } catch (error) {
       console.log(error.message);
     }
@@ -96,7 +117,7 @@ export default function PostProfile(props) {
 
   // 댓글 상세 페이지
   const handleReply = () => {
-    navigate('/feedReply');
+    navigate(`/feedReply/${props.postId}`);
   };
 
   return (
@@ -105,13 +126,15 @@ export default function PostProfile(props) {
         <PostCommunity name={props.name} postId={props.postId} />
         <PlaceHolder type='Ractangle' src={props.image} />
         <div className='reaction'>
-          <img
-            src={isLinked ? heartOn : heartOff}
-            isHearted={isHearted}
-            alt='heart'
-            onClick={HandleHeart}
-          />
-          {/* <p style={{ color: 'white', paddingTop: '3px' }}>{heartCount}</p> */}
+          <img src={isHearted ? heartOn : heartOff} alt='heart' onClick={handleToggleLike} />
+          <p
+            style={{
+              color: isHearted ? 'var(--color-primary)' : 'var(--color-secondary)',
+              paddingTop: '3px',
+            }}
+          >
+            {heartCount}
+          </p>
           <img src={circle} alt='comment' />
           <p style={{ color: 'white', paddingTop: '3px' }}>{reply}</p>
         </div>
@@ -124,8 +147,7 @@ export default function PostProfile(props) {
       )}
       <p className='date'>{props.updatedAt}</p>
       <StyleCommnet>
-        <CommentPriview />
-        <CommentPriview />
+        <CommentPriview name={props.accountname} />
         <CommentButton onClick={handleReply}>댓글더보기...</CommentButton>
       </StyleCommnet>
     </StyledDiv>
