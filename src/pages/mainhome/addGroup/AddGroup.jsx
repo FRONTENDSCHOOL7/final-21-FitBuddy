@@ -54,6 +54,8 @@ export const ImageBtn = styled.button`
 export default function AddGroup() {
   const inputRef = useRef(null);
   const [image, setImage] = useState('');
+  const [dateError, setDateError] = useState('');
+  const [timeError, setTimeError] = useState('');
 
   const uploadImage = async (imageFile) => {
     const baseUrl = 'https://api.mandarin.weniv.co.kr/';
@@ -76,8 +78,29 @@ export default function AddGroup() {
     const imageFile = e.target.files[0];
     uploadImage(imageFile);
   };
+  const [inputValue, setInputValue] = useState('');
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
+  };
 
-  const handlePostAdd = async () => {
+  const handlePostAdd = async (event) => {
+    event.preventDefault();
+    const dateRegex = /(\d{4}-\d{2}-\d{2})/;
+    const timeRegex = /(\d{1,2})시(\d{1,2})분/;
+    // 입력 형식 정규식
+    console.log(formData);
+    const datematch = formData.day.replace(/\s/g, '').match(dateRegex); // 입력 값과 정규식 매칭
+    const timematch = formData.time.replace(/\s/g, '').match(timeRegex); // 입력 값과 정규식 매칭
+
+    if (!datematch) {
+      console.log('날짜 형식이 올바르지 않습니다.');
+      return;
+    }
+
+    if (!timematch) {
+      console.log('시간 형식이 올바르지 않습니다.');
+      return;
+    }
     try {
       const response = await ProductCreate({
         product: {
@@ -119,13 +142,14 @@ export default function AddGroup() {
   time: ${formData.time},
   location: ${formData.location},
   attendees: ${formData.attendees},
-  cost: ${formData.cost}
-  contents: ${formData.contents}
+  cost: ${formData.cost},
+  contents: ${formData.contents},
 `;
 
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
+    console.log(formData);
     const isFormValid = Object.values(formData).every((value) => value.trim() !== '');
     setDisabled(!isFormValid);
   }, [formData]);
@@ -136,6 +160,17 @@ export default function AddGroup() {
       ...formData,
       [name]: value,
     });
+
+    if (name === 'day') {
+      const dateRegex = /(\d{4}-\d{2}-\d{2})/;
+      const isValidDate = dateRegex.test(value);
+      setDateError(isValidDate ? '' : '날짜 형식이 올바르지 않습니다.');
+    } else if (name === 'time') {
+      const timeRegex = /(\d{1,2})시(\d{1,2})분/;
+      const timeValue = value.replace(/\s/g, '');
+      const isValidTime = timeRegex.test(timeValue);
+      setTimeError(isValidTime ? '' : '시간 형식이 올바르지 않습니다.');
+    }
   };
 
   const handleCategory = () => {
@@ -188,6 +223,7 @@ export default function AddGroup() {
             onChange={handleInputChange}
             value={formData.day}
           />
+          {dateError && <p style={{ color: 'red' }}>{dateError}</p>}
         </InputBox>
         <InputBox>
           <p>시간</p>
@@ -197,6 +233,7 @@ export default function AddGroup() {
             onChange={handleInputChange}
             value={formData.time}
           />
+          {timeError && <p style={{ color: 'red' }}>{timeError}</p>}
         </InputBox>
         <InputBox>
           <p>장소</p>
@@ -228,7 +265,7 @@ export default function AddGroup() {
         <InputBox>
           <p>일정소개</p>
           <InputText
-            name='cost'
+            name='contents'
             placeholder='일정 내용을 입력해주세요'
             onChange={handleInputChange}
             value={formData.contents}
