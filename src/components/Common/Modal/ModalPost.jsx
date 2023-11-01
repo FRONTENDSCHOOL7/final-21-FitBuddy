@@ -5,7 +5,9 @@ import { useState } from 'react';
 import { PostDelete } from '../../../api/postApi';
 import { useRecoilState } from 'recoil';
 import userTokenAtom from '../../../Recoil/userTokenAtom';
+import { deleteProduct } from '../../../api/productApi';
 import { useNavigate } from 'react-router-dom';
+
 const slideIn = keyframes`
   from{
     bottom: -500px;
@@ -71,19 +73,31 @@ const DeleteBtn = styled.button`
   }
 `;
 
-export default function ModalPost(props) {
+export default function ModalEditAndDel(props) {
   const [alertVisible, setAlertVisible] = useState(false);
   const token = useRecoilState(userTokenAtom);
   const postId = props.postId;
   const navigate = useNavigate();
   console.log(token);
+  const isPostorJoin = props.isPostorJoin;
+
+  const navigate = useNavigate();
 
   const handleFeedDelete = async () => {
     try {
-      const res = await PostDelete(postId);
-      console.log(res);
-      console.log('삭제성공');
-      return res;
+      if (isPostorJoin === 'Post') {
+        const res = await PostDelete(postId);
+        console.log(res);
+        console.log('삭제성공');
+        return res;
+      }
+      if (isPostorJoin === 'Join') {
+        const res = await deleteProduct(postId);
+        console.log(res);
+        console.log('삭제성공');
+        navigate('/home');
+        return res;
+      }
     } catch (error) {
       console.error('게시물 삭제 중 오류:', error);
     }
