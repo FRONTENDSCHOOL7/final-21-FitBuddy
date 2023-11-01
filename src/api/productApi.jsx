@@ -1,7 +1,7 @@
 import { axiosApi } from './axiosInstance';
 
 // 상품글 보내기
-export const ProductCreate = async (productData) => {
+export const createProducts = async (productData) => {
   const response = await axiosApi.post(`/product`, productData);
 
   return response;
@@ -46,9 +46,21 @@ export const getDetailProduct = async (productId) => {
   }
 };
 
+//삭제
 export const deleteProduct = async (productId) => {
   try {
     const response = await axiosApi.delete(`/product/${productId}`);
+
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    throw error;
+  }
+};
+
+export const editProduct = async (productId, postData) => {
+  try {
+    const response = await axiosApi.put(`/product/${productId}`, postData);
 
     return response.data;
   } catch (error) {

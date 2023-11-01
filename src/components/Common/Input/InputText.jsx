@@ -22,6 +22,7 @@ export default function InputText(props) {
       placeholder={props.placeholder}
       onChange={props.onChange}
       name={props.name}
+      value={props.value}
     />
   );
 }
