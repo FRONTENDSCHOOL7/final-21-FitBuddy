@@ -34,6 +34,10 @@ const StyleCards = styled.div`
   display: flex;
   flex-direction: column;
   gap: 13px;
+  /* overflow-y: auto; // 스크롤 가능하게 유지
+  &::-webkit-scrollbar {
+    display: none; // 웹킷 기반 브라우저에서 스크롤바를 숨깁니다.
+  } */
   a {
     text-decoration: none; /* 링크의 밑줄을 제거합니다 */
   }
@@ -46,7 +50,7 @@ const StyleAddButton = styled.div`
 
 export default function Home() {
   const [products, setProducts] = useState([]);
-
+  const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const handleButtonClick = () => {
     navigate('/addgroup');
@@ -65,6 +69,38 @@ export default function Home() {
     };
     fetchData();
   }, []);
+
+  //인피니티 스크롤
+  useEffect(() => {
+    // 사용자가 페이지 끝에 도달했는지 확인하는 함수
+    function checkScrollEnd() {
+      if (
+        window.innerHeight + document.documentElement.scrollTop >=
+        document.documentElement.offsetHeight - 50 // 50px 전에 로드 시작
+      ) {
+        setPage((prev) => prev + 1); // 페이지 번호 증가
+      }
+    }
+    window.addEventListener('scroll', checkScrollEnd);
+
+    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener('scroll', checkScrollEnd);
+    };
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getProducts(page);
+        setProducts((prev) => [...prev, ...data.product]);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
+    }
+
+    fetchData();
+  }, [page]);
 
   return (
     <StyleHome>
