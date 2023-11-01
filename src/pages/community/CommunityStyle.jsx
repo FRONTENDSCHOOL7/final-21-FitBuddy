@@ -36,23 +36,6 @@ export const CategoryTitle = styled.p`
   font-size: var(--font-size-sm);
 `;
 
-export const CommunityPlaceHolder = styled.img.attrs((props) => ({
-  src: props.src || BasicImg,
-}))`
-  width: 414px;
-  height: 228px;
-  background-color: #f2f2f2;
-  border-radius: 10px;
-  border: 0.5px solid #dbdbdb;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: ${(props) => (props.src ? 'none' : `url(${BasicImg})`)};
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 50px;
-`;
-
 export const IconBtn = styled.button`
   border-radius: 50%;
   border: none;
@@ -66,4 +49,32 @@ export const IconBtn = styled.button`
   background-size: cover;
   bottom: 10px;
   right: 10px;
+`;
+
+export const InputWrapper = styled.div`
+  width: 400px;
+  background: #141414;
+  border-radius: 8px;
+  border: 2px solid #8f8f8f;
+  position: relative; // 글자수를 오른쪽 아래에 배치하기 위해
+`;
+
+export const StyledActualInput = styled.textarea`
+  padding: 18px 20px 71px 16px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--color-secondary);
+  resize: none;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const CharacterCount = styled.div`
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: var(--color-gray);
 `;

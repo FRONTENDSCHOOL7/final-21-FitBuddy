@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PostCommunity from './PostCommunity';
 import styled from 'styled-components';
 import heartOn from '../../assets/icons/icon-heart-on.svg';
@@ -8,6 +8,8 @@ import CommentPriview from '../Common/Comment/CommentPriview';
 import PlaceHolder from '../Common/Placeholder/PlaceHolder';
 import { useNavigate } from 'react-router-dom';
 import { postLike, postUnlike } from '../../api/postApi';
+import { useRecoilValue } from 'recoil';
+import { commentCount } from '../../Recoil/commentCount';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -43,12 +45,13 @@ const StyleCommnet = styled.div`
   margin-top: 8px;
 `;
 const StyleTextArea = styled.div`
-  background-color: #000;
+  background-color: var(--color-bg);
   overflow: hidden;
   color: #fff;
   font-size: 14px;
-  height: auto;
-  overflow: ${({ overflow }) => (overflow ? 'visible' : 'hidden')};
+  height: ${({ expanded }) => (expanded ? 'auto' : '3rem')};
+  white-space: ${({ expanded }) => (expanded ? 'normal' : 'nowrap')};
+  text-overflow: ellipsis;
 `;
 const Button = styled.div`
   cursor: pointer;
@@ -75,7 +78,8 @@ export default function PostProfile(props) {
   const [liked, setLiked] = useState(false);
   const [heartCount, setHeartCount] = useState(props.heartCount || 0);
   const [isHearted, setIsHearted] = useState(props.hearted);
-  const [reply, setReply] = useState(0);
+  const replyCount = useRecoilValue(commentCount);
+  const textAreaRef = useRef(null);
 
   const navigate = useNavigate();
   const toggleReadMore = () => {
@@ -120,6 +124,17 @@ export default function PostProfile(props) {
     navigate(`/feedReply/${props.postId}`);
   };
 
+  //더보기
+  useEffect(() => {
+    const textHeight = textAreaRef.current ? textAreaRef.current.scrollHeight : 0;
+    const lineHeight = 14;
+    if (textHeight > lineHeight * 2) {
+      setIsShowReadMore(true);
+    } else {
+      setIsShowReadMore(false);
+    }
+  }, [props.content]);
+
   return (
     <StyledDiv>
       <div className='community'>
@@ -136,15 +151,18 @@ export default function PostProfile(props) {
             {heartCount}
           </p>
           <img src={circle} alt='comment' />
-          <p style={{ color: 'white', paddingTop: '3px' }}>{reply}</p>
+          <p style={{ color: 'white', paddingTop: '3px' }}>{replyCount}</p>
         </div>
-        <StyleTextArea>{props.content}</StyleTextArea>
+        <StyleTextArea ref={textAreaRef} expanded={expanded}>
+          {props.content}
+        </StyleTextArea>
       </div>
       {isShowReadMore && (
-        <Button style={{ color: 'white' }} onClick={toggleReadMore}>
+        <Button style={{ color: 'var(--color-gray)' }} onClick={toggleReadMore}>
           {expanded ? '간략히' : '...더보기'}
         </Button>
       )}
+
       <p className='date'>{props.updatedAt}</p>
       <StyleCommnet>
         <CommentPriview name={props.accountname} />

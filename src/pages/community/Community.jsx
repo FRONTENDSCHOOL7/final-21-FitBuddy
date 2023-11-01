@@ -14,6 +14,7 @@ export default function Community() {
   const fetchPosts = () => {
     getPosts()
       .then((data) => {
+        console.log(data);
         if (data && Array.isArray(data.posts)) {
           setPosts(data.posts);
           console.log(data.posts);

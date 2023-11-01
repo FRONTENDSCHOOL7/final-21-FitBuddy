@@ -77,6 +77,7 @@ export default function ModalPost(props) {
   const postId = props.postId;
   const navigate = useNavigate();
   console.log(token);
+
   const handleFeedDelete = async () => {
     try {
       const res = await PostDelete(postId);
@@ -93,8 +94,8 @@ export default function ModalPost(props) {
   };
   return (
     <StyledModal visible={props.visible}>
-      <DeleteBtn onClick={handleFeedDelete}>피드 삭제</DeleteBtn>
       <DeleteBtn onClick={handleEditPost}>피드 수정</DeleteBtn>
+      <DeleteBtn onClick={handleFeedDelete}>피드 삭제</DeleteBtn>
       {alertVisible && <AlertDelete handleFeedDelete={handleFeedDelete} />}
     </StyledModal>
   );

@@ -12,9 +12,21 @@ export const uploadComment = async (postId, comment) => {
 };
 
 // 댓글 리스트
-export const getCommentList = async (postId) => {
+export const getCommentList = async (postId, feedData) => {
   try {
-    const response = await authInstance.get(`/post/${postId}/comments/?limit=10&skip=0`);
+    const response = await authInstance.get(`/post/${postId}/comments/?limit=10&skip=0`, {
+      data: feedData,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+//댓글 삭제
+export const deleteComment = async (postId, feedId) => {
+  try {
+    const response = await authInstance.delete(`/post/${postId}/comments/${feedId}`);
     return response.data;
   } catch (error) {
     console.error(error);
