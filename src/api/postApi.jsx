@@ -10,10 +10,8 @@ export const PostCreate = async (postData) => {
 export const getPosts = async (postData) => {
   try {
     const response = await authInstance.get('/post?limit=10&skip=0', { data: postData });
-    // 데이터를 추출하여 반환
     return response.data;
   } catch (error) {
-    // 오류 처리
     console.error('Error fetching posts:', error);
     throw error;
   }
@@ -31,7 +29,7 @@ export const getDetailPost = async (postId) => {
 };
 
 //게시글 수정
-export const putEditPost = async (postId, postData, token) => {
+export const putEditPost = async (postId, postData) => {
   try {
     const response = await authInstance.put(`/post/${postId}`, postData);
     return response.data;

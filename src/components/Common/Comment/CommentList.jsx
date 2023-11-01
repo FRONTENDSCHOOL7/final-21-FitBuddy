@@ -88,14 +88,10 @@ export default function CommentList(props) {
     <CommentWrapper>
       <img src={avatar} />
       <InfoWrapper>
-        <StyledP className='name' style={{ color: 'black' }}>
-          {props.accoutname}
-        </StyledP>
-        <StyledP className='text' style={{ color: 'black' }}>
-          {props.content}
-        </StyledP>
+        <StyledP className='name'>{props.accoutname}</StyledP>
+        <StyledP className='text'>{props.content}</StyledP>
       </InfoWrapper>
-      <StyledP className='time' style={{ color: 'black' }}>
+      <StyledP className='time'>
         {props.createdAt}
         <DeleteBtn onClick={handleDeleteComment}>X</DeleteBtn>
       </StyledP>

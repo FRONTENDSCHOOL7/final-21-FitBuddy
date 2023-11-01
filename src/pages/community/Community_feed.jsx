@@ -10,6 +10,7 @@ import { axiosApi } from '../../api/axiosInstance';
 import PlaceHolder from '../../components/Common/Placeholder/PlaceHolder';
 import { putEditPost } from '../../api/postApi';
 import { useParams } from 'react-router-dom';
+import { InputWrapper, StyledActualInput, CharacterCount } from './CommunityStyle';
 
 export default function Community_feed() {
   const inputRef = useRef(null);
@@ -18,6 +19,8 @@ export default function Community_feed() {
   const [image, setImage] = useState('');
   const [content, setContent] = useState('');
   const { postId } = useParams();
+  const MAX_LENGTH = 200;
+  const [text, setText] = useState('');
 
   //수정 페이지인지 판별
   const isEditMode = !!postId;
@@ -126,6 +129,9 @@ export default function Community_feed() {
   };
   const inputContent = (e) => {
     setContent(e.target.value);
+    if (e.target.value.length <= MAX_LENGTH) {
+      setText(e.target.value);
+    }
   };
 
   const handleCategory = () => {
@@ -152,7 +158,18 @@ export default function Community_feed() {
         </div>
         <CategoryTitle>카테고리 선택</CategoryTitle>
         <ChipsHome />
-        <InputLarge onChange={inputContent} value={content} name='content' />
+        <InputWrapper>
+          <StyledActualInput
+            placeholder='작성해주세요'
+            onChange={inputContent}
+            name='content'
+            value={content}
+          />
+          <CharacterCount>
+            {text.length}/{MAX_LENGTH}
+          </CharacterCount>
+        </InputWrapper>
+
         <Button_L
           type='submit'
           name={isEditMode ? '수정하기' : '완료'}

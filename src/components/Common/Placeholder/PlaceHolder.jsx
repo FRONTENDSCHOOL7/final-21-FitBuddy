@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import icon from '../../../assets/placeholder/Placeholder-icon.svg';
-import BasicImg from '../../../assets/placeholder/Placeholder-icon.svg';
 
 const StyledPlaceHolder = styled.img.attrs((props) => ({
   src: props.src || icon,
@@ -35,7 +34,6 @@ const StyledPlaceHolder = styled.img.attrs((props) => ({
   background-image: ${(props) => (props.src ? 'none' : `url(${icon})`)};
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: 50px;
 `;
 
 function PlaceHolder(props) {
