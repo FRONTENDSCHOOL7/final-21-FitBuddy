@@ -36,10 +36,12 @@ const StyledPostEdit = styled.button`
 
 export default function PostCommunity(props) {
   const [modal, setModal] = useState(false);
+  const [feedList, setFeedList] = useState([]);
 
   const toggleModal = () => {
     setModal(!modal);
   };
+
   return (
     <>
       <StyledPost>
@@ -53,7 +55,14 @@ export default function PostCommunity(props) {
         </StyledPostEdit>
         <StyledOverlay visible={modal} onClick={toggleModal} />
       </StyledPost>
-      {modal && <ModalEditAndDel visible={modal} postId={props.postId} isPostorJoin='Post' />}
+      {modal && (
+        <ModalEditAndDel
+          visible={modal}
+          postId={props.postId}
+          isPostorJoin='Post'
+          // onDelete={props.onDelete}
+        />
+      )}
     </>
   );
 }

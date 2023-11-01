@@ -62,7 +62,11 @@ const Alert = ({ isOpen, onClose, handleFeedDelete, children }) => {
 
   const closeHandler = () => {
     onClose();
+  };
+
+  const deleteAndCloseHandler = () => {
     handleFeedDelete();
+    onClose();
   };
 
   return (
@@ -72,7 +76,7 @@ const Alert = ({ isOpen, onClose, handleFeedDelete, children }) => {
         <CloseButton onClick={closeHandler} className='default'>
           닫기
         </CloseButton>
-        <CloseButton onClick={onClose} className='secondary'>
+        <CloseButton onClick={deleteAndCloseHandler} className='secondary'>
           삭제
         </CloseButton>
       </AlertContent>

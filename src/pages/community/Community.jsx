@@ -8,9 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import { getPosts } from '../../api/postApi';
 import { commentCount } from '../../Recoil/commentCount';
 import { useRecoilState } from 'recoil';
+import { postsState } from '../../Recoil/communityAtom';
 
 export default function Community(props) {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useRecoilState(postsState);
   const [replyCount, setReplyCount] = useRecoilState(commentCount);
 
   const fetchPosts = () => {
