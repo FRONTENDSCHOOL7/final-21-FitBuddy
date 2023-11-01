@@ -45,3 +45,14 @@ export const getDetailProduct = async (productId) => {
     throw error;
   }
 };
+
+export const deleteProduct = async (productId) => {
+  try {
+    const response = await axiosApi.delete(`/product/${productId}`);
+
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    throw error;
+  }
+};

@@ -4,19 +4,31 @@ import PlaceHolder from '../../../components/Common/Placeholder/PlaceHolder';
 import Button_L from '../../../components/Common/Buttons/Button_L';
 import Button_Img from '../../../components/Common/Buttons/Button_Img';
 import { useParams } from 'react-router-dom';
-import { getDetailProduct } from '../../../api/productApi';
+import { getDetailProduct, deleteProduct } from '../../../api/productApi';
+import PostJoin from '../../../components/Post/PostJoin';
+
 const StyleGroupDetail = styled.div`
   color: #fff;
   display: flex;
   position: relative;
   flex-direction: column;
   background-color: #000;
+  width: 414px;
   height: 900px;
-  padding-left: 22px;
   padding-right: 22px;
   font-size: 14px;
 
+  & > div.contents {
+    padding-left: 22px;
+  }
+  .top-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
   .title {
+    width: 200px;
     font-size: 24px;
     margin: 32px 0px 32px 0px;
   }
@@ -79,12 +91,18 @@ export default function GroupDetailPage() {
     console.log('로딩중 ');
   }
   console.log(result);
+  console.log(groupData);
 
   return (
     <StyleGroupDetail>
-      <PlaceHolder type='Photo' />
-      <div>
-        <h1 className='title'>{result.title}</h1>
+      {groupData && groupData.product && groupData.product.itemImage && (
+        <PlaceHolder type='Photo' src={groupData.product.itemImage} />
+      )}
+      <div className='contents'>
+        <div className='top-bar'>
+          <h1 className='title'>{result.title}</h1>
+          <PostJoin postId={groupId} />
+        </div>
         <ul>
           <StyleContent>
             <div>장소</div> <p>{result.location}</p>
@@ -102,22 +120,22 @@ export default function GroupDetailPage() {
             <div>비용</div> <p>{result.cost}</p>
           </StyleContent>
         </ul>
-      </div>
 
-      <div className='description'>
-        참여멤버 {people}명 / {result.attendees}명
-      </div>
-      <div className='imgBox'>
-        <Button_Img />
-        <Button_Img />
-        <Button_Img />
-      </div>
+        <div className='description'>
+          참여멤버 {people}명 / {result.attendees}명
+        </div>
+        <div className='imgBox'>
+          <Button_Img />
+          <Button_Img />
+          <Button_Img />
+        </div>
 
-      <h2 className='description'>소개</h2>
-      <p>{result.contents}</p>
-      <ComFirmButton>
-        <Button_L name='참여하기' />
-      </ComFirmButton>
+        <h2 className='description'>일정소개</h2>
+        <p>{result.contents}</p>
+        <ComFirmButton>
+          <Button_L name='참여하기' />
+        </ComFirmButton>
+      </div>
     </StyleGroupDetail>
   );
 }

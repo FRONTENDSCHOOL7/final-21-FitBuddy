@@ -6,6 +6,7 @@ import Card from '../../components/Card/Card';
 import ButtonFloating from '../../components/Common/Buttons/ButtonFloating';
 import { getProducts } from '../../api/productApi';
 import { Link, useNavigate } from 'react-router-dom';
+import NavBottom from '../../components/Common/Nav/NavBottom';
 
 const StyleHome = styled.div`
   display: flex;
@@ -112,6 +113,7 @@ export default function Home() {
           <ButtonFloating />
         </StyleAddButton>
       </Link>
+      <NavBottom />
     </StyleHome>
   );
 }

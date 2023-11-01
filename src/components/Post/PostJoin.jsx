@@ -34,7 +34,7 @@ const StyledPostEdit = styled.button`
   border: none;
 `;
 
-export default function PostCommunity(props) {
+export default function PostJoin(props) {
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
@@ -43,17 +43,12 @@ export default function PostCommunity(props) {
   return (
     <>
       <StyledPost>
-        <img src={person} alt='profileImg' />
-        <div>
-          <p style={{ color: 'var(--color-secondary)', paddingTop: '3px' }}>{props.name}</p>
-        </div>
-
         <StyledPostEdit onClick={toggleModal}>
           <img src={editIcon} alt='editIcon' />
         </StyledPostEdit>
         <StyledOverlay visible={modal} onClick={toggleModal} />
       </StyledPost>
-      {modal && <ModalEditAndDel visible={modal} postId={props.postId} isPostorJoin='Post' />}
+      {modal && <ModalEditAndDel visible={modal} postId={props.postId} isPostorJoin='Join' />}
     </>
   );
 }
