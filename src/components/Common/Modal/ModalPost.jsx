@@ -81,8 +81,6 @@ export default function ModalEditAndDel(props) {
   console.log(token);
   const isPostorJoin = props.isPostorJoin;
 
-  const navigate = useNavigate();
-
   const handleFeedDelete = async () => {
     try {
       if (isPostorJoin === 'Post') {
