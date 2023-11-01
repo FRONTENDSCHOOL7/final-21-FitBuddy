@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { postLike, postUnlike } from '../../api/postApi';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { commentCount, commentPreview } from '../../Recoil/commentCount';
-import CommentContext from '../../pages/community/CommentContext';
+// import CommentContext from '../../pages/community/CommentContext';
 import { getCommentList } from '../../api/commentApi';
 
 const StyledDiv = styled.div`
