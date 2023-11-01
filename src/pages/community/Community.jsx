@@ -35,11 +35,22 @@ export default function Community(props) {
   const handleButtonClick = () => {
     navigate('/feedWrite');
   };
+  const extractTitleFromContent = (content) => {
+    const titlePattern = /title: '(.*?)'/;
+    const match = content.match(titlePattern);
+    return match ? match[1] : null;
+  };
+  const extractContentFromPost = (postContent) => {
+    const contentPattern = /content: (.*?)(\n|$)/;
+    const match = postContent.match(contentPattern);
+    return match ? match[1] : null;
+  };
+
   return (
     <div style={{ paddingBottom: '70px' }}>
       <NavTopBasic title='커뮤니티' />
       <ChipsHome />
-      {posts.map((item) => {
+      {/* {posts.map((item) => {
         const date = new Date(item.updatedAt);
         console.log(item.comments.length);
         const dated = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
@@ -56,7 +67,26 @@ export default function Community(props) {
             hearted={item.__v}
           />
         );
-      })}
+      })} */}
+      {posts
+        .filter((item) => item.content && extractTitleFromContent(item.content) === 'FitBuddy')
+        .map((item) => {
+          const date = new Date(item.updatedAt);
+          const dated = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+          return (
+            <PostProfile
+              key={item._id}
+              content={item.content && extractContentFromPost(item.content)}
+              image={item.image}
+              updatedAt={dated}
+              name={item.author.accountname}
+              postId={item._id}
+              heartCount={item.heartCount}
+              commentLength={item.comments.length}
+              hearted={item.__v}
+            />
+          );
+        })}
       <CommunityButton onClick={handleButtonClick} />
       <NavBottom />
     </div>
