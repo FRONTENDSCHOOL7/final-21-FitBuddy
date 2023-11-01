@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import NavBottom from '../../components/Common/Nav/NavBottom';
 import NavTopBasic from '../../components/Common/Nav/NavTopBasic';
 import PostProfile from '../../components/Post/PostProfile';
-// import ButtonFloating from '../../components/Common/Buttons/ButtonFloating';
 import ChipsHome from '../../components/Chips/ChipsHome';
 import { CommunityButton } from './CommunityStyle';
 import { useNavigate } from 'react-router-dom';
 import { getPosts } from '../../api/postApi';
+import { commentCount } from '../../Recoil/commentCount';
+import { useRecoilState } from 'recoil';
 
-export default function Community() {
+export default function Community(props) {
   const [posts, setPosts] = useState([]);
+  const [replyCount, setReplyCount] = useRecoilState(commentCount);
 
   const fetchPosts = () => {
     getPosts()
@@ -19,7 +21,7 @@ export default function Community() {
           setPosts(data.posts);
           console.log(data.posts);
         } else {
-          console.error('예상되지 않은 데이터 형식:', data);
+          console.error('에러:', data);
         }
       })
       .catch((error) => {
@@ -39,6 +41,7 @@ export default function Community() {
       <ChipsHome />
       {posts.map((item) => {
         const date = new Date(item.updatedAt);
+        console.log(item.comments.length);
         const dated = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
         return (
           <PostProfile
@@ -48,6 +51,9 @@ export default function Community() {
             updatedAt={dated}
             name={item.author.accountname}
             postId={item._id}
+            heartCount={item.heartCount}
+            commentLength={item.comments.length}
+            hearted={item.__v}
           />
         );
       })}

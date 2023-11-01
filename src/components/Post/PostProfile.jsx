@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import PostCommunity from './PostCommunity';
 import styled from 'styled-components';
 import heartOn from '../../assets/icons/icon-heart-on.svg';
@@ -8,8 +8,10 @@ import CommentPriview from '../Common/Comment/CommentPriview';
 import PlaceHolder from '../Common/Placeholder/PlaceHolder';
 import { useNavigate } from 'react-router-dom';
 import { postLike, postUnlike } from '../../api/postApi';
-import { useRecoilValue } from 'recoil';
-import { commentCount } from '../../Recoil/commentCount';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { commentCount, commentPreview } from '../../Recoil/commentCount';
+import CommentContext from '../../pages/community/CommentContext';
+import { getCommentList } from '../../api/commentApi';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -38,7 +40,7 @@ const StyledDiv = styled.div`
     gap: 10px;
   }
 `;
-const StyleCommnet = styled.div`
+const StyleComment = styled.div`
   display: flex;
   flex-direction: column;
   gap: 7px;
@@ -49,10 +51,15 @@ const StyleTextArea = styled.div`
   overflow: hidden;
   color: #fff;
   font-size: 14px;
-  height: ${({ expanded }) => (expanded ? 'auto' : '3rem')};
-  white-space: ${({ expanded }) => (expanded ? 'normal' : 'nowrap')};
+  line-height: 1.2;
+  height: ${({ expanded }) => (expanded ? 'auto' : '2rem')};
+  white-space: pre-wrap;
   text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: ${({ expanded }) => (expanded ? 'none' : '2')};
+  -webkit-box-orient: vertical;
 `;
+
 const Button = styled.div`
   cursor: pointer;
   max-height: 2rem;
@@ -73,67 +80,77 @@ const CommentButton = styled.button`
   cursor: pointer;
 `;
 export default function PostProfile(props) {
-  const [isShowReadMore, setIsShowReadMore] = useState(true);
-  const [expanded, setExpanded] = useState(false);
-  const [liked, setLiked] = useState(false);
   const [heartCount, setHeartCount] = useState(props.heartCount || 0);
   const [isHearted, setIsHearted] = useState(props.hearted);
-  const replyCount = useRecoilValue(commentCount);
   const textAreaRef = useRef(null);
+  const [isShowReadMore, setIsShowReadMore] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const checkComments = useRecoilValue(commentPreview);
+  const comments = checkComments[props.postId] || [];
+  const setCommentPreviewState = useSetRecoilState(commentPreview);
 
   const navigate = useNavigate();
-  const toggleReadMore = () => {
-    setExpanded(!expanded);
-  };
 
-  //좋아요 토글
+  //좋아요
   const handleToggleLike = async () => {
-    if (liked) {
-      await handleUnHeart();
-      setLiked(false);
-    } else {
-      await handleHeart();
-      setLiked(true);
-    }
-  };
-
-  const handleUnHeart = async () => {
-    try {
-      const response = await postUnlike(props.postId, isHearted);
-      setHeartCount(response.post.heartCount);
+    if (isHearted) {
+      setHeartCount((prevCount) => prevCount - 1);
       setIsHearted(false);
-      console.log(response);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const handleHeart = async () => {
-    try {
-      const response = await postLike(props.postId, isHearted);
-      console.log(response);
+      try {
+        const response = await postUnlike(props.postId);
+        setHeartCount(response.post.heartCount);
+      } catch (error) {
+        setIsHearted(true);
+      }
+    } else {
       setIsHearted(true);
-      setHeartCount(response.post.heartCount);
-    } catch (error) {
-      console.log(error.message);
+      setHeartCount((prevCount) => prevCount + 1);
+      try {
+        const response = await postLike(props.postId);
+        setHeartCount(response.post.heartCount);
+      } catch (error) {
+        setIsHearted(false);
+        console.log(error.message);
+      }
     }
   };
 
-  // 댓글 상세 페이지
+  // 댓글 상세 페이지 이동
   const handleReply = () => {
     navigate(`/feedReply/${props.postId}`);
   };
 
   //더보기
   useEffect(() => {
-    const textHeight = textAreaRef.current ? textAreaRef.current.scrollHeight : 0;
-    const lineHeight = 14;
-    if (textHeight > lineHeight * 2) {
+    const element = textAreaRef.current;
+    if (element.scrollHeight > element.clientHeight) {
       setIsShowReadMore(true);
     } else {
       setIsShowReadMore(false);
     }
   }, [props.content]);
+  const toggleReadMore = () => {
+    setExpanded((prevExpanded) => !prevExpanded);
+  };
+
+  //댓글 미리보기 업데이트
+  const fetchCommentsForPost = async (postId) => {
+    try {
+      const data = await getCommentList(postId);
+      if (data && Array.isArray(data.comments)) {
+        setCommentPreviewState((prev) => ({
+          ...prev,
+          [postId]: data.comments.slice(0, 2),
+        }));
+      }
+    } catch (error) {
+      console.error('댓글 오류:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCommentsForPost(props.postId);
+  }, [props.postId]);
 
   return (
     <StyledDiv>
@@ -151,23 +168,31 @@ export default function PostProfile(props) {
             {heartCount}
           </p>
           <img src={circle} alt='comment' />
-          <p style={{ color: 'white', paddingTop: '3px' }}>{replyCount}</p>
+          <p style={{ color: 'white', paddingTop: '3px' }}>{props.commentLength}</p>
         </div>
-        <StyleTextArea ref={textAreaRef} expanded={expanded}>
-          {props.content}
-        </StyleTextArea>
+        <div>
+          <StyleTextArea ref={textAreaRef} expanded={expanded}>
+            {props.content}
+          </StyleTextArea>
+        </div>
+        {isShowReadMore && (
+          <Button style={{ color: 'var(--color-gray)' }} onClick={toggleReadMore}>
+            {expanded ? '간략히' : '...더보기'}
+          </Button>
+        )}
       </div>
-      {isShowReadMore && (
-        <Button style={{ color: 'var(--color-gray)' }} onClick={toggleReadMore}>
-          {expanded ? '간략히' : '...더보기'}
-        </Button>
-      )}
-
       <p className='date'>{props.updatedAt}</p>
-      <StyleCommnet>
-        <CommentPriview name={props.accountname} />
+      <StyleComment>
+        {comments &&
+          comments.map((comment, index) => (
+            <CommentPriview
+              key={index}
+              name={comment.author.accountname}
+              content={comment.content}
+            />
+          ))}
         <CommentButton onClick={handleReply}>댓글더보기...</CommentButton>
-      </StyleCommnet>
+      </StyleComment>
     </StyledDiv>
   );
 }

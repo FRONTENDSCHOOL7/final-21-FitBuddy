@@ -5,7 +5,7 @@ import InputComment from '../../components/Common/Input/InputComment';
 import CommentList from '../../components/Common/Comment/CommentList';
 import { getCommentList, uploadComment } from '../../api/commentApi';
 import { useParams } from 'react-router-dom';
-import { commentCount } from '../../Recoil/commentCount';
+import { commentCount, commentPreview } from '../../Recoil/commentCount';
 import { useRecoilState } from 'recoil';
 
 export default function Community_Comment(props) {
@@ -13,15 +13,19 @@ export default function Community_Comment(props) {
   const [inputValue, setInputValue] = useState('');
   const { postId } = useParams();
   const [replyCount, setReplyCount] = useRecoilState(commentCount);
+  const [commentPreviewState, setCommentPreviewState] = useRecoilState(commentPreview);
 
   //댓글 전체보기
   const fetchFeeds = () => {
     getCommentList(postId)
       .then((data) => {
-        console.log(data);
         if (data && Array.isArray(data.comments)) {
           setComments(data.comments);
           setReplyCount(data.comments.length);
+          setCommentPreviewState((prev) => ({
+            ...prev,
+            [postId]: data.comments.slice(0, 2),
+          }));
         } else {
           console.error('에러', data);
         }
@@ -31,7 +35,9 @@ export default function Community_Comment(props) {
       });
   };
 
-  useEffect(fetchFeeds, []);
+  useEffect(() => {
+    fetchFeeds();
+  }, []);
 
   // 댓글 작성
   const handleInput = (e) => {
@@ -64,6 +70,11 @@ export default function Community_Comment(props) {
   const removeState = (commentId) => {
     setComments((prev) => prev.filter((comment) => comment.id !== commentId));
   };
+
+  const firstTwoComments = comments.slice(0, 2).map((comment) => ({
+    accountname: comment.author.username,
+    content: comment.content,
+  }));
 
   return (
     <>
