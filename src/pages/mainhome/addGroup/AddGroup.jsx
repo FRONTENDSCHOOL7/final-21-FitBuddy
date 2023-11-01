@@ -9,10 +9,15 @@ import NavTopDetails from '../../../components/Common/Nav/NavTopDetails';
 import { ProductCreate } from '../../../api/productApi';
 import UploadImg from '../../../assets/placeholder/Placeholder-img.svg';
 import { useNavigate } from 'react-router-dom';
+import InputButton from '../../../components/Common/Input/InputButton';
+import OnBoardingPage from '../../onBoard/OnBoardingPage';
+import Modal from 'react-modal';
+import Chip from '../../../components/Common/Chip/Chip';
 
 const StyleAddGroup = styled.div`
   color: gray;
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -28,13 +33,32 @@ const StyleAddGroup = styled.div`
     gap: 17px;
     margin-top: 36px;
     margin-bottom: 38px;
+    max-height: 400px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
+`;
+const StyleButtonL = styled.div`
+  position: absolute;
+  bottom: 10px;
 `;
 const InputBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 9px;
 `;
+const customModalStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: 'black',
+  },
+};
 
 export const ImageBtn = styled.button`
   border-radius: 50%;
@@ -54,6 +78,11 @@ export const ImageBtn = styled.button`
 export default function AddGroup() {
   const inputRef = useRef(null);
   const [image, setImage] = useState('');
+  const [dateError, setDateError] = useState('');
+  const [timeError, setTimeError] = useState('');
+  const [inputValue, setInputValue] = useState('');
+  const [showOnBoarding, setShowOnBoarding] = useState(false);
+  const [selectedSports, setSelectedSports] = useState([]);
 
   const uploadImage = async (imageFile) => {
     const baseUrl = 'https://api.mandarin.weniv.co.kr/';
@@ -76,15 +105,42 @@ export default function AddGroup() {
     const imageFile = e.target.files[0];
     uploadImage(imageFile);
   };
+  const handleOpenOnBoarding = () => {
+    setShowOnBoarding(!showOnBoarding);
 
-  const handlePostAdd = async () => {
+    if (!showOnBoarding) {
+      setSelectedSports([]);
+    }
+  };
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handlePostAdd = async (event) => {
+    event.preventDefault();
+    const dateRegex = /(\d{4}-\d{2}-\d{2})/;
+    const timeRegex = /(\d{1,2})시(\d{1,2})분/;
+    // 입력 형식 정규식
+    console.log(formData);
+    const datematch = formData.day.replace(/\s/g, '').match(dateRegex); // 입력 값과 정규식 매칭
+    const timematch = formData.time.replace(/\s/g, '').match(timeRegex); // 입력 값과 정규식 매칭
+
+    if (!datematch) {
+      console.log('날짜 형식이 올바르지 않습니다.');
+      return;
+    }
+
+    if (!timematch) {
+      console.log('시간 형식이 올바르지 않습니다.');
+      return;
+    }
     try {
       const response = await ProductCreate({
         product: {
           itemName: 'FitBuddy',
           price: 1, //1원 이상
           link: link,
-          //나중에 이미지 추가 버튼 만들어서 이미지 넣기
           itemImage: image ? image : UploadImg,
         },
       });
@@ -119,16 +175,27 @@ export default function AddGroup() {
   time: ${formData.time},
   location: ${formData.location},
   attendees: ${formData.attendees},
-  cost: ${formData.cost}
-  contents: ${formData.contents}
+  cost: ${formData.cost},
+  contents: ${formData.contents},
 `;
 
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
+    console.log(formData);
     const isFormValid = Object.values(formData).every((value) => value.trim() !== '');
     setDisabled(!isFormValid);
   }, [formData]);
+  useEffect(() => {
+    // selectedSports 배열을 쉼표로 구분된 문자열로 변환
+    const sportsString = selectedSports.join(', ');
+
+    // formData의 sport 값을 업데이트
+    setFormData((prevData) => ({
+      ...prevData,
+      sport: sportsString,
+    }));
+  }, [selectedSports]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -136,6 +203,17 @@ export default function AddGroup() {
       ...formData,
       [name]: value,
     });
+
+    if (name === 'day') {
+      const dateRegex = /(\d{4}-\d{2}-\d{2})/;
+      const isValidDate = dateRegex.test(value);
+      setDateError(isValidDate ? '' : '날짜 형식이 올바르지 않습니다.');
+    } else if (name === 'time') {
+      const timeRegex = /(\d{1,2})시(\d{1,2})분/;
+      const timeValue = value.replace(/\s/g, '');
+      const isValidTime = timeRegex.test(timeValue);
+      setTimeError(isValidTime ? '' : '시간 형식이 올바르지 않습니다.');
+    }
   };
 
   const handleCategory = () => {
@@ -143,9 +221,11 @@ export default function AddGroup() {
       inputRef.current.click();
     }
   };
+  useEffect(() => {
+    console.log(selectedSports);
+  }, [selectedSports]);
 
   const navigate = useNavigate();
-
   return (
     <StyleAddGroup>
       <NavTopDetails title='핏버디 그룹 만들기' />
@@ -173,13 +253,31 @@ export default function AddGroup() {
         </InputBox>
         <InputBox>
           <p>운동종목</p>
-          <InputText
+          <div style={{ gap: '12px', display: 'flex' }}>
+            {selectedSports.map((sport, index) => (
+              <Chip key={index} sport={sport} />
+            ))}
+          </div>
+          <InputButton
             name='sport'
             placeholder='운동종목을 입력해주세요'
             onChange={handleInputChange}
+            onClick={handleOpenOnBoarding}
             value={formData.sport}
           />
         </InputBox>
+        <Modal
+          isOpen={showOnBoarding}
+          onRequestClose={handleOpenOnBoarding}
+          style={customModalStyles}
+        >
+          <OnBoardingPage
+            onClick={handleOpenOnBoarding}
+            selectedSports={selectedSports}
+            setSelectedSports={setSelectedSports}
+          />
+        </Modal>
+
         <InputBox>
           <p>날짜</p>
           <InputText
@@ -188,6 +286,7 @@ export default function AddGroup() {
             onChange={handleInputChange}
             value={formData.day}
           />
+          {dateError && <p style={{ color: '#FF5B5B' }}>{dateError}</p>}
         </InputBox>
         <InputBox>
           <p>시간</p>
@@ -197,6 +296,7 @@ export default function AddGroup() {
             onChange={handleInputChange}
             value={formData.time}
           />
+          {timeError && <p style={{ color: '#FF5B5B' }}>{timeError}</p>}
         </InputBox>
         <InputBox>
           <p>장소</p>
@@ -228,14 +328,16 @@ export default function AddGroup() {
         <InputBox>
           <p>일정소개</p>
           <InputText
-            name='cost'
+            name='contents'
             placeholder='일정 내용을 입력해주세요'
             onChange={handleInputChange}
             value={formData.contents}
           />
         </InputBox>
       </div>
-      <Button_L name='완료' disabled={disabled} onClick={handlePostAdd} />
+      <StyleButtonL>
+        <Button_L name='완료' disabled={disabled} onClick={handlePostAdd} />
+      </StyleButtonL>
     </StyleAddGroup>
   );
 }
