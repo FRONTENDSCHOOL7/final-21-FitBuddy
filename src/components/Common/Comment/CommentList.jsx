@@ -82,7 +82,6 @@ export default function CommentList(props) {
       console.error(error);
     }
   };
-  console.log(props.feedId);
 
   return (
     <CommentWrapper>

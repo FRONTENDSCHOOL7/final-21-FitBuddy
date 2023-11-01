@@ -12,7 +12,10 @@ const CommentWrapper = styled.div`
 const StyledP = styled.p`
   min-width: 35px;
   font-size: var(--font-size-xs);
-  margin-left: 5px;
+  &.name {
+    font-weight: var(--font-weight-bold);
+  }
+  margin: 0px 7px;
   &.contents {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -26,8 +29,8 @@ export default function CommentPriview(props) {
   return (
     <CommentWrapper>
       <img src={avatar} style={{ width: '20px', height: '20px' }} />
-      <StyledP>{props.accountname}</StyledP>
-      <StyledP className='contents'>{props.comment}</StyledP>
+      <StyledP className='name'>{props.name}</StyledP>
+      <StyledP className='contents'>{props.content}</StyledP>
     </CommentWrapper>
   );
 }

@@ -24,6 +24,7 @@ export default function Community_feed() {
 
   //수정 페이지인지 판별
   const isEditMode = !!postId;
+  console.log(isEditMode);
 
   useEffect(() => {
     if (isEditMode) {
@@ -63,8 +64,8 @@ export default function Community_feed() {
       const res = await putEditPost(postId, postData);
       navigate('/community');
     } catch (error) {
-      console.error('요청 중 에러 발생:', error.message);
-      alert('게시물 수정에 실패했습니다!');
+      console.error('요청 에러:', error.message);
+      alert('게시물 수정 실패');
     }
   };
 
@@ -91,39 +92,26 @@ export default function Community_feed() {
     uploadImage(imageFile);
   };
 
-  // const submitAddPost = (e) => {
-  //   e.preventDefault();
-
-  //   const addPostData = {
-  //     post: {
-  //       content,
-  //       image,
-  //     },
-  //   };
-  //   console.log(addPostData);
-  //   addPost(addPostData);
-  // };
-
   const addPost = async (addPostData) => {
     try {
       const res = await axiosApi.post('post', addPostData);
       if (res.status !== 200) {
-        console.error('HTTP 응답 코드:', res.status, '상태 메시지:', res.statusText);
+        console.error('에러:', res.statusText);
       }
       const data = res.data;
       console.log(data);
       navigate('/community');
 
       if (data.error) {
-        console.error('서버에서 반환한 에러:', data.error);
+        console.error('에러:', data.error);
       }
     } catch (error) {
-      console.error('요청 중 에러 발생:', error.message);
+      console.error('에러 발생:', error.message);
 
       if (error.response && error.response.data && error.response.data.message) {
-        alert('아이템 등록에 실패했습니다: ' + error.response.data.message);
+        alert('실패' + error.response.data.message);
       } else {
-        alert('아이템 등록에 실패했습니다!');
+        alert('등록 실패');
       }
     }
   };
