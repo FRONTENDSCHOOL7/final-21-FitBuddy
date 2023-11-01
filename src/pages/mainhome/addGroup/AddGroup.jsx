@@ -6,13 +6,14 @@ import Button_L from '../../../components/Common/Buttons/Button_L';
 import { PostCreate } from '../../../api/postApi';
 import NavTopBack from '../../../components/Common/Nav/NavTopBack';
 import NavTopDetails from '../../../components/Common/Nav/NavTopDetails';
-import { ProductCreate } from '../../../api/productApi';
+import { createProducts, editProduct } from '../../../api/productApi';
 import UploadImg from '../../../assets/placeholder/Placeholder-img.svg';
 import { useNavigate } from 'react-router-dom';
 import InputButton from '../../../components/Common/Input/InputButton';
 import OnBoardingPage from '../../onBoard/OnBoardingPage';
 import Modal from 'react-modal';
 import Chip from '../../../components/Common/Chip/Chip';
+import { useParams } from 'react-router-dom';
 
 const StyleAddGroup = styled.div`
   color: gray;
@@ -20,8 +21,7 @@ const StyleAddGroup = styled.div`
   position: relative;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: #000;
+  background-color: var(--color-bg);
   height: 900px;
   padding-left: 22px;
   padding-right: 22px;
@@ -83,6 +83,10 @@ export default function AddGroup() {
   const [inputValue, setInputValue] = useState('');
   const [showOnBoarding, setShowOnBoarding] = useState(false);
   const [selectedSports, setSelectedSports] = useState([]);
+  const { postId } = useParams();
+
+  //수정 페이지인지 판별
+  const isEditMode = !!postId;
 
   const uploadImage = async (imageFile) => {
     const baseUrl = 'https://api.mandarin.weniv.co.kr/';
@@ -101,6 +105,41 @@ export default function AddGroup() {
     setImage(imageUrl);
   };
 
+  //수정할 때 맨처음 페이지 랜더링
+  useEffect(() => {
+    if (isEditMode) {
+      const EditPost = async () => {
+        try {
+          const response = await editProduct(postId);
+          if (response) {
+            setImage(response.product.itemImage);
+
+            const result = {};
+            const newFormData = response.product.link;
+            let data = newFormData.split('\n');
+            for (let i = 1; i < data.length - 1; i++) {
+              const line = data[i].trim();
+              const [key, value] = line.split(':');
+              result[key.trim()] = value.trim().replace(/,+$/, '');
+            }
+            setFormData(result);
+
+            const sportsFromServer = result.sport.split(', ').filter(Boolean);
+            setSelectedSports(sportsFromServer);
+
+            console.log('폼데이터');
+            console.log(formData);
+            console.log('결과값');
+            console.log(result);
+          }
+        } catch (error) {
+          console.error('데이터 불러오기 오류', error);
+        }
+      };
+      EditPost();
+    }
+  }, [postId]);
+
   const handleChangeImage = (e) => {
     const imageFile = e.target.files[0];
     uploadImage(imageFile);
@@ -115,6 +154,16 @@ export default function AddGroup() {
 
   const handleChange = (event) => {
     setInputValue(event.target.value);
+  };
+
+  const updateProduct = async (postId, postData) => {
+    try {
+      const res = await editProduct(postId, postData);
+      navigate(`/group/${postId}`);
+    } catch (error) {
+      console.error('요청 중 에러 발생:', error.message);
+      alert('게시물 수정에 실패했습니다!');
+    }
   };
 
   const handlePostAdd = async (event) => {
@@ -136,20 +185,32 @@ export default function AddGroup() {
       return;
     }
     try {
-      const response = await ProductCreate({
+      const postData = {
         product: {
           itemName: 'FitBuddy',
-          price: 1, //1원 이상
+          price: 1,
           link: link,
           itemImage: image ? image : UploadImg,
         },
-      });
-      console.log(response.data);
-
-      if (response.status === 200) {
-        console.log('성공');
+      };
+      if (isEditMode) {
+        updateProduct(postId, postData);
+      } else {
+        const response = await createProducts({
+          product: {
+            itemName: 'FitBuddy',
+            price: 1,
+            link: link,
+            itemImage: image ? image : UploadImg,
+          },
+        });
         console.log(response.data);
-        navigate('/home');
+
+        if (response.status === 200) {
+          console.log('성공');
+          console.log(response.data);
+          navigate('/home');
+        }
       }
     } catch (err) {
       console.log('실패');
@@ -157,7 +218,6 @@ export default function AddGroup() {
     }
   };
 
-  //진짜
   const [formData, setFormData] = useState({
     title: '',
     sport: '',
@@ -168,6 +228,7 @@ export default function AddGroup() {
     cost: '',
     contents: '',
   });
+
   const link = `
   title: ${formData.title},
   sport: ${formData.sport},
@@ -228,7 +289,7 @@ export default function AddGroup() {
   const navigate = useNavigate();
   return (
     <StyleAddGroup>
-      <NavTopDetails title='핏버디 그룹 만들기' />
+      <NavTopDetails title={isEditMode ? '그룹 만들기 수정' : '핏버디 그룹 만들기'} />
       <div style={{ position: 'relative' }}>
         <PlaceHolder type='Photo' src={image} />
         <input
@@ -258,13 +319,23 @@ export default function AddGroup() {
               <Chip key={index} sport={sport} />
             ))}
           </div>
-          <InputButton
-            name='sport'
-            placeholder='운동종목을 입력해주세요'
-            onChange={handleInputChange}
-            onClick={handleOpenOnBoarding}
-            value={formData.sport}
-          />
+          {selectedSports.length > 0 ? (
+            <InputButton
+              name='sport'
+              placeholder='운동종목을 입력해주세요'
+              onChange={handleInputChange}
+              onClick={handleOpenOnBoarding}
+              value={formData.sport}
+            />
+          ) : (
+            <InputButton
+              name='sport'
+              placeholder='운동종목을 입력해주세요'
+              onChange={handleInputChange}
+              onClick={handleOpenOnBoarding}
+              value={formData.sport}
+            />
+          )}
         </InputBox>
         <Modal
           isOpen={showOnBoarding}
@@ -336,7 +407,11 @@ export default function AddGroup() {
         </InputBox>
       </div>
       <StyleButtonL>
-        <Button_L name='완료' disabled={disabled} onClick={handlePostAdd} />
+        <Button_L
+          name={isEditMode ? '수정하기' : '완료'}
+          disabled={disabled}
+          onClick={handlePostAdd}
+        />
       </StyleButtonL>
     </StyleAddGroup>
   );

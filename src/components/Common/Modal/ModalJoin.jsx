@@ -5,9 +5,6 @@ import { useState } from 'react';
 import { PostDelete } from '../../../api/postApi';
 import { useRecoilState } from 'recoil';
 import userTokenAtom from '../../../Recoil/userTokenAtom';
-import { deleteProduct } from '../../../api/productApi';
-import { useNavigate } from 'react-router-dom';
-
 const slideIn = keyframes`
   from{
     bottom: -500px;
@@ -73,46 +70,25 @@ const DeleteBtn = styled.button`
   }
 `;
 
-export default function ModalEditAndDel(props) {
+export default function ModalJoin(props) {
   const [alertVisible, setAlertVisible] = useState(false);
   const token = useRecoilState(userTokenAtom);
   const postId = props.postId;
-  const navigate = useNavigate();
   console.log(token);
-  const isPostorJoin = props.isPostorJoin;
-
   const handleFeedDelete = async () => {
     try {
-      if (isPostorJoin === 'Post') {
-        const res = await PostDelete(postId);
-        console.log(res);
-        console.log('삭제성공');
-        return res;
-      }
-      if (isPostorJoin === 'Join') {
-        const res = await deleteProduct(postId);
-        console.log(res);
-        console.log('삭제성공');
-        navigate('/home');
-        return res;
-      }
+      const res = await PostDelete(postId);
+      console.log(res);
+      console.log('삭제성공');
+      return res;
     } catch (error) {
       console.error('게시물 삭제 중 오류:', error);
     }
   };
-
-  const handleEditPost = () => {
-    if (isPostorJoin === 'Post') {
-      navigate(`/edit/${postId}`);
-    }
-    if (isPostorJoin === 'Join') {
-      navigate(`/editgroup/${postId}`);
-    }
-  };
   return (
     <StyledModal visible={props.visible}>
-      <DeleteBtn onClick={handleEditPost}>피드 수정</DeleteBtn>
       <DeleteBtn onClick={handleFeedDelete}>피드 삭제</DeleteBtn>
+      <DeleteBtn>피드 수정</DeleteBtn>
       {alertVisible && <AlertDelete handleFeedDelete={handleFeedDelete} />}
     </StyledModal>
   );

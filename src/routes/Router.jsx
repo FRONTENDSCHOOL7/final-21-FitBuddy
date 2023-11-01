@@ -37,6 +37,7 @@ export default function Router() {
         <Route path='/mypagejoin' element={<Mypagemyjoin />} />
         <Route path='/mypagewrite' element={<Mypagemywrite />} />
         <Route path='/edit/:postId' element={<Community_feed />} />
+        <Route path='/editgroup/:postId' element={<AddGroup />} />
       </Routes>
     </RouterAlias>
   );

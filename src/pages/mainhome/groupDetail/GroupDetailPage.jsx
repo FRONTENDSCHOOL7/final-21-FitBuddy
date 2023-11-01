@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import PlaceHolder from '../../../components/Common/Placeholder/PlaceHolder';
 import Button_L from '../../../components/Common/Buttons/Button_L';
 import Button_Img from '../../../components/Common/Buttons/Button_Img';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getDetailProduct, deleteProduct } from '../../../api/productApi';
 import PostJoin from '../../../components/Post/PostJoin';
+import { BackIcon, NavTop, NavTopTitle } from '../../../components/Common/Nav/NavStyles';
 
 const StyleGroupDetail = styled.div`
   color: #fff;
@@ -21,7 +22,14 @@ const StyleGroupDetail = styled.div`
   & > div.contents {
     padding-left: 22px;
   }
-  .top-bar {
+
+  & > .back {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+  }
+  .top-title {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -93,13 +101,22 @@ export default function GroupDetailPage() {
   console.log(result);
   console.log(groupData);
 
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate(-1);
+  };
+
   return (
     <StyleGroupDetail>
+      <div className='back'>
+        <BackIcon onClick={handleBackClick} />
+      </div>
       {groupData && groupData.product && groupData.product.itemImage && (
         <PlaceHolder type='Photo' src={groupData.product.itemImage} />
       )}
       <div className='contents'>
-        <div className='top-bar'>
+        <div className='top-title'>
           <h1 className='title'>{result.title}</h1>
           <PostJoin postId={groupId} />
         </div>
