@@ -17,6 +17,7 @@ import Chip from '../../../components/Common/Chip/Chip';
 const StyleAddGroup = styled.div`
   color: gray;
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -32,7 +33,16 @@ const StyleAddGroup = styled.div`
     gap: 17px;
     margin-top: 36px;
     margin-bottom: 38px;
+    max-height: 400px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
+`;
+const StyleButtonL = styled.div`
+  position: absolute;
+  bottom: 10px;
 `;
 const InputBox = styled.div`
   display: flex;
@@ -325,7 +335,9 @@ export default function AddGroup() {
           />
         </InputBox>
       </div>
-      <Button_L name='완료' disabled={disabled} onClick={handlePostAdd} />
+      <StyleButtonL>
+        <Button_L name='완료' disabled={disabled} onClick={handlePostAdd} />
+      </StyleButtonL>
     </StyleAddGroup>
   );
 }
