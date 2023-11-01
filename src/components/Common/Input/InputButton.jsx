@@ -7,7 +7,7 @@ const StyledButton = styled.button`
   border: none;
   border-bottom: 1px solid gray;
   background: none;
-  color: #fff;
+  color: gray;
 
   &:focus {
     outline: none;
@@ -23,15 +23,12 @@ const StyledButton = styled.button`
 
 export default function InputButton(props) {
   return (
-    <>
-      <div>{props.value}</div>
-      <StyledButton
-        type='button'
-        placeholder={props.placeholder}
-        onChange={props.onChange}
-        name={props.name}
-        onClick={props.onClick}
-      />
-    </>
+    <StyledButton
+      type='button'
+      placeholder={props.placeholder}
+      onChange={props.onChange}
+      name={props.name}
+      onClick={props.onClick}
+    />
   );
 }

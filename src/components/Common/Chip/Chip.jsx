@@ -14,5 +14,5 @@ const StyledChip = styled.button`
 `;
 
 export default function Chip(props) {
-  return <StyledChip type='radio'>🏃🏻‍♀️러닝</StyledChip>;
+  return <StyledChip type='radio'>{props.sport}</StyledChip>;
 }

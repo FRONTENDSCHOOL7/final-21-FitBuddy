@@ -22,9 +22,16 @@ export default function OnBoardingPage({ name, onClick, selectedSports, setSelec
   const [selectedSport, setSelectedSport] = useState([]);
 
   const handleSelect = (selectedSport) => {
-    const updatedSports = [...selectedSports];
-    updatedSports.push(selectedSport);
-    setSelectedSports(updatedSports);
+    // 스포츠가 배열에 이미 있는지 확인
+    if (selectedSports.includes(selectedSport)) {
+      // 배열에서 스포츠 제거
+      const updatedSports = selectedSports.filter((sport) => sport !== selectedSport);
+      setSelectedSports(updatedSports);
+    } else {
+      // 배열에 스포츠 추가
+      const updatedSports = [...selectedSports, selectedSport];
+      setSelectedSports(updatedSports);
+    }
   };
   console.log(selectedSports);
 

@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import InputButton from '../../../components/Common/Input/InputButton';
 import OnBoardingPage from '../../onBoard/OnBoardingPage';
 import Modal from 'react-modal';
+import Chip from '../../../components/Common/Chip/Chip';
 
 const StyleAddGroup = styled.div`
   color: gray;
@@ -96,6 +97,9 @@ export default function AddGroup() {
   };
   const handleOpenOnBoarding = () => {
     setShowOnBoarding(!showOnBoarding);
+    if (!showOnBoarding) {
+      setSelectedSports([]);
+    }
   };
 
   const handleChange = (event) => {
@@ -228,6 +232,11 @@ export default function AddGroup() {
         </InputBox>
         <InputBox>
           <p>운동종목</p>
+          <div style={{ gap: '12px', display: 'flex' }}>
+            {selectedSports.map((sport, index) => (
+              <Chip key={index} sport={sport} />
+            ))}
+          </div>
           <InputButton
             name='sport'
             placeholder='운동종목을 입력해주세요'
