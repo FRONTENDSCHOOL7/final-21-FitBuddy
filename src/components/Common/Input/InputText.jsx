@@ -24,6 +24,7 @@ export default function InputText(props) {
       name={props.name}
       value={props.value}
       onClick={props.onClick}
+      value={props.value}
     />
   );
 }

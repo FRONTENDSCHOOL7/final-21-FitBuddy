@@ -265,9 +265,15 @@ export default function AddGroup() {
   const closeKakaoMapModal = () => {
     setKakaoMapOpen(false);
   };
+  // const handleLocationChange = (e) => {
+  //   const { value } = e.target;
+  //   setKakaoData((prev) => ({ ...prev, location: value }));
+  // };
 
-  const handleLocationSelect = (location) => {
-    setSelectedLocation(location);
+  const handleLocationSelect = (address) => {
+    setKakaoData((prevData) => ({ ...prevData, location: address }));
+    setFormData((prevData) => ({ ...prevData, location: address }));
+    closeKakaoMapModal();
   };
 
   useEffect(() => {
@@ -310,6 +316,7 @@ export default function AddGroup() {
       inputRef.current.click();
     }
   };
+
   useEffect(() => {
     console.log(selectedSports);
   }, [selectedSports]);
@@ -413,7 +420,7 @@ export default function AddGroup() {
             name='location'
             placeholder='장소를 입력해주세요'
             onChange={handleInputChange}
-            value={kakaoData.location}
+            value={formData.location}
             onClick={openKakaoMapModal}
           />
         </InputBox>
