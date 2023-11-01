@@ -48,7 +48,7 @@ export default function Community_feed() {
     console.log('클릭!');
     const postData = {
       post: {
-        content,
+        content: link,
         image,
       },
     };
@@ -115,12 +115,26 @@ export default function Community_feed() {
       }
     }
   };
-  const inputContent = (e) => {
-    setContent(e.target.value);
-    if (e.target.value.length <= MAX_LENGTH) {
-      setText(e.target.value);
+  const [formData, setFormData] = useState({
+    title: '',
+    content: '',
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+
+    if (name === 'content' && value.length <= MAX_LENGTH) {
+      setText(value);
     }
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
+  const link = `
+    title: 'FitBuddy',
+    content: ${formData.content}
+  `;
 
   const handleCategory = () => {
     if (inputRef.current) {
@@ -149,9 +163,9 @@ export default function Community_feed() {
         <InputWrapper>
           <StyledActualInput
             placeholder='작성해주세요'
-            onChange={inputContent}
+            onChange={handleInputChange}
             name='content'
-            value={content}
+            value={formData.content}
           />
           <CharacterCount>
             {text.length}/{MAX_LENGTH}
