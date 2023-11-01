@@ -97,6 +97,7 @@ export default function AddGroup() {
   };
   const handleOpenOnBoarding = () => {
     setShowOnBoarding(!showOnBoarding);
+
     if (!showOnBoarding) {
       setSelectedSports([]);
     }
@@ -175,6 +176,16 @@ export default function AddGroup() {
     const isFormValid = Object.values(formData).every((value) => value.trim() !== '');
     setDisabled(!isFormValid);
   }, [formData]);
+  useEffect(() => {
+    // selectedSports 배열을 쉼표로 구분된 문자열로 변환
+    const sportsString = selectedSports.join(', ');
+
+    // formData의 sport 값을 업데이트
+    setFormData((prevData) => ({
+      ...prevData,
+      sport: sportsString,
+    }));
+  }, [selectedSports]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
