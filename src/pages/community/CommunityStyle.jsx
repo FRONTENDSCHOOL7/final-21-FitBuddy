@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import plus from '../../assets/icons/icon-plus.svg';
 import BasicImg from '../../assets/placeholder/Placeholder-icon.svg';
 import UploadImg from '../../assets/placeholder/Placeholder-img.svg';

@@ -6,27 +6,27 @@ import ChipsHome from '../../components/Chips/ChipsHome';
 import { CommunityButton } from './CommunityStyle';
 import { useNavigate } from 'react-router-dom';
 import { getPosts } from '../../api/postApi';
-import { commentCount } from '../../Recoil/commentCount';
 import { useRecoilState } from 'recoil';
 import { postsState } from '../../Recoil/communityAtom';
 
 export default function Community(props) {
   const [posts, setPosts] = useRecoilState(postsState);
-  const [replyCount, setReplyCount] = useRecoilState(commentCount);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchPosts = () => {
+    setIsLoading(true);
     getPosts()
       .then((data) => {
-        console.log(data);
         if (data && Array.isArray(data.posts)) {
           setPosts(data.posts);
-          console.log(data.posts);
         } else {
           console.error('에러:', data);
         }
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error(error);
+        setIsLoading(false);
       });
   };
 
@@ -46,7 +46,6 @@ export default function Community(props) {
     const match = postContent.match(contentPattern);
     return match ? match[1] : null;
   };
-
   return (
     <div style={{ paddingBottom: '70px' }}>
       <NavTopBasic title='커뮤니티' />
@@ -85,6 +84,7 @@ export default function Community(props) {
               heartCount={item.heartCount}
               commentLength={item.comments.length}
               hearted={item.__v}
+              authorId={item.author._id}
             />
           );
         })}

@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PostCommunity from './PostCommunity';
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import heartOn from '../../assets/icons/icon-heart-on.svg';
 import heartOff from '../../assets/icons/icon-heart-off.svg';
 import circle from '../../assets/icons/icon-message-circle.svg';
@@ -88,6 +88,30 @@ const HeartIcon = styled.img`
     transform: scale(1.2);
   }
 `;
+const popAnimation = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+
+const HeartCount = styled.p`
+  color: ${({ isHearted }) => (isHearted ? 'var(--color-primary)' : 'var(--color-secondary)')};
+  transition: color 0.3s ease-in-out;
+  animation: ${({ animate }) =>
+    animate
+      ? css`
+          ${popAnimation} 0.5s ease
+        `
+      : 'none'};
+  padding-top: 3px;
+`;
+
 export default function PostProfile(props) {
   const [heartCount, setHeartCount] = useState(props.heartCount || 0);
   const [isHearted, setIsHearted] = useState(props.hearted);
@@ -97,6 +121,7 @@ export default function PostProfile(props) {
   const checkComments = useRecoilValue(commentPreview);
   const comments = checkComments[props.postId] || [];
   const setCommentPreviewState = useSetRecoilState(commentPreview);
+  const [animate, setAnimate] = useState(false);
 
   const navigate = useNavigate();
 
@@ -122,6 +147,8 @@ export default function PostProfile(props) {
         console.log(error.message);
       }
     }
+    setAnimate(true);
+    setTimeout(() => setAnimate(false), 500);
   };
 
   // 댓글 상세 페이지 이동
@@ -164,18 +191,13 @@ export default function PostProfile(props) {
   return (
     <StyledDiv>
       <div className='community'>
-        <PostCommunity name={props.name} postId={props.postId} />
+        <PostCommunity name={props.name} postId={props.postId} authorId={props.authorId} />
         <PlaceHolder type='Ractangle' src={props.image} />
         <div className='reaction'>
           <HeartIcon src={isHearted ? heartOn : heartOff} alt='heart' onClick={handleToggleLike} />
-          <p
-            style={{
-              color: isHearted ? 'var(--color-primary)' : 'var(--color-secondary)',
-              paddingTop: '3px',
-            }}
-          >
+          <HeartCount isHearted={isHearted} animate={animate}>
             {heartCount}
-          </p>
+          </HeartCount>
           <img src={circle} alt='comment' />
           <p style={{ color: 'white', paddingTop: '3px' }}>{props.commentLength}</p>
         </div>
@@ -200,7 +222,9 @@ export default function PostProfile(props) {
               content={comment.content}
             />
           ))}
-        <CommentButton onClick={handleReply}>댓글 {props.commentLength}개 모두보기</CommentButton>
+        <CommentButton onClick={handleReply}>
+          {props.commentLength > 0 ? `댓글 ${props.commentLength}개 모두보기` : '댓글 작성하기'}
+        </CommentButton>
       </StyleComment>
     </StyledDiv>
   );

@@ -9,7 +9,7 @@ export const PostCreate = async (postData) => {
 //게시글 전체보기
 export const getPosts = async (postData) => {
   try {
-    const response = await authInstance.get('/post/?limit=100&skip=0', { data: postData });
+    const response = await authInstance.get('/post/?limit=1000&skip=0', { data: postData });
     return response.data;
   } catch (error) {
     console.error('Error fetching posts:', error);

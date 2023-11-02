@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import person from '../../assets/icons/icon-person.svg';
 import editIcon from '../../assets/icons/icon_edit.svg';
 import ModalEditAndDel from '../Common/Modal/ModalPost';
+import userTokenAtom from '../../Recoil/userTokenAtom';
+import { useRecoilState } from 'recoil';
 
 const StyledOverlay = styled.div`
   position: fixed;
@@ -10,7 +12,7 @@ const StyledOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  background-color: rgba(0, 0, 0, 0.5);
   display: ${({ visible }) => (visible ? 'block' : 'none')};
 `;
 
@@ -36,7 +38,7 @@ const StyledPostEdit = styled.button`
 
 export default function PostCommunity(props) {
   const [modal, setModal] = useState(false);
-  const [feedList, setFeedList] = useState([]);
+  const [userToken, setUserToken] = useRecoilState(userTokenAtom);
 
   const toggleModal = () => {
     setModal(!modal);
@@ -50,9 +52,11 @@ export default function PostCommunity(props) {
           <p style={{ color: 'var(--color-secondary)', paddingTop: '3px' }}>{props.name}</p>
         </div>
 
-        <StyledPostEdit onClick={toggleModal}>
-          <img src={editIcon} alt='editIcon' />
-        </StyledPostEdit>
+        {userToken && userToken._id === props.authorId && (
+          <StyledPostEdit onClick={toggleModal}>
+            <img src={editIcon} alt='editIcon' />
+          </StyledPostEdit>
+        )}
         <StyledOverlay visible={modal} onClick={toggleModal} />
       </StyledPost>
       {modal && <ModalEditAndDel visible={modal} postId={props.postId} isPostorJoin='Post' />}
