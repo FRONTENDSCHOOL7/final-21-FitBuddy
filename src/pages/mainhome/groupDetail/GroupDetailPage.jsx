@@ -7,6 +7,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getDetailProduct, deleteProduct } from '../../../api/productApi';
 import PostJoin from '../../../components/Post/PostJoin';
 import { BackIcon, NavTop, NavTopTitle } from '../../../components/Common/Nav/NavStyles';
+import { getMyInfo } from '../../../api/mypageapi';
+import userImg from '../../../assets/placeholder/Placeholder-avatar.svg';
 
 const StyleGroupDetail = styled.div`
   color: #fff;
@@ -71,6 +73,7 @@ export default function GroupDetailPage() {
   const { groupId } = useParams();
   const [groupData, setGroupData] = useState([]);
   const [people, setPeople] = useState(3);
+  const [authorProfile, setAuthorProfile] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,6 +88,21 @@ export default function GroupDetailPage() {
 
     fetchData();
   }, [groupId]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (groupData && groupData.product.author) {
+          const authorData = groupData.product.author.accountname;
+
+          const data = await getMyInfo(authorData);
+          setAuthorProfile(data);
+        }
+      } catch (error) {
+        console.error('Error fetching author data:', error);
+      }
+    };
+  }, []);
 
   let result = {};
   if (groupData.product && groupData.product.link) {
@@ -106,6 +124,7 @@ export default function GroupDetailPage() {
   const handleBackClick = () => {
     navigate(-1);
   };
+  const handleGroupJoin = () => {};
 
   return (
     <StyleGroupDetail>
@@ -142,14 +161,18 @@ export default function GroupDetailPage() {
           참여멤버 {people}명 / {result.attendees}명
         </div>
         <div className='imgBox'>
-          <Button_Img />
-          <Button_Img />
-          <Button_Img />
+          {authorProfile && authorProfile.profile && authorProfile.profile.image ? (
+            <PlaceHolder type='Person' src={authorProfile.profile.image} />
+          ) : (
+            <PlaceHolder type='Person' src={userImg} />
+          )}
+          <PlaceHolder type='Person' src={userImg} />
+          <PlaceHolder type='Person' src={userImg} />
         </div>
 
         <h2 className='description'>일정소개</h2>
         <p>{result.contents}</p>
-        <ComFirmButton>
+        <ComFirmButton onClick={handleGroupJoin}>
           <Button_L name='참여하기' />
         </ComFirmButton>
       </div>
