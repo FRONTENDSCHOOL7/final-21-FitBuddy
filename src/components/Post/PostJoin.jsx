@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import person from '../../assets/icons/icon-person.svg';
 import editIcon from '../../assets/icons/icon_edit.svg';
 import ModalEditAndDel from '../Common/Modal/ModalPost';
+import userTokenAtom from '../../Recoil/userTokenAtom';
+import { useRecoilState } from 'recoil';
 
 const StyledOverlay = styled.div`
   position: fixed;
@@ -36,6 +38,7 @@ const StyledPostEdit = styled.button`
 
 export default function PostJoin(props) {
   const [modal, setModal] = useState(false);
+  const [userToken, setUserToken] = useRecoilState(userTokenAtom);
 
   const toggleModal = () => {
     setModal(!modal);
@@ -43,9 +46,11 @@ export default function PostJoin(props) {
   return (
     <>
       <StyledPost>
-        <StyledPostEdit onClick={toggleModal}>
-          <img src={editIcon} alt='editIcon' />
-        </StyledPostEdit>
+        {userToken && userToken._id === props.authorId && (
+          <StyledPostEdit onClick={toggleModal}>
+            <img src={editIcon} alt='editIcon' />
+          </StyledPostEdit>
+        )}
         <StyledOverlay visible={modal} onClick={toggleModal} />
       </StyledPost>
       {modal && <ModalEditAndDel visible={modal} postId={props.postId} isPostorJoin='Join' />}
