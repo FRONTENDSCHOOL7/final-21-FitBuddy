@@ -25,6 +25,9 @@ export default function LoginPage({ marginBottom }) {
 
   const navigate = useNavigate();
 
+  const emailInputStyle = emailValid
+    ? {}
+    : { borderColor: 'red', borderWidth: '1px', borderStyle: 'solid' };
   // 토큰 로컬 저장
   const setUserTokenAtom = useSetRecoilState(userTokenAtom); //리코일 구독
   const saveToken = (token) => {
@@ -96,6 +99,7 @@ export default function LoginPage({ marginBottom }) {
             marginBottom={10}
             // value={email}
             onChange={handleEmailChange}
+            style={email.length > 0 ? emailInputStyle : {}}
           />
           <div className='errorMessageWrap'>
             {!emailValid && email.length > 0 && <div>올바른 이메일을 입력해주세요.</div>}
