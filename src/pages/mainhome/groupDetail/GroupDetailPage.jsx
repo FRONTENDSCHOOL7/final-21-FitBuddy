@@ -7,8 +7,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getDetailProduct, deleteProduct } from '../../../api/productApi';
 import PostJoin from '../../../components/Post/PostJoin';
 import { BackIcon, NavTop, NavTopTitle } from '../../../components/Common/Nav/NavStyles';
-import { getMyInfo } from '../../../api/mypageapi';
+import { getProfile } from '../../../api/mypageapi';
 import userImg from '../../../assets/placeholder/Placeholder-avatar.svg';
+import Chip from '../../../components/Common/Chip/Chip';
 
 const StyleGroupDetail = styled.div`
   color: #fff;
@@ -38,9 +39,9 @@ const StyleGroupDetail = styled.div`
     align-items: center;
   }
   .title {
-    width: 200px;
+    min-width: 350px;
     font-size: 24px;
-    margin: 32px 0px 32px 0px;
+    margin: 32px auto 15px auto;
   }
   .description {
     font-size: 20px;
@@ -62,6 +63,10 @@ const StyleContent = styled.li`
     padding-left: 21px;
     padding-bottom: 11px;
   }
+
+  .sport {
+    margin-bottom: 20px;
+  }
 `;
 const ComFirmButton = styled.div`
   position: absolute;
@@ -69,11 +74,30 @@ const ComFirmButton = styled.div`
   bottom: 4%;
 `;
 
+const StyleJoinMember = styled.div`
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  & > * {
+    margin-bottom: 10px;
+  }
+  p {
+    margin: 10px 0;
+  }
+  .placeholder-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
 export default function GroupDetailPage() {
   const { groupId } = useParams();
   const [groupData, setGroupData] = useState([]);
   const [people, setPeople] = useState(3);
   const [authorProfile, setAuthorProfile] = useState('');
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -94,15 +118,21 @@ export default function GroupDetailPage() {
       try {
         if (groupData && groupData.product.author) {
           const authorData = groupData.product.author.accountname;
+          const uname = groupData.product.author.username;
+          setUsername(uname);
 
-          const data = await getMyInfo(authorData);
+          const data = await getProfile(authorData);
           setAuthorProfile(data);
+          console.log('계정 정보 확인', authorData);
+          console.log('계정 정보 확인22', groupData.product.author);
+          console.log('이미지 확인2', data.profile.image);
         }
       } catch (error) {
         console.error('Error fetching author data:', error);
       }
     };
-  }, []);
+    fetchData();
+  }, [groupData]);
 
   let result = {};
   if (groupData.product && groupData.product.link) {
@@ -137,12 +167,18 @@ export default function GroupDetailPage() {
       <div className='contents'>
         <div className='top-title'>
           <h1 className='title'>{result.title}</h1>
-          <PostJoin postId={groupId} />
+          <PostJoin postId={groupId} visable={false} />
         </div>
         <ul>
           <StyleContent>
+            <div className='sport'>
+              <Chip key={result.sport} sport={result.sport} />
+            </div>
+          </StyleContent>
+          <StyleContent>
             <div>장소</div> <p>{result.location}</p>
           </StyleContent>
+
           <StyleContent>
             <div>날짜</div> <p>{result.day}</p>
           </StyleContent>
@@ -161,13 +197,23 @@ export default function GroupDetailPage() {
           참여멤버 {people}명 / {result.attendees}명
         </div>
         <div className='imgBox'>
-          {authorProfile && authorProfile.profile && authorProfile.profile.image ? (
-            <PlaceHolder type='Person' src={authorProfile.profile.image} />
-          ) : (
-            <PlaceHolder type='Person' src={userImg} />
-          )}
-          <PlaceHolder type='Person' src={userImg} />
-          <PlaceHolder type='Person' src={userImg} />
+          <StyleJoinMember>
+            <div className='placeholder-container'>
+              {authorProfile && authorProfile.profile && authorProfile.profile.image ? (
+                <PlaceHolder type='Person' src={authorProfile.profile.image} />
+              ) : (
+                <PlaceHolder type='Person' src={userImg} />
+              )}
+            </div>
+            <p>{username}</p>
+          </StyleJoinMember>
+
+          <StyleJoinMember>
+            <div className='placeholder-container'>
+              <PlaceHolder type='Person' src={userImg} />
+            </div>
+            <p>{username}</p>
+          </StyleJoinMember>
         </div>
 
         <h2 className='description'>일정소개</h2>

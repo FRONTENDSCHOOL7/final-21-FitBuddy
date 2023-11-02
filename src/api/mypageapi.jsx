@@ -8,12 +8,12 @@ export const getMyInfo = async (userData) => {
   return response.data;
 };
 
-// //프로필
-// export const getMyInfo = async (accountname) => {
-//   const response = await authInstance.get(`/profile/${accountname}`);
+//개인 프로필
+export const getProfile = async (accountname) => {
+  const response = await authInstance.get(`/profile/${accountname}`);
 
-//   return response.data;
-// };
+  return response.data;
+};
 
 //프로필 정보 수정하기
 export const editProfile = async (userData) => {
