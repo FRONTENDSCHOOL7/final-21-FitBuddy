@@ -13,7 +13,7 @@ export const CommunityButton = styled.button`
   background-color: var(--color-primary);
   position: fixed;
   bottom: 100px;
-  right: 35px;
+  right: 36%;
   cursor: pointer;
   background-image: url(${plus});
   background-repeat: no-repeat;

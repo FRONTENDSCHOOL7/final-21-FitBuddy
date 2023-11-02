@@ -40,6 +40,8 @@ export default function PostCommunity(props) {
   const [modal, setModal] = useState(false);
   const [userToken, setUserToken] = useRecoilState(userTokenAtom);
 
+  console.log(userToken);
+
   const toggleModal = () => {
     setModal(!modal);
   };
@@ -47,7 +49,11 @@ export default function PostCommunity(props) {
   return (
     <>
       <StyledPost>
-        <img src={person} alt='profileImg' />
+        <img
+          src={userToken.image}
+          alt='profileImg'
+          style={{ width: '25px', height: '25px', borderRadius: '10px' }}
+        />
         <div>
           <p style={{ color: 'var(--color-secondary)', paddingTop: '3px' }}>{props.name}</p>
         </div>

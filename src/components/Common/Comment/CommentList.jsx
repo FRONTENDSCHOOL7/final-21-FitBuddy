@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import avatar from '../../../assets/placeholder/Placeholder-avatar.svg';
 import { deleteComment } from '../../../api/commentApi';
 import { useParams } from 'react-router-dom';
+import userTokenAtom from '../../../Recoil/userTokenAtom';
+import { useRecoilState } from 'recoil';
 
 const CommentWrapper = styled.div`
   width: 420px;
@@ -39,6 +41,7 @@ const DeleteBtn = styled.button`
   border: none;
   background-color: transparent;
   margin-top: 5px;
+  color: var(--color-secondary);
 `;
 
 export default function CommentList(props) {
@@ -67,6 +70,7 @@ export default function CommentList(props) {
   //나중에는 댓글을 작성한 시간으로 snapshot DB에 올려야 함
 
   const { postId } = useParams();
+  const [userToken, setUserToken] = useRecoilState(userTokenAtom);
 
   const handleDeleteComment = async () => {
     try {
@@ -92,7 +96,9 @@ export default function CommentList(props) {
       </InfoWrapper>
       <StyledP className='time'>
         {props.createdAt}
-        <DeleteBtn onClick={handleDeleteComment}>X</DeleteBtn>
+        {userToken && userToken._id === props.authorId && (
+          <DeleteBtn onClick={handleDeleteComment}>X</DeleteBtn>
+        )}
       </StyledP>
     </CommentWrapper>
   );

@@ -30,7 +30,7 @@ const StyledPlaceHolder = styled.img.attrs((props) => ({
       ? '60px'
       : '100px'};
   background-color: #f2f2f2;
-  border-radius: ${(props) => (props.type === 'Person' || 'JoinMember' ? `50px` : `10px`)};
+  border-radius: ${(props) => (props.type === 'Person' || 'JoinMember' ? `20px` : `10px`)};
   border: 0.5px solid #dbdbdb;
   display: flex;
   justify-content: center;

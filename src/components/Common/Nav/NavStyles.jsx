@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 /* NavBottom */
 export const StyledNavIcons = styled.img`
-  width: 28px;
-  height: 28px;
+  width: 23px;
+  height: 23px;
 `;
 export const Nav = styled.nav`
   overflow: hidden;
@@ -12,11 +12,12 @@ export const Nav = styled.nav`
   color: white;
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
+  /* left: 0; */
+  /* right: 0; */
   height: 70px;
   margin-top: 70px;
   border-top: 0.5px solid var(--color-secondary);
+  width: 414px;
 `;
 
 export const NavDiv = styled.div`

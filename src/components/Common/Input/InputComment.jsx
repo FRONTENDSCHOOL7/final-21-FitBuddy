@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import ButtonImg from '../Buttons/Button_Img';
+import userTokenAtom from '../../../Recoil/userTokenAtom';
+import { useRecoilState } from 'recoil';
 
 export default function InputComment(props) {
+  const [userToken, setUserToken] = useRecoilState(userTokenAtom);
   return (
     <StyledDiv>
-      <ButtonImg />
+      <img
+        src={userToken.image}
+        style={{ width: '25px', height: '25px', borderRadius: '10px', marginTop: '5px' }}
+      />
       <StyledInput
         type={props.type}
         value={props.value}
@@ -22,7 +27,7 @@ const StyledInput = styled.input`
   border: none;
   color: #fff;
   margin-left: 15px;
-  padding-right: 90px;
+  padding-right: 140px;
 
   &:focus {
     outline: none;
@@ -37,9 +42,14 @@ const StyledDiv = styled.div`
   justify-content: center;
   bottom: 69px;
   position: fixed;
+  min-height: 60px;
+  border-radius: 10px;
 `;
 const StyledButton = styled.button`
   background-color: #141414;
   border: none;
   color: #fff;
+  &:hover {
+    color: var(--color-primary);
+  }
 `;

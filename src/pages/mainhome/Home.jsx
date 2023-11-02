@@ -7,6 +7,7 @@ import ButtonFloating from '../../components/Common/Buttons/ButtonFloating';
 import { getProducts } from '../../api/productApi';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBottom from '../../components/Common/Nav/NavBottom';
+import plus from '../../assets/icons/icon-plus.svg';
 
 const StyleHome = styled.div`
   display: flex;
@@ -43,9 +44,23 @@ const StyleCards = styled.div`
   }
 `;
 const StyleAddButton = styled.div`
-  position: absolute;
-  bottom: 120px;
-  right: 16px;
+  width: 56px;
+  height: 56px;
+  margin-top: 30px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  position: fixed;
+  bottom: 100px;
+  right: 36%;
+  cursor: pointer;
+  background-image: url(${plus});
+  background-repeat: no-repeat;
+  background-position: center center;
+  transition: transform 0.3s ease-in-out;
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 
 export default function Home() {
@@ -145,9 +160,7 @@ export default function Home() {
           })}
       </StyleCards>
       <Link to='/addgroup'>
-        <StyleAddButton>
-          <ButtonFloating />
-        </StyleAddButton>
+        <StyleAddButton>{/* <ButtonFloating /> */}</StyleAddButton>
       </Link>
       <NavBottom />
     </StyleHome>
