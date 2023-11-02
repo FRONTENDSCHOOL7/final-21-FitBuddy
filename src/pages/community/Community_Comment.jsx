@@ -106,6 +106,7 @@ export default function Community_Comment(props) {
             content={item.content}
             createdAt={timed}
             removeComment={removeState}
+            authorId={item.author._id}
           />
         );
       })}
