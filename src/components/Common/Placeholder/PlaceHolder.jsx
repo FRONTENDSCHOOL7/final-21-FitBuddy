@@ -14,6 +14,8 @@ const StyledPlaceHolder = styled.img.attrs((props) => ({
       ? '414px'
       : props.type === 'Person'
       ? '42px'
+      : props.type === 'JoinMember'
+      ? '60px'
       : '100px'};
   height: ${(props) =>
     props.type === 'Ractangle'
@@ -24,9 +26,11 @@ const StyledPlaceHolder = styled.img.attrs((props) => ({
       ? '228px'
       : props.type === 'Person'
       ? '42px'
+      : props.type === 'JoinMember'
+      ? '60px'
       : '100px'};
   background-color: #f2f2f2;
-  border-radius: ${(props) => (props.type === 'Person' ? `50px` : `10px`)};
+  border-radius: ${(props) => (props.type === 'Person' || 'JoinMember' ? `50px` : `10px`)};
   border: 0.5px solid #dbdbdb;
   display: flex;
   justify-content: center;

@@ -7,9 +7,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getDetailProduct, deleteProduct } from '../../../api/productApi';
 import PostJoin from '../../../components/Post/PostJoin';
 import { BackIcon, NavTop, NavTopTitle } from '../../../components/Common/Nav/NavStyles';
-import { getProfile } from '../../../api/mypageapi';
+import { getProfile, getMyInfo } from '../../../api/mypageapi';
 import userImg from '../../../assets/placeholder/Placeholder-avatar.svg';
 import Chip from '../../../components/Common/Chip/Chip';
+import { useFirestore } from '../../../hooks/useFirestore';
+import crown from '../../../assets/icons/icon-leader.svg';
 
 const StyleGroupDetail = styled.div`
   color: #fff;
@@ -90,14 +92,23 @@ const StyleJoinMember = styled.div`
     justify-content: center;
     align-items: center;
   }
+  .leader {
+    position: absolute;
+    top: -5px;
+    left: 35px;
+    width: 30px;
+    z-index: 10;
+  }
 `;
 
-export default function GroupDetailPage() {
+export default function GroupDetailPage({ uid }) {
   const { groupId } = useParams();
   const [groupData, setGroupData] = useState([]);
   const [people, setPeople] = useState(3);
   const [authorProfile, setAuthorProfile] = useState('');
-  const [username, setUsername] = useState('');
+  const [joinUser, setJoinUser] = useState([]);
+  // 컬랙션의 이름은 여러분들 마음대로 정하시면 됩니다 :)
+  const { addDocument, response } = useFirestore('groupJoin');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -117,11 +128,11 @@ export default function GroupDetailPage() {
     const fetchData = async () => {
       try {
         if (groupData && groupData.product.author) {
-          const authorData = groupData.product.author.accountname;
-          const uname = groupData.product.author.username;
-          setUsername(uname);
+          const authorData = groupData.product.author;
+          // const uname = groupData.product.author.username;
+          // setUsername(uname);
 
-          const data = await getProfile(authorData);
+          const data = await getProfile(authorData.accountname);
           setAuthorProfile(data);
           console.log('계정 정보 확인', authorData);
           console.log('계정 정보 확인22', groupData.product.author);
@@ -154,7 +165,21 @@ export default function GroupDetailPage() {
   const handleBackClick = () => {
     navigate(-1);
   };
-  const handleGroupJoin = () => {};
+  const handleGroupJoin = async (event) => {
+    event.preventDefault();
+    try {
+      const myData = await getMyInfo();
+      setJoinUser(myData);
+      console.log('내 정보', myData);
+      console.log(joinUser);
+      addDocument({
+        // uid,
+        joinUser,
+      });
+    } catch (error) {
+      console.error('Error during handleGroupJoin:', error);
+    }
+  };
 
   return (
     <StyleGroupDetail>
@@ -199,27 +224,32 @@ export default function GroupDetailPage() {
         <div className='imgBox'>
           <StyleJoinMember>
             <div className='placeholder-container'>
+              <img className='leader' src={crown} />
               {authorProfile && authorProfile.profile && authorProfile.profile.image ? (
-                <PlaceHolder type='Person' src={authorProfile.profile.image} />
+                <PlaceHolder type='JoinMember' src={authorProfile.profile.image} />
               ) : (
-                <PlaceHolder type='Person' src={userImg} />
+                <PlaceHolder type='JoinMember' src={userImg} />
               )}
             </div>
-            <p>{username}</p>
+            {authorProfile && authorProfile.profile && authorProfile.profile.username ? (
+              <p>{authorProfile.profile.username}</p>
+            ) : (
+              <p>{/* fallback content */}</p>
+            )}
           </StyleJoinMember>
 
           <StyleJoinMember>
             <div className='placeholder-container'>
-              <PlaceHolder type='Person' src={userImg} />
+              <PlaceHolder type='JoinMember' src={userImg} />
             </div>
-            <p>{username}</p>
+            {/* <p>{username}</p> */}
           </StyleJoinMember>
         </div>
 
         <h2 className='description'>일정소개</h2>
         <p>{result.contents}</p>
-        <ComFirmButton onClick={handleGroupJoin}>
-          <Button_L name='참여하기' />
+        <ComFirmButton>
+          <Button_L name='참여하기' onClick={handleGroupJoin} />
         </ComFirmButton>
       </div>
     </StyleGroupDetail>
