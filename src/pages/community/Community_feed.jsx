@@ -92,6 +92,8 @@ export default function Community_feed() {
     uploadImage(imageFile);
   };
 
+  //이미지 여러장 업로드
+
   const addPost = async (addPostData) => {
     try {
       const res = await axiosApi.post('post', addPostData);

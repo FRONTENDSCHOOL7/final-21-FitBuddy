@@ -13,3 +13,16 @@ export const postUploadImg = async (formData) => {
     console.log(err);
   }
 };
+
+export const postUploadImgs = async (formData) => {
+  try {
+    const res = await axios.post(`${URL}/image/uploadfiles`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
