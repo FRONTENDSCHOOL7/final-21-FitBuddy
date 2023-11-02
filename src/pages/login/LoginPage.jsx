@@ -55,7 +55,6 @@ export default function LoginPage({ marginBottom }) {
         const receivedToken = response.data.user.token;
         localStorage.setItem('token', receivedToken);
         saveToken(response.data.user);
-        alert('로그인 성공!');
         navigate('/Home');
       }
     } catch (err) {

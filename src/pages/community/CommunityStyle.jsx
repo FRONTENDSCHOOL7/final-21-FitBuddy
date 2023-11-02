@@ -18,6 +18,10 @@ export const CommunityButton = styled.button`
   background-image: url(${plus});
   background-repeat: no-repeat;
   background-position: center center;
+  transition: transform 0.3s ease-in-out;
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 
 export const CommunityWrapper = styled.div`
@@ -66,10 +70,6 @@ export const StyledActualInput = styled.textarea`
   border: none;
   color: var(--color-secondary);
   resize: none;
-
-  &:focus {
-    outline: none;
-  }
 `;
 
 export const CharacterCount = styled.div`

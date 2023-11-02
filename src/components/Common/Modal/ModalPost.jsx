@@ -72,6 +72,9 @@ const DeleteBtn = styled.button`
   &:last-child {
     margin-bottom: 0;
   }
+  &:hover {
+    color: var(--color-primary);
+  }
 `;
 
 export default function ModalEditAndDel(props) {

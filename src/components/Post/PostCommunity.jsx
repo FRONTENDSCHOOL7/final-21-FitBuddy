@@ -55,14 +55,7 @@ export default function PostCommunity(props) {
         </StyledPostEdit>
         <StyledOverlay visible={modal} onClick={toggleModal} />
       </StyledPost>
-      {modal && (
-        <ModalEditAndDel
-          visible={modal}
-          postId={props.postId}
-          isPostorJoin='Post'
-          // onDelete={props.onDelete}
-        />
-      )}
+      {modal && <ModalEditAndDel visible={modal} postId={props.postId} isPostorJoin='Post' />}
     </>
   );
 }

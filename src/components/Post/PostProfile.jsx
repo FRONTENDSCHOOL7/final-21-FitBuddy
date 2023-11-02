@@ -10,7 +10,6 @@ import { useNavigate } from 'react-router-dom';
 import { postLike, postUnlike } from '../../api/postApi';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { commentCount, commentPreview } from '../../Recoil/commentCount';
-// import CommentContext from '../../pages/community/CommentContext';
 import { getCommentList } from '../../api/commentApi';
 
 const StyledDiv = styled.div`
@@ -31,6 +30,7 @@ const StyledDiv = styled.div`
   }
   .date {
     margin: 5px 0px;
+    margin-left: 9px;
     color: gray;
     font-size: 10px;
   }
@@ -40,6 +40,7 @@ const StyledDiv = styled.div`
     gap: 10px;
   }
 `;
+
 const StyleComment = styled.div`
   display: flex;
   flex-direction: column;
@@ -58,6 +59,7 @@ const StyleTextArea = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: ${({ expanded }) => (expanded ? 'none' : '2')};
   -webkit-box-orient: vertical;
+  min-height: 2.4rem;
 `;
 
 const Button = styled.div`
@@ -74,10 +76,17 @@ const CommentButton = styled.button`
   display: inline;
   background-color: transparent;
   border: none;
-  width: 70px;
+  width: 90px;
   color: gray;
   font-size: 10px;
   cursor: pointer;
+`;
+const HeartIcon = styled.img`
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 export default function PostProfile(props) {
   const [heartCount, setHeartCount] = useState(props.heartCount || 0);
@@ -158,7 +167,7 @@ export default function PostProfile(props) {
         <PostCommunity name={props.name} postId={props.postId} />
         <PlaceHolder type='Ractangle' src={props.image} />
         <div className='reaction'>
-          <img src={isHearted ? heartOn : heartOff} alt='heart' onClick={handleToggleLike} />
+          <HeartIcon src={isHearted ? heartOn : heartOff} alt='heart' onClick={handleToggleLike} />
           <p
             style={{
               color: isHearted ? 'var(--color-primary)' : 'var(--color-secondary)',
@@ -191,7 +200,7 @@ export default function PostProfile(props) {
               content={comment.content}
             />
           ))}
-        <CommentButton onClick={handleReply}>댓글더보기...</CommentButton>
+        <CommentButton onClick={handleReply}>댓글 {props.commentLength}개 모두보기</CommentButton>
       </StyleComment>
     </StyledDiv>
   );
