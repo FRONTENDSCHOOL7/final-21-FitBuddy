@@ -47,6 +47,7 @@ const CategoryWrapper = styled.div`
 `;
 const StyleCards = styled.div`
   display: flex;
+  min-width: 380px;
   flex-direction: column;
   gap: 13px;
   /* overflow-y: auto; // 스크롤 가능하게 유지
@@ -68,9 +69,9 @@ export default function Home() {
   const [selectedSport, setSelectedSport] = useState('전체');
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
-  const handleButtonClick = () => {
-    navigate('/addgroup');
-  };
+  // const handleButtonClick = () => {
+  //   navigate('/addgroup');
+  // };
 
   const handleSelectSport = (sport) => {
     setSelectedSport(sport);
@@ -110,17 +111,16 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       try {
-        const data = await getProducts(page);
-        setProducts((prev) => [...prev, ...data.product]);
+        const data = await getProducts();
+        setProducts(data.product);
       } catch (error) {
         console.error('Error fetching posts:', error);
       }
-    }
-
+    };
     fetchData();
-  }, [page]);
+  }, []);
 
   const categoryRef = useRef();
 
@@ -138,8 +138,9 @@ export default function Home() {
     if (!isDragging) return;
     e.preventDefault();
     const x = e.pageX - categoryRef.current.offsetLeft;
-    const scrollLeft = x - startX;
-    categoryRef.current.scrollLeft -= scrollLeft;
+    const scrollLeft = startX - x;
+    categoryRef.current.scrollLeft += scrollLeft * 0.6;
+    setStartX(e.pageX - categoryRef.current.offsetLeft);
   };
 
   const onMouseUpOrLeave = () => {
@@ -172,25 +173,85 @@ export default function Home() {
           active={selectedSport === '🎣낚시'}
           onClick={() => handleSelectSport('🎣낚시')}
         />
-        <Chip sport='🏕캠핑' active={false} />
-        <Chip sport='🏍바이크' active={false} />
-        <Chip sport='🚴자전거' active={false} />
-        <Chip sport='⛰등산' active={false} />
-        <Chip sport='🏃‍♂️러닝' active={false} />
-        <Chip sport='🏋헬스' active={false} />
-        <Chip sport='🤸필라테스' active={false} />
-        <Chip sport='🏋️‍♂️크로스핏' active={false} />
-        <Chip sport='🧘🏽‍♂️요가' active={false} />
-        <Chip sport='⚽축구' active={false} />
-        <Chip sport='🏀농구' active={false} />
-        <Chip sport='⚾야구' active={false} />
-        <Chip sport='🎱당구' active={false} />
-        <Chip sport='🎱포켓볼' active={false} />
-        <Chip sport='⚽풋살' active={false} />
+        <Chip
+          sport='🏕캠핑'
+          active={selectedSport === '🏕캠핑'}
+          onClick={() => handleSelectSport('🏕캠핑')}
+        />
+        <Chip
+          sport='🏍바이크'
+          active={selectedSport === '🏍바이크'}
+          onClick={() => handleSelectSport('🏍바이크')}
+        />
+        <Chip
+          sport='🚴자전거'
+          active={selectedSport === '🚴자전거'}
+          onClick={() => handleSelectSport('🚴자전거')}
+        />
+        <Chip
+          sport='⛰등산'
+          active={selectedSport === '⛰등산'}
+          onClick={() => handleSelectSport('⛰등산')}
+        />
+        <Chip
+          sport='🏃‍♂️러닝'
+          active={selectedSport === '🏃‍♂️러닝'}
+          onClick={() => handleSelectSport('🏃‍♂️러닝')}
+        />
+        <Chip
+          sport='🏋헬스'
+          active={selectedSport === '🏋헬스'}
+          onClick={() => handleSelectSport('🏋헬스')}
+        />
+        <Chip
+          sport='🤸필라테스'
+          aactive={selectedSport === '🤸필라테스'}
+          onClick={() => handleSelectSport('🤸필라테스')}
+        />
+        <Chip
+          sport='🏋️‍♂️크로스핏'
+          active={selectedSport === '🏋️‍♂️크로스핏'}
+          onClick={() => handleSelectSport('🏋️‍♂️크로스핏')}
+        />
+        <Chip
+          sport='🧘🏽‍♂️요가'
+          active={selectedSport === '🧘🏽‍♂️요가'}
+          onClick={() => handleSelectSport('🧘🏽‍♂️요가')}
+        />
+        <Chip
+          sport='⚽축구'
+          active={selectedSport === '⚽축구'}
+          onClick={() => handleSelectSport('⚽축구')}
+        />
+        <Chip
+          sport='🏀농구'
+          active={selectedSport === '🏀농구'}
+          onClick={() => handleSelectSport('🏀농구')}
+        />
+        <Chip
+          sport='⚾야구'
+          active={selectedSport === '⚾야구'}
+          onClick={() => handleSelectSport('⚾야구')}
+        />
+        <Chip
+          sport='🎱당구'
+          active={selectedSport === '🎱당구'}
+          onClick={() => handleSelectSport('🎱당구')}
+        />
+        <Chip
+          sport='🎱포켓볼'
+          active={selectedSport === '🎱포켓볼'}
+          onClick={() => handleSelectSport('🎱포켓볼')}
+        />
+        <Chip
+          sport='⚽풋살'
+          active={selectedSport === '⚽풋살'}
+          onClick={() => handleSelectSport('⚽풋살')}
+        />
       </CategoryWrapper>
       <StyleCards>
         {products
-          .filter((item) => item.itemName === 'FitBuddy') // 조건에 맞는 아이템만 필터링
+          .filter((item) => item.itemName === 'FitBuddy')
           .map((item) => {
             let link = item.link;
             let data = link.split('\n');
@@ -201,22 +262,28 @@ export default function Home() {
               const [key, value] = line.split(':');
               result[key.trim()] = value.trim().replace(/,+$/, '');
             }
-
-            // <Card key={item._id} content={item.content} />;
-
+            return { ...item, ...result };
+          })
+          .filter((item) => {
+            console.log(item);
+            console.log(item.sport); // 이제 파싱된 sport 값을 콘솔에 출력합니다.
+            // 여기에서 item.sport와 selectedSport를 비교합니다.
+            return selectedSport === '전체' || item.sport === selectedSport;
+          })
+          .map((filteredItem) => {
             return (
-              <Link to={`/group/${item._id}`} key={item._id}>
+              <Link to={`/group/${filteredItem._id}`} key={filteredItem._id}>
                 <Card
-                  key={item._id}
-                  image={item.itemImage}
-                  title={result.title}
-                  time={result.time}
-                  sport={result.sport}
-                  location={result.location}
-                  day={result.day}
-                  cost={result.cost}
-                  attendees={result.attendees}
-                  contents={result.contents}
+                  key={filteredItem._id}
+                  image={filteredItem.itemImage}
+                  title={filteredItem.title}
+                  time={filteredItem.time}
+                  sport={filteredItem.sport}
+                  location={filteredItem.location}
+                  day={filteredItem.day}
+                  cost={filteredItem.cost}
+                  attendees={filteredItem.attendees}
+                  contents={filteredItem.contents}
                 />
               </Link>
             );
