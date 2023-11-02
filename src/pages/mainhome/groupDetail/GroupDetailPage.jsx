@@ -106,8 +106,9 @@ export default function GroupDetailPage({ uid }) {
   const [groupData, setGroupData] = useState([]);
   const [people, setPeople] = useState(3);
   const [authorProfile, setAuthorProfile] = useState('');
+  const [authorId, setAuthorId] = useState('');
+  const [myId, setMyId] = useState('');
   const [joinUser, setJoinUser] = useState([]);
-  // 컬랙션의 이름은 여러분들 마음대로 정하시면 됩니다 :)
   const { addDocument, response } = useFirestore('groupJoin');
 
   useEffect(() => {
@@ -129,14 +130,11 @@ export default function GroupDetailPage({ uid }) {
       try {
         if (groupData && groupData.product.author) {
           const authorData = groupData.product.author;
-          // const uname = groupData.product.author.username;
-          // setUsername(uname);
 
           const data = await getProfile(authorData.accountname);
           setAuthorProfile(data);
+
           console.log('계정 정보 확인', authorData);
-          console.log('계정 정보 확인22', groupData.product.author);
-          console.log('이미지 확인2', data.profile.image);
         }
       } catch (error) {
         console.error('Error fetching author data:', error);
