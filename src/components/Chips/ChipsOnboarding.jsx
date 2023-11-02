@@ -7,7 +7,7 @@ import {
   OnboardTitle,
 } from './ChipsStyles';
 
-export default function ChipsOnboarding({ id, items, category, onSelect }) {
+export default function ChipsOnboarding({ id, items, category, onSelect, nowrap }) {
   const handleSelect = (selectedSport) => {
     onSelect(selectedSport);
   };
@@ -15,7 +15,7 @@ export default function ChipsOnboarding({ id, items, category, onSelect }) {
   return (
     <SelectWrapper marginBottom='40px'>
       <OnboardTitle>{category}</OnboardTitle>
-      <CheckboxContainer>
+      <CheckboxContainer nowrap={nowrap}>
         {items.map((item, index) => (
           <>
             <CheckboxInput

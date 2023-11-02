@@ -68,7 +68,7 @@ export const Label = styled.label`
 export const CheckboxContainer = styled.div`
   display: flex;
   width: 350px;
-  flex-wrap: wrap;
+  flex-wrap: ${(props) => (props.nowrap ? 'nowrap' : 'wrap')};
 `;
 export const OnboardTitle = styled.h2`
   font-size: var(--font-size-xl);
