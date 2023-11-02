@@ -7,6 +7,7 @@ import { useRecoilState } from 'recoil';
 import userTokenAtom from '../../../Recoil/userTokenAtom';
 import { deleteProduct } from '../../../api/productApi';
 import { useNavigate } from 'react-router-dom';
+import { postsState } from '../../../Recoil/communityAtom';
 
 const slideIn = keyframes`
   from{
@@ -71,22 +72,29 @@ const DeleteBtn = styled.button`
   &:last-child {
     margin-bottom: 0;
   }
+  &:hover {
+    color: var(--color-primary);
+  }
 `;
 
 export default function ModalEditAndDel(props) {
   const [alertVisible, setAlertVisible] = useState(false);
+  const [posts, setPosts] = useRecoilState(postsState);
   const token = useRecoilState(userTokenAtom);
   const postId = props.postId;
   const navigate = useNavigate();
   console.log(token);
   const isPostorJoin = props.isPostorJoin;
 
+  const showModal = () => {
+    setAlertVisible(true);
+  };
+
   const handleFeedDelete = async () => {
     try {
       if (isPostorJoin === 'Post') {
         const res = await PostDelete(postId);
-        console.log(res);
-        console.log('삭제성공');
+        setPosts((prev) => prev.filter((post) => post._id !== postId));
         return res;
       }
       if (isPostorJoin === 'Join') {
@@ -112,7 +120,7 @@ export default function ModalEditAndDel(props) {
   return (
     <StyledModal visible={props.visible}>
       <DeleteBtn onClick={handleEditPost}>피드 수정</DeleteBtn>
-      <DeleteBtn onClick={handleFeedDelete}>피드 삭제</DeleteBtn>
+      <DeleteBtn onClick={showModal}>피드 삭제</DeleteBtn>
       {alertVisible && <AlertDelete handleFeedDelete={handleFeedDelete} />}
     </StyledModal>
   );

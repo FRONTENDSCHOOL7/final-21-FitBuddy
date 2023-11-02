@@ -36,10 +36,12 @@ const StyledPostEdit = styled.button`
 
 export default function PostCommunity(props) {
   const [modal, setModal] = useState(false);
+  const [feedList, setFeedList] = useState([]);
 
   const toggleModal = () => {
     setModal(!modal);
   };
+
   return (
     <>
       <StyledPost>

@@ -42,17 +42,25 @@ const CloseButton = styled.button`
   box-sizing: border-boxg;
   cursor: pointer;
   margin-top: 52px;
+  transition: transform 0.3s ease-in-out;
 
   &.default {
     border-top: 0.5px solid #8f8f8f;
     border-right: 0.5px solid #8f8f8f;
     border-radius: 0 0 0 10px;
+    &:hover {
+      color: #141414;
+      background-color: #fff;
+    }
   }
   &.secondary {
     border-top: 0.5px solid #8f8f8f;
     border-left: 0.5px solid #8f8f8f;
     border-radius: 0 0 10px 0;
     color: #a6ff4d;
+    &:hover {
+      background-color: #fff;
+    }
   }
 `;
 
@@ -62,7 +70,11 @@ const Alert = ({ isOpen, onClose, handleFeedDelete, children }) => {
 
   const closeHandler = () => {
     onClose();
+  };
+
+  const deleteAndCloseHandler = () => {
     handleFeedDelete();
+    onClose();
   };
 
   return (
@@ -72,7 +84,7 @@ const Alert = ({ isOpen, onClose, handleFeedDelete, children }) => {
         <CloseButton onClick={closeHandler} className='default'>
           닫기
         </CloseButton>
-        <CloseButton onClick={onClose} className='secondary'>
+        <CloseButton onClick={deleteAndCloseHandler} className='secondary'>
           삭제
         </CloseButton>
       </AlertContent>

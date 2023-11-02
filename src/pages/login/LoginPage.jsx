@@ -55,7 +55,6 @@ export default function LoginPage({ marginBottom }) {
         const receivedToken = response.data.user.token;
         localStorage.setItem('token', receivedToken);
         saveToken(response.data.user);
-        alert('로그인 성공!');
         navigate('/Home');
       }
     } catch (err) {
@@ -112,7 +111,12 @@ export default function LoginPage({ marginBottom }) {
         </ContentsContainer>
         <Button_L name='로그인' marginBottom={30} onClick={handleLoginSubmit} />
         {/* disabled={notAllow}는 나중에 넣기*/}
-        <Button_text marginBottom={20} content='이메일로 회원가입' type='submit' />
+        <Button_text
+          marginBottom={20}
+          content='이메일로 회원가입'
+          type='submit'
+          onClick={moveSignup}
+        />
         <SnsButtonContainer>
           <Button_sns snsIcon={kakao} />
           <Button_sns snsIcon={google} />

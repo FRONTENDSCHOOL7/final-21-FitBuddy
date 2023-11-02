@@ -31,6 +31,10 @@ export const NavDiv = styled.div`
   padding-top: 30px;
   gap: 5px;
   cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 
 export const NavText = styled.span`

@@ -71,6 +71,7 @@ export default function Community_Comment(props) {
     setComments((prev) => prev.filter((comment) => comment.id !== commentId));
   };
 
+  //
   const firstTwoComments = comments.slice(0, 2).map((comment) => ({
     accountname: comment.author.username,
     content: comment.content,
