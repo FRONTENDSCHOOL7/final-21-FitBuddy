@@ -7,6 +7,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getDetailProduct, deleteProduct } from '../../../api/productApi';
 import PostJoin from '../../../components/Post/PostJoin';
 import { BackIcon, NavTop, NavTopTitle } from '../../../components/Common/Nav/NavStyles';
+import { getProfile, getMyInfo } from '../../../api/mypageapi';
+import userImg from '../../../assets/placeholder/Placeholder-avatar.svg';
+import Chip from '../../../components/Common/Chip/Chip';
+import { useFirestore } from '../../../hooks/useFirestore';
+import crown from '../../../assets/icons/icon-leader.svg';
 
 const StyleGroupDetail = styled.div`
   color: #fff;
@@ -36,9 +41,9 @@ const StyleGroupDetail = styled.div`
     align-items: center;
   }
   .title {
-    width: 200px;
+    min-width: 350px;
     font-size: 24px;
-    margin: 32px 0px 32px 0px;
+    margin: 32px auto 15px auto;
   }
   .description {
     font-size: 20px;
@@ -60,6 +65,10 @@ const StyleContent = styled.li`
     padding-left: 21px;
     padding-bottom: 11px;
   }
+
+  .sport {
+    margin-bottom: 20px;
+  }
 `;
 const ComFirmButton = styled.div`
   position: absolute;
@@ -67,10 +76,40 @@ const ComFirmButton = styled.div`
   bottom: 4%;
 `;
 
-export default function GroupDetailPage() {
+const StyleJoinMember = styled.div`
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  & > * {
+    margin-bottom: 10px;
+  }
+  p {
+    margin: 10px 0;
+  }
+  .placeholder-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .leader {
+    position: absolute;
+    top: -5px;
+    left: 35px;
+    width: 30px;
+    z-index: 10;
+  }
+`;
+
+export default function GroupDetailPage({ uid }) {
   const { groupId } = useParams();
   const [groupData, setGroupData] = useState([]);
   const [people, setPeople] = useState(3);
+  const [authorProfile, setAuthorProfile] = useState('');
+  const [authorId, setAuthorId] = useState('');
+  const [myId, setMyId] = useState('');
+  const [joinUser, setJoinUser] = useState([]);
+  const { addDocument, response } = useFirestore('groupJoin');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,6 +124,24 @@ export default function GroupDetailPage() {
 
     fetchData();
   }, [groupId]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (groupData && groupData.product.author) {
+          const authorData = groupData.product.author;
+
+          const data = await getProfile(authorData.accountname);
+          setAuthorProfile(data);
+
+          console.log('계정 정보 확인', authorData);
+        }
+      } catch (error) {
+        console.error('Error fetching author data:', error);
+      }
+    };
+    fetchData();
+  }, [groupData]);
 
   let result = {};
   if (groupData.product && groupData.product.link) {
@@ -106,6 +163,21 @@ export default function GroupDetailPage() {
   const handleBackClick = () => {
     navigate(-1);
   };
+  const handleGroupJoin = async (event) => {
+    event.preventDefault();
+    try {
+      const myData = await getMyInfo();
+      setJoinUser(myData);
+      console.log('내 정보', myData);
+      console.log(joinUser);
+      addDocument({
+        // uid,
+        joinUser,
+      });
+    } catch (error) {
+      console.error('Error during handleGroupJoin:', error);
+    }
+  };
 
   return (
     <StyleGroupDetail>
@@ -118,12 +190,18 @@ export default function GroupDetailPage() {
       <div className='contents'>
         <div className='top-title'>
           <h1 className='title'>{result.title}</h1>
-          <PostJoin postId={groupId} />
+          <PostJoin postId={groupId} visable={false} />
         </div>
         <ul>
           <StyleContent>
+            <div className='sport'>
+              <Chip key={result.sport} sport={result.sport} />
+            </div>
+          </StyleContent>
+          <StyleContent>
             <div>장소</div> <p>{result.location}</p>
           </StyleContent>
+
           <StyleContent>
             <div>날짜</div> <p>{result.day}</p>
           </StyleContent>
@@ -142,15 +220,34 @@ export default function GroupDetailPage() {
           참여멤버 {people}명 / {result.attendees}명
         </div>
         <div className='imgBox'>
-          <Button_Img />
-          <Button_Img />
-          <Button_Img />
+          <StyleJoinMember>
+            <div className='placeholder-container'>
+              <img className='leader' src={crown} />
+              {authorProfile && authorProfile.profile && authorProfile.profile.image ? (
+                <PlaceHolder type='JoinMember' src={authorProfile.profile.image} />
+              ) : (
+                <PlaceHolder type='JoinMember' src={userImg} />
+              )}
+            </div>
+            {authorProfile && authorProfile.profile && authorProfile.profile.username ? (
+              <p>{authorProfile.profile.username}</p>
+            ) : (
+              <p>{/* fallback content */}</p>
+            )}
+          </StyleJoinMember>
+
+          <StyleJoinMember>
+            <div className='placeholder-container'>
+              <PlaceHolder type='JoinMember' src={userImg} />
+            </div>
+            {/* <p>{username}</p> */}
+          </StyleJoinMember>
         </div>
 
         <h2 className='description'>일정소개</h2>
         <p>{result.contents}</p>
         <ComFirmButton>
-          <Button_L name='참여하기' />
+          <Button_L name='참여하기' onClick={handleGroupJoin} />
         </ComFirmButton>
       </div>
     </StyleGroupDetail>
