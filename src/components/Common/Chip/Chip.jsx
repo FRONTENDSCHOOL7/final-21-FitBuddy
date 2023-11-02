@@ -18,7 +18,7 @@ const StyledChip = styled.button`
 
 export default function Chip(props) {
   return (
-    <StyledChip type='radio' active={props.active}>
+    <StyledChip type='radio' active={props.active} onClick={props.onClick}>
       {props.sport}
     </StyledChip>
   );

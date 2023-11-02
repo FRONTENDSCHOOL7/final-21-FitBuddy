@@ -65,16 +65,14 @@ const StyleAddButton = styled.div`
 
 export default function Home() {
   const [products, setProducts] = useState([]);
-  const [selectedSport, setSelectedSport] = useState('');
+  const [selectedSport, setSelectedSport] = useState('전체');
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const handleButtonClick = () => {
     navigate('/addgroup');
   };
 
-  const handleSelectSport = (e) => {
-    const sport = e.target.getAttribute('data-sport'); // 예를 들어, data-sport 속성을 사용한다고 가정
-    console.log('선택됨:', sport);
+  const handleSelectSport = (sport) => {
     setSelectedSport(sport);
   };
 
