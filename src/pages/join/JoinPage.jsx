@@ -22,7 +22,7 @@ export default function JoinPage() {
   const [password, setPassword] = useState('');
   const [accountname, setAccountname] = useState('');
   const [image, setImage] = useState('https://api.mandarin.weniv.co.kr/Ellipse.png');
-  const [intro, setIntro] = useState('');
+  const [intro, setIntro] = useState('인트로');
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
@@ -40,60 +40,44 @@ export default function JoinPage() {
     setPasswordError('');
 
     if (!isPasswordValid(password)) {
-      setPasswordError('영문+숫자+특수기호 포함 6자리 이상 입력하세요.');
+      setPasswordError('영문+숫자+특수기호를 포함하여 6자리 이상 입력하세요.');
       return;
     }
 
-    async function checkDuplicateEmail() {
-      try {
-        const response = await emailValid({
-          user: {
-            email: email,
-          },
-        });
-        if (response.status === 200) {
-          const message = response.data.message;
-          setEmailErrorMessage(message);
-
-          if (message === '이미 가입된 이메일 주소 입니다.') {
-            setEmailError(true);
-          } else {
-            setEmailError(false);
-          }
-          console.log(response.data.message);
-        }
-      } catch (error) {
-        console.error('이메일 중복 확인 중 오류 발생:', error);
-        return false;
-      }
-
-      return true;
+    if (!isEmailValid(email)) {
+      setEmailErrorMessage('잘못된 이메일 형식입니다.');
+      setEmailError(true);
+      return;
     }
 
     try {
+      const isEmailUnique = await emailValid();
+
+      if (!isEmailUnique) {
+        return;
+      }
+
       const userData = {
         user: {
           username,
           email,
           password,
           accountname,
-          image,
           intro,
+          image,
         },
       };
-      // 이메일 중복 확인
-      const isEmailUnique = await checkDuplicateEmail(userData);
-
-      if (!isEmailUnique) {
-        return;
-      }
+      console.log(userData);
 
       const response = await postSignUp(userData);
-      console.log(response.data);
-      alert('회원가입 성공');
+      console.log(userData);
 
       if (response.status === 200) {
-        return navigate('/login');
+        alert('회원가입 성공');
+        navigate('/login');
+      } else {
+        console.log('200이아님');
+        // 응답 상태가 200이 아닌 경우를 처리
       }
     } catch (err) {
       console.error(err);
@@ -113,7 +97,7 @@ export default function JoinPage() {
           <br />
           <LoginInputBox
             type='text'
-            placeholder='회원 이름'
+            placeholder='회원 닉네임'
             id='userNameInput'
             onChange={(e) => {
               setUsername(e.target.value);
@@ -140,7 +124,7 @@ export default function JoinPage() {
           <br />
           <LoginInputBox
             type='text'
-            placeholder='닉네임'
+            placeholder='아이디'
             id='accountnameInput'
             onChange={(e) => {
               setAccountname(e.target.value);
@@ -162,14 +146,6 @@ export default function JoinPage() {
         </div>
       </ContentsContainer>
       <StyledButtonL name='계정 생성' onClick={Signup} />
-      <StyledTextButton
-        type='button'
-        onClick={() => {
-          navigate('/login');
-        }}
-      >
-        로그인
-      </StyledTextButton>
     </LoginWrapper>
   );
 }
