@@ -25,6 +25,7 @@ export default function InputText(props) {
       value={props.value}
       onClick={props.onClick}
       value={props.value}
+      autocomplete={props.autocomplete}
     />
   );
 }

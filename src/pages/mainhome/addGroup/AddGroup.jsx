@@ -15,80 +15,16 @@ import Modal from 'react-modal';
 import Chip from '../../../components/Common/Chip/Chip';
 import { useParams } from 'react-router-dom';
 import KakaoMap from '../../../components/KakaoMap/KakaoMap';
-
-const StyleAddGroup = styled.div`
-  color: gray;
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  align-items: center;
-  background-color: var(--color-bg);
-  height: 900px;
-  padding-left: 22px;
-  padding-right: 22px;
-  font-size: 14px;
-
-  .inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 17px;
-    margin-top: 36px;
-    margin-bottom: 38px;
-    max-height: 400px;
-    overflow-y: auto;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-`;
-const StyleButtonL = styled.div`
-  position: absolute;
-  bottom: 10px;
-`;
-const InputBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-`;
-const customModalStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    transform: 'translate(-50%, -50%)',
-    backgroundColor: 'black',
-  },
-};
-const modalStyle = {
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '80%',
-  maxHeight: '80%',
-  overflowY: 'auto',
-  backgroundColor: '#FFF',
-  padding: '20px',
-  boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
-  zIndex: 1000,
-};
-
-export const ImageBtn = styled.button`
-  border-radius: 50%;
-  border: none;
-  width: 50px;
-  height: 50px;
-  background-color: var(--color-gray);
-  background-image: url(${UploadImg});
-  background-repeat: no-repeat;
-  background-size: 100px;
-  position: absolute;
-  background-size: cover;
-  bottom: 10px;
-  right: 10px;
-`;
-
+import {
+  StyleAddGroup,
+  customModalStyles,
+  StyleButtonL,
+  InputBox,
+  Overlay,
+  modalStyle,
+  ImageBtn,
+} from './StyleAddGroup';
+import CategoryButton from '../../../components/Common/Input/CategoryButton';
 export default function AddGroup() {
   const inputRef = useRef(null);
   const [image, setImage] = useState('');
@@ -359,28 +295,30 @@ export default function AddGroup() {
         </InputBox>
         <InputBox>
           <p>운동종목</p>
-          <div style={{ gap: '12px', display: 'flex' }}>
-            {selectedSports.map((sport, index) => (
-              <Chip key={index} sport={sport} />
-            ))}
+          <div className='categoryflex'>
+            <div style={{ gap: '12px', display: 'flex' }}>
+              {selectedSports.map((sport, index) => (
+                <Chip key={index} sport={sport} />
+              ))}
+            </div>
+            {selectedSports.length > 0 ? (
+              <CategoryButton
+                name='sport'
+                placeholder='운동종목을 입력해주세요'
+                onChange={handleInputChange}
+                onClick={handleOpenOnBoarding}
+                value={formData.sport}
+              />
+            ) : (
+              <InputButton
+                name='sport'
+                placeholder='운동종목을 입력해주세요'
+                onChange={handleInputChange}
+                onClick={handleOpenOnBoarding}
+                value={formData.sport}
+              />
+            )}
           </div>
-          {selectedSports.length > 0 ? (
-            <InputButton
-              name='sport'
-              placeholder='운동종목을 입력해주세요'
-              onChange={handleInputChange}
-              onClick={handleOpenOnBoarding}
-              value={formData.sport}
-            />
-          ) : (
-            <InputButton
-              name='sport'
-              placeholder='운동종목을 입력해주세요'
-              onChange={handleInputChange}
-              onClick={handleOpenOnBoarding}
-              value={formData.sport}
-            />
-          )}
         </InputBox>
         <Modal
           isOpen={showOnBoarding}
@@ -422,13 +360,13 @@ export default function AddGroup() {
             onChange={handleInputChange}
             value={formData.location}
             onClick={openKakaoMapModal}
+            autocomplete='off'
           />
         </InputBox>
         {isKakaoMapOpen && (
-          <div style={modalStyle}>
-            <button onClick={closeKakaoMapModal}>닫기</button>
+          <Overlay>
             <KakaoMap onRequestClose={closeKakaoMapModal} onSelectLocation={handleLocationSelect} />
-          </div>
+          </Overlay>
         )}
         <InputBox>
           <p>인원</p>

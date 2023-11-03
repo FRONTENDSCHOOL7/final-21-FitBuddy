@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
+import styled from 'styled-components';
+import searchIcon from '../../assets/icons/icon-search.svg';
+import { StyleKakaoMap } from '../../pages/mainhome/addGroup/StyleAddGroup';
+
 const { kakao } = window;
 
-export default function KakaoMap({ onSelectLocation }) {
+export default function KakaoMap({ onSelectLocation, onRequestClose }) {
   const [address, setAddress] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const mapRef = useRef(null);
@@ -11,7 +15,6 @@ export default function KakaoMap({ onSelectLocation }) {
   };
   const handleSelect = (address) => {
     onSelectLocation(address); // 부모 컴포넌트에 주소를 전달
-    // 필요하다면 지도의 마커도 여기에서 업데이트
   };
 
   const handleSubmit = (e) => {
@@ -56,19 +59,31 @@ export default function KakaoMap({ onSelectLocation }) {
   }, []);
 
   return (
-    <div>
-      <div id='map' style={{ width: '500px', height: '500px' }} />
-      <form onSubmit={handleSubmit}>
-        <input type='text' value={address} onChange={handleChange} />
-        <button type='submit'>주소 검색</button>
+    <StyleKakaoMap>
+      <div className='header'>
+        <h1>장소 검색하기</h1>
+        <button onClick={onRequestClose} className='closeButton'>
+          닫기
+        </button>
+      </div>
+      <div id='map' />
+      <form onSubmit={handleSubmit} className='searchBox'>
+        <input
+          type='text'
+          value={address}
+          onChange={handleChange}
+          className='locationSearch'
+          placeholder='장소를 입력해주세요'
+        />
+        <img src={searchIcon} alt='검색' className='searchIcon' onClick={handleSubmit} />
       </form>
-      <ul>
+      <ul className='searchList'>
         {searchResults.map((result, index) => (
           <li key={index} onClick={() => handleSelect(result.address_name)}>
             {result.address_name}
           </li>
         ))}
       </ul>
-    </div>
+    </StyleKakaoMap>
   );
 }
