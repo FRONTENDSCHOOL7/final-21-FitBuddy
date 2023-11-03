@@ -24,8 +24,12 @@ export default function JoinPage() {
   const [image, setImage] = useState('https://api.mandarin.weniv.co.kr/Ellipse.png');
   const [intro, setIntro] = useState('인트로');
   const [emailError, setEmailError] = useState(false);
+  const [idError, setIdError] = useState(false);
   const [passwordError, setPasswordError] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
+  const [idErrorMessage, setIdErrorMessage] = useState('');
+  const [errorData, setErrorData] = useState('');
+
   /* 정규표현식 */
   const isEmailValid = (email) => {
     const emailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
@@ -35,6 +39,12 @@ export default function JoinPage() {
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,}$/;
     return passwordRegex.test(password);
   };
+  const emailInputStyle = emailError
+    ? { borderColor: 'red', borderWidth: '1px', borderStyle: 'solid' }
+    : {};
+  const idInputStyle = idError
+    ? { borderColor: 'red', borderWidth: '1px', borderStyle: 'solid' }
+    : {};
 
   const Signup = async () => {
     setPasswordError('');
@@ -80,6 +90,18 @@ export default function JoinPage() {
         // 응답 상태가 200이 아닌 경우를 처리
       }
     } catch (err) {
+      const errData = err.response.data.message;
+      setEmailError(false);
+      if (errData === '이미 가입된 이메일 주소 입니다.') {
+        setEmailError(true);
+        setEmailErrorMessage(errData);
+        console.log('가입되었어');
+      } else if (errData === '이미 사용중인 계정 ID입니다.') {
+        setIdError(true);
+        setIdErrorMessage(errData);
+      } else {
+        setErrorData(errorData);
+      }
       console.error(err);
     }
   };
@@ -114,6 +136,7 @@ export default function JoinPage() {
             placeholder='이메일'
             id='userNameInput'
             onChange={(e) => setEmail(e.target.value)}
+            style={emailInputStyle}
           />
           {emailError && <ErrorMessage>{emailErrorMessage}</ErrorMessage>}
         </div>
@@ -129,7 +152,9 @@ export default function JoinPage() {
             onChange={(e) => {
               setAccountname(e.target.value);
             }}
+            style={idInputStyle}
           />
+          {idError && <ErrorMessage>{idErrorMessage}</ErrorMessage>}
         </div>
         <div className='signup_input'>
           <label htmlFor='passwordInput' style={{ display: 'none' }}>
@@ -144,6 +169,7 @@ export default function JoinPage() {
           />
           {password.length > 0 && passwordError && <ErrorMessage>{passwordError}</ErrorMessage>}
         </div>
+        <div>{errorData}</div>
       </ContentsContainer>
       <StyledButtonL name='계정 생성' onClick={Signup} />
     </LoginWrapper>

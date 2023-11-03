@@ -65,13 +65,13 @@ export const LoginInputBox = styled.input`
 `;
 
 export const ErrorMessage = styled.p`
+  max-width: 340px;
   ${({ theme }) => css`
     margin-top: 0.6rem;
-    margin-left: 20px;
+    /* margin-left: 20px; */
     color: var(--color-error);
     font-size: 16px;
   `}
-
   &.password-msg {
     margin: -2.4rem 0 3rem;
   }
