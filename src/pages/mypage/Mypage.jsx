@@ -223,7 +223,7 @@ export default function Mypage() {
       <Posts>
         <TitleWithEdit>
           <p>작성한 모집글</p>
-          <img src={Iconnext} alt='다음 버튼' />
+          <img src={Iconnext} alt='다음 버튼' onClick={() => navigate('/mypagejoin')} />
         </TitleWithEdit>
         <CardWrap>
           <Card />
