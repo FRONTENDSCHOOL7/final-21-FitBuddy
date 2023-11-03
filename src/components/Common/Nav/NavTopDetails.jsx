@@ -11,7 +11,9 @@ export default function NavTopDetails(props) {
   return (
     <NavTop>
       <BackIcon onClick={handleBackClick} />
-      <NavTopTitle fontSize='title'>{props.title}</NavTopTitle>
+      <NavTopTitle fontSize='title' paddingRight='100px'>
+        {props.title}
+      </NavTopTitle>
     </NavTop>
   );
 }

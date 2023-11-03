@@ -95,10 +95,6 @@ export default function AlertDelete(props) {
   const [AlertOpen, setAlertOpen] = useState(true);
   return (
     <div>
-      {/* <button onClick={() => setAlertOpen(true)}>모달 열기</button> */}
-      {/* <ImageWrapper onClick={() => setAlertOpen(true)}>
-        <img src={imgMore} />
-      </ImageWrapper> */}
       <Alert
         isOpen={AlertOpen}
         onClose={() => setAlertOpen(false)}

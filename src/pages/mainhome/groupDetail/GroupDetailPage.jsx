@@ -72,6 +72,7 @@ const StyleContent = styled.li`
 `;
 const ComFirmButton = styled.div`
   position: absolute;
+  z-index: 0.8;
   left: 12%;
   bottom: 4%;
 `;
