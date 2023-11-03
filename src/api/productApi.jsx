@@ -36,7 +36,7 @@ export const getProducts = async (productData) => {
 // 상품글 목록 본인 가져오기
 export const getMyProducts = async (accountname) => {
   try {
-    const response = await axiosApi.get(`/product/${accountname}/?limit=5&skip=0`);
+    const response = await axiosApi.get(`/product/${accountname}/?limit=1000&skip=0`);
     // 데이터를 추출하여 반환
     return response.data;
   } catch (error) {

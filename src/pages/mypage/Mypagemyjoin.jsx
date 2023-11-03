@@ -4,9 +4,12 @@ import styled from 'styled-components';
 import Iconnext from '../../assets/icons/icon-next.svg';
 import Card from '../../components/Card/Card.jsx';
 import { getMyProducts } from '../../api/productApi.jsx';
+import { Link } from 'react-router-dom';
+import NavBottom from '../../components/Common/Nav/NavBottom';
 
 const MypageWrapper = styled.div`
   padding: 20px;
+  padding-bottom: 100px;
 `;
 
 const MypageHeader = styled.h1`
@@ -33,7 +36,10 @@ const CardWrap = styled.div`
 const Myjoinpost = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 13px;
+  a {
+    text-decoration: none; /* 링크의 밑줄을 제거합니다 */
+  }
 `;
 
 export default function Mypagemyjoin() {
@@ -56,18 +62,23 @@ export default function Mypagemyjoin() {
     fetchData();
   }, [accountname]);
 
-  let result = {};
   if (myProduct.product) {
     const myJoinData = myProduct.product;
     processedData = myJoinData.map((product) => {
+      const createdAt = new Date(product.createdAt);
+      const formattedCreatedAt = `${createdAt.getFullYear()}-${(createdAt.getMonth() + 1)
+        .toString()
+        .padStart(2, '0')}-${createdAt.getDate().toString().padStart(2, '0')}`;
+      console.log('가공데이터', product.id);
       return {
-        createdAt: product.createdAt,
+        createdAt: formattedCreatedAt,
         author: product.author.accountname,
         itemName: product.itemName,
         itemImage: product.itemImage,
         link: product.link,
         //보낼 때 링크에 인원수, 장소,
         price: product.price,
+        id: product.id,
         // 다른 필요한 정보도 추가할 수 있습니다
       };
     });
@@ -79,57 +90,61 @@ export default function Mypagemyjoin() {
   // console.log(result);
 
   return (
-    <MypageWrapper>
-      <MypageHeader>작성한 모집글</MypageHeader>
-      {processedData.map((data, index) => (
-        <div key={index}>
-          <Myjointitle>
-            <p>{data.createdAt}</p>
-          </Myjointitle>
-          <Myjoinpost>
-            {/* 같은날짜가 있을 때에는 그 렝스만큼 반복문 */}
-            <Card
-              // key={item._id}
-              // title={result.title}
-              // time={result.time}
-              // sport={result.sport}
-              // location={result.location}
-              // day={result.day}
-              // cost={result.cost}
-              // attendees={result.attendees}
-              key={index}
-              title={data.itemName}
-              time={data.link}
-              sport={data.link}
-              location={data.link}
-              day={data.link}
-              cost={data.link}
-              attendees={data.link}
-            />
-          </Myjoinpost>
-        </div>
-      ))}
-      {/* <Myjointitle>
-        <p>2023. 10. 12</p>
-      </Myjointitle>
-      <Myjoinpost>
-        <Card />
-      </Myjoinpost>
-      <Myjointitle>
-        <p>2023. 10. 10</p>
-      </Myjointitle>
-      <Myjoinpost>
-        <Card />
-      </Myjoinpost>
-      <Myjointitle>
-        <p>2023. 10. 5</p>
-      </Myjointitle>
-      <Myjoinpost>
-        <CardWrap>
-          <Card />
-          <Card />
-        </CardWrap>
-      </Myjoinpost> */}
-    </MypageWrapper>
+    <>
+      <MypageWrapper>
+        <MypageHeader>작성한 모집글</MypageHeader>
+        {processedData
+          .filter((item) => item.itemName === 'FitBuddy')
+          .reduce((acc, curr) => {
+            const index = acc.findIndex((item) => item.createdAt === curr.createdAt);
+            if (index === -1) {
+              acc.push({ createdAt: curr.createdAt, data: [curr] });
+            } else {
+              acc[index].data.push(curr);
+            }
+            return acc;
+          }, [])
+          .map((item) => (
+            <div key={item.createdAt}>
+              <Myjointitle>
+                <p>{item.createdAt}</p>
+              </Myjointitle>
+              <Myjoinpost>
+                {item.data.map((data, index) => {
+                  let link = data.link;
+                  let _id = data.id;
+
+                  let contentData = link.split('\n');
+                  const result = {};
+
+                  for (let i = 1; i < contentData.length - 1; i++) {
+                    const line = contentData[i].trim();
+                    const [key, value] = line.split(':');
+                    result[key.trim()] = value.trim().replace(/,+$/, '');
+                  }
+
+                  return (
+                    <Link to={`/group/${_id}`} key={_id}>
+                      <Card
+                        key={data._id}
+                        image={data.itemImage}
+                        title={result.title}
+                        time={result.time}
+                        sport={result.sport}
+                        location={result.location}
+                        day={result.day}
+                        cost={result.cost}
+                        attendees={result.attendees}
+                        contents={result.contents}
+                      />
+                    </Link>
+                  );
+                })}
+              </Myjoinpost>
+            </div>
+          ))}
+      </MypageWrapper>
+      <NavBottom />
+    </>
   );
 }
