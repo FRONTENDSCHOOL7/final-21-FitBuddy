@@ -59,7 +59,7 @@ const StyleTextArea = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: ${({ expanded }) => (expanded ? 'none' : '2')};
   -webkit-box-orient: vertical;
-  min-height: 2.4rem;
+  min-height: 2.2rem;
 `;
 
 const Button = styled.div`
@@ -147,8 +147,8 @@ export default function PostProfile(props) {
         console.log(error.message);
       }
     }
-    setAnimate(true);
-    setTimeout(() => setAnimate(false), 500);
+    setAnimate(!animate);
+    setTimeout(() => setAnimate(!animate), 500);
   };
 
   // 댓글 상세 페이지 이동

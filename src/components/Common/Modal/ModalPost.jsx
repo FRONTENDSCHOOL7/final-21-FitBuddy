@@ -39,6 +39,7 @@ const StyledModal = styled.div`
   padding: 20px;
   width: 500px;
   position: fixed;
+  z-index: 1;
   left: 50%;
   transform: translate(-50%);
 

@@ -156,6 +156,7 @@ export default function Mypage() {
     // 로컬 스토리지의 모든 항목 삭제
     localStorage.clear();
     console.log('로그아웃 되었습니다.');
+    navigate(`/login`);
   };
 
   return (

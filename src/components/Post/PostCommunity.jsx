@@ -39,9 +39,6 @@ const StyledPostEdit = styled.button`
 export default function PostCommunity(props) {
   const [modal, setModal] = useState(false);
   const [userToken, setUserToken] = useRecoilState(userTokenAtom);
-
-  console.log(userToken);
-
   const toggleModal = () => {
     setModal(!modal);
   };

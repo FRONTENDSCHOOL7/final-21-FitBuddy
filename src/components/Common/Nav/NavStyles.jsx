@@ -76,6 +76,6 @@ export const NavTopTitle = styled.h1`
   /* float: ${(props) => (props.float === 'left' ? 'left' : '')}; */
   font-size: ${(props) => (props.fontSize === 'title' ? 'var(--font-size-title)' : '')};
   padding-left: ${(props) => (props.paddingLeft === '30px' ? '30px' : '')};
+  padding-right: ${(props) => props.paddingRight};
   margin: auto;
-  padding-right: 60px;
 `;
