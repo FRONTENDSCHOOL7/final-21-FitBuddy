@@ -283,7 +283,11 @@ export default function Home() {
             console.log(item);
             console.log(item.sport); // 이제 파싱된 sport 값을 콘솔에 출력합니다.
             // 여기에서 item.sport와 selectedSport를 비교합니다.
-            return selectedSport === '전체' || item.sport === selectedSport;
+            return (
+              selectedSport === '전체' ||
+              Array.isArray(item.sport) ||
+              item.sport.includes(selectedSport)
+            );
           })
           .map((filteredItem) => {
             return (
