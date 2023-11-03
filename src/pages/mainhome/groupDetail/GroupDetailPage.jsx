@@ -107,7 +107,6 @@ export default function GroupDetailPage({ uid }) {
   const [people, setPeople] = useState(3);
   const [authorProfile, setAuthorProfile] = useState('');
   const [authorId, setAuthorId] = useState('');
-  const [myId, setMyId] = useState('');
   const [joinUser, setJoinUser] = useState([]);
   const { addDocument, response } = useFirestore('groupJoin');
 
@@ -134,7 +133,10 @@ export default function GroupDetailPage({ uid }) {
           const data = await getProfile(authorData.accountname);
           setAuthorProfile(data);
 
+          setAuthorId(groupData.product.author._id);
+
           console.log('계정 정보 확인', authorData);
+          console.log('계정 아이디', groupData.product.author._id);
         }
       } catch (error) {
         console.error('Error fetching author data:', error);
@@ -190,7 +192,7 @@ export default function GroupDetailPage({ uid }) {
       <div className='contents'>
         <div className='top-title'>
           <h1 className='title'>{result.title}</h1>
-          <PostJoin postId={groupId} visable={false} />
+          <PostJoin postId={groupId} authorId={authorId} visable={false} />
         </div>
         <ul>
           <StyleContent>
