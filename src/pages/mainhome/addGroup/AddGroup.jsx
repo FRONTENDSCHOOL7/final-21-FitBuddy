@@ -14,67 +14,17 @@ import OnBoardingPage from '../../onBoard/OnBoardingPage';
 import Modal from 'react-modal';
 import Chip from '../../../components/Common/Chip/Chip';
 import { useParams } from 'react-router-dom';
-
-const StyleAddGroup = styled.div`
-  color: gray;
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  align-items: center;
-  background-color: var(--color-bg);
-  height: 900px;
-  padding-left: 22px;
-  padding-right: 22px;
-  font-size: 14px;
-
-  .inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 17px;
-    margin-top: 36px;
-    margin-bottom: 38px;
-    max-height: 400px;
-    overflow-y: auto;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-`;
-const StyleButtonL = styled.div`
-  position: absolute;
-  bottom: 10px;
-`;
-const InputBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-`;
-const customModalStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    transform: 'translate(-50%, -50%)',
-    backgroundColor: 'black',
-  },
-};
-
-export const ImageBtn = styled.button`
-  border-radius: 50%;
-  border: none;
-  width: 50px;
-  height: 50px;
-  background-color: var(--color-gray);
-  background-image: url(${UploadImg});
-  background-repeat: no-repeat;
-  background-size: 100px;
-  position: absolute;
-  background-size: cover;
-  bottom: 10px;
-  right: 10px;
-`;
-
+import KakaoMap from '../../../components/KakaoMap/KakaoMap';
+import {
+  StyleAddGroup,
+  customModalStyles,
+  StyleButtonL,
+  InputBox,
+  Overlay,
+  modalStyle,
+  ImageBtn,
+} from './StyleAddGroup';
+import CategoryButton from '../../../components/Common/Input/CategoryButton';
 export default function AddGroup() {
   const inputRef = useRef(null);
   const [image, setImage] = useState('');
@@ -241,6 +191,26 @@ export default function AddGroup() {
 `;
 
   const [disabled, setDisabled] = useState(false);
+  const [isKakaoMapOpen, setKakaoMapOpen] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [kakaoData, setKakaoData] = useState({ location: '' });
+  const openKakaoMapModal = () => {
+    setKakaoMapOpen(true);
+  };
+
+  const closeKakaoMapModal = () => {
+    setKakaoMapOpen(false);
+  };
+  // const handleLocationChange = (e) => {
+  //   const { value } = e.target;
+  //   setKakaoData((prev) => ({ ...prev, location: value }));
+  // };
+
+  const handleLocationSelect = (address) => {
+    setKakaoData((prevData) => ({ ...prevData, location: address }));
+    setFormData((prevData) => ({ ...prevData, location: address }));
+    closeKakaoMapModal();
+  };
 
   useEffect(() => {
     console.log(formData);
@@ -282,11 +252,22 @@ export default function AddGroup() {
       inputRef.current.click();
     }
   };
+
   useEffect(() => {
     console.log(selectedSports);
   }, [selectedSports]);
 
   const navigate = useNavigate();
+  // const handleLocationInputClick = () => {
+  //   const kakaoMapApiKey = 'a05e3ab7123c2df81d7871294cd1fb12';
+
+  //   const kakaoMapUrl = `https://map.kakao.com/link/map/${encodeURIComponent(
+  //     formData.location,
+  //   )},${encodeURIComponent(formData.title)}`;
+
+  //   window.open(kakaoMapUrl, '_blank');
+  // };
+
   return (
     <StyleAddGroup>
       <NavTopDetails title={isEditMode ? '그룹 만들기 수정' : '핏버디 그룹 만들기'} />
@@ -314,28 +295,30 @@ export default function AddGroup() {
         </InputBox>
         <InputBox>
           <p>운동종목</p>
-          <div style={{ gap: '12px', display: 'flex' }}>
-            {selectedSports.map((sport, index) => (
-              <Chip key={index} sport={sport} />
-            ))}
+          <div className='categoryflex'>
+            <div style={{ gap: '12px', display: 'flex' }}>
+              {selectedSports.map((sport, index) => (
+                <Chip key={index} sport={sport} />
+              ))}
+            </div>
+            {selectedSports.length > 0 ? (
+              <CategoryButton
+                name='sport'
+                placeholder='운동종목을 입력해주세요'
+                onChange={handleInputChange}
+                onClick={handleOpenOnBoarding}
+                value={formData.sport}
+              />
+            ) : (
+              <InputButton
+                name='sport'
+                placeholder='운동종목을 입력해주세요'
+                onChange={handleInputChange}
+                onClick={handleOpenOnBoarding}
+                value={formData.sport}
+              />
+            )}
           </div>
-          {selectedSports.length > 0 ? (
-            <InputButton
-              name='sport'
-              placeholder='운동종목을 입력해주세요'
-              onChange={handleInputChange}
-              onClick={handleOpenOnBoarding}
-              value={formData.sport}
-            />
-          ) : (
-            <InputButton
-              name='sport'
-              placeholder='운동종목을 입력해주세요'
-              onChange={handleInputChange}
-              onClick={handleOpenOnBoarding}
-              value={formData.sport}
-            />
-          )}
         </InputBox>
         <Modal
           isOpen={showOnBoarding}
@@ -376,8 +359,15 @@ export default function AddGroup() {
             placeholder='장소를 입력해주세요'
             onChange={handleInputChange}
             value={formData.location}
+            onClick={openKakaoMapModal}
+            autocomplete='off'
           />
         </InputBox>
+        {isKakaoMapOpen && (
+          <Overlay>
+            <KakaoMap onRequestClose={closeKakaoMapModal} onSelectLocation={handleLocationSelect} />
+          </Overlay>
+        )}
         <InputBox>
           <p>인원</p>
           <InputText
