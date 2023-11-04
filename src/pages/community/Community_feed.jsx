@@ -18,6 +18,7 @@ export default function Community_feed() {
   const [loading, setLoding] = useState(false);
   const [image, setImage] = useState('');
   const [content, setContent] = useState('');
+  const [category, setCategory] = useState('all');
   const { postId } = useParams();
   const MAX_LENGTH = 200;
   const [text, setText] = useState('');
@@ -67,6 +68,9 @@ export default function Community_feed() {
       console.error('요청 에러:', error.message);
       alert('게시물 수정 실패');
     }
+  };
+  const handleCategoryChange = (newCategory) => {
+    setCategory(newCategory);
   };
 
   //이미지 업로드
@@ -133,7 +137,8 @@ export default function Community_feed() {
   };
   const link = `
     title: 'FitBuddy',
-    content: ${formData.content}
+    content: ${formData.content},
+    category: ${category} 
   `;
 
   const handleCategory = () => {
@@ -159,7 +164,7 @@ export default function Community_feed() {
           <IconBtn onClick={handleCategory} htmlFor='file' />
         </div>
         <CategoryTitle>카테고리 선택</CategoryTitle>
-        <ChipsHome />
+        <ChipsHome selectedCategory={category} onCategoryChange={handleCategoryChange} />
         <InputWrapper>
           <StyledActualInput
             placeholder='작성해주세요'
