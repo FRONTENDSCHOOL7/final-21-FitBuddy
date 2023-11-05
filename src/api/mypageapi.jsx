@@ -16,13 +16,11 @@ export const getProfile = async (accountname) => {
 };
 
 //프로필 정보 수정하기
-export const editProfile = async (userData) => {
-  console.log('user', { userData });
+export const editProfile = async (editData) => {
   try {
-    const response = await authInstance.put(`/user`, userData);
-    console.log('response', response);
-    return response.data;
+    const response = await authInstance.put(`/user`, editData);
+    console.log(`API 정상작동 했습니다 : ${response.data}`);
   } catch (error) {
-    console.log(error);
+    console.log(`API 작동 실패 했습니다.`);
   }
 };
