@@ -8,6 +8,8 @@ const { kakao } = window;
 export default function KakaoMap({ onSelectLocation, onRequestClose }) {
   const [address, setAddress] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
   const mapRef = useRef(null);
 
   const handleChange = (event) => {
@@ -49,14 +51,29 @@ export default function KakaoMap({ onSelectLocation, onRequestClose }) {
     });
   };
 
+  const accessToGeo = (position) => {
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
+  };
+
+  const askForLocation = () => {
+    navigator.geolocation.getCurrentPosition(accessToGeo);
+  };
+
   useEffect(() => {
-    const container = document.getElementById('map');
-    const option = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667),
-      level: 3,
-    };
-    mapRef.current = new kakao.maps.Map(container, option);
+    askForLocation();
   }, []);
+
+  useEffect(() => {
+    if (latitude && longitude) {
+      const container = document.getElementById('map');
+      const option = {
+        center: new kakao.maps.LatLng(latitude, longitude),
+        level: 3,
+      };
+      mapRef.current = new kakao.maps.Map(container, option);
+    }
+  }, [latitude, longitude]);
 
   return (
     <StyleKakaoMap>
