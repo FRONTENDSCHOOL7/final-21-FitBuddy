@@ -10,7 +10,7 @@ export const createProducts = async (productData) => {
 // 상품글 목록 가져오기
 export const getProducts = async (productData) => {
   try {
-    const response = await axiosApi.get('/product/?limit=1000&skip=0');
+    const response = await axiosApi.get('/product/?limit=200&skip=0');
     // 데이터를 추출하여 반환
     console.log(response.data);
     return response.data;

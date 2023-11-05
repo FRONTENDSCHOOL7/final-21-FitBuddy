@@ -5,9 +5,11 @@ import Chip from '../../components/Common/Chip/Chip';
 import Card from '../../components/Card/Card';
 import ButtonFloating from '../../components/Common/Buttons/ButtonFloating';
 import { getProducts } from '../../api/productApi';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import NavBottom from '../../components/Common/Nav/NavBottom';
 import plus from '../../assets/icons/icon-plus.svg';
+import { useCollection } from '../../hooks/useCollection';
+import { getProfile } from '../../api/mypageapi';
 
 const StyleHome = styled.div`
   display: flex;
@@ -82,8 +84,11 @@ const StyleAddButton = styled.div`
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [selectedSport, setSelectedSport] = useState('전체');
+  const [authorProfile, setAuthorProfile] = useState([]);
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
+  // const { groupId } = useParams();
+  // const { documents, err } = useCollection(groupId, null);
   // const handleButtonClick = () => {
   //   navigate('/addgroup');
   // };
@@ -96,7 +101,7 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const data = await getProducts();
-        console.log(data);
+        // console.log(data);
 
         setProducts(data.product);
       } catch (error) {
@@ -161,6 +166,77 @@ export default function Home() {
   const onMouseUpOrLeave = () => {
     setIsDragging(false);
     categoryRef.current.style.cursor = 'grab';
+  };
+
+  //저자의 id를 구해서 프로필 불러오기
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (products) {
+          for (const item of products.filter((item) => item.itemName === 'FitBuddy')) {
+            const authorData = item.author;
+
+            const data = await getProfile(authorData.accountname);
+            setAuthorProfile(data);
+
+            // setAuthorId(groupData.product.author._id);
+
+            console.log('계정 정보 확인', authorData);
+            // console.log('계정 아이디', groupData.product.author._id);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching author data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const transformProducts = (products, selectedSport) => {
+    return products
+      .filter((item) => item.itemName === 'FitBuddy')
+      .map((item) => {
+        let link = item.link;
+        let data = link.split('\n');
+        const result = {};
+
+        for (let i = 1; i < data.length - 1; i++) {
+          const line = data[i].trim();
+          const [key, value] = line.split(':');
+          result[key.trim()] = value.trim().replace(/,+$/, '');
+        }
+        return { ...item, ...result };
+      })
+      .filter((item) => {
+        return (
+          selectedSport === '전체' ||
+          Array.isArray(item.sport) ||
+          item.sport.includes(selectedSport)
+        );
+      });
+  };
+
+  const renderCards = (filteredItems) => {
+    return filteredItems.map((filteredItem, index) => {
+      return (
+        <Link to={`/group/${filteredItem._id}`} key={filteredItem._id}>
+          <Card
+            key={filteredItem._id}
+            image={filteredItem.itemImage}
+            title={filteredItem.title}
+            time={filteredItem.time}
+            sport={filteredItem.sport}
+            location={filteredItem.location}
+            day={filteredItem.day}
+            cost={filteredItem.cost}
+            attendees={filteredItem.attendees}
+            authorImg={filteredItem.author.image}
+            attendeesImg={filteredItem.itemImage}
+            contents={filteredItem.contents}
+          />
+        </Link>
+      );
+    });
   };
 
   return (
@@ -264,7 +340,7 @@ export default function Home() {
           onClick={() => handleSelectSport('⚽풋살')}
         />
       </CategoryWrapper>
-      <StyleCards>
+      {/* <StyleCards>
         {products
           .filter((item) => item.itemName === 'FitBuddy')
           .map((item) => {
@@ -280,8 +356,8 @@ export default function Home() {
             return { ...item, ...result };
           })
           .filter((item) => {
-            console.log(item);
-            console.log(item.sport); // 이제 파싱된 sport 값을 콘솔에 출력합니다.
+            // console.log(item);
+            // console.log(item.sport); // 이제 파싱된 sport 값을 콘솔에 출력합니다.
             // 여기에서 item.sport와 selectedSport를 비교합니다.
             return (
               selectedSport === '전체' ||
@@ -289,7 +365,7 @@ export default function Home() {
               item.sport.includes(selectedSport)
             );
           })
-          .map((filteredItem) => {
+          .map((filteredItem, index) => {
             return (
               <Link to={`/group/${filteredItem._id}`} key={filteredItem._id}>
                 <Card
@@ -307,7 +383,10 @@ export default function Home() {
               </Link>
             );
           })}
-      </StyleCards>
+      </StyleCards> */}
+
+      <StyleCards>{renderCards(transformProducts(products, selectedSport))}</StyleCards>
+      {/* 나머지 코드... */}
       <Link to='/addgroup'>
         <StyleAddButton>{/* <ButtonFloating /> */}</StyleAddButton>
       </Link>

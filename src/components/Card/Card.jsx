@@ -64,8 +64,10 @@ export default function Card(props) {
       <div>
         <EventInfo>
           <h3>{props.title}</h3>
-          <p className='date'>
+          <p className='date' style={{ display: 'inline-block' }}>
             {props.day}
+          </p>
+          <p className='date' style={{ display: 'inline-block', marginLeft: '5px' }}>
             {props.time}
           </p>
           <p>
@@ -80,9 +82,9 @@ export default function Card(props) {
 
         <StyledimgiconWrapper>
           {/* 참여하는 사람 프로필 받아오기, 참여한는 사람 명수 대로 map 돌리기, 대신 3명까지만 */}
-          <PlaceHolder type='Person' src={props.image ? props.image : Button_Img} />
-          <PlaceHolder type='Person' src={props.image} />
-          <PlaceHolder type='Person' src={props.image} />
+          <PlaceHolder type='Person' src={props.authorImg ? props.authorImg : Button_Img} />
+          <PlaceHolder type='Person' src={props.attendeesImg} />
+          <PlaceHolder type='Person' src={props.attendeesImg} />
         </StyledimgiconWrapper>
       </div>
     </StyledCard>
