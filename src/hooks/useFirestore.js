@@ -24,15 +24,31 @@ const storeReducer = (state, action) => {
   }
 };
 
-export const useFirestore = (transaction) => {
+export const useFirestore = (groupId) => {
   const [response, dispatch] = useReducer(storeReducer, initState);
 
   // 컬랙션의 참조값
-  const colRef = collection(appFireStore, transaction);
+  // const colRef = collection(appFireStore, transaction);
+  // 컬렉션의 참조값
+  const colRef = collection(appFireStore, 'groups', groupId, 'JoinUserInfo');
 
-  const addDocument = async (doc) => {
+  // const addDocument = async (groupId, doc) => {
+  //   try {
+  //     const createdTime = timestamp.fromDate(new Date());
+  //     // 서브컬렉션의 참조값
+  //     const colRef = collection(appFireStore, 'groups', groupId, 'groupJoin');
+  //     // 도큐먼트의 참조값
+  //     const docRef = await addDoc(colRef, { ...doc, createdTime });
+  //     dispatch({ type: 'addDoc', payload: docRef });
+  //   } catch (error) {
+  //     dispatch({ type: 'error', payload: error.message });
+  //   }
+  // };
+  const addDocument = async (groupId, doc) => {
     try {
       const createdTime = timestamp.fromDate(new Date());
+      // 서브컬렉션의 참조값
+      const colRef = collection(appFireStore, 'groups', groupId, 'JoinUserInfo');
       // 도큐먼트의 참조값
       const docRef = await addDoc(colRef, { ...doc, createdTime });
       dispatch({ type: 'addDoc', payload: docRef });
