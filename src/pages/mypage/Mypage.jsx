@@ -1,24 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import Placeholderavatar from '../../assets/placeholder/Placeholder-avatar.svg';
-import PlaceholderImg from '../../assets/placeholder/Placeholder-img.svg';
+//import Placeholderavatar from '../../assets/placeholder/Placeholder-avatar.svg';
+//import PlaceholderImg from '../../assets/placeholder/Placeholder-img.svg';
 import Button_Ms from '../../components/Common/Buttons/Button_Ms';
 import IconWrite from '../../assets/icons/icon-write.svg';
 import Iconnext from '../../assets/icons/icon-next.svg';
-import Card from '../../components/Card/Card.jsx';
-import Chips from '../../components/Chips/ChipsHome.jsx';
-import InputLarge from '../../components/Common/Input/InputLarge';
-import { getMyInfo } from '../../api/mypageapi';
+import { getMyInfo, editProfile } from '../../api/mypageapi';
 import { useNavigate } from 'react-router-dom';
-import { Router, Route, Switch } from 'react-router-dom';
-import { editProfile } from '../../api/mypageapi';
+import NavBottom from '../../components/Common/Nav/NavBottom';
 
 const MypageWrapper = styled.div`
-  padding: 20px;
+  margin-top: 40px;
+  width: 414px;
 `;
 
 const MypageHeader = styled.h1`
+  margin-top: 20px;
   font-size: var(--font-size-title);
   text-align: left;
   font-family: 'Pretendard-Medium';
@@ -31,7 +28,7 @@ const MypageHeader = styled.h1`
   }
 `;
 
-const ProfileWrapper = styled.div`
+const ProfileIntro = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,27 +39,19 @@ const ProfileWrapper = styled.div`
   }
 `;
 
-const ProfileImageWrapper = styled.div`
+const ProfileImages = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
 `;
 
 const ProfileImage = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 50%;
-`;
-
-const EditImage = styled.img`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-`;
-
-const ProfileName = styled.p`
-  font-size: var(--font-size-xl);
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-between;
 `;
 
 const Introduction = styled.div`
@@ -85,13 +74,35 @@ const TitleWithEdit = styled.div`
   img {
     cursor: pointer;
   }
+  button {
+    margin-left: 14px;
+  }
 `;
 
-const IntroductionInput = styled.textarea`
+const NameInput = styled.input`
   width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  font-family: 'Pretendard-Medium';
+  border: 0.5px solid #fff;
+  background: transparent;
+  color: var(--color-secondary);
+  padding: 8px;
+  border-radius: 8px;
+`;
+
+const SaveButton = styled.button`
+  background: transparent;
+  border: 0.5px solid #fff;
+  color: white;
+  box-shadow: none;
+  border-radius: 50px;
+  padding: 5px 10px;
+  overflow: visible;
+  margin-left: 15px;
+  &:hover {
+    cursor: pointer;
+    background: #a6ff4d;
+    border: 0.5px solid #a6ff4d;
+    color: black;
+  }
 `;
 
 const Interests = styled.div`
@@ -108,130 +119,180 @@ const Posts = styled.div`
   align-items: center;
 `;
 
-const CardWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const ProfileandiconWrapper = styled.div`
+const ProfileImageset = styled.div`
   margin-top: 20px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
 `;
 
-// const TransparentInput = styled.input`
-//   background: transparent;
-//   border: none;
-//   outline: none;
+const Label = styled.label`
+  cursor: pointer;
+`;
 
-//   &:focus {
-//     background: transparent; // 또는 다른 배경색
-//     border: 2px solid gray;
-//   }
-// `;
+const StyledInputFile = styled.input`
+  padding: 6px 25px;
+  border-radius: 4px;
+  color: var(--color-secondary);
+  cursor: pointer;
+  display: none;
+`;
+
+const StyledTextarea = styled.textarea`
+  width: 100%;
+  color: var(--color-secondary);
+  background-color: transparent;
+  border-radius: 8px;
+`;
 
 export default function Mypage() {
-  const [profiles, setProfiles] = useState([]);
-  const [editName, setEditName] = useState(profiles);
-  const [isEditing, setIsEditing] = useState(false);
-  const [isEditingIntroduction, setIsEditingIntroduction] = useState(false);
-  const [editIntroduction, setEditIntroduction] = useState('');
+  const [profiles, setProfiles] = useState('');
+  const [intro, setIntro] = useState('');
+  const [image, setImage] = useState('');
 
+  const navigate = useNavigate();
+
+  const submitEdit = () => {
+    const editData = {
+      user: {
+        username: profiles,
+        intro,
+        image,
+      },
+    };
+    editProfile(editData);
+  };
+
+  // 프로필 정보 불러오기
   useEffect(() => {
     getMyInfo()
       .then((data) => {
-        console.log(data.user.username);
         setProfiles(data.user.username);
+        setIntro(data.user.intro);
+        setImage(data.user.image);
+        console.log(data.user);
       })
       .catch((error) => {
         console.error('Error fetching profiles:', error);
       });
   }, []);
 
-  const navigate = useNavigate();
+  // 이미지 업로드
+  const uploadImage = async (imageFile) => {
+    const baseUrl = 'https://api.mandarin.weniv.co.kr/';
+    const reqUrl = baseUrl + 'image/uploadfile';
 
+    const form = new FormData();
+
+    form.append('image', imageFile);
+    const res = await fetch(reqUrl, {
+      method: 'POST',
+      body: form,
+    });
+    const json = await res.json();
+    console.log(baseUrl + json.filename);
+    const imageUrl = baseUrl + json.filename;
+    setImage(imageUrl);
+  };
+
+  // 이름 변경
+  const handleChangeName = (event) => {
+    setProfiles(event.target.value);
+  };
+
+  // 이미지 파일 가져오기
+  const handleChangeImage = (e) => {
+    const imageFile = e.target.files[0];
+    uploadImage(imageFile);
+  };
+
+  // 소개글
+  const handleIntroChange = (event) => {
+    setIntro(event.target.value);
+  };
+
+  //저장 클릭
+  const handleClick = () => {
+    submitEdit();
+    handleSave();
+  };
+
+  // 저장
+  const handleSave = () => {
+    alert('저장되었습니다!');
+  };
+
+  // 로그아웃
   const handleLogout = () => {
-    // 로컬 스토리지의 모든 항목 삭제
     localStorage.clear();
     console.log('로그아웃 되었습니다.');
-    navigate(`/login`);
+    alert('로그아웃 되었습니다!');
+    navigate('/login');
   };
 
   return (
-    <MypageWrapper>
-      <MypageHeader>
-        마이페이지
-        <Button_Ms name='로그아웃' onClick={handleLogout} />
-      </MypageHeader>
+    <div>
+      <MypageWrapper>
+        <MypageHeader>
+          마이페이지
+          <Button_Ms name='로그아웃' onClick={handleLogout} />
+        </MypageHeader>
 
-      <ProfileWrapper>
-        <ProfileImageWrapper>
-          <ProfileImage src={Placeholderavatar} alt='프로필 사진' />
-          <EditImage src={PlaceholderImg} alt='프로필 변경 버튼' />
-        </ProfileImageWrapper>
+        <ProfileIntro>
+          <ProfileImages>
+            <ProfileImage src={image} />
+            <ProfileImageset>
+              <Label className='input-file-button' htmlFor='input-file'>
+                사진 선택하기
+              </Label>
+              <StyledInputFile
+                type='file'
+                id='input-file'
+                name='프로필 이미지'
+                onChange={handleChangeImage}
+              />
+              <SaveButton onClick={handleClick}>저장</SaveButton>
+            </ProfileImageset>
+          </ProfileImages>
 
-        <ProfileandiconWrapper>
-          {isEditing ? (
-            <input
-              value={editName}
-              onChange={(e) => setEditName(e.target.value)}
-              onBlur={() => {
-                editProfile({ username: editName }).then(() => {
-                  setProfiles(editName);
-                  setIsEditing(false);
-                });
-              }}
-            />
-          ) : (
-            <ProfileName onClick={() => setIsEditing(true)}>
-              {profiles ? profiles : '사용자 없음'}
-            </ProfileName>
-          )}
+          <TitleWithEdit>
+            <p>이름 </p>
+            <div>
+              {/* <img src={IconWrite} alt='수정 아이콘' onClick={submitEdit} /> */}
+              <SaveButton onClick={handleClick}>저장</SaveButton>
+            </div>
+          </TitleWithEdit>
+          <NameInput value={profiles} type='text' onChange={handleChangeName} />
+        </ProfileIntro>
 
-          <img src={IconWrite} alt='수정 아이콘' onClick={() => setIsEditing(true)} />
-        </ProfileandiconWrapper>
-      </ProfileWrapper>
+        <Introduction>
+          <TitleWithEdit>
+            <p>소개글</p>
+            <div>
+              {/* <img src={IconWrite} alt='수정 아이콘' onClick={submitEdit} /> */}
+              <SaveButton onClick={handleClick}>저장</SaveButton>
+            </div>
+          </TitleWithEdit>
+          <StyledTextarea value={intro || ''} onChange={handleIntroChange} />
+        </Introduction>
 
-      <Introduction>
+        <Interests>
+          <TitleWithEdit>
+            <p>나의 관심사</p>
+            <img src={IconWrite} alt='수정 아이콘' onClick={() => navigate('/onBoard')} />
+          </TitleWithEdit>
+        </Interests>
+
+        <Posts>
+          <TitleWithEdit>
+            <p>작성한 모집글</p>
+            <img src={Iconnext} alt='다음 버튼' onClick={() => navigate('/mypagejoin')} />
+          </TitleWithEdit>
+        </Posts>
+
         <TitleWithEdit>
-          <p onClick={() => setIsEditingIntroduction(true)}>소개글</p>
-          <img src={IconWrite} alt='수정 아이콘' onClick={() => setIsEditingIntroduction(true)} />
+          <p>내가 쓴 글</p>
+          <img src={Iconnext} alt='다음 버튼' onClick={() => navigate('/mypagewrite')} />
         </TitleWithEdit>
-        <InputLarge
-          value={editIntroduction || ''}
-          onChange={(e) => setEditIntroduction(e.target.value)}
-          onBlur={async () => {
-            if (isEditingIntroduction) {
-              await editProfile({ introduction: editIntroduction });
-              setIsEditingIntroduction(false);
-            }
-          }}
-          onClick={() => !isEditingIntroduction && setIsEditingIntroduction(true)}
-          readOnly={!isEditingIntroduction}
-        />
-      </Introduction>
-
-      <Interests>
-        <TitleWithEdit>
-          <p>나의 관심사</p>
-          <img src={IconWrite} alt='수정 아이콘' />
-        </TitleWithEdit>
-        <Chips />
-      </Interests>
-
-      <Posts>
-        <TitleWithEdit>
-          <p>작성한 모집글</p>
-          <img src={Iconnext} alt='다음 버튼' onClick={() => navigate('/mypagejoin')} />
-        </TitleWithEdit>
-      </Posts>
-
-      <TitleWithEdit>
-        <p>내가 쓴 글</p>
-        <img src={Iconnext} alt='다음 버튼' onClick={() => navigate('/Mypagemywrite')} />
-      </TitleWithEdit>
-    </MypageWrapper>
+        <NavBottom />
+      </MypageWrapper>
+    </div>
   );
 }
