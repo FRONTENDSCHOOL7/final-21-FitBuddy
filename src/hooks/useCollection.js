@@ -2,7 +2,7 @@ import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestor
 import { useEffect, useState } from 'react';
 import { appFireStore } from '../firebase/config';
 
-export const useCollection = (transaction, myQuery) => {
+export const useCollection = (groupId, myQuery) => {
   // 문서들의 데이터를 관리합니다.
   const [documents, setDocuments] = useState(null);
 
@@ -13,14 +13,14 @@ export const useCollection = (transaction, myQuery) => {
     let q;
     if (myQuery) {
       q = query(
-        collection(appFireStore, transaction),
+        collection(appFireStore, 'groups', groupId, 'JoinUserInfo'),
         where(...myQuery),
         orderBy('createdTime', 'desc'),
       );
     }
 
     const unsubscribe = onSnapshot(
-      myQuery ? q : collection(appFireStore, transaction),
+      myQuery ? q : collection(appFireStore, 'groups', groupId, 'JoinUserInfo'),
 
       (snapshot) => {
         let result = [];
