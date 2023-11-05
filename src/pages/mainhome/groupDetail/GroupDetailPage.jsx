@@ -106,7 +106,7 @@ const StyleJoinMember = styled.div`
 export default function GroupDetailPage({ uid }) {
   const { groupId } = useParams();
   const [groupData, setGroupData] = useState([]);
-  const [people, setPeople] = useState(3);
+  const [people, setPeople] = useState(1);
   const [authorProfile, setAuthorProfile] = useState('');
   const [authorId, setAuthorId] = useState('');
   // const [user, setUser] = useState('');
@@ -191,8 +191,14 @@ export default function GroupDetailPage({ uid }) {
           if (documents) {
             documents.forEach((document) => {
               if (document.user.user._id !== user.user._id) {
-                isUserJoined = true;
-                alert('참여 완료!');
+                if (people < result.attendees) {
+                  isUserJoined = true;
+                  alert('참여 완료!');
+                  setPeople((prevPeople) => prevPeople + 1);
+                } else {
+                  isUserJoined = false;
+                  alert('모집 인원이 가득 찼습니다');
+                }
               } else {
                 isUserJoined = false;
                 alert('이미 참여 중입니다');
