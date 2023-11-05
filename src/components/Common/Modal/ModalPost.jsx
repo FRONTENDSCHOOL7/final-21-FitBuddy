@@ -13,12 +13,12 @@ const slideIn = keyframes`
     bottom: -500px;
   }
   to{
-    bottom: 65px;
+    bottom: 0px;
   }
 `;
 const slideOut = keyframes`
   from{
-    bottom: 65px;
+    bottom: 0px;
   }
   to{
     bottom: -500px;
@@ -37,13 +37,17 @@ const StyledModal = styled.div`
   background-color: var(--color-neutral);
   border-radius: 10px 10px 0px 0px;
   padding: 20px;
-  width: 500px;
+  padding-bottom: 60px;
+  width: 414px;
   position: fixed;
-  z-index: 1;
+  z-index: 20;
   left: 50%;
   transform: translate(-50%);
 
-  bottom: ${({ visible }) => (visible ? '65px' : '-500px')};
+  bottom: 0;
+
+  /* bottom: ${({ visible, isPostorJoin }) =>
+    visible ? (isPostorJoin === 'Post' ? '65px' : '0px') : '-500px'}; */
   animation: ${({ visible }) => (visible ? slideInAnimation : slideOutAnimation)};
 
   &::before {
