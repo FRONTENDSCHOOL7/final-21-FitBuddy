@@ -13,6 +13,7 @@ import Chip from '../../../components/Common/Chip/Chip';
 import { useFirestore } from '../../../hooks/useFirestore';
 import crown from '../../../assets/icons/icon-leader.svg';
 import { useCollection } from '../../../hooks/useCollection';
+import NavTopDetails from '../../../components/Common/Nav/NavTopDetails';
 
 const StyleGroupDetail = styled.div`
   color: #fff;
@@ -29,12 +30,6 @@ const StyleGroupDetail = styled.div`
     padding-left: 22px;
   }
 
-  & > .back {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 10;
-  }
   .top-title {
     display: flex;
     flex-direction: row;
@@ -240,9 +235,7 @@ export default function GroupDetailPage({ uid }) {
 
   return (
     <StyleGroupDetail>
-      <div className='back'>
-        <BackIcon onClick={handleBackClick} />
-      </div>
+      <NavTopDetails title='핏버디 그룹 참여하기' />
       {groupData && groupData.product && groupData.product.itemImage && (
         <PlaceHolder type='Photo' src={groupData.product.itemImage} />
       )}
@@ -254,7 +247,7 @@ export default function GroupDetailPage({ uid }) {
         <ul>
           <StyleContent>
             <div className='sport'>
-              <Chip key={result.sport} sport={result.sport} />
+              <Chip key={result.sport} active='active' sport={result.sport} />
             </div>
           </StyleContent>
           <StyleContent>
