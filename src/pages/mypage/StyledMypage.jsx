@@ -53,6 +53,14 @@ export const Introduction = styled.div`
 `;
 export const AccountName = styled.div`
   display: flex;
+
+  .accountbox {
+    display: flex;
+  }
+  input {
+    width: 40%;
+    margin-left: 100px;
+  }
 `;
 
 export const TitleWithEdit = styled.div`

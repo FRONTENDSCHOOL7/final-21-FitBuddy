@@ -149,18 +149,18 @@ export default function Mypage() {
   // 계정명 혹은 입력 필드 렌더링 기능
   const renderAccountNameOrInput = () => {
     return isEditingAccountName ? (
-      <>
+      <div className='accountbox'>
         <NameInput
           value={editedAccountName}
           onChange={(e) => setEditedAccountName(e.target.value)}
         />
         <SaveButton onClick={handleAccountNameSave}>저장</SaveButton>
-      </>
+      </div>
     ) : (
-      <>
+      <div className='accountbox'>
         <div>@{accountName}</div>
         <img src={iconWrite} alt='수정' onClick={handleEditAccountNameClick} />
-      </>
+      </div>
     );
   };
 
