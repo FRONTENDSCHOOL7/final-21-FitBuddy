@@ -3,24 +3,28 @@ import styled, { css } from 'styled-components';
 import plus from '../../assets/icons/icon-plus.svg';
 import BasicImg from '../../assets/placeholder/Placeholder-icon.svg';
 import UploadImg from '../../assets/placeholder/Placeholder-img.svg';
+export const CommunityHome = styled.div`
+  /* position: relative; */
+`;
 
 export const CommunityButton = styled.button`
   width: 56px;
   height: 56px;
   margin-top: 30px;
+  position: fixed;
+  left: 50%;
+  bottom: 100px;
+  transform: translateX(250%);
   border: none;
   border-radius: 50%;
   background-color: var(--color-primary);
-  position: fixed;
-  bottom: 100px;
-  right: 36%;
   cursor: pointer;
   background-image: url(${plus});
   background-repeat: no-repeat;
   background-position: center center;
   transition: transform 0.3s ease-in-out;
   &:hover {
-    transform: scale(1.2);
+    transform: translate(-50%, -50%) scale(1.2);
   }
 `;
 
@@ -31,7 +35,6 @@ export const CommunityWrapper = styled.div`
   flex-direction: column;
   gap: 15px;
   margin-top: 50px;
-  /* position: relative; */
 `;
 
 export const CategoryTitle = styled.p`

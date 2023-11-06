@@ -3,7 +3,7 @@ import NavBottom from '../../components/Common/Nav/NavBottom';
 import NavTopBasic from '../../components/Common/Nav/NavTopBasic';
 import PostProfile from '../../components/Post/PostProfile';
 import ChipsHome from '../../components/Chips/ChipsHome';
-import { CommunityButton } from './StyledCommunity';
+import { CommunityButton, CommunityHome } from './StyledCommunity';
 import { useNavigate } from 'react-router-dom';
 import { getPosts } from '../../api/postApi';
 import { useRecoilState } from 'recoil';
@@ -90,12 +90,12 @@ export default function Community(props) {
       });
   };
   return (
-    <div style={{ paddingBottom: '70px' }}>
+    <CommunityHome style={{ paddingBottom: '70px' }}>
       <NavTopBasic title='커뮤니티' />
       <ChipsHome selectedCategory={selectedCategory} onCategoryChange={onCategoryChange} />
       {renderFilteredPosts()}
       <CommunityButton onClick={handleButtonClick} />
       <NavBottom />
-    </div>
+    </CommunityHome>
   );
 }

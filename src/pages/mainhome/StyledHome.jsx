@@ -55,15 +55,16 @@ export const StyleAddButton = styled.div`
   border: none;
   border-radius: 50%;
   background-color: var(--color-primary);
-  position: absolute;
-  bottom: -5%;
-  right: 0%;
+  position: fixed;
+  left: 50%;
+  bottom: 100px;
+  transform: translateX(250%);
   cursor: pointer;
   background-image: url(${plus});
   background-repeat: no-repeat;
   background-position: center center;
   transition: transform 0.3s ease-in-out;
   &:hover {
-    transform: scale(1.2);
+    transform: translate(-50%, -50%) scale(1.2);
   }
 `;
