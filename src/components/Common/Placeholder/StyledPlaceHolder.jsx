@@ -40,8 +40,8 @@ export const StyledPlaceHolder = styled.img.attrs((props) => ({
       : props.type === 'JoinMember'
       ? '20px'
       : props.type === 'Photo'
-      ? '0px'
-      : '10px'};
+      ? '8px'
+      : '8px'};
   background-color: #f2f2f2;
   display: flex;
   justify-content: center;

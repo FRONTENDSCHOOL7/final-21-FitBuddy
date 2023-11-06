@@ -22,6 +22,7 @@ export default function Community_feed() {
   const { postId } = useParams();
   const MAX_LENGTH = 200;
   const [text, setText] = useState('');
+  const [disabled, setDisabled] = useState(true);
 
   //수정 페이지인지 판별
   const isEditMode = !!postId;
@@ -124,9 +125,21 @@ export default function Community_feed() {
     content: '',
   });
 
+  useEffect(() => {
+    console.log('시작');
+    if (isEditMode && content) {
+      const contentRegex = /content: (.*),/;
+      const extractedContent = content.match(contentRegex)[1];
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        content: extractedContent.trim(), // 이전 데이터에서 content 값을 가져옵니다
+      }));
+      console.log(formData.content);
+    }
+  }, [isEditMode, content]);
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-
     if (name === 'content' && value.length <= MAX_LENGTH) {
       setText(value);
     }
@@ -147,10 +160,20 @@ export default function Community_feed() {
     }
   };
 
+  //사진과 글을 쓸 때만 버튼 보이도록
+  useEffect(() => {
+    if (image && formData.content.length > 0) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [image, formData.content]);
+
   return (
     <>
       <NavTopDetails title={isEditMode ? '게시글 수정' : '새 게시글'} />
       <CommunityWrapper>
+        <CategoryTitle>이미지 등록</CategoryTitle>
         <div style={{ position: 'relative' }}>
           <PlaceHolder type='Photo' src={image} />
           <input
@@ -163,7 +186,7 @@ export default function Community_feed() {
           />
           <IconBtn onClick={handleCategory} htmlFor='file' />
         </div>
-        <CategoryTitle>카테고리 선택</CategoryTitle>
+        <CategoryTitle className='category'>카테고리 선택</CategoryTitle>
         <ChipsHome selectedCategory={category} onCategoryChange={handleCategoryChange} />
         <InputWrapper>
           <StyledActualInput
@@ -182,6 +205,7 @@ export default function Community_feed() {
           name={isEditMode ? '수정하기' : '완료'}
           marginTop={50}
           onClick={handleSubmission}
+          disabled={disabled}
           value={
             loading
               ? isEditMode
