@@ -1,85 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
 import titleIcon from '../../assets/icons/icon-logo.svg';
 import Chip from '../../components/Common/Chip/Chip';
 import Card from '../../components/Card/Card';
-import ButtonFloating from '../../components/Common/Buttons/ButtonFloating';
 import { getProducts } from '../../api/productApi';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import NavBottom from '../../components/Common/Nav/NavBottom';
-import plus from '../../assets/icons/icon-plus.svg';
-import { useCollection } from '../../hooks/useCollection';
 import { getProfile } from '../../api/mypageapi';
-
-const StyleHome = styled.div`
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  background-color: var(--color-bg);
-  width: inherit;
-  height: 900px;
-  padding-left: 22px;
-  padding-right: 22px;
-  max-height: 800px;
-
-  .titleIcon {
-    max-width: 40%;
-    max-height: 40%;
-    margin-top: 34px;
-    margin-bottom: 60px;
-  }
-`;
-const CategoryWrapper = styled.div`
-  display: flex;
-  position: absolute;
-  top: 6%;
-  gap: 12px;
-  margin: 25px 11px 15px 11px;
-  width: 300px;
-  overflow-x: auto;
-  white-space: nowrap;
-
-  &::-webkit-scrollbar {
-    display: none; // 스크롤바 숨기기 (선택적)
-  }
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  & > div {
-    flex: 0 0 auto;
-  }
-`;
-const StyleCards = styled.div`
-  display: flex;
-  min-width: 380px;
-  flex-direction: column;
-  gap: 13px;
-  /* overflow-y: auto; // 스크롤 가능하게 유지
-  &::-webkit-scrollbar {
-    display: none; // 웹킷 기반 브라우저에서 스크롤바를 숨깁니다.
-  } */
-  a {
-    text-decoration: none; /* 링크의 밑줄을 제거합니다 */
-  }
-`;
-const StyleAddButton = styled.div`
-  width: 56px;
-  height: 56px;
-  margin-top: 30px;
-  border: none;
-  border-radius: 50%;
-  background-color: var(--color-primary);
-  position: fixed;
-  bottom: 100px;
-  right: 36%;
-  cursor: pointer;
-  background-image: url(${plus});
-  background-repeat: no-repeat;
-  background-position: center center;
-  transition: transform 0.3s ease-in-out;
-  &:hover {
-    transform: scale(1.2);
-  }
-`;
+import { CategoryWrapper, StyleAddButton, StyleCards, StyleHome } from './StyledHome';
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -87,11 +14,6 @@ export default function Home() {
   const [authorProfile, setAuthorProfile] = useState([]);
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
-  // const { groupId } = useParams();
-  // const { documents, err } = useCollection(groupId, null);
-  // const handleButtonClick = () => {
-  //   navigate('/addgroup');
-  // };
 
   const handleSelectSport = (sport) => {
     setSelectedSport(sport);
@@ -179,10 +101,7 @@ export default function Home() {
             const data = await getProfile(authorData.accountname);
             setAuthorProfile(data);
 
-            // setAuthorId(groupData.product.author._id);
-
             console.log('계정 정보 확인', authorData);
-            // console.log('계정 아이디', groupData.product.author._id);
           }
         }
       } catch (error) {
@@ -340,53 +259,9 @@ export default function Home() {
           onClick={() => handleSelectSport('⚽풋살')}
         />
       </CategoryWrapper>
-      {/* <StyleCards>
-        {products
-          .filter((item) => item.itemName === 'FitBuddy')
-          .map((item) => {
-            let link = item.link;
-            let data = link.split('\n');
-            const result = {};
-
-            for (let i = 1; i < data.length - 1; i++) {
-              const line = data[i].trim();
-              const [key, value] = line.split(':');
-              result[key.trim()] = value.trim().replace(/,+$/, '');
-            }
-            return { ...item, ...result };
-          })
-          .filter((item) => {
-            // console.log(item);
-            // console.log(item.sport); // 이제 파싱된 sport 값을 콘솔에 출력합니다.
-            // 여기에서 item.sport와 selectedSport를 비교합니다.
-            return (
-              selectedSport === '전체' ||
-              Array.isArray(item.sport) ||
-              item.sport.includes(selectedSport)
-            );
-          })
-          .map((filteredItem, index) => {
-            return (
-              <Link to={`/group/${filteredItem._id}`} key={filteredItem._id}>
-                <Card
-                  key={filteredItem._id}
-                  image={filteredItem.itemImage}
-                  title={filteredItem.title}
-                  time={filteredItem.time}
-                  sport={filteredItem.sport}
-                  location={filteredItem.location}
-                  day={filteredItem.day}
-                  cost={filteredItem.cost}
-                  attendees={filteredItem.attendees}
-                  contents={filteredItem.contents}
-                />
-              </Link>
-            );
-          })}
-      </StyleCards> */}
 
       <StyleCards>{renderCards(transformProducts(products, selectedSport))}</StyleCards>
-      {/* 나머지 코드... */}
+
       <Link to='/addgroup'>
         <StyleAddButton>{/* <ButtonFloating /> */}</StyleAddButton>
       </Link>

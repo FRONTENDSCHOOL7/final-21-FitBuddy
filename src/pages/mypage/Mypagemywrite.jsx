@@ -1,22 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import Placeholderavatar from '../../assets/placeholder/Placeholder-avatar.svg';
-import PlaceholderImg from '../../assets/placeholder/Placeholder-img.svg';
-import Iconnext from '../../assets/icons/icon-next.svg';
 import PostProfile from '../../components/Post/PostProfile';
 import { getMyProducts } from '../../api/productApi.jsx';
-
-const MypageWrapper = styled.div`
-  padding: 20px;
-`;
-
-const MypageHeader = styled.h1`
-  font-size: var(--font-size-title);
-  text-align: left;
-  margin-bottom: 50px;
-  font-family: 'Pretendard-Medium';
-`;
+import { MypageHeader, MypageWrapper } from './StyledMypage.jsx';
 
 export default function Mypagemywrite() {
   // const { accountname } = useParams();
@@ -36,22 +22,6 @@ export default function Mypagemywrite() {
 
     fetchData();
   }, [accountname]);
-
-  let result = {};
-  if (myProduct.product && myProduct.product.link) {
-    const postData = myProduct.product.link;
-    // let data = postData.split('\n');
-    // for (let i = 1; i < data.length - 1; i++) {
-    //   const line = data[i].trim();
-    //   const [key, value] = line.split(':');
-    //   result[key.trim()] = value.trim();
-    // }
-    console.log(postData);
-  } else {
-    console.log(myProduct.product);
-    console.log('로딩중 ');
-  }
-  // console.log(result);
 
   return (
     <MypageWrapper>
