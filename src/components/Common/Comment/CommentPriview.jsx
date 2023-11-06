@@ -20,7 +20,7 @@ const StyledP = styled.p`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 280px;
+    width: 200px;
     color: white;
   }
 `;
@@ -28,7 +28,10 @@ const StyledP = styled.p`
 export default function CommentPriview(props) {
   return (
     <CommentWrapper>
-      <img src={avatar} style={{ width: '20px', height: '20px' }} />
+      <img
+        src={props.commentAuthorImage ? props.commentAuthorImage : avatar}
+        style={{ width: '20px', height: '20px', borderRadius: '20px' }}
+      />
       <StyledP className='name'>{props.name}</StyledP>
       <StyledP className='contents'>{props.content}</StyledP>
     </CommentWrapper>

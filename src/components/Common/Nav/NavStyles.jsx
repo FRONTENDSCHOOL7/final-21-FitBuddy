@@ -96,4 +96,5 @@ export const CustomNavTopTitle = styled.div`
   font-size: var(--font-size-xl);
   flex: 1;
   text-align: center;
+  color: var(--color-secondary);
 `;

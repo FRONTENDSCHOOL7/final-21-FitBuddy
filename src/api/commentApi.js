@@ -24,9 +24,9 @@ export const getCommentList = async (postId, feedData) => {
 };
 
 //댓글 삭제
-export const deleteComment = async (postId, feedId) => {
+export const deleteComment = async (postId, commentId) => {
   try {
-    const response = await authInstance.delete(`/post/${postId}/comments/${feedId}`);
+    const response = await authInstance.delete(`/post/${postId}/comments/${commentId}`);
     return response.data;
   } catch (error) {
     console.error(error);
