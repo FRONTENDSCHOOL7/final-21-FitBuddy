@@ -61,7 +61,8 @@ export const BackIcon = styled.div`
 export const NavTop = styled.div`
   background-color: var(--color-bg);
   width: 414px;
-  height: 70px;
+  height: 83px;
+  margin: 10px 0px -10px 0;
   display: flex;
   align-items: center;
   /* border: 1px solid red; */
@@ -70,12 +71,29 @@ export const NavTop = styled.div`
   /* align-items: ${(props) => (props.alignItems === 'center' ? 'center' : '')}; */
 `;
 
-export const NavTopTitle = styled.h1`
+export const NavTopTitle = styled.div`
   color: var(--color-secondary);
-  font-family: 'Pretendard-Semibold', sans-serif;
-  /* float: ${(props) => (props.float === 'left' ? 'left' : '')}; */
-  font-size: ${(props) => (props.fontSize === 'title' ? 'var(--font-size-title)' : '')};
+  font-size: ${(props) => (props.type === 'basic' ? `var(--font-size-title)` : '')};
+  font-weight: var(--font-weight-bold);
   padding-left: ${(props) => (props.paddingLeft === '30px' ? '30px' : '')};
   padding-right: ${(props) => props.paddingRight};
-  margin: auto;
+`;
+
+export const FlexContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  .empty {
+    width: 16px;
+  }
+`;
+
+export const CustomNavTopTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xl);
+  flex: 1;
+  text-align: center;
 `;

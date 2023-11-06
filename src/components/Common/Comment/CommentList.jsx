@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import avatar from '../../../assets/placeholder/Placeholder-avatar.svg';
 import { deleteComment } from '../../../api/commentApi';
 import { useParams } from 'react-router-dom';
 import userTokenAtom from '../../../Recoil/userTokenAtom';
 import { useRecoilState } from 'recoil';
 import { CommentWrapper, DeleteBtn, InfoWrapper, StyledP } from './StyledCommentList';
+import PlaceHolder from '../Placeholder/PlaceHolder';
 
 export default function CommentList(props) {
   const { postId } = useParams();
@@ -27,7 +27,7 @@ export default function CommentList(props) {
 
   return (
     <CommentWrapper>
-      <img src={avatar} />
+      <PlaceHolder type='Comment' />
       <InfoWrapper>
         <StyledP className='name'>{props.accoutname}</StyledP>
         <StyledP className='text'>{props.content}</StyledP>

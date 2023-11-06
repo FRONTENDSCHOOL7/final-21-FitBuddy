@@ -4,8 +4,8 @@ export const CommentWrapper = styled.div`
   width: 420px;
   display: flex;
   align-items: center;
-  padding: 5px 5px 5px 0;
-  gap: 20px;
+  padding: 5px 20px;
+  gap: 10px;
 `;
 export const InfoWrapper = styled.div`
   display: flex;

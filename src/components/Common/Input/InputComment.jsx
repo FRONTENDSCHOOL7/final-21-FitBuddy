@@ -3,14 +3,13 @@ import styled from 'styled-components';
 import userTokenAtom from '../../../Recoil/userTokenAtom';
 import { useRecoilState } from 'recoil';
 import { StyledButton, StyledDiv, StyledInput } from './style/StyledInputComment';
+import PlaceHolder from '../Placeholder/PlaceHolder';
+
 export default function InputComment(props) {
   const [userToken, setUserToken] = useRecoilState(userTokenAtom);
   return (
     <StyledDiv>
-      <img
-        src={userToken.image}
-        style={{ width: '25px', height: '25px', borderRadius: '10px', marginTop: '5px' }}
-      />
+      <PlaceHolder type='Person' src={userToken.image} />
       <StyledInput
         type={props.type}
         value={props.value}

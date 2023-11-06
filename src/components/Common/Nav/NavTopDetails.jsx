@@ -1,26 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BackIcon, NavTop } from './NavStyles';
+import { BackIcon, NavTop, FlexContainer, CustomNavTopTitle } from './NavStyles';
 import { useNavigate } from 'react-router-dom';
-
-const CustomNavTopTitle = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--font-size-xl);
-  flex: 1;
-  text-align: center;
-`;
-
-const FlexContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  .empty {
-    width: 16px;
-  }
-`;
 
 export default function NavTopDetails(props) {
   const navigate = useNavigate();

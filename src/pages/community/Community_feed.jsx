@@ -3,14 +3,14 @@ import NavTopDetails from '../../components/Common/Nav/NavTopDetails';
 import ChipsHome from '../../components/Chips/ChipsHome';
 import InputLarge from '../../components/Common/Input/InputLarge';
 import Button_L from '../../components/Common/Buttons/Button_L';
-import { CommunityWrapper, CategoryTitle, IconBtn } from './CommunityStyle';
+import { CommunityWrapper, CategoryTitle, IconBtn } from './StyledCommunity';
 import { useNavigate } from 'react-router-dom';
 import { PostCreate } from '../../api/postApi';
 import { axiosApi } from '../../api/axiosInstance';
 import PlaceHolder from '../../components/Common/Placeholder/PlaceHolder';
 import { putEditPost } from '../../api/postApi';
 import { useParams } from 'react-router-dom';
-import { InputWrapper, StyledActualInput, CharacterCount } from './CommunityStyle';
+import { InputWrapper, StyledActualInput, CharacterCount } from './StyledCommunity';
 
 export default function Community_feed() {
   const inputRef = useRef(null);

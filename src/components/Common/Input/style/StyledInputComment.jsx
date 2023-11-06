@@ -5,6 +5,7 @@ export const StyledInput = styled.input`
   color: #fff;
   margin-left: 15px;
   padding-right: 120px;
+  width: 300px;
 
   &:focus {
     outline: none;
@@ -12,12 +13,11 @@ export const StyledInput = styled.input`
 `;
 export const StyledDiv = styled.div`
   display: flex;
-  width: 400px;
+  width: 100%;
   background-color: #141414;
   padding: 10px;
-  border: 1px solid #ccc;
   justify-content: center;
-  bottom: 69px;
+  bottom: 80px;
   position: fixed;
   min-height: 60px;
   border-radius: 10px;

@@ -3,7 +3,7 @@ import NavBottom from '../../components/Common/Nav/NavBottom';
 import NavTopBasic from '../../components/Common/Nav/NavTopBasic';
 import PostProfile from '../../components/Post/PostProfile';
 import ChipsHome from '../../components/Chips/ChipsHome';
-import { CommunityButton } from './CommunityStyle';
+import { CommunityButton } from './StyledCommunity';
 import { useNavigate } from 'react-router-dom';
 import { getPosts } from '../../api/postApi';
 import { useRecoilState } from 'recoil';
@@ -59,38 +59,41 @@ export default function Community(props) {
     const internalCategory = newCategory === '전체' ? 'all' : newCategory;
     setSelectedCategory(internalCategory);
   };
+
+  const renderFilteredPosts = () => {
+    return posts
+      .filter((item) => {
+        const isFitBuddy = item.content && extractTitleFromContent(item.content) === 'FitBuddy';
+        const category = extractCategoryFromContent(item.content);
+        const isInCategory =
+          selectedCategory === 'all' || (category && category === selectedCategory);
+        return isFitBuddy && isInCategory;
+      })
+      .map((item) => {
+        const date = new Date(item.updatedAt);
+        const dated = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+        return (
+          <PostProfile
+            key={item._id}
+            content={extractContentFromPost(item.content)}
+            image={item.image}
+            updatedAt={dated}
+            accountname={item.author.accountname}
+            username={item.author.username}
+            postId={item._id}
+            heartCount={item.heartCount}
+            commentLength={item.comments.length}
+            hearted={item.__v}
+            authorId={item.author._id}
+          />
+        );
+      });
+  };
   return (
     <div style={{ paddingBottom: '70px' }}>
       <NavTopBasic title='커뮤니티' />
       <ChipsHome selectedCategory={selectedCategory} onCategoryChange={onCategoryChange} />
-      {posts
-        .filter((item) => {
-          const isFitBuddy = item.content && extractTitleFromContent(item.content) === 'FitBuddy';
-          const category = extractCategoryFromContent(item.content); // 카테고리 추출
-          const isInCategory =
-            selectedCategory === 'all' || // 'all'일 경우 모든 포스트를 표시
-            (category && category === selectedCategory); // 추출된 카테고리와 선택된 카테고리가 일치할 경우
-          return isFitBuddy && isInCategory;
-        })
-        .map((item) => {
-          // 여기서 날짜 포맷을 처리하고, PostProfile 컴포넌트를 렌더링
-          const date = new Date(item.updatedAt);
-          const dated = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
-          return (
-            <PostProfile
-              key={item._id}
-              content={extractContentFromPost(item.content)}
-              image={item.image}
-              updatedAt={dated}
-              name={item.author.accountname}
-              postId={item._id}
-              heartCount={item.heartCount}
-              commentLength={item.comments.length}
-              hearted={item.__v}
-              authorId={item.author._id}
-            />
-          );
-        })}
+      {renderFilteredPosts()}
       <CommunityButton onClick={handleButtonClick} />
       <NavBottom />
     </div>
