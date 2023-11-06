@@ -116,7 +116,7 @@ export default function Community_Comment(props) {
         value={inputValue}
         onClick={handlePostComments}
       />
-      <NavBottom />
+      {/* <NavBottom /> */}
     </>
   );
 }

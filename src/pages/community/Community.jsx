@@ -85,6 +85,7 @@ export default function Community(props) {
             commentLength={item.comments.length}
             hearted={item.__v}
             authorId={item.author._id}
+            authorImage={item.author.image}
           />
         );
       });

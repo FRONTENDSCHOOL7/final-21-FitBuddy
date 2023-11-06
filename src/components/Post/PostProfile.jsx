@@ -188,10 +188,11 @@ export default function PostProfile(props) {
     <StyledDiv>
       <div className='community'>
         <PostCommunity
-          username={props.username}
           accountname={props.accountname}
+          username={props.username}
           postId={props.postId}
           authorId={props.authorId}
+          authorImage={props.authorImage}
         />
         <PlaceHolder type='Ractangle' src={props.image} />
         <div className='reaction'>
@@ -219,8 +220,9 @@ export default function PostProfile(props) {
           comments.map((comment, index) => (
             <CommentPriview
               key={index}
-              name={comment.author.accountname}
+              name={comment.author.username}
               content={comment.content}
+              commentAuthorImage={comment.author.image}
             />
           ))}
         <CommentButton onClick={handleReply}>

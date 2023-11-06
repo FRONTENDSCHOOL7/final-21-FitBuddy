@@ -18,7 +18,7 @@ export default function PostCommunity(props) {
   return (
     <>
       <StyledPost>
-        <PlaceHolder type='Person' src={userToken.image} />
+        <PlaceHolder type='Person' src={props.authorImage} />
 
         <div>
           <p className='username'>{props.username}</p>
