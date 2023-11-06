@@ -1,49 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import Iconnext from '../../assets/icons/icon-next.svg';
 import Card from '../../components/Card/Card.jsx';
 import { getMyProducts } from '../../api/productApi.jsx';
 import { Link } from 'react-router-dom';
 import NavBottom from '../../components/Common/Nav/NavBottom';
-
-const MypageWrapper = styled.div`
-  padding: 20px;
-  padding-bottom: 100px;
-`;
-
-const MypageHeader = styled.h1`
-  font-size: var(--font-size-title);
-  text-align: left;
-  margin-bottom: 50px;
-  font-family: 'Pretendard-Medium';
-`;
-
-const Myjointitle = styled.p`
-  display: flex;
-  align-items: left;
-  font-family: 'Pretendard-Medium'; /* 글로벌 스타일 한 번에 */
-  margin-top: 20px;
-  margin-bottom: 20px;
-`;
-
-const CardWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const Myjoinpost = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 13px;
-  a {
-    text-decoration: none; /* 링크의 밑줄을 제거합니다 */
-  }
-`;
+import { MypageHeader, MypageWrapper } from './StyledMypage.jsx';
+import { Myjoinpost, Myjointitle } from './StyledMypagejoin.jsx';
 
 export default function Mypagemyjoin() {
-  // const { accountname } = useParams();
   const { accountname = 'gitbuddy98' } = useParams();
   const [myProduct, setMyProduct] = useState([]);
   let processedData = [];
@@ -83,11 +47,9 @@ export default function Mypagemyjoin() {
       };
     });
     console.log(processedData);
-    console.log('이건 ');
   } else {
     console.log('로딩중 ');
   }
-  // console.log(result);
 
   return (
     <>

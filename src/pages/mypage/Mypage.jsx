@@ -1,155 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-//import Placeholderavatar from '../../assets/placeholder/Placeholder-avatar.svg';
-//import PlaceholderImg from '../../assets/placeholder/Placeholder-img.svg';
 import Button_Ms from '../../components/Common/Buttons/Button_Ms';
 import IconWrite from '../../assets/icons/icon-write.svg';
 import Iconnext from '../../assets/icons/icon-next.svg';
 import { getMyInfo, editProfile } from '../../api/mypageapi';
 import { useNavigate } from 'react-router-dom';
 import NavBottom from '../../components/Common/Nav/NavBottom';
-
-const MypageWrapper = styled.div`
-  margin-top: 40px;
-  width: 414px;
-`;
-
-const MypageHeader = styled.h1`
-  margin-top: 20px;
-  font-size: var(--font-size-title);
-  text-align: left;
-  font-family: 'Pretendard-Medium';
-  display: flex;
-  justify-content: space-between;
-
-  & > button {
-    margin-top: 3px;
-    margin-left: 10px;
-  }
-`;
-
-const ProfileIntro = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-  font-family: 'Pretendard-Medium';
-  img {
-    cursor: pointer;
-  }
-`;
-
-const ProfileImages = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-const ProfileImage = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-`;
-
-const Introduction = styled.div`
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'Pretendard-Medium';
-`;
-
-const TitleWithEdit = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: var(--font-size-m);
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  font-family: 'Pretendard-Medium';
-  img {
-    cursor: pointer;
-  }
-  button {
-    margin-left: 14px;
-  }
-`;
-
-const NameInput = styled.input`
-  width: 100%;
-  border: 0.5px solid #fff;
-  background: transparent;
-  color: var(--color-secondary);
-  padding: 8px;
-  border-radius: 8px;
-`;
-
-const SaveButton = styled.button`
-  background: transparent;
-  border: 0.5px solid #fff;
-  color: white;
-  box-shadow: none;
-  border-radius: 50px;
-  padding: 5px 10px;
-  overflow: visible;
-  margin-left: 15px;
-  &:hover {
-    cursor: pointer;
-    background: #a6ff4d;
-    border: 0.5px solid #a6ff4d;
-    color: black;
-  }
-`;
-
-const Interests = styled.div`
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Posts = styled.div`
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const ProfileImageset = styled.div`
-  margin-top: 20px;
-`;
-
-const Label = styled.label`
-  cursor: pointer;
-`;
-
-const StyledInputFile = styled.input`
-  padding: 6px 25px;
-  border-radius: 4px;
-  color: var(--color-secondary);
-  cursor: pointer;
-  display: none;
-`;
-
-const StyledTextarea = styled.textarea`
-  width: 100%;
-  color: var(--color-secondary);
-  background-color: transparent;
-  border-radius: 8px;
-`;
+import iconWrite from '../../assets/icons/icon-write.svg';
+import {
+  AccountName,
+  Interests,
+  Introduction,
+  Label,
+  MypageHeader,
+  MypageWrapper,
+  NameInput,
+  Posts,
+  ProfileImage,
+  ProfileImages,
+  ProfileImageset,
+  ProfileIntro,
+  SaveButton,
+  StyledInputFile,
+  StyledTextarea,
+  TitleWithEdit,
+} from './StyledMypage';
+import { async } from 'q';
 
 export default function Mypage() {
+  const [accountName, setAccountName] = useState('');
   const [profiles, setProfiles] = useState('');
   const [intro, setIntro] = useState('');
   const [image, setImage] = useState('');
+  const [isEditingAccountName, setIsEditingAccountName] = useState(false);
+  const [editedAccountName, setEditedAccountName] = useState('');
 
   const navigate = useNavigate();
 
-  const submitEdit = () => {
+  const submitEdit = async () => {
     const editData = {
       user: {
         username: profiles,
@@ -157,13 +44,20 @@ export default function Mypage() {
         image,
       },
     };
-    editProfile(editData);
+    try {
+      await editProfile(editData); // API 호출을 기다립니다.
+      alert('프로필이 업데이트 되었습니다!');
+    } catch (error) {
+      console.error('프로필 업데이트 실패:', error);
+      alert('프로필 업데이트에 실패했습니다.');
+    }
   };
 
   // 프로필 정보 불러오기
   useEffect(() => {
     getMyInfo()
       .then((data) => {
+        setAccountName(data.user.accountname);
         setProfiles(data.user.username);
         setIntro(data.user.intro);
         setImage(data.user.image);
@@ -197,21 +91,35 @@ export default function Mypage() {
     setProfiles(event.target.value);
   };
 
-  // 이미지 파일 가져오기
+  // 이미지 파일 가져오기 및 업로드
   const handleChangeImage = (e) => {
     const imageFile = e.target.files[0];
-    uploadImage(imageFile);
+    if (imageFile) {
+      uploadImage(imageFile)
+        .then(() => {
+          // 이미지 업로드가 성공한 후에 프로필 정보를 업데이트합니다.
+          submitEdit();
+        })
+        .catch((error) => {
+          console.error('Image upload failed', error);
+        });
+    }
+  };
+
+  // 이미지 선택을 위한 클릭 핸들러
+  const handleImageClick = () => {
+    document.getElementById('input-file').click();
+  };
+
+  // 저장 버튼 클릭 핸들러
+  const handleSaveClick = () => {
+    submitEdit();
+    handleSave();
   };
 
   // 소개글
   const handleIntroChange = (event) => {
     setIntro(event.target.value);
-  };
-
-  //저장 클릭
-  const handleClick = () => {
-    submitEdit();
-    handleSave();
   };
 
   // 저장
@@ -226,6 +134,35 @@ export default function Mypage() {
     alert('로그아웃 되었습니다!');
     navigate('/login');
   };
+  // 계정명 수정 아이콘 클릭 시 핸들러
+  const handleEditAccountNameClick = () => {
+    setEditedAccountName(accountName); // 현재 계정명으로 입력 필드 초기화
+    setIsEditingAccountName(true); // 입력 필드 보이게 설정
+  };
+
+  // 새로운 계정명 저장 시 핸들러
+  const handleAccountNameSave = () => {
+    // 유효성 검사 및 제출 로직을 여기에 작성하고 나서:
+    setAccountName(editedAccountName); // 계정명을 새로운 값으로 업데이트
+    setIsEditingAccountName(false); // 입력 필드 다시 숨김
+  };
+  // 계정명 혹은 입력 필드 렌더링 기능
+  const renderAccountNameOrInput = () => {
+    return isEditingAccountName ? (
+      <div className='accountbox'>
+        <NameInput
+          value={editedAccountName}
+          onChange={(e) => setEditedAccountName(e.target.value)}
+        />
+        <SaveButton onClick={handleAccountNameSave}>저장</SaveButton>
+      </div>
+    ) : (
+      <div className='accountbox'>
+        <div>@{accountName}</div>
+        <img src={iconWrite} alt='수정' onClick={handleEditAccountNameClick} />
+      </div>
+    );
+  };
 
   return (
     <div>
@@ -237,26 +174,22 @@ export default function Mypage() {
 
         <ProfileIntro>
           <ProfileImages>
-            <ProfileImage src={image} />
-            <ProfileImageset>
-              <Label className='input-file-button' htmlFor='input-file'>
-                사진 선택하기
-              </Label>
-              <StyledInputFile
-                type='file'
-                id='input-file'
-                name='프로필 이미지'
-                onChange={handleChangeImage}
-              />
-              <SaveButton onClick={handleClick}>저장</SaveButton>
-            </ProfileImageset>
+            <StyledInputFile
+              type='file'
+              id='input-file'
+              name='프로필 이미지'
+              onChange={handleChangeImage}
+              style={{ display: 'none' }}
+            />
+
+            <ProfileImage src={image} onClick={handleImageClick} />
           </ProfileImages>
+          <AccountName>{renderAccountNameOrInput()}</AccountName>
 
           <TitleWithEdit>
-            <p>이름 </p>
+            <p>이름</p>
             <div>
-              {/* <img src={IconWrite} alt='수정 아이콘' onClick={submitEdit} /> */}
-              <SaveButton onClick={handleClick}>저장</SaveButton>
+              <SaveButton onClick={handleSaveClick}>저장</SaveButton>{' '}
             </div>
           </TitleWithEdit>
           <NameInput value={profiles} type='text' onChange={handleChangeName} />
@@ -266,8 +199,8 @@ export default function Mypage() {
           <TitleWithEdit>
             <p>소개글</p>
             <div>
-              {/* <img src={IconWrite} alt='수정 아이콘' onClick={submitEdit} /> */}
-              <SaveButton onClick={handleClick}>저장</SaveButton>
+              <SaveButton onClick={handleSaveClick}>저장</SaveButton>{' '}
+              {/* 이 버튼도 handleSaveClick을 사용합니다. */}
             </div>
           </TitleWithEdit>
           <StyledTextarea value={intro || ''} onChange={handleIntroChange} />

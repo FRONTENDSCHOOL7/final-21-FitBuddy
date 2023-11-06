@@ -16,14 +16,14 @@ import Chip from '../../../components/Common/Chip/Chip';
 import { useParams } from 'react-router-dom';
 import KakaoMap from '../../../components/KakaoMap/KakaoMap';
 import {
-  StyleAddGroup,
+  StyledAddGroup,
   customModalStyles,
   StyleButtonL,
   InputBox,
   Overlay,
   modalStyle,
   ImageBtn,
-} from './StyleAddGroup';
+} from './StyledAddGroup';
 import CategoryButton from '../../../components/Common/Input/CategoryButton';
 export default function AddGroup() {
   const inputRef = useRef(null);
@@ -201,10 +201,6 @@ export default function AddGroup() {
   const closeKakaoMapModal = () => {
     setKakaoMapOpen(false);
   };
-  // const handleLocationChange = (e) => {
-  //   const { value } = e.target;
-  //   setKakaoData((prev) => ({ ...prev, location: value }));
-  // };
 
   const handleLocationSelect = (address) => {
     setKakaoData((prevData) => ({ ...prevData, location: address }));
@@ -218,10 +214,8 @@ export default function AddGroup() {
     setDisabled(!isFormValid);
   }, [formData]);
   useEffect(() => {
-    // selectedSports 배열을 쉼표로 구분된 문자열로 변환
     const sportsString = selectedSports.join(', ');
 
-    // formData의 sport 값을 업데이트
     setFormData((prevData) => ({
       ...prevData,
       sport: sportsString,
@@ -253,23 +247,12 @@ export default function AddGroup() {
     }
   };
 
-  useEffect(() => {
-    console.log(selectedSports);
-  }, [selectedSports]);
+  useEffect(() => {}, [selectedSports]);
 
   const navigate = useNavigate();
-  // const handleLocationInputClick = () => {
-  //   const kakaoMapApiKey = 'a05e3ab7123c2df81d7871294cd1fb12';
-
-  //   const kakaoMapUrl = `https://map.kakao.com/link/map/${encodeURIComponent(
-  //     formData.location,
-  //   )},${encodeURIComponent(formData.title)}`;
-
-  //   window.open(kakaoMapUrl, '_blank');
-  // };
 
   return (
-    <StyleAddGroup>
+    <StyledAddGroup>
       <NavTopDetails title={isEditMode ? '그룹 만들기 수정' : '핏버디 그룹 만들기'} />
       <div style={{ position: 'relative' }}>
         <PlaceHolder type='Photo' src={image} />
@@ -403,6 +386,6 @@ export default function AddGroup() {
           onClick={handlePostAdd}
         />
       </StyleButtonL>
-    </StyleAddGroup>
+    </StyledAddGroup>
   );
 }

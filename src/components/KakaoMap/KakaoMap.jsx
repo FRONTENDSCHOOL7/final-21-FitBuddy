@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import styled from 'styled-components';
 import searchIcon from '../../assets/icons/icon-search.svg';
-import { StyleKakaoMap } from '../../pages/mainhome/addGroup/StyleAddGroup';
+import { StyledKakaoMap } from '../../pages/mainhome/addGroup/StyledAddGroup';
 
 const { kakao } = window;
 
@@ -76,7 +75,7 @@ export default function KakaoMap({ onSelectLocation, onRequestClose }) {
   }, [latitude, longitude]);
 
   return (
-    <StyleKakaoMap>
+    <StyledKakaoMap>
       <div className='header'>
         <h1>장소 검색하기</h1>
         <button onClick={onRequestClose} className='closeButton'>
@@ -101,6 +100,6 @@ export default function KakaoMap({ onSelectLocation, onRequestClose }) {
           </li>
         ))}
       </ul>
-    </StyleKakaoMap>
+    </StyledKakaoMap>
   );
 }

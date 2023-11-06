@@ -14,89 +14,12 @@ import { useFirestore } from '../../../hooks/useFirestore';
 import crown from '../../../assets/icons/icon-leader.svg';
 import { useCollection } from '../../../hooks/useCollection';
 import NavTopDetails from '../../../components/Common/Nav/NavTopDetails';
-
-const StyleGroupDetail = styled.div`
-  color: #fff;
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  background-color: #000;
-  width: 414px;
-  height: 900px;
-  padding-right: 22px;
-  font-size: 14px;
-
-  & > div.contents {
-    padding-left: 22px;
-  }
-
-  .top-title {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .title {
-    min-width: 350px;
-    font-size: 24px;
-    margin: 32px auto 15px auto;
-  }
-  .description {
-    font-size: 20px;
-    padding: 11px 0px 11px 0px;
-  }
-  .imgBox {
-    display: flex;
-    gap: 10px;
-  }
-`;
-
-const StyleContent = styled.li`
-  display: flex;
-
-  div {
-    color: gray;
-  }
-  p {
-    padding-left: 21px;
-    padding-bottom: 11px;
-  }
-
-  .sport {
-    margin-bottom: 20px;
-  }
-`;
-const ComFirmButton = styled.div`
-  position: absolute;
-  z-index: 0.8;
-  left: 12%;
-  bottom: 4%;
-`;
-
-const StyleJoinMember = styled.div`
-  position: relative;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  & > * {
-    margin-bottom: 10px;
-  }
-  p {
-    margin: 10px 0;
-  }
-  .placeholder-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .leader {
-    position: absolute;
-    top: -5px;
-    left: 35px;
-    width: 30px;
-    z-index: 10;
-  }
-`;
+import {
+  ComFirmButton,
+  StyleContent,
+  StyleGroupDetail,
+  StyleJoinMember,
+} from './StyledGroupDetail';
 
 export default function GroupDetailPage({ uid }) {
   const { groupId } = useParams();

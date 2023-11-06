@@ -1,15 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const StyledButton = styled.button`
-  width: 42px;
-  height: 42px;
-  margin: 0;
-  border: none;
-  border-radius: 50%;
-  background-color: #fff;
-  cursor: pointer;
-`;
+import { StyledButton } from './style/StyledButtonsns';
 
 export default function Button_sns({ snsIcon }) {
   return (
