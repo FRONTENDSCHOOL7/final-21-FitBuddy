@@ -3,7 +3,7 @@ import NavBottom from '../../components/Common/Nav/NavBottom';
 import NavTopBasic from '../../components/Common/Nav/NavTopBasic';
 import PostProfile from '../../components/Post/PostProfile';
 import ChipsHome from '../../components/Chips/ChipsHome';
-import { CommunityButton } from './CommunityStyle';
+import { CommunityButton } from './StyledCommunity';
 import { useNavigate } from 'react-router-dom';
 import { getPosts } from '../../api/postApi';
 import { useRecoilState } from 'recoil';
