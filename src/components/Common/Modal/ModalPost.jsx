@@ -7,6 +7,7 @@ import { deleteProduct } from '../../../api/productApi';
 import { useNavigate } from 'react-router-dom';
 import { postsState } from '../../../Recoil/communityAtom';
 import { DeleteBtn, StyledModal } from './style/StyledModalPost';
+import { deleteComment } from '../../../api/commentApi';
 
 export default function ModalEditAndDel(props) {
   const [alertVisible, setAlertVisible] = useState(false);
@@ -35,6 +36,11 @@ export default function ModalEditAndDel(props) {
         navigate('/home');
         return res;
       }
+      if (isPostorJoin === 'Comment') {
+        const res = await deleteComment(postId, props.commentId);
+        props.removeComment(props.commentId);
+        return res;
+      }
     } catch (error) {
       console.error('게시물 삭제 중 오류:', error);
     }
@@ -50,7 +56,7 @@ export default function ModalEditAndDel(props) {
   };
   return (
     <StyledModal visible={props.visible}>
-      <DeleteBtn onClick={handleEditPost}>피드 수정</DeleteBtn>
+      {isPostorJoin !== 'Comment' && <DeleteBtn onClick={handleEditPost}>피드 수정</DeleteBtn>}
       <DeleteBtn onClick={showModal}>피드 삭제</DeleteBtn>
       {alertVisible && <AlertDelete handleFeedDelete={handleFeedDelete} />}
     </StyledModal>

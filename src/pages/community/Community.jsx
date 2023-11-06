@@ -45,7 +45,7 @@ export default function Community(props) {
   };
   const extractContentFromPost = (postContent) => {
     if (postContent === undefined) return null; // 또는 적절한 기본값
-    const contentPattern = /content: (.*?)(\n|$)/;
+    const contentPattern = /content: (.*?)(\n|,|$)/;
     const match = postContent.match(contentPattern);
     return match ? match[1] : null;
   };

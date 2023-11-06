@@ -7,13 +7,16 @@ import { getCommentList, uploadComment } from '../../api/commentApi';
 import { useParams } from 'react-router-dom';
 import { commentCount, commentPreview } from '../../Recoil/commentCount';
 import { useRecoilState } from 'recoil';
+import { useLocation } from 'react-router-dom';
 
 export default function Community_Comment(props) {
   const [comments, setComments] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const { postId } = useParams();
+  // const { postId } = useParams();
   const [replyCount, setReplyCount] = useRecoilState(commentCount);
   const [commentPreviewState, setCommentPreviewState] = useRecoilState(commentPreview);
+  const location = useLocation();
+  const postId = location.state && location.state.postId;
 
   //댓글 전체보기
   const fetchFeeds = () => {
@@ -80,6 +83,7 @@ export default function Community_Comment(props) {
   return (
     <>
       <NavTopDetails title='댓글' />
+
       {[...comments].reverse().map((item) => {
         const time = new Date(item.createdAt);
         let hours = time.getHours();
@@ -98,15 +102,18 @@ export default function Community_Comment(props) {
         const timed = `${hours.toString().padStart(2, '0')}:${minutes
           .toString()
           .padStart(2, '0')} ${period}`;
+        console.log('postId', postId);
         return (
           <CommentList
             key={item.id}
-            feedId={item.id}
+            commentId={item.id}
             accoutname={item.author.username}
             content={item.content}
             createdAt={timed}
             removeComment={removeState}
             authorId={item.author._id}
+            authorImage={item.author.image}
+            postId={postId}
           />
         );
       })}

@@ -11,7 +11,7 @@ export const InfoWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 300px;
+  width: 240px;
   text-align: left;
 `;
 
@@ -36,4 +36,16 @@ export const DeleteBtn = styled.button`
   background-color: transparent;
   margin-top: 5px;
   color: var(--color-secondary);
+`;
+
+export const StyledCommentEdit = styled.button`
+  display: flex;
+  cursor: pointer;
+  margin-left: auto;
+  background-color: transparent;
+  border: none;
+
+  .comment {
+    margin-top: 5px;
+  }
 `;

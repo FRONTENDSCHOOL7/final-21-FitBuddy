@@ -17,6 +17,7 @@ export const StyledDiv = styled.div`
   background-color: #141414;
   padding: 10px;
   justify-content: center;
+  left: 0;
   bottom: 80px;
   position: fixed;
   min-height: 60px;

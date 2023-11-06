@@ -149,7 +149,7 @@ export default function PostProfile(props) {
 
   // 댓글 상세 페이지 이동
   const handleReply = () => {
-    navigate(`/feedReply/${props.postId}`);
+    navigate(`/feedReply/${props.postId}`, { state: { postId: props.postId } });
   };
 
   //더보기
