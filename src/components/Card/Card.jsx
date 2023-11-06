@@ -6,6 +6,8 @@ import { ReactComponent as Placeholderimg } from '../../assets/placeholder/Place
 import PlaceHolder from '../Common/Placeholder/PlaceHolder';
 import BasicImg from '../../assets/placeholder/Placeholder-icon.svg';
 import Button_Img from '../../components/Common/Buttons/Button_Img';
+import { useCollection } from '../../hooks/useCollection';
+import userImg from '../../assets/placeholder/Placeholder-avatar.svg';
 
 const StyledCard = styled.div`
   position: relative;
@@ -56,6 +58,9 @@ const EventInfo = styled.div`
 `;
 
 export default function Card(props) {
+  const groupId = props.groupId;
+  const { documents, err } = useCollection(groupId, null);
+
   return (
     <StyledCard>
       <StyledholderWrapper>
@@ -83,8 +88,18 @@ export default function Card(props) {
         <StyledimgiconWrapper>
           {/* 참여하는 사람 프로필 받아오기, 참여한는 사람 명수 대로 map 돌리기, 대신 3명까지만 */}
           <PlaceHolder type='Person' src={props.authorImg ? props.authorImg : Button_Img} />
-          <PlaceHolder type='Person' src={props.attendeesImg} />
-          <PlaceHolder type='Person' src={props.attendeesImg} />
+          {/* <PlaceHolder type='Person' src={props.attendeesImg} />
+          <PlaceHolder type='Person' src={props.attendeesImg} /> */}
+          {documents &&
+            documents.slice(0, 4).map((document, index) => {
+              const myImg = document.user.user.image;
+              return (
+                <div className='placeholder-container' key={index}>
+                  <PlaceHolder type='Person' src={myImg ? myImg : userImg} />
+                </div>
+              );
+            })}
+          {/* {documents && documents.length > 4 && <PlaceHolder type='Person' src={Button_Img} />} */}
         </StyledimgiconWrapper>
       </div>
     </StyledCard>
