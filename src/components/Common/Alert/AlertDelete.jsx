@@ -38,7 +38,7 @@ export default function AlertDelete(props) {
         onClose={() => setAlertOpen(false)}
         handleFeedDelete={props.handleFeedDelete}
       >
-        <h3>피드를 삭제하시겠습니까?</h3>
+        <h3>{props.isComment ? '댓글을 삭제하시겠습니까?' : '피드를 삭제하시겠습니까?'}</h3>
       </Alert>
     </div>
   );

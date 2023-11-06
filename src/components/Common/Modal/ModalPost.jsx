@@ -57,8 +57,12 @@ export default function ModalEditAndDel(props) {
   return (
     <StyledModal visible={props.visible}>
       {isPostorJoin !== 'Comment' && <DeleteBtn onClick={handleEditPost}>피드 수정</DeleteBtn>}
-      <DeleteBtn onClick={showModal}>피드 삭제</DeleteBtn>
-      {alertVisible && <AlertDelete handleFeedDelete={handleFeedDelete} />}
+      {isPostorJoin === 'Comment' ? (
+        <DeleteBtn onClick={showModal}>댓글 삭제</DeleteBtn>
+      ) : (
+        <DeleteBtn onClick={showModal}>피드 삭제</DeleteBtn>
+      )}
+      {alertVisible && <AlertDelete handleFeedDelete={handleFeedDelete} isComment={true} />}
     </StyledModal>
   );
 }
