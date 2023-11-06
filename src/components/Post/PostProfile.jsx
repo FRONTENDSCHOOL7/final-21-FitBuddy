@@ -17,9 +17,7 @@ const StyledDiv = styled.div`
   flex-direction: column;
   width: 414px;
   padding: 20px;
-  border: 1px solid #fff;
-  border-radius: 20px;
-  margin-bottom: 70px;
+  border-radius: 10px;
 
   .reaction {
     display: flex;
@@ -30,9 +28,8 @@ const StyledDiv = styled.div`
   }
   .date {
     margin: 5px 0px;
-    margin-left: 9px;
-    color: gray;
-    font-size: 10px;
+    color: var(--color-gray);
+    font-size: var(--font-size-xs);
   }
   .community {
     display: flex;
@@ -48,7 +45,6 @@ const StyleComment = styled.div`
   margin-top: 8px;
 `;
 const StyleTextArea = styled.div`
-  background-color: var(--color-bg);
   overflow: hidden;
   color: #fff;
   font-size: 14px;
@@ -59,7 +55,7 @@ const StyleTextArea = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: ${({ expanded }) => (expanded ? 'none' : '2')};
   -webkit-box-orient: vertical;
-  min-height: 2.2rem;
+  /* min-height: 3.2rem; */
 `;
 
 const Button = styled.div`
@@ -73,13 +69,13 @@ const Button = styled.div`
   }
 `;
 const CommentButton = styled.button`
-  display: inline;
+  display: flex;
   background-color: transparent;
   border: none;
-  width: 90px;
   color: gray;
-  font-size: 10px;
+  font-size: var(--font-size-xs);
   cursor: pointer;
+  padding: 0;
 `;
 const HeartIcon = styled.img`
   transition: transform 0.3s ease-in-out;
@@ -191,7 +187,12 @@ export default function PostProfile(props) {
   return (
     <StyledDiv>
       <div className='community'>
-        <PostCommunity name={props.name} postId={props.postId} authorId={props.authorId} />
+        <PostCommunity
+          username={props.username}
+          accountname={props.accountname}
+          postId={props.postId}
+          authorId={props.authorId}
+        />
         <PlaceHolder type='Ractangle' src={props.image} />
         <div className='reaction'>
           <HeartIcon src={isHearted ? heartOn : heartOff} alt='heart' onClick={handleToggleLike} />
@@ -223,7 +224,7 @@ export default function PostProfile(props) {
             />
           ))}
         <CommentButton onClick={handleReply}>
-          {props.commentLength > 0 ? `댓글 ${props.commentLength}개 모두보기` : '댓글 작성하기'}
+          {props.commentLength > 0 ? `댓글 ${props.commentLength}개 모두 보기` : '댓글 작성하기'}
         </CommentButton>
       </StyleComment>
     </StyledDiv>
