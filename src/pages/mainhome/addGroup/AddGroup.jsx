@@ -16,14 +16,14 @@ import Chip from '../../../components/Common/Chip/Chip';
 import { useParams } from 'react-router-dom';
 import KakaoMap from '../../../components/KakaoMap/KakaoMap';
 import {
-  StyleAddGroup,
+  StyledAddGroup,
   customModalStyles,
   StyleButtonL,
   InputBox,
   Overlay,
   modalStyle,
   ImageBtn,
-} from './StyleAddGroup';
+} from './StyledAddGroup';
 import CategoryButton from '../../../components/Common/Input/CategoryButton';
 export default function AddGroup() {
   const inputRef = useRef(null);
@@ -252,7 +252,7 @@ export default function AddGroup() {
   const navigate = useNavigate();
 
   return (
-    <StyleAddGroup>
+    <StyledAddGroup>
       <NavTopDetails title={isEditMode ? '그룹 만들기 수정' : '핏버디 그룹 만들기'} />
       <div style={{ position: 'relative' }}>
         <PlaceHolder type='Photo' src={image} />
@@ -386,6 +386,6 @@ export default function AddGroup() {
           onClick={handlePostAdd}
         />
       </StyleButtonL>
-    </StyleAddGroup>
+    </StyledAddGroup>
   );
 }

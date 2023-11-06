@@ -1,19 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-import GlobalStyle from '../../../styles/GlobalStyle';
-
-const StyledInput = styled.input`
-  width: 360px;
-  border: none;
-  border-bottom: 1px solid gray;
-  background: none;
-  color: #fff;
-
-  &:focus {
-    outline: none;
-    border-bottom: 1px solid var(--color-primary);
-  }
-`;
+import { StyledInput } from './style/StyledInputText';
 
 export default function InputText(props) {
   return (
@@ -24,7 +10,6 @@ export default function InputText(props) {
       name={props.name}
       value={props.value}
       onClick={props.onClick}
-      value={props.value}
       autocomplete={props.autocomplete}
     />
   );

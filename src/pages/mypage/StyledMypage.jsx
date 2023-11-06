@@ -51,6 +51,9 @@ export const Introduction = styled.div`
   align-items: center;
   font-family: 'Pretendard-Medium';
 `;
+export const AccountName = styled.div`
+  display: flex;
+`;
 
 export const TitleWithEdit = styled.div`
   display: flex;

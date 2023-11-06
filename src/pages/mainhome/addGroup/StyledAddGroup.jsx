@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import UploadImg from '../../../assets/placeholder/Placeholder-img.svg';
 
-export const StyleAddGroup = styled.div`
+export const StyledAddGroup = styled.div`
   color: gray;
   display: flex;
   position: relative;
@@ -89,7 +89,7 @@ export const ImageBtn = styled.button`
   right: 10px;
 `;
 
-export const StyleKakaoMap = styled.div`
+export const StyledKakaoMap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
