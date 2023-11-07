@@ -126,7 +126,6 @@ export default function Community_feed() {
   });
 
   useEffect(() => {
-    console.log('시작');
     if (isEditMode && content) {
       const contentRegex = /content: (.*),/;
       const extractedContent = content.match(contentRegex)[1];

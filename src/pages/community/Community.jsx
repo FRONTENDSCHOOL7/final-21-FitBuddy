@@ -91,7 +91,7 @@ export default function Community(props) {
       });
   };
   return (
-    <CommunityHome style={{ paddingBottom: '70px' }}>
+    <CommunityHome>
       <NavTopBasic title='커뮤니티' />
       <ChipsHome selectedCategory={selectedCategory} onCategoryChange={onCategoryChange} />
       {renderFilteredPosts()}

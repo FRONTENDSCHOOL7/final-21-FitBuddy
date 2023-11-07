@@ -178,7 +178,6 @@ export default function Mypage() {
           마이페이지
           <Button_Ms name='로그아웃' onClick={handleLogout} />
         </MypageHeader>
-
         <ProfileIntro>
           <ProfileImages>
             <StyledInputFile
