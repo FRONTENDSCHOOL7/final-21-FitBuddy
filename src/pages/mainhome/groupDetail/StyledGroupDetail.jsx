@@ -49,6 +49,10 @@ export const StyleContent = styled.li`
 
   .sport {
     margin-bottom: 20px;
+    display: 'flex';
+    > * + * {
+      margin-left: 5px;
+    }
   }
 `;
 export const ComFirmButton = styled.div`

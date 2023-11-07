@@ -126,7 +126,10 @@ export default function GroupDetailPage({ uid }) {
         <ul>
           <StyleContent>
             <div className='sport'>
-              <Chip key={result.sport} active='active' sport={result.sport} />
+              {result.sport &&
+                result.sport
+                  .split(',')
+                  .map((sport, index) => <Chip key={index} active='active' sport={sport.trim()} />)}
             </div>
           </StyleContent>
           <StyleContent>
