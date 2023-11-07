@@ -5,27 +5,10 @@ import BasicImg from '../../assets/placeholder/Placeholder-icon.svg';
 import UploadImg from '../../assets/placeholder/Placeholder-img.svg';
 export const CommunityHome = styled.div`
   /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  margin-left: 8.5px;
 `;
-
-// export const CommunityButton = styled.button`
-//   width: 56px;
-//   height: 56px;
-//   margin-top: 30px;
-//   border: none;
-//   border-radius: 50%;
-//   background-color: var(--color-primary);
-//   position: fixed;
-//   bottom: 100px;
-//   right: 36%;
-//   cursor: pointer;
-//   background-image: url(${plus});
-//   background-repeat: no-repeat;
-//   background-position: center center;
-//   transition: transform 0.3s ease-in-out;
-//   &:hover {
-//     transform: scale(1.2);
-//   }
-// `;
 
 export const CommunityButton = styled.div`
   width: 56px;

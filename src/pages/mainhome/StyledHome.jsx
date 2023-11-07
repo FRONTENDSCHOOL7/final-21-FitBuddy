@@ -6,10 +6,8 @@ export const StyleHome = styled.div`
   position: relative;
   flex-direction: column;
   background-color: var(--color-bg);
-  width: inherit;
+  width: 414px;
   height: 900px;
-  padding-left: 22px;
-  padding-right: 22px;
   max-height: 800px;
 
   .titleIcon {
