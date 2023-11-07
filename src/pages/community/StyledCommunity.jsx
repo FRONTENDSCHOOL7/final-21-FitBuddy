@@ -65,6 +65,15 @@ export const CategoryTitle = styled.p`
     margin-top: 10px;
   }
 `;
+export const CommentSection = styled.section`
+  width: inherit;
+  max-height: 500px;
+  overflow-y: auto;
+  max-height: 735px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
 
 export const IconBtn = styled.button`
   border-radius: 50%;
