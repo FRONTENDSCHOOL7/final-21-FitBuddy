@@ -30,7 +30,7 @@ export default function Router() {
         <Route path='/calender' element={<Calender />} />
         <Route path='/community' element={<Community />} />
         <Route path='/mypage' element={<Mypage />} />
-        <Route path='/error' element={<ErrorPage />} />
+        <Route path='/*' element={<ErrorPage />} />
         <Route path='/signup' element={<JoinPage />} />
         <Route path='/feedWrite' element={<Community_feed />} />
         <Route path='/feedReply/:postId' element={<Community_Comment />} />
