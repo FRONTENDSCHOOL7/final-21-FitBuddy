@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import { commentCount, commentPreview } from '../../Recoil/commentCount';
 import { useRecoilState } from 'recoil';
 import { useLocation } from 'react-router-dom';
+import { CommentSection } from './StyledCommunity';
 
 export default function Community_Comment(props) {
   const [comments, setComments] = useState([]);
@@ -83,40 +84,41 @@ export default function Community_Comment(props) {
   return (
     <>
       <NavTopDetails title='댓글' />
+      <CommentSection>
+        {[...comments].reverse().map((item) => {
+          const time = new Date(item.createdAt);
+          let hours = time.getHours();
+          const minutes = time.getMinutes();
 
-      {[...comments].reverse().map((item) => {
-        const time = new Date(item.createdAt);
-        let hours = time.getHours();
-        const minutes = time.getMinutes();
-
-        let period = 'AM';
-        if (hours >= 12) {
-          period = 'PM';
-          if (hours > 12) {
-            hours -= 12;
+          let period = 'AM';
+          if (hours >= 12) {
+            period = 'PM';
+            if (hours > 12) {
+              hours -= 12;
+            }
+          } else if (hours === 0) {
+            hours = 12;
           }
-        } else if (hours === 0) {
-          hours = 12;
-        }
 
-        const timed = `${hours.toString().padStart(2, '0')}:${minutes
-          .toString()
-          .padStart(2, '0')} ${period}`;
-        console.log('postId', postId);
-        return (
-          <CommentList
-            key={item.id}
-            commentId={item.id}
-            accoutname={item.author.username}
-            content={item.content}
-            createdAt={timed}
-            removeComment={removeState}
-            authorId={item.author._id}
-            authorImage={item.author.image}
-            postId={postId}
-          />
-        );
-      })}
+          const timed = `${hours.toString().padStart(2, '0')}:${minutes
+            .toString()
+            .padStart(2, '0')} ${period}`;
+          console.log('postId', postId);
+          return (
+            <CommentList
+              key={item.id}
+              commentId={item.id}
+              accoutname={item.author.username}
+              content={item.content}
+              createdAt={timed}
+              removeComment={removeState}
+              authorId={item.author._id}
+              authorImage={item.author.image}
+              postId={postId}
+            />
+          );
+        })}
+      </CommentSection>
       <InputComment
         type='text'
         onChange={(e) => handleInput(e)}

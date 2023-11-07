@@ -48,7 +48,6 @@ export default function Mypage() {
     };
     try {
       await editProfile(editData); // API 호출을 기다립니다.
-      alert('프로필이 업데이트 되었습니다!');
     } catch (error) {
       console.error('프로필 업데이트 실패:', error);
       alert('프로필 업데이트에 실패했습니다.');
@@ -207,7 +206,7 @@ export default function Mypage() {
           <TitleWithEdit>
             <p>소개글</p>
             <div>
-              <SaveButton onClick={handleSaveClick}>저장</SaveButton>{' '}
+              {/* <SaveButton onClick={handleSaveClick}>저장</SaveButton>{' '} */}
               {/* 이 버튼도 handleSaveClick을 사용합니다. */}
             </div>
           </TitleWithEdit>
