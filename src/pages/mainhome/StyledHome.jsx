@@ -8,13 +8,17 @@ export const StyleHome = styled.div`
   background-color: var(--color-bg);
   width: 414px;
   height: 900px;
-  max-height: 800px;
+  max-height: auto;
+  overflow-y: auto;
 
   .titleIcon {
     max-width: 40%;
     max-height: 40%;
     margin-top: 34px;
     margin-bottom: 60px;
+  }
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 export const CategoryWrapper = styled.div`
