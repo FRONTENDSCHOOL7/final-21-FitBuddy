@@ -24,7 +24,8 @@ import {
   StyledTextarea,
   TitleWithEdit,
 } from './StyledMypage';
-import { async } from 'q';
+import { useSetRecoilState } from 'recoil';
+import userTokenAtom from '../../Recoil/userTokenAtom';
 
 export default function Mypage() {
   const [accountName, setAccountName] = useState('');
@@ -35,6 +36,7 @@ export default function Mypage() {
   const [editedAccountName, setEditedAccountName] = useState('');
 
   const navigate = useNavigate();
+  const setUserTokenAtom = useSetRecoilState(userTokenAtom);
 
   const submitEdit = async () => {
     const editData = {
@@ -129,8 +131,9 @@ export default function Mypage() {
 
   // 로그아웃
   const handleLogout = () => {
-    localStorage.clear();
-    console.log('로그아웃 되었습니다.');
+    setUserTokenAtom({});
+    localStorage.removeItem('recoil-persist');
+    localStorage.removeItem('token');
     alert('로그아웃 되었습니다!');
     navigate('/login');
   };
