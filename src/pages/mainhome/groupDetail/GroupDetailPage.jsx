@@ -30,7 +30,8 @@ export default function GroupDetailPage({ uid }) {
   // const [user, setUser] = useState('');
   const [joinUser, setJoinUser] = useState([]);
   const { addDocument, response } = useFirestore(groupId);
-  const { documents, err } = useCollection(groupId, null); // groupId에는 그룹 ID가 들어가야 합니다.
+  const { documents, err } = useCollection(groupId, null);
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -230,7 +231,11 @@ export default function GroupDetailPage({ uid }) {
         <h2 className='description'>일정소개</h2>
         <p>{result.contents}</p>
         <ComFirmButton>
-          <Button_L name='참여하기' onClick={handleGroupJoin} />
+          <Button_L
+            name={disabled ? '참여완료' : '참여하기'}
+            onClick={handleGroupJoin}
+            disabled={disabled}
+          />
         </ComFirmButton>
       </div>
     </StyleGroupDetail>
