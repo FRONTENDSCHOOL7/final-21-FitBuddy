@@ -50,10 +50,10 @@ export const CategoryTitle = styled.p`
 `;
 export const CommentSection = styled.section`
   width: inherit;
-  max-height: 500px;
+  /* max-height: auto; */
   overflow-y: auto;
-  max-height: 735px;
-  &::-webkit-scrollbar {
+  padding-bottom: 60px;
+  padding &::-webkit-scrollbar {
     display: none;
   }
 `;

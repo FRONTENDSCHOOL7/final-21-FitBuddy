@@ -18,10 +18,13 @@ export const StyledDiv = styled.div`
   padding: 10px;
   justify-content: center;
   left: 0;
-  bottom: 80px;
+  /* bottom: 80px; */
   position: fixed;
-  min-height: 60px;
+  /* min-height: 60px; */
   border-radius: 10px;
+  bottom: 0;
+  margin-top: 60px;
+  z-index: 10;
 `;
 export const StyledButton = styled.button`
   background-color: #141414;

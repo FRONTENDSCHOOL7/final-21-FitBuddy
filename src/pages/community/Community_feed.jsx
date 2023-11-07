@@ -47,7 +47,6 @@ export default function Community_feed() {
 
   const handleSubmission = async (e) => {
     e.preventDefault();
-    console.log('클릭!');
     const postData = {
       post: {
         content: link,
