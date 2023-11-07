@@ -31,23 +31,20 @@ export const CommunityButton = styled.div`
   width: 56px;
   height: 56px;
   margin-top: 30px;
-  position: fixed;
-  left: 50%;
-  bottom: 100px;
-  transform: translateX(250%);
   border: none;
   border-radius: 50%;
   background-color: var(--color-primary);
   position: fixed;
-  bottom: 12%;
-  right: 25%;
+  left: 50%;
+  bottom: 100px;
+  transform: translateX(250%);
   cursor: pointer;
   background-image: url(${plus});
   background-repeat: no-repeat;
   background-position: center center;
   transition: transform 0.3s ease-in-out;
   &:hover {
-    transform: translate(-50%, -50%) scale(1.2);
+    transform: translateX(250%) scale(1.2);
   }
 `;
 
@@ -57,11 +54,7 @@ export const CommunityWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 15px;
-<<<<<<< HEAD
   margin-top: 50px;
-=======
-  /* position: relative; */
->>>>>>> ff117d9 (✨ feature: 커뮤니티 생성 시 버튼 disabled 추가)
 `;
 
 export const CategoryTitle = styled.p`
