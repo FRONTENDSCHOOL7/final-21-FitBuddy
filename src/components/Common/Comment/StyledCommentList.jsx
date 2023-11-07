@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const CommentWrapper = styled.div`
-  width: 420px;
+  width: auto;
   display: flex;
   align-items: center;
   padding: 5px 20px;
