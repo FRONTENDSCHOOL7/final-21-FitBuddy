@@ -164,6 +164,11 @@ export default function Mypage() {
     );
   };
 
+  const handleNavigateJoin = () => {
+    console.log('이미지테스트', profiles);
+    navigate('/mypagejoin', { state: { image: image, myAccountname: accountName } });
+  };
+
   return (
     <div>
       <MypageWrapper>
@@ -209,14 +214,18 @@ export default function Mypage() {
         <Interests>
           <TitleWithEdit>
             <p>나의 관심사</p>
-            <img src={IconWrite} alt='수정 아이콘' onClick={() => navigate('/onBoard')} />
+            <img
+              src={Iconnext}
+              alt='다음 버튼'
+              onClick={() => navigate('/mypagejoin', { state: { image: image } })}
+            />
           </TitleWithEdit>
         </Interests>
 
         <Posts>
           <TitleWithEdit>
             <p>작성한 모집글</p>
-            <img src={Iconnext} alt='다음 버튼' onClick={() => navigate('/mypagejoin')} />
+            <img src={Iconnext} alt='다음 버튼' onClick={handleNavigateJoin} />
           </TitleWithEdit>
         </Posts>
 

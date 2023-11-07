@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Card from '../../components/Card/Card.jsx';
 import { getMyProducts } from '../../api/productApi.jsx';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import NavBottom from '../../components/Common/Nav/NavBottom';
 import { MypageHeader, MypageWrapper } from './StyledMypage.jsx';
 import { Myjoinpost, Myjointitle } from './StyledMypagejoin.jsx';
 
 export default function Mypagemyjoin() {
-  const { accountname = 'gitbuddy98' } = useParams();
   const [myProduct, setMyProduct] = useState([]);
   let processedData = [];
+  const location = useLocation();
+  const myImage = location.state?.image;
+  const accountname = location.state?.myAccountname;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,11 +86,11 @@ export default function Mypagemyjoin() {
                     const [key, value] = line.split(':');
                     result[key.trim()] = value.trim().replace(/,+$/, '');
                   }
-
                   return (
                     <Link to={`/group/${_id}`} key={_id}>
                       <Card
-                        key={data._id}
+                        key={_id}
+                        groupId={_id}
                         image={data.itemImage}
                         title={result.title}
                         time={result.time}
@@ -97,6 +99,7 @@ export default function Mypagemyjoin() {
                         day={result.day}
                         cost={result.cost}
                         attendees={result.attendees}
+                        authorImg={myImage}
                         contents={result.contents}
                       />
                     </Link>

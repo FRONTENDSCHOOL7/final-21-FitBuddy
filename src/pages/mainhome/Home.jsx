@@ -141,6 +141,7 @@ export default function Home() {
         <Link to={`/group/${filteredItem._id}`} key={filteredItem._id}>
           <Card
             key={filteredItem._id}
+            groupId={filteredItem._id}
             image={filteredItem.itemImage}
             title={filteredItem.title}
             time={filteredItem.time}
@@ -150,7 +151,7 @@ export default function Home() {
             cost={filteredItem.cost}
             attendees={filteredItem.attendees}
             authorImg={filteredItem.author.image}
-            attendeesImg={filteredItem.itemImage}
+            // attendeesImg={filteredItem.itemImage}
             contents={filteredItem.contents}
           />
         </Link>

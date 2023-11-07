@@ -26,6 +26,7 @@ export default function NavBottom() {
         return 3;
       default:
         if (location.pathname.includes('/feedReply/')) return 2;
+        if (location.pathname.includes('/mypagejoin')) return 3;
         return 0;
     }
   };
