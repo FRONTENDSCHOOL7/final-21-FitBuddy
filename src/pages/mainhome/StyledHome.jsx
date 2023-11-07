@@ -65,6 +65,6 @@ export const StyleAddButton = styled.div`
   background-position: center center;
   transition: transform 0.3s ease-in-out;
   &:hover {
-    transform: translate(-50%, -50%) scale(1.2);
+    transform: translateX(250%) scale(1.2);
   }
 `;

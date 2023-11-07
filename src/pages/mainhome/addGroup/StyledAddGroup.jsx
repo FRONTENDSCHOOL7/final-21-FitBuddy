@@ -51,6 +51,9 @@ export const Overlay = styled.div`
   z-index: 1000;
 `;
 export const customModalStyles = {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.75)', // 여기를 변경하여 배경색을 검은색으로 설정
+  },
   content: {
     top: '50%',
     left: '50%',

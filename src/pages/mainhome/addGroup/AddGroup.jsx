@@ -23,6 +23,7 @@ import {
   Overlay,
   modalStyle,
   ImageBtn,
+  ReactModalOverride,
 } from './StyledAddGroup';
 import CategoryButton from '../../../components/Common/Input/CategoryButton';
 export default function AddGroup() {
