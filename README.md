@@ -2,7 +2,7 @@
 	<span id="top">
 	<h1>💪 FitBuddy </h1><br>
 
-image
+![header](https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/f4a2c6d4-d4f2-4f23-b8c1-224ad7567fe9)
 
 <h3>핏버디 소개</h3><br>
 
@@ -22,12 +22,11 @@ Test PW : `gitbuddy98`
 3. [기술 및 개발 환경](#dev)
 4. [개발 일정](#schedule)
 5. [역할 분담](#roles)
-6. [구현 기능](#function)
-7. [컨벤션](#convention)
-8. [프로젝트 구조](#tree)
-9. [협업 문화](#culture)
-10. [이슈 관리](#issues)
-11. [후기](#review)
+6. [기능 구현](#function)
+7. [핵심 코드](#important)
+8. [컨벤션](#convention)
+9. [프로젝트 구조](#tree)
+10. [후기](#review)
 
 </details>
 <br>
@@ -42,20 +41,20 @@ Test PW : `gitbuddy98`
 - 운동 인증 및 커뮤니케이션: 운동을 마친 후에는 게시글을 통해 자신의 활동을 인증하고, 다른 사용자들과 경험을 공유할 수 있습니다. 운동 팁부터 영양 정보, 재활 운동에 이르기까지 다양한 정보를 나눌 수 있습니다.
 - 개인화된 프로필: 자신만의 운동 프로필을 만들어 다른 사용자와 소통할 수 있습니다.
 
-<br><br>
+<br>
 
 ## <span id="team">2. 팀 소개</span>
 
-### 규경지수승무동수let's go
+### 규경지수승무동수let's go😎
 
 <br/>
 <div align="center">
 
-|                                                                   **박규경**                                                                    |                                                                  **박지수**                                                                  |                                                                    **이승무**                                                                    |                                                                      **한동수**                                                                      |
-| :---------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                   <img src="profileimg" height=180 width=180>                                                   |                                                 <img src="profileimg" height=180 width=180>                                                  |                                                   <img src="profileimg" height=180 width=180>                                                    |                                                     <img src="profileimg" height=180 width=180>                                                      |
-| <a href="https://github.com/ggpark1218"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/indexxp"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/GoodSilver9"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> |    <a href="https://github.com/handongsu"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/>    |
-|   ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) </br> ![Team%20Leader](https://img.shields.io/badge/-Team%20leader-yellow) </br>    |  ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) </br> ![Document%20Leader](https://img.shields.io/badge/-Document%20leader-blue)  | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Development%20Leader](https://img.shields.io/badge/-Development%20leader-green) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Communication%20Leader](https://img.shields.io/badge/-Comunication%20Leader-orange) |
+|                                                                   **박규경**                                                                    |                                                                  **박지수**                                                                  |                                                                    **이승무**                                                                     |                                                                     **한동수**                                                                      |
+| :---------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------: |
+|   <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/0c569a94-0ccc-45a5-9511-98e56a0d6d66" height=180 width=180>   | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/ce91a109-b0bc-4abf-90b7-c7f54dce1ce9" height=180 width=180>  |    <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/7e6a58d2-74f2-4e80-b7c1-69294343c059" height=180 width=180>    |     <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/7dce0db0-44c3-4911-920e-618a5ef458c5" height=180 width=180>     |
+| <a href="https://github.com/ggpark1218"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/indexxp"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/GoodSilver9"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/>  |   <a href="https://github.com/handongsu"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/>    |
+|     ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) </br> ![Team%20Leader](https://img.shields.io/badge/-Team%20leader-red) </br>     | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) </br> ![Document%20Leader](https://img.shields.io/badge/-Document%20leader-orange) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Development%20Leader](https://img.shields.io/badge/-Development%20leader-yellow) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Communication%20Leader](https://img.shields.io/badge/-Comunication%20Leader-green) |
 
 </div>
 <br><br>
@@ -70,15 +69,26 @@ Test PW : `gitbuddy98`
 
 </div>
 
-<br><br>
+### 협업 방식
+
+- **🗣 데일리 스크럼** <br>
+  매일 밤 10시에 모여 진행도 공유 및 피드백, 다음 일정을 논의하였습니다.
+- **👥 오프라인 회의** <br>
+  프로젝트가 진행되는 3주 동안 매주 1번은 모여 대면으로 프로젝트를 진행하였습니다.
+- **📹 라이브 쉐어** <br>
+  라이브 쉐어를 통해 부족한 부분을 피드백 받고, 고칠 부분을 팀원과 함께 빠르게 수정하였습니다.
+- **🎋 브랜치 전략**
+- **🗂 깃플로우 전략** <br>
+  `깃플로우 전략`을 프로젝트 규모에 맞춰 활용함으로 브랜치 및 이슈를 효율적으로 관리하고,
+  충돌을 효과적으로 처리했으며 `컨벤션`을 맞춰 커밋 메세지를 작성함으로 작업 진행 상황에 대한 빠른 이해를 도왔습니다.
+
+<br>
 
 ## <span id="schedule">4. 개발 일정</span>
 
 <div align="center">
-	img
+	<img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/75961cdd-1f7b-48ce-b6dd-81d3e3a3e5e4">
 </div>
-
-<br><br>
 
 ## <span id="roles">5. 역할 분담</span>
 
@@ -87,105 +97,141 @@ Test PW : `gitbuddy98`
 🎨 UI
 
 - 전체적인 UI 디자인
-- UI UI UI
+- 로그인
+- 모집글 상세
+- 작성한 모집글
+- 커뮤니티
 
 🎶 공통 컴포넌트
 
-- COMPO COMPO COMPO
--
+- Alert
+- Comment
 
 ✨ 기능 구현
 
-- 커뮤니티 파이어베이스 연결
--
+- 로그인, 홈 피드, 모집글, 커뮤니티 API
+- Firebase Custom Hooks 설정
+- 모집글 참여한 유저 정보 Firebase 저장 및 불러오기
+- 토큰값 유무에 따라 Router Auth 설정
 
 🤝 기타
 
-- 생각의 근원
-- 번개 회의 및 일정 정리
+- 피그마 디자인 총괄
+- 디자인 컴포넌트화
+- 작업 진행 상황 문서화 및 관리
 
 ### 박지수
 
 🎨 UI
 
-- UIUIUI
--
+- 전체적인 UI 디자인
+- 마이페이지
+- 내가 쓴 피드
+- 내가 쓴 모집글
 
 🎶 공통 컴포넌트
 
-- COMPO COMPO
--
+- Card
+- Modal
+- 로그아웃
 
 ✨ 기능 구현
 
-- FEAT FEAT
--
+- 인피니티 스크롤
+- 프로필 API
 
 🤝 기타
 
-- 피그마 페이지 구현
--
+- 피그마 디자인 시각화
+- 리드미, 문서 정리
 
 ### 이승무
 
 🎨 UI
 
-- UIUIUIUI
--
+- 메인 홈
+- 모집글 상세
+- 모집글 그룹
+- 지도 모달
+- 캘린더
+- 404
 
 🎶 공통 컴포넌트
 
-- COMPO COMPO
--
+- Button
+- Input
+- PlaceHolder
+- Post
 
 ✨ 기능 구현
 
-- 카카오맵 API
-- 캘린더 라이브러리
--
+- 홈 피드, 모집글, 위치, 카카오맵 API
+- 운동 종목, 커뮤니티 페이지 카테고리 설정
+- 유효성 검사
 
 🤝 기타
 
-- 깃허브 총관리자
+- 개발 워크플로우 관리
+- 레파지토리 유지 관리
 
 ### 한동수
 
 🎨 UI
 
-- UIUIUIUI
--
+- 회원가입
+- 온보드
+- 스플래시
+- 커뮤니티
 
 🎶 공통 컴포넌트
 
-- COMPO COMPO
--
+- Nav
+- Chip
 
 ✨ 기능 구현
 
-- FEAT FEAT
--
+- 회원가입, 커뮤니티, 이미지, 댓글 리스트, 좋아요 API
+- Nav Router 경로 연결
+- Recoil을 통한 유저정보 토큰 로컬 스토리지에 저장
+- Favicon, Font, GlobalStyles
 
 🤝 기타
 
-- 파일 구조 나누기 담당
--
+- 파일 구조 분리
+- 개발 진행상황도
 
-## <span id="function">6. 구현 기능</span>
+<br>
 
-## <span id="convention">7. 컨벤션</span>
+## <span id="function">6. 기능 구현</span>
+
+| 스플래시                                                                                                                                         | 로그인                                                                                                                                           | 홈 - 카테고리                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/de48ad80-3dc0-43d9-aca6-5f3b03ed546c" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/6d2375c2-8f94-4846-94c9-c677fb41cc3d" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/42603fe4-7a0e-430d-bea2-12da02cd865e" width="200" height="400"/> |
+
+| 제목    | 내용    | 설명    |
+| ------- | ------- | ------- |
+| 테스트1 | 테스트2 | 테스트3 |
+
+| 제목    | 내용    | 설명    |
+| ------- | ------- | ------- |
+| 테스트1 | 테스트2 | 테스트3 |
+
+## <span id="important">7. 핵심 코드</span>
+
+## <span id="convention">8. 컨벤션</span>
 
 ### Branch name 컨벤션
 
 1. **기능 브랜치 (Feature Branches)**:
    - **`feature/이슈번호-기능명`** 과 같은 형식을 사용합니다.
-   - 예: **`feature/42-dashboard-widget`**.
+   - 예: **`feature/42-dashboard-widget`**
 2. **버그 수정 브랜치 (Bugfix Branches)**:
-   - `bugfix/이슈번호-버그명`\*\* 과 같은 형식을 사용합니다.
-   - 예: **`bugfix/53-login-issue`**.
+   - **`bugfix/이슈번호-버그명`** 과 같은 형식을 사용합니다.
+   - 예: **`bugfix/53-login-issue`**
 3. **릴리스 브랜치 (Release Branches)**:
    - 릴리스 브랜치는 특정 버전의 릴리스를 준비하는 데 사용됩니다.
    - **`release/버전번호`** 와 같은 형식을 사용합니다.
-   - 예: **`release/1.0.0`**.
+   - 예: **`release/1.0.0`**
 4. **기타 브랜치**:
    - 기타 브랜치는 작업의 종류에 따라 다양하게 만들어질 수 있습니다. 예를 들어, 테스트를 위한 브랜치(**`test/기능명`**), 문서 작업을 위한 브랜치(**`docs/내용`**) 등이 있을 수 있습니다.
 5. **메인 브랜치 (Main Branch)**:
@@ -195,7 +241,7 @@ Test PW : `gitbuddy98`
 7. **핫픽스 브랜치 (Hotfix Branches)**:
    - 릴리스 후 발견된 긴급한 버그를 수정하기 위한 브랜치입니다.
    - **`hotfix/버전번호-버그명`** 과 같은 형식을 사용합니다.
-   - 예: **`hotfix/1.0.1-security-patch`**.
+   - 예: **`hotfix/1.0.1-security-patch`**
 8. **Pull Request와 머지 커밋**: Pull Request 또는 머지 커밋 메시지에서 해당 브랜치의 내용을 요약하고 이슈 번호를 참조하는 것이 도움이 됩니다.
 
 ### Commit 컨벤션
@@ -255,7 +301,7 @@ Test PW : `gitbuddy98`
 Prettier란 정해진 규칙에 따라 자동으로 코드 스타일을 정리 해주는 도구입니다. <br>
 `.prettierrc.js`는 다음과 같이 통일합니다.
 
-```json
+```jsonc
 {
   "bracketSpacing": true, // 객체 리터럴에서 괄호에 공백 삽입
   "jsxBracketSameLine": false, // JSX의 마지막 `>`를 다음 줄로 내릴지 여부
@@ -327,7 +373,7 @@ ESLint는 자바스크립트에서 문법적 에러를 표시해주는 도구입
 }
 ```
 
-## <span id="tree">8. 프로젝트 구조</span>
+## <span id="tree">9. 프로젝트 구조</span>
 
 ```javascript
 
@@ -390,12 +436,4 @@ ESLint는 자바스크립트에서 문법적 에러를 표시해주는 도구입
 
 ```
 
-## <span id="culture">9. 협업 문화</span>
-
-#### - Daily Scrum
-
-<br>
-
-## <span id="issues">10. 핵심 코드</span>
-
-## <span id="review">11. 후기</span>
+## <span id="review">10. 후기</span>
