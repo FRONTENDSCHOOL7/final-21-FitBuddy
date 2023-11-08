@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Button_L from '../../components/Common/Buttons/Button_L';
+import ButtonL from '../../components/Common/Buttons/ButtonL';
 import logo from '../../assets/icons/icon-logo.svg';
-import Button_sns from '../../components/Common/Buttons/Button_sns';
-import Button_text from '../../components/Common/Buttons/Button_Text';
+import ButtonSns from '../../components/Common/Buttons/ButtonSns';
+import ButtonText from '../../components/Common/Buttons/ButtonText';
 import kakao from '../../assets/icons/icon-kakao.svg';
 import google from '../../assets/icons/icon-google.svg';
 import facebook from '../../assets/icons/icon-facebook.svg';
 import { LoginWrapper, ContentsContainer, SnsButtonContainer } from './Form.style';
 import { PostLogin } from '../../api/loginApi';
-import Home from '../mainhome/Home';
 import { useNavigate } from 'react-router-dom';
 import { LoginInputBox } from './Form.style';
 import { useSetRecoilState } from 'recoil';
@@ -29,7 +28,7 @@ export default function LoginPage({ marginBottom }) {
     ? {}
     : { borderColor: 'red', borderWidth: '1px', borderStyle: 'solid' };
   // 토큰 로컬 저장
-  const setUserTokenAtom = useSetRecoilState(userTokenAtom); //리코일 구독
+  const setUserTokenAtom = useSetRecoilState(userTokenAtom);
   const saveToken = (token) => {
     //토큰값
     setUserTokenAtom(token);
@@ -37,7 +36,7 @@ export default function LoginPage({ marginBottom }) {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
 
-    const regex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+    const regex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; // eslint-disable-line
     if (regex.test(email)) {
       setEmailValid(true);
     } else {
@@ -90,7 +89,7 @@ export default function LoginPage({ marginBottom }) {
   return (
     <form onSubmit={handleFormSubmit}>
       <LoginWrapper>
-        <img src={logo} className='logoImg' />
+        <img src={logo} className='logoImg' alt='logo' />
         <ContentsContainer marginBottom={132}>
           <LoginInputBox
             type='text'
@@ -113,18 +112,18 @@ export default function LoginPage({ marginBottom }) {
           />
           <div className='loginValid'>{loginValid}</div>
         </ContentsContainer>
-        <Button_L name='로그인' marginBottom={30} onClick={handleLoginSubmit} />
+        <ButtonL name='로그인' marginBottom={30} onClick={handleLoginSubmit} />
         {/* disabled={notAllow}는 나중에 넣기*/}
-        <Button_text
+        <ButtonText
           marginBottom={20}
           content='이메일로 회원가입'
           type='submit'
           onClick={moveSignup}
         />
         <SnsButtonContainer>
-          <Button_sns snsIcon={kakao} />
-          <Button_sns snsIcon={google} />
-          <Button_sns snsIcon={facebook} />
+          <ButtonSns snsIcon={kakao} />
+          <ButtonSns snsIcon={google} />
+          <ButtonSns snsIcon={facebook} />
         </SnsButtonContainer>
       </LoginWrapper>
     </form>

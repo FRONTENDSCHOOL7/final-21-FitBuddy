@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import {
   LoginInputBox,
   LoginWrapper,
-  TextButton,
   ImgContainer,
   ContentsContainer,
   StyledButtonL,
-  StyledTextButton,
   ErrorMessage,
 } from './FormStyles';
 import logo from '../../assets/icons/icon-logo.svg';
@@ -21,8 +19,8 @@ export default function JoinPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [accountname, setAccountname] = useState('');
-  const [image, setImage] = useState('https://api.mandarin.weniv.co.kr/Ellipse.png');
-  const [intro, setIntro] = useState('인트로');
+  const [image] = useState('https://api.mandarin.weniv.co.kr/Ellipse.png');
+  const [intro] = useState('인트로');
   const [emailError, setEmailError] = useState(false);
   const [idError, setIdError] = useState(false);
   const [passwordError, setPasswordError] = useState('');
@@ -32,7 +30,7 @@ export default function JoinPage() {
 
   /* 정규표현식 */
   const isEmailValid = (email) => {
-    const emailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+    const emailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; // eslint-disable-line
     return emailRegex.test(email);
   };
   const isPasswordValid = (password) => {
@@ -77,16 +75,13 @@ export default function JoinPage() {
           image,
         },
       };
-      console.log(userData);
 
       const response = await postSignUp(userData);
-      console.log(userData);
 
       if (response.status === 200) {
         alert('회원가입 성공');
         navigate('/login');
       } else {
-        console.log('200이아님');
         // 응답 상태가 200이 아닌 경우를 처리
       }
     } catch (err) {
@@ -95,7 +90,6 @@ export default function JoinPage() {
       if (errData === '이미 가입된 이메일 주소 입니다.') {
         setEmailError(true);
         setEmailErrorMessage(errData);
-        console.log('가입되었어');
       } else if (errData === '이미 사용중인 계정 ID입니다.') {
         setIdError(true);
         setIdErrorMessage(errData);
@@ -109,7 +103,7 @@ export default function JoinPage() {
   return (
     <LoginWrapper>
       <ImgContainer>
-        <img src={logo} />
+        <img src={logo} alt='logo' />
       </ImgContainer>
       <ContentsContainer>
         <div className='signup_input'>

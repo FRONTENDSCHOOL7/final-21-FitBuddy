@@ -25,8 +25,6 @@ export default function KakaoMap({ onSelectLocation, onRequestClose }) {
     places.keywordSearch(address, function (results, status) {
       if (status === kakao.maps.services.Status.OK) {
         setSearchResults(results); // 검색 결과를 상태에 저장
-        console.log(searchResults);
-        // ... 마커 생성 코드 등
       }
     });
 

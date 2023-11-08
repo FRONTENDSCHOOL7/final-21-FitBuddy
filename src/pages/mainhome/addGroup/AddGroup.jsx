@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
 import InputText from '../../../components/Common/Input/InputText';
 import PlaceHolder from '../../../components/Common/Placeholder/PlaceHolder';
-import Button_L from '../../../components/Common/Buttons/Button_L';
-import { PostCreate } from '../../../api/postApi';
-import NavTopBack from '../../../components/Common/Nav/NavTopBack';
+import ButtonL from '../../../components/Common/Buttons/ButtonL';
 import NavTopDetails from '../../../components/Common/Nav/NavTopDetails';
 import { createProducts, editProduct } from '../../../api/productApi';
 import UploadImg from '../../../assets/placeholder/Placeholder-img.svg';
@@ -21,9 +18,7 @@ import {
   StyleButtonL,
   InputBox,
   Overlay,
-  modalStyle,
   ImageBtn,
-  ReactModalOverride,
 } from './StyledAddGroup';
 import CategoryButton from '../../../components/Common/Input/CategoryButton';
 export default function AddGroup() {
@@ -31,7 +26,6 @@ export default function AddGroup() {
   const [image, setImage] = useState('');
   const [dateError, setDateError] = useState('');
   const [timeError, setTimeError] = useState('');
-  const [inputValue, setInputValue] = useState('');
   const [showOnBoarding, setShowOnBoarding] = useState(false);
   const [selectedSports, setSelectedSports] = useState([]);
   const { postId } = useParams();
@@ -51,7 +45,6 @@ export default function AddGroup() {
       body: form,
     });
     const json = await res.json();
-    console.log(baseUrl + json.filename);
     const imageUrl = baseUrl + json.filename;
     setImage(imageUrl);
   };
@@ -77,11 +70,6 @@ export default function AddGroup() {
 
             const sportsFromServer = result.sport.split(', ').filter(Boolean);
             setSelectedSports(sportsFromServer);
-
-            console.log('폼데이터');
-            console.log(formData);
-            console.log('결과값');
-            console.log(result);
           }
         } catch (error) {
           console.error('데이터 불러오기 오류', error);
@@ -89,7 +77,7 @@ export default function AddGroup() {
       };
       EditPost();
     }
-  }, [postId]);
+  }, [isEditMode, postId]);
 
   const handleChangeImage = (e) => {
     const imageFile = e.target.files[0];
@@ -102,14 +90,8 @@ export default function AddGroup() {
       setSelectedSports([]);
     }
   };
-
-  const handleChange = (event) => {
-    setInputValue(event.target.value);
-  };
-
   const updateProduct = async (postId, postData) => {
     try {
-      const res = await editProduct(postId, postData);
       navigate(`/group/${postId}`);
     } catch (error) {
       console.error('요청 중 에러 발생:', error.message);
@@ -122,17 +104,14 @@ export default function AddGroup() {
     const dateRegex = /(\d{4}-\d{2}-\d{2})/;
     const timeRegex = /(\d{1,2})시(\d{1,2})분/;
     // 입력 형식 정규식
-    console.log(formData);
     const datematch = formData.day.replace(/\s/g, '').match(dateRegex); // 입력 값과 정규식 매칭
     const timematch = formData.time.replace(/\s/g, '').match(timeRegex); // 입력 값과 정규식 매칭
 
     if (!datematch) {
-      console.log('날짜 형식이 올바르지 않습니다.');
       return;
     }
 
     if (!timematch) {
-      console.log('시간 형식이 올바르지 않습니다.');
       return;
     }
     try {
@@ -155,16 +134,12 @@ export default function AddGroup() {
             itemImage: image ? image : UploadImg,
           },
         });
-        console.log(response.data);
 
         if (response.status === 200) {
-          console.log('성공');
-          console.log(response.data);
           navigate('/home');
         }
       }
     } catch (err) {
-      console.log('실패');
       console.error(err);
     }
   };
@@ -193,8 +168,6 @@ export default function AddGroup() {
 
   const [disabled, setDisabled] = useState(false);
   const [isKakaoMapOpen, setKakaoMapOpen] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState('');
-  const [kakaoData, setKakaoData] = useState({ location: '' });
   const openKakaoMapModal = () => {
     setKakaoMapOpen(true);
   };
@@ -204,13 +177,11 @@ export default function AddGroup() {
   };
 
   const handleLocationSelect = (address) => {
-    setKakaoData((prevData) => ({ ...prevData, location: address }));
     setFormData((prevData) => ({ ...prevData, location: address }));
     closeKakaoMapModal();
   };
 
   useEffect(() => {
-    console.log(formData);
     const isFormValid = Object.values(formData).every((value) => value.trim() !== '');
     setDisabled(!isFormValid);
   }, [formData]);
@@ -381,7 +352,7 @@ export default function AddGroup() {
         </InputBox>
       </div>
       <StyleButtonL>
-        <Button_L
+        <ButtonL
           name={isEditMode ? '수정하기' : '완료'}
           disabled={disabled}
           onClick={handlePostAdd}

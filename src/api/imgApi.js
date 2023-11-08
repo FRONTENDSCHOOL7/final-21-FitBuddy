@@ -9,9 +9,7 @@ export const postUploadImg = async (formData) => {
       },
     });
     return res;
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };
 
 export const postUploadImgs = async (formData) => {
@@ -22,7 +20,5 @@ export const postUploadImgs = async (formData) => {
       },
     });
     return res;
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };

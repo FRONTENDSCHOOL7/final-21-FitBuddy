@@ -19,8 +19,5 @@ export const getProfile = async (accountname) => {
 export const editProfile = async (editData) => {
   try {
     const response = await authInstance.put(`/user`, editData);
-    console.log(`API 정상작동 했습니다 : ${response.data}`);
-  } catch (error) {
-    console.log(`API 작동 실패 했습니다.`);
-  }
+  } catch (error) {}
 };

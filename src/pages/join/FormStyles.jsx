@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import Button_L from '../../components/Common/Buttons/Button_L';
+import ButtonL from '../../components/Common/Buttons/ButtonL';
 
 export const LoginWrapper = styled.div`
   display: flex;
@@ -35,7 +35,7 @@ export const ContentsContainer = styled.div`
   margin-bottom: 132px;
 `;
 
-export const StyledButtonL = styled(Button_L)`
+export const StyledButtonL = styled(ButtonL)`
   margin-bottom: 40px;
   cursor: pointer;
 `;

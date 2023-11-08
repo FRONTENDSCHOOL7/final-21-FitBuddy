@@ -12,7 +12,6 @@ export const getProducts = async (productData) => {
   try {
     const response = await axiosApi.get('/product/?limit=200&skip=0');
     // 데이터를 추출하여 반환
-    console.log(response.data);
     return response.data;
   } catch (error) {
     // 오류 처리
@@ -20,18 +19,6 @@ export const getProducts = async (productData) => {
     throw error; // 오류를 호출자에게 전파
   }
 };
-
-//내가 쓴 상품글 목록만 인피니티 스크롤 가져오기
-// export const getProducts = async (limit = 1000, skip = 0) => {
-//   try {
-//     const response = await axiosApi.get(`/product/?limit=${limit}&skip=${skip}`);
-//     console.log(response.data);
-//     return response.data;
-//   } catch (error) {
-//     console.error('Error fetching products:', error);
-//     throw error;
-//   }
-// };
 
 // 상품글 목록 본인 가져오기
 export const getMyProducts = async (accountname) => {

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Button_Ms from '../../components/Common/Buttons/Button_Ms';
-import IconWrite from '../../assets/icons/icon-write.svg';
+import ButtonMs from '../../components/Common/Buttons/ButtonMs';
 import Iconnext from '../../assets/icons/icon-next.svg';
 import { getMyInfo, editProfile } from '../../api/mypageapi';
 import { useNavigate } from 'react-router-dom';
@@ -10,14 +9,12 @@ import {
   AccountName,
   Interests,
   Introduction,
-  Label,
   MypageHeader,
   MypageWrapper,
   NameInput,
   Posts,
   ProfileImage,
   ProfileImages,
-  ProfileImageset,
   ProfileIntro,
   SaveButton,
   StyledInputFile,
@@ -62,7 +59,6 @@ export default function Mypage() {
         setProfiles(data.user.username);
         setIntro(data.user.intro);
         setImage(data.user.image);
-        console.log(data.user);
       })
       .catch((error) => {
         console.error('Error fetching profiles:', error);
@@ -82,7 +78,6 @@ export default function Mypage() {
       body: form,
     });
     const json = await res.json();
-    console.log(baseUrl + json.filename);
     const imageUrl = baseUrl + json.filename;
     setImage(imageUrl);
   };
@@ -167,7 +162,6 @@ export default function Mypage() {
   };
 
   const handleNavigateJoin = () => {
-    console.log('이미지테스트', profiles);
     navigate('/mypagejoin', { state: { image: image, myAccountname: accountName } });
   };
 
@@ -176,7 +170,7 @@ export default function Mypage() {
       <MypageWrapper>
         <MypageHeader>
           마이페이지
-          <Button_Ms name='로그아웃' onClick={handleLogout} />
+          <ButtonMs name='로그아웃' onClick={handleLogout} />
         </MypageHeader>
         <ProfileIntro>
           <ProfileImages>

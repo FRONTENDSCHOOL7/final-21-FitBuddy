@@ -9,7 +9,7 @@ import PlaceHolder from '../Common/Placeholder/PlaceHolder';
 import { useNavigate } from 'react-router-dom';
 import { postLike, postUnlike } from '../../api/postApi';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { commentCount, commentPreview } from '../../Recoil/commentCount';
+import { commentPreview } from '../../Recoil/commentCount';
 import { getCommentList } from '../../api/commentApi';
 import userTokenAtom from '../../Recoil/userTokenAtom';
 

@@ -1,14 +1,15 @@
 import React from 'react';
-import { StyledButton } from './style/StyledButtonMs';
+import { StyledButton } from './style/StyledButtonL';
 
-export default function Button_Ms({
-  name = '저장',
+export default function ButtonL({
+  name,
   marginBottom,
   onClick,
   disabled,
   marginTop,
   type,
   value,
+  onKeyDown,
 }) {
   return (
     <StyledButton
@@ -18,6 +19,7 @@ export default function Button_Ms({
       marginTop={marginTop}
       type={type}
       value={value}
+      onKeyDown={onKeyDown}
     >
       {name}
     </StyledButton>

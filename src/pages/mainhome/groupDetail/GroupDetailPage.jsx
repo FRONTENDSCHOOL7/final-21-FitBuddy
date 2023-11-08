@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import PlaceHolder from '../../../components/Common/Placeholder/PlaceHolder';
-import Button_L from '../../../components/Common/Buttons/Button_L';
-import Button_Img from '../../../components/Common/Buttons/Button_Img';
-import { useParams, useNavigate } from 'react-router-dom';
-import { getDetailProduct, deleteProduct } from '../../../api/productApi';
+import ButtonL from '../../../components/Common/Buttons/ButtonL';
+import { useParams } from 'react-router-dom';
+import { getDetailProduct } from '../../../api/productApi';
 import PostJoin from '../../../components/Post/PostJoin';
-import { BackIcon, NavTop, NavTopTitle } from '../../../components/Common/Nav/NavStyles';
 import { getProfile, getMyInfo } from '../../../api/mypageapi';
 import userImg from '../../../assets/placeholder/Placeholder-avatar.svg';
 import Chip from '../../../components/Common/Chip/Chip';
@@ -27,16 +24,13 @@ export default function GroupDetailPage({ uid }) {
   const [people, setPeople] = useState(1);
   const [authorProfile, setAuthorProfile] = useState('');
   const [authorId, setAuthorId] = useState('');
-  // const [user, setUser] = useState('');
-  const [joinUser, setJoinUser] = useState([]);
-  const { addDocument, response } = useFirestore(groupId);
-  const { documents, err } = useCollection(groupId, null);
-  const [disabled, setDisabled] = useState(false);
+  const { addDocument } = useFirestore(groupId);
+  const { documents } = useCollection(groupId, null);
+  const [disabled] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // getDetailProduct 함수를 호출하여 게시물 정보 가져오기
         const data = await getDetailProduct(groupId);
         setGroupData(data);
       } catch (error) {
@@ -57,9 +51,6 @@ export default function GroupDetailPage({ uid }) {
           setAuthorProfile(data);
 
           setAuthorId(groupData.product.author._id);
-
-          console.log('계정 정보 확인', authorData);
-          console.log('계정 아이디', groupData.product.author._id);
         }
       } catch (error) {
         console.error('Error fetching author data:', error);
@@ -78,33 +69,14 @@ export default function GroupDetailPage({ uid }) {
       result[key.trim()] = value.trim().replace(/,+$/, '');
     }
   } else {
-    console.log('로딩중 ');
   }
-  console.log(result);
-  console.log(groupData);
-
-  const navigate = useNavigate();
-
-  const handleBackClick = () => {
-    navigate(-1);
-  };
-
   const handleGroupJoin = async (event) => {
     event.preventDefault();
     try {
       const user = await getMyInfo();
-      if (user) {
-        setJoinUser(user);
-        // setUser(user._id);
-        console.log('joinUser', user);
-        console.log('그룹아이디', groupId);
-        console.log('내 아이디', user.user._id);
-      }
 
       if (authorId && user) {
         let isUserJoined = false;
-        console.log('저자', authorId);
-        console.log('나', user.user._id);
         if (user.user._id !== authorId) {
           isUserJoined = true;
           if (documents) {
@@ -139,23 +111,6 @@ export default function GroupDetailPage({ uid }) {
       console.error('Error during handleGroupJoin:', error);
     }
   };
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const myData = await getMyInfo();
-  //       const user = myData?.user;
-  //       if (user) {
-  //         setJoinUser(user);
-  //         setUser(user._id);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error during fetching data:', error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   return (
     <StyleGroupDetail>
@@ -198,7 +153,7 @@ export default function GroupDetailPage({ uid }) {
         <div className='imgBox'>
           <StyleJoinMember>
             <div className='placeholder-container'>
-              <img className='leader' src={crown} />
+              <img className='leader' src={crown} alt='crown' />
               {authorProfile && authorProfile.profile && authorProfile.profile.image ? (
                 <PlaceHolder type='JoinMember' src={authorProfile.profile.image} />
               ) : (
@@ -213,8 +168,6 @@ export default function GroupDetailPage({ uid }) {
           </StyleJoinMember>
           {documents &&
             documents.map((document) => {
-              // console.log('이미지', document.user.user.image);
-              // console.log('유저', document.user);
               const myImg = document.user.user.image;
               const myName = document.user.user.username;
               return (
@@ -231,7 +184,7 @@ export default function GroupDetailPage({ uid }) {
         <h2 className='description'>일정소개</h2>
         <p>{result.contents}</p>
         <ComFirmButton>
-          <Button_L
+          <ButtonL
             name={disabled ? '참여완료' : '참여하기'}
             onClick={handleGroupJoin}
             disabled={disabled}
