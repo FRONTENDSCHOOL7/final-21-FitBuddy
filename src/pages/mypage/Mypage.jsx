@@ -35,22 +35,6 @@ export default function Mypage() {
   const navigate = useNavigate();
   const setUserTokenAtom = useSetRecoilState(userTokenAtom);
 
-  const submitEdit = async () => {
-    const editData = {
-      user: {
-        username: profiles,
-        intro,
-        image,
-      },
-    };
-    try {
-      await editProfile(editData); // API 호출을 기다립니다.
-    } catch (error) {
-      console.error('프로필 업데이트 실패:', error);
-      alert('프로필 업데이트에 실패했습니다.');
-    }
-  };
-
   // 프로필 정보 불러오기
   useEffect(() => {
     getMyInfo()
@@ -64,6 +48,22 @@ export default function Mypage() {
         console.error('Error fetching profiles:', error);
       });
   }, []);
+
+  const submitEdit = async () => {
+    const editData = {
+      user: {
+        username: profiles,
+        intro: intro,
+        image: image,
+      },
+    };
+    try {
+      await editProfile(editData); // API 호출을 기다립니다.
+    } catch (error) {
+      console.error('프로필 업데이트 실패:', error);
+      alert('프로필 업데이트에 실패했습니다.');
+    }
+  };
 
   // 이미지 업로드
   const uploadImage = async (imageFile) => {
