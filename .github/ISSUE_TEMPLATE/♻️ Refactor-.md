@@ -2,7 +2,7 @@
 name: "♻️ Refactor:"
 about: 리팩터할 내용을 입력해주세요
 title: "♻️ Refactor:"
-labels: Bug
+labels: Bug, Feature
 assignees: ''
 
 ---
