@@ -4,7 +4,7 @@
 
 ![header](https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/f4a2c6d4-d4f2-4f23-b8c1-224ad7567fe9)
 
-<h3>핏버디 소개</h3><br>
+<h3>"함께하는 땀방울 당신의 운동메이트, 핏버디!"- 당신에게 딱 맞는 운동 파트너를 찾고, 운동의 모든 것을 공유하는 SNS 커뮤니티!"</h3><br>
 
 <b>[핏버디 바로가기] link </b>
 <br>
@@ -37,9 +37,8 @@ Test PW : `gitbuddy98`
 
 ### 주요기능
 
-- 운동 일정 공유: 자신의 운동 일정을 공유하고 다른 사용자들과 함께 운동할 수 있습니다. 요가, 헬스, 조깅 등 다양한 운동에 대한 일정을 만들고, 관심있는 사람들을 모집할 수 있습니다.
-- 운동 인증 및 커뮤니케이션: 운동을 마친 후에는 게시글을 통해 자신의 활동을 인증하고, 다른 사용자들과 경험을 공유할 수 있습니다. 운동 팁부터 영양 정보, 재활 운동에 이르기까지 다양한 정보를 나눌 수 있습니다.
-- 개인화된 프로필: 자신만의 운동 프로필을 만들어 다른 사용자와 소통할 수 있습니다.
+- 운동 일정 공유하여 다른 유저들과 함께 운동을 할 수 있습니다. 관심있는 카테고리 별로 운동 종목을 선정하여 공통된 관심사를 가진 유저-버디들을 모집할 수 있습니다.
+- 운동을 마친 후에는 피드를 통해 자신의 활동을 인증하고, 유저들과 소통할 수 있습니다. 운동에 한정된 것만이 아닌 다양한 카테고리를 통해 여러 주제의 소통이 가능합니다.
 
 <br>
 
@@ -50,11 +49,12 @@ Test PW : `gitbuddy98`
 <br/>
 <div align="center">
 
-|                                                                   **박규경**                                                                    |                                                                  **박지수**                                                                  |                                                                    **이승무**                                                                     |                                                                     **한동수**                                                                      |
+| **박규경** | **박지수** | **이승무** | **한동수** |
+
 | :---------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------: |
-|   <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/0c569a94-0ccc-45a5-9511-98e56a0d6d66" height=180 width=180>   | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/ce91a109-b0bc-4abf-90b7-c7f54dce1ce9" height=180 width=180>  |    <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/7e6a58d2-74f2-4e80-b7c1-69294343c059" height=180 width=180>    |     <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/7dce0db0-44c3-4911-920e-618a5ef458c5" height=180 width=180>     |
-| <a href="https://github.com/ggpark1218"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/indexxp"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/GoodSilver9"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/>  |   <a href="https://github.com/handongsu"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/>    |
-|     ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) </br> ![Team%20Leader](https://img.shields.io/badge/-Team%20leader-red) </br>     | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) </br> ![Document%20Leader](https://img.shields.io/badge/-Document%20leader-orange) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Development%20Leader](https://img.shields.io/badge/-Development%20leader-yellow) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Communication%20Leader](https://img.shields.io/badge/-Comunication%20Leader-green) |
+| <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/0c569a94-0ccc-45a5-9511-98e56a0d6d66" height=180 width=180> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/ce91a109-b0bc-4abf-90b7-c7f54dce1ce9" height=180 width=180> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/7e6a58d2-74f2-4e80-b7c1-69294343c059" height=180 width=180> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/7dce0db0-44c3-4911-920e-618a5ef458c5" height=180 width=180> |
+| <a href="https://github.com/ggpark1218"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/indexxp"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/GoodSilver9"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/handongsu"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> |
+| ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) </br> ![Team%20Leader](https://img.shields.io/badge/-Team%20leader-red) </br> | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) </br> ![Document%20Leader](https://img.shields.io/badge/-Document%20leader-orange) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Development%20Leader](https://img.shields.io/badge/-Development%20leader-yellow) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Communication%20Leader](https://img.shields.io/badge/-Comunication%20Leader-green) |
 
 </div>
 <br><br>
@@ -204,21 +204,125 @@ Test PW : `gitbuddy98`
 
 ## <span id="function">6. 기능 구현</span>
 
-| 스플래시                                                                                                                                         | 로그인                                                                                                                                           | 홈 - 카테고리                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/de48ad80-3dc0-43d9-aca6-5f3b03ed546c" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/6d2375c2-8f94-4846-94c9-c677fb41cc3d" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/42603fe4-7a0e-430d-bea2-12da02cd865e" width="200" height="400"/> |
+| 스플래시 |
+회원가입 | 로그인 |
+홈 - 카테고리 |
+| ------------------------------------------------------------------------------------------------------------------------------------------------ |
+------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/de48ad80-3dc0-43d9-aca6-5f3b03ed546c" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/63f0ad9a-8d08-44e4-a3a7-e2626b01fffa" width="200" height="400"/> |
+|<img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/6d2375c2-8f94-4846-94c9-c677fb41cc3d" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/42603fe4-7a0e-430d-bea2-12da02cd865e" width="200" height="400"/> |
 
-| 제목    | 내용    | 설명    |
-| ------- | ------- | ------- |
-| 테스트1 | 테스트2 | 테스트3 |
+| 모집글 업로드                                                                                                                                    | 모집글 상세                                                                                                                                      | 모집글 수정                                                                                                                                        | 모집글 삭제                                                                                                                                      |
+| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/2aed31ca-5607-486b-bdea-efebd2f22a6f" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/f0aab59b-f552-4dff-9744-f6bd31696bc7" width="200" height="400"/> | 테<img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/6408cbff-378f-4058-8cd0-2e721b59181f" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/47f37662-0fc8-4079-b319-eaad68a6a5c2" width="200" height="400"/> |
 
-| 제목    | 내용    | 설명    |
-| ------- | ------- | ------- |
-| 테스트1 | 테스트2 | 테스트3 |
+| 캘린더                                                                                                                                           |
+| ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/3be57c84-97ca-4316-b939-aa5ab983763b" width="200" height="400"/> |
+
+| 커뮤니티                                                                                                                                         | 커뮤니티 업로드                                                                                                                                   | 커뮤니티 댓글                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/a2caf1c8-1965-4274-ac5b-fda1c8fca23b" width="200" height="400"/> | <img src="(https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/3a741d8e-c290-49c9-8088-0e1e7db646a5" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/2175f277-c672-40e4-99a0-ed022822b74b" width="200" height="400"/> |
+
+| 마이페이지                                                                                                                                       | 404                                                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/ea2c76b0-52ff-4aed-8a06-4b93340db881" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/19047fa2-f9f3-4eba-ae38-123aacc15305" width="200" height="400"/> |
 
 ## <span id="important">7. 핵심 코드</span>
 
+### Axios
+
+### Firebase
+
+### 리코일
+
+### 카카오맵 API
+
+사용자가 원하는 곳 특정 주소나 키워드를 입력후 검색을 수행합니다. <br>
+검색 결과와 상태를 처리하는 콜백 함수를 정의하고, 해당하는 검색 결과를 기반으로 해당 주소의 좌표를 검색 후 해당 지도에 마커를 표시를 해주는 기능을 위해 카카오 API를 사용하였습니다. <br>
+또한 사용자가 모집글에 원하는 곳을 지정하기 위해 지도값을 Modal 창으로 불러오는 Reat-Modal 라이브러리를 함께 사용했습니다.
+
+```javascript
+const { kakao } = window;
+
+const places = new kakao.maps.services.Places();
+places.keywordSearch(address, function (results, status) {
+  if (status === kakao.maps.services.Status.OK) {
+    setSearchResults(results);
+  }
+});
+
+places.keywordSearch(address, function (results, status) {
+  if (status === kakao.maps.services.Status.OK) {
+    const coords = new kakao.maps.LatLng(results[0].y, results[0].x);
+
+    if (mapRef.current.marker) {
+      mapRef.current.marker.setMap(null);
+    }
+
+    const marker = new kakao.maps.Marker({
+      map: mapRef.current,
+      position: coords,
+    });
+
+    mapRef.current.marker = marker;
+
+    mapRef.current.setCenter(coords);
+  }
+});
+```
+
+### 커뮤니티 작성
+
+### 카테고리 필터링
+
+사용자에게 선택한 운동 종목에 맞는 검색 결과만을 제공하기 위하여 필터링 작업을 거쳤습니다. <br>
+각 제품(Product API)의 링크에는 중요한 정보가 줄바꿈 문자로 구분되어 있기 때문에, 각 줄에서 키와 값을 추출하고, 객체로 변환하였습니다. <br>
+또한 필터링 중 만약 '전체'가 선택되었을 경우 모든 제품을 반환하되 만약 특정 종목이 선택되었다면, 그 종목이 포함된 게시글만을 반환도록 하였습니다. <br>
+이 때, `item.sport` 필드가 배열로 되어 있는 경우, 해당 배열에 선택된 종목이 포함되어 있는지 확인합니다. <br>
+이를 바탕으로 유저는 자신의 관심사에 맞는 게시글을 더욱 효과적으로 찾을 수 있습니다.
+
+```javascript
+const transformProducts = (products, selectedSport) => {
+  return products
+    .filter((item) => item.itemName === 'FitBuddy')
+    .map((item) => {
+      let link = item.link;
+      let data = link.split('\n');
+      const result = {};
+
+      for (let i = 1; i < data.length - 1; i++) {
+        const line = data[i].trim();
+        const [key, value] = line.split(':');
+        result[key.trim()] = value.trim().replace(/,+$/, '');
+      }
+      return { ...item, ...result };
+    })
+    .filter((item) => {
+      return (
+        selectedSport === '전체' || Array.isArray(item.sport) || item.sport.includes(selectedSport)
+      );
+    });
+};
+```
+
 ## <span id="convention">8. 컨벤션</span>
+
+### Git-flow
+
+기본적으로 5가지 브랜치를 활용하는 Git-flow 전략이 일방적이나, 프로젝트 규모에 맞춰 3가지로 축소하여 사용했습니다.
+
+- `main` : 최종 배포하기 위한 브랜치
+- `develop` : 기능 구현, 버그 수정과 같은 기능을 합쳐 확인하기 위한 브랜치
+- `feature` : 세부 기능 작업들을 위한 브랜치
+  - 각 브랜치의 이름은 `feat/세부기능`으로 이름 지어 어떠한 기능의 브랜치인지를 알 수 있도록 했습니다.
+  - push 완료 후에는 해당 브랜치를 develop으로 merge하여 역할 별로 진행한 기능을 확인하며 구현했습니다. 안녕
+- `bug/fix` : 기존에 발견된 버그들을 해결하기 위한 전용 브랜치
+  - 버그 수정 작업을 완료한 후에는 **`develop`** 브랜치로 merge하여 수정된 기능을 전체와 통합 테스트할 수 있습니다.
+  - 브랜치 이름은 **`bugfix/버그이름`**으로 지어서 어떤 버그를 수정하는지 쉽게 식별할 수 있게 합니다.
+- `refactoring` : 코드의 효율성, 가독성, 구조적 개선을 위한 리팩토링 작업을 위한 브랜치
+  - 리팩토링은 새로운 기능 추가 없이 기존 코드를 더욱 깔끔하고 효율적으로 만들기 위한 작업을 말합니다.
+  - 이름은 **`refactor/리팩토링대상`**으로 지어서 어떤 부분에 대한 리팩토링인지 알 수 있도록 합니다.
 
 ### Branch name 컨벤션
 
@@ -437,3 +541,11 @@ ESLint는 자바스크립트에서 문법적 에러를 표시해주는 도구입
 ```
 
 ## <span id="review">10. 후기</span>
+
+### 박규경
+
+### 박지수
+
+### 이승무
+
+### 한동수
