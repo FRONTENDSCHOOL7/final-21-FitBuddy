@@ -8,6 +8,7 @@ export const CommunityHome = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 8.5px;
+  padding-bottom: 70px;
 `;
 
 export const CommunityButton = styled.div`
