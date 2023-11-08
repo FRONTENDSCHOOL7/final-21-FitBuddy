@@ -27,7 +27,5 @@ git checkout -b feature/(이슈번호)-(기능이름)
 git add .
 git commit -m " "
 git push origin feature/(이슈번호)-(기능이름)
-기타사항
-
 
 기타사항
