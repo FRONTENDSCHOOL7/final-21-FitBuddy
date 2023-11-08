@@ -212,7 +212,7 @@ export default function Mypage() {
             <img
               src={Iconnext}
               alt='다음 버튼'
-              onClick={() => navigate('/mypagejoin', { state: { image: image } })}
+              onClick={() => navigate('/*', { state: { image: image } })}
             />
           </TitleWithEdit>
         </Interests>
@@ -226,7 +226,7 @@ export default function Mypage() {
 
         <TitleWithEdit>
           <p>내가 쓴 글</p>
-          <img src={Iconnext} alt='다음 버튼' onClick={() => navigate('/mypagewrite')} />
+          <img src={Iconnext} alt='다음 버튼' onClick={() => navigate('/*')} />
         </TitleWithEdit>
         <NavBottom />
       </MypageWrapper>
