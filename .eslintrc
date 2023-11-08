@@ -18,6 +18,7 @@
     "react/no-direct-mutation-state": "warn",
     "react/jsx-no-useless-fragment": "warn",
     "react/no-unused-state": "warn",
+    "react/no-unused-prop-types": "off",
     "react/jsx-key": "warn",
     "react/self-closing-comp": "warn",
     "react/jsx-curly-brace-presence": "warn",

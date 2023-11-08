@@ -140,6 +140,7 @@ export default function PostProfile(props) {
         setHeartCount(response.post.heartCount);
       } catch (error) {
         setIsHearted(false);
+        console.log(error.message);
       }
     }
     setAnimate(!animate);

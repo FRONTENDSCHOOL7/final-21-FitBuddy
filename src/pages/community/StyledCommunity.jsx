@@ -1,7 +1,5 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import plus from '../../assets/icons/icon-plus.svg';
-import BasicImg from '../../assets/placeholder/Placeholder-icon.svg';
 import UploadImg from '../../assets/placeholder/Placeholder-img.svg';
 export const CommunityHome = styled.div`
   /* position: relative; */
@@ -20,14 +18,14 @@ export const CommunityButton = styled.div`
   position: fixed;
   left: 50%;
   bottom: 100px;
-  transform: translateX(250%);
+  transform: translateX(264%);
   cursor: pointer;
   background-image: url(${plus});
   background-repeat: no-repeat;
   background-position: center center;
   transition: transform 0.3s ease-in-out;
   &:hover {
-    transform: translateX(250%) scale(1.2);
+    transform: translateX(264%) scale(1.2);
   }
 `;
 

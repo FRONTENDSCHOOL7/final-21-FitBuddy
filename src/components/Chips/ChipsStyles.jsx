@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const SelectWrapper = styled.div`
-  padding: 10px 10px;
+  padding: 10px 0px 10px 10px;
   margin-bottom: ${(props) => (props.marginBottom === '40px' ? '40px' : '')};
 `;
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import person from '../../assets/icons/icon-person.svg';
 import editIcon from '../../assets/icons/icon_edit.svg';
 import ModalEditAndDel from '../Common/Modal/ModalPost';
 import userTokenAtom from '../../Recoil/userTokenAtom';

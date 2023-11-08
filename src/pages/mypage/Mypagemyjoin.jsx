@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import Card from '../../components/Card/Card.jsx';
 import { getMyProducts } from '../../api/productApi.jsx';
 import { Link, useLocation } from 'react-router-dom';

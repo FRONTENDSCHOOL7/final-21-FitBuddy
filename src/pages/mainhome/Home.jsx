@@ -3,7 +3,7 @@ import titleIcon from '../../assets/icons/icon-logo.svg';
 import Chip from '../../components/Common/Chip/Chip';
 import Card from '../../components/Card/Card';
 import { getProducts } from '../../api/productApi';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import NavBottom from '../../components/Common/Nav/NavBottom';
 import { getProfile } from '../../api/mypageapi';
 import { CategoryWrapper, StyleAddButton, StyleCards, StyleHome } from './StyledHome';
@@ -13,7 +13,6 @@ export default function Home() {
   const [selectedSport, setSelectedSport] = useState('전체');
   const [authorProfile, setAuthorProfile] = useState([]);
   const [page, setPage] = useState(1);
-  const navigate = useNavigate();
 
   const handleSelectSport = (sport) => {
     setSelectedSport(sport);
@@ -148,7 +147,6 @@ export default function Home() {
             cost={filteredItem.cost}
             attendees={filteredItem.attendees}
             authorImg={filteredItem.author.image}
-            // attendeesImg={filteredItem.itemImage}
             contents={filteredItem.contents}
           />
         </Link>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyledButton } from './style/StyledButtonMs';
 
-export default function Button_Ms({
+export default function ButtonMs({
   name = '저장',
   marginBottom,
   onClick,
