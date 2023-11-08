@@ -4,7 +4,7 @@
 
 ![header](https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/f4a2c6d4-d4f2-4f23-b8c1-224ad7567fe9)
 
-<h3>"함께하는 땀방울 당신의 운동메이트, 핏버디!"- 당신에게 딱 맞는 운동 파트너를 찾고, 운동의 모든 것을 공유하는 SNS 커뮤니티!"</h3><br>
+<h3>핏버디는 당신에게 딱 맞는 운동 파트너를 찾고, 운동의 모든 것을 공유하는 커뮤니티입니다.</h3><br>
 
 <b>[핏버디 바로가기] link </b>
 <br>
@@ -49,12 +49,11 @@ Test PW : `gitbuddy98`
 <br/>
 <div align="center">
 
-| **박규경** | **박지수** | **이승무** | **한동수** |
-
-| :---------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/0c569a94-0ccc-45a5-9511-98e56a0d6d66" height=180 width=180> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/ce91a109-b0bc-4abf-90b7-c7f54dce1ce9" height=180 width=180> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/7e6a58d2-74f2-4e80-b7c1-69294343c059" height=180 width=180> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/7dce0db0-44c3-4911-920e-618a5ef458c5" height=180 width=180> |
-| <a href="https://github.com/ggpark1218"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/indexxp"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/GoodSilver9"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> | <a href="https://github.com/handongsu"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> |
-| ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) </br> ![Team%20Leader](https://img.shields.io/badge/-Team%20leader-red) </br> | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) </br> ![Document%20Leader](https://img.shields.io/badge/-Document%20leader-orange) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Development%20Leader](https://img.shields.io/badge/-Development%20leader-yellow) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</br> ![Communication%20Leader](https://img.shields.io/badge/-Comunication%20Leader-green) |
+|                                                                    **박규경**                                                                    |                                                                    **박지수**                                                                    |                                                                    **이승무**                                                                    |                                                                    **한동수**                                                                    |
+| :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/0c569a94-0ccc-45a5-9511-98e56a0d6d66" width="180" height="180"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/ce91a109-b0bc-4abf-90b7-c7f54dce1ce9" width="180" height="180"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/7e6a58d2-74f2-4e80-b7c1-69294343c059" width="180" height="180"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/7dce0db0-44c3-4911-920e-618a5ef458c5" width="180" height="180"/> |
+|     [![GitHub ggpark1218](https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white)](https://github.com/ggpark1218)     |        [![GitHub indexxp](https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white)](https://github.com/indexxp)        |    [![GitHub GoodSilver9](https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white)](https://github.com/GoodSilver9)    |      [![GitHub handongsu](https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white)](https://github.com/handongsu)      |
+|           ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)<br>![Team Leader](https://img.shields.io/badge/-Team%20leader-red)           |     ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)<br>![Document Leader](https://img.shields.io/badge/-Document%20leader-orange)      |  ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)<br>![Development Leader](https://img.shields.io/badge/-Development%20leader-yellow)   | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)<br>![Communication Leader](https://img.shields.io/badge/-Communication%20Leader-green) |
 
 </div>
 <br><br>
@@ -63,169 +62,86 @@ Test PW : `gitbuddy98`
 
 <div align="center">
 
-|                                                                                                                                                                                                                       FrontEnd                                                                                                                                                                                                                        |                                                      BackEnd                                                      |                                                                                                                Design                                                                                                                |                                                                                                                                                                                                      협업방식                                                                                                                                                                                                       |                                                                                                        컨벤션                                                                                                         |
-| :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"> <img src="https://img.shields.io/badge/styledcomponents-CC6699?style=flat-square&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Recoil-3578E5.svg?style=flat-square&logo=Recoil&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat-square&logo=JavaScript&logoColor=black"> | 제공 API <img src="https://img.shields.io/badge/Firebase-039BE5?style=flat-square&logo=Firebase&logoColor=white"> | <img src="https://img.shields.io/badge/figma-FBCEB1?style=flat-square&logo=figma&logoColor=white"> <img src="https://img.shields.io/badge/adobe%20photoshop-%2331A8FF.svg?style=flat-square&logo=adobe%20photoshop&logoColor=white"> | <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000.svg?style=flat-square&logo=Notion&logoColor=white"> <img src="https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=Discord&logoColor=white"> | <img src="https://img.shields.io/badge/Prettier-F7B93E.svg?style=flat-square&logo=Prettier&logoColor=black"> <img src="https://img.shields.io/badge/ESLint-4B32C3.svg?style=flat-square&logo=ESLint&logoColor=white"> |
+|                                                                                                                                                                                                                       FrontEnd                                                                                                                                                                                                                        |                                                 BackEnd                                                  |                                                                                                                Design                                                                                                                |                                                                                                                                                                                                      협업방식                                                                                                                                                                                                       |                                                                                                        컨벤션                                                                                                         |
+| :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"> <img src="https://img.shields.io/badge/styledcomponents-CC6699?style=flat-square&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Recoil-3578E5.svg?style=flat-square&logo=Recoil&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat-square&logo=JavaScript&logoColor=black"> | <img src="https://img.shields.io/badge/Firebase-039BE5?style=flat-square&logo=Firebase&logoColor=white"> | <img src="https://img.shields.io/badge/figma-FBCEB1?style=flat-square&logo=figma&logoColor=white"> <img src="https://img.shields.io/badge/adobe%20photoshop-%2331A8FF.svg?style=flat-square&logo=adobe%20photoshop&logoColor=white"> | <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000.svg?style=flat-square&logo=Notion&logoColor=white"> <img src="https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=Discord&logoColor=white"> | <img src="https://img.shields.io/badge/Prettier-F7B93E.svg?style=flat-square&logo=Prettier&logoColor=black"> <img src="https://img.shields.io/badge/ESLint-4B32C3.svg?style=flat-square&logo=ESLint&logoColor=white"> |
 
 </div>
 
 ### 협업 방식
 
+#### 📝: 팀 [노션](https://www.notion.so/21-Let-s-Go-d608c7bc45cf46f4b6a4c96cb6687881) 바로가기
+
+#### 📝: 팀 [피그마](https://www.figma.com/file/yPBqRSSo1gjLd7FOKA9GSF/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8?type=design&node-id=0%3A1&mode=design&t=Z5xPkG6Xtok7LsiV-1) 바로가기
+
+<br>
+
 - **🗣 데일리 스크럼** <br>
-  매일 밤 10시에 모여 진행도 공유 및 피드백, 다음 일정을 논의하였습니다.
+  <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/d2ca16e7-b41a-4732-ac4e-54015f0dcba2" width="200" height="620"/>
+  <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/6b4d8686-362d-4412-8d6d-505a541f8efe" width="800" height="620"/>
+
+<br> 매일 밤 10시에 모여 다음 일정을 논의하고 진행도 공유 및 피드백을 나누었습니다.<br>
+
 - **👥 오프라인 회의** <br>
   프로젝트가 진행되는 3주 동안 매주 1번은 모여 대면으로 프로젝트를 진행하였습니다.
 - **📹 라이브 쉐어** <br>
   라이브 쉐어를 통해 부족한 부분을 피드백 받고, 고칠 부분을 팀원과 함께 빠르게 수정하였습니다.
-- **🎋 브랜치 전략**
+- **🎋 브랜치 전략** <br>
+
 - **🗂 깃플로우 전략** <br>
-  `깃플로우 전략`을 프로젝트 규모에 맞춰 활용함으로 브랜치 및 이슈를 효율적으로 관리하고,
-  충돌을 효과적으로 처리했으며 `컨벤션`을 맞춰 커밋 메세지를 작성함으로 작업 진행 상황에 대한 빠른 이해를 도왔습니다.
+
+  기본적으로 5가지 브랜치를 활용하는 Git-flow 전략이 일방적이나, 프로젝트 규모에 맞춰 3가지로 축소하여 사용하였습니다.
+
+- `main` : 최종 배포하기 위한 브랜치
+- `develop` : 기능 구현, 버그 수정과 같은 기능을 합쳐 확인하기 위한 브랜치
+- `feature` : 세부 기능 작업들을 위한 브랜치
+  - 각 브랜치의 이름은 `feat/세부기능`으로 이름 지어 어떠한 기능의 브랜치인지를 알 수 있도록 했습니다.
+  - push 완료 후에는 해당 브랜치를 develop으로 merge하여 역할 별로 진행한 기능을 확인하며 구현했습니다.
+- `bug/fix` : 기존에 발견된 버그들을 해결하기 위한 전용 브랜치
+  - 버그 수정 작업을 완료한 후에는 **`develop`** 브랜치로 merge하여 수정된 기능을 전체와 통합 테스트할 수 있습니다.
+  - 브랜치 이름은 `bugfix/버그이름`으로 지어서 어떤 버그를 수정하는지 쉽게 식별할 수 있게 합니다.
+- `refactoring` : 코드의 효율성, 가독성, 구조적 개선을 위한 리팩토링 작업을 위한 브랜치
+  - 리팩토링은 새로운 기능 추가 없이 기존 코드를 더욱 깔끔하고 효율적으로 만들기 위한 작업을 말합니다.
+  - 이름은 `refactor/리팩토링대상`으로 지어서 어떤 부분에 대한 리팩토링인지 알 수 있도록 합니다.
+    `깃플로우 전략`을 프로젝트 규모에 맞춰 활용함으로 브랜치 및 이슈를 효율적으로 관리하고,
+    충돌을 효과적으로 처리했으며 `컨벤션`을 맞춰 커밋 메세지를 작성함으로 작업 진행 상황에 대한 빠른 이해를 도왔습니다.
 
 <br>
 
 ## <span id="schedule">4. 개발 일정</span>
 
 <div align="center">
-	<img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/75961cdd-1f7b-48ce-b6dd-81d3e3a3e5e4">
+<img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/75961cdd-1f7b-48ce-b6dd-81d3e3a3e5e4">
 </div>
 
 ## <span id="roles">5. 역할 분담</span>
 
-### 박규경
-
-🎨 UI
-
-- 전체적인 UI 디자인
-- 로그인
-- 모집글 상세
-- 작성한 모집글
-- 커뮤니티
-
-🎶 공통 컴포넌트
-
-- Alert
-- Comment
-
-✨ 기능 구현
-
-- 로그인, 홈 피드, 모집글, 커뮤니티 API
-- Firebase Custom Hooks 설정
-- 모집글 참여한 유저 정보 Firebase 저장 및 불러오기
-- 토큰값 유무에 따라 Router Auth 설정
-
-🤝 기타
-
-- 피그마 디자인 총괄
-- 디자인 컴포넌트화
-- 작업 진행 상황 문서화 및 관리
-
-### 박지수
-
-🎨 UI
-
-- 전체적인 UI 디자인
-- 마이페이지
-- 내가 쓴 피드
-- 내가 쓴 모집글
-
-🎶 공통 컴포넌트
-
-- Card
-- Modal
-- 로그아웃
-
-✨ 기능 구현
-
-- 인피니티 스크롤
-- 프로필 API
-
-🤝 기타
-
-- 피그마 디자인 시각화
-- 리드미, 문서 정리
-
-### 이승무
-
-🎨 UI
-
-- 메인 홈
-- 모집글 상세
-- 모집글 그룹
-- 지도 모달
-- 캘린더
-- 404
-
-🎶 공통 컴포넌트
-
-- Button
-- Input
-- PlaceHolder
-- Post
-
-✨ 기능 구현
-
-- 홈 피드, 모집글, 위치, 카카오맵 API
-- 운동 종목, 커뮤니티 페이지 카테고리 설정
-- 유효성 검사
-
-🤝 기타
-
-- 개발 워크플로우 관리
-- 레파지토리 유지 관리
-
-### 한동수
-
-🎨 UI
-
-- 회원가입
-- 온보드
-- 스플래시
-- 커뮤니티
-
-🎶 공통 컴포넌트
-
-- Nav
-- Chip
-
-✨ 기능 구현
-
-- 회원가입, 커뮤니티, 이미지, 댓글 리스트, 좋아요 API
-- Nav Router 경로 연결
-- Recoil을 통한 유저정보 토큰 로컬 스토리지에 저장
-- Favicon, Font, GlobalStyles
-
-🤝 기타
-
-- 파일 구조 분리
-- 개발 진행상황도
+| 박규경                                                                                                                                                                                                                                                                                                                                                                       | 박지수                                                                                                                                                                                                                                                                                   | 이승무                                                                                                                                                                                                                                                                                                                                                                             | 한동수                                                                                                                                                                                                                                                                                                                                         |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **🎨 UI**<br>- 전체적인 UI 디자인<br>- 로그인<br>- 모집글 상세<br>- 작성한 모집글<br>- 커뮤니티<br><br>**🎶 공통 컴포넌트**<br>- Alert<br>- Comment<br><br>**✨ 기능 구현**<br>- 로그인, 홈 피드, 모집글, 커뮤니티 API<br>- Firebase Custom Hooks<br>- 모집글 참여 유저 정보 저장/로드<br><br>**🤝 기타**<br>- 피그마 디자인 총괄<br>- 디자인 컴포넌트화<br>- 문서화 및 관리 | **🎨 UI**<br>- 전체적인 UI 디자인<br>- 마이페이지<br>- 내가 쓴 피드<br>- 내가 쓴 모집글<br><br>**🎶 공통 컴포넌트**<br>- Card<br>- Modal<br><br>**✨ 기능 구현**<br>- 인피니티 스크롤<br>- 로그아웃 <br>- 프로필 API<br><br>🤝 **기타**<br>- 피그마 디자인 시각화<br>- 리드미, 문서 정리 | <br>**🎨 UI**<br>- 메인 홈<br>- 모집글 상세<br>- 모집글 그룹<br>- 지도 모달<br>- 캘린더<br>- 404<br>**<br>🎶 공통 컴포넌트**<br>- Button<br>- Input<br>- PlaceHolder<br>- Post<br>**<br>✨ 기능 구현**<br>- 홈 피드, 모집글, 위치, 카카오맵 API<br>- 운동 종목, 커뮤니티 카테고리 설정<br>- 유효성 검사<br><br>**🤝 기타**<br>- 워크플로우 관리<br>- 레파지토리 유지 관리 <br><br> | **🎨 UI**<br>- 회원가입<br>- 온보드<br>- 스플래시<br>- 커뮤니티<br><br>**🎶 공통 컴포넌트**<br>- Nav<br>- Chip<br><br>**✨ 기능 구현**<br>- 회원가입, 커뮤니티, 이미지, <br> 댓글 리스트, 좋아요 API<br>- Nav Router 연결<br>- 유저정보 토큰 저장<br>- Favicon, Font, GlobalStyles<br><br>**🤝 기타**<br>- 파일 구조 분리<br>- 개발 진행상황도 |
 
 <br>
 
 ## <span id="function">6. 기능 구현</span>
 
-| 스플래시 |
-회원가입 | 로그인 |
-홈 - 카테고리 |
-| ------------------------------------------------------------------------------------------------------------------------------------------------ |
------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/de48ad80-3dc0-43d9-aca6-5f3b03ed546c" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/63f0ad9a-8d08-44e4-a3a7-e2626b01fffa" width="200" height="400"/> |
-|<img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/6d2375c2-8f94-4846-94c9-c677fb41cc3d" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/42603fe4-7a0e-430d-bea2-12da02cd865e" width="200" height="400"/> |
+|                                                                     스플래시                                                                     |                                                                     회원가입                                                                     |                                                                      로그인                                                                      |                                                                  홈 - 카테고리                                                                   |
+| :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/de48ad80-3dc0-43d9-aca6-5f3b03ed546c" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/63f0ad9a-8d08-44e4-a3a7-e2626b01fffa" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/6d2375c2-8f94-4846-94c9-c677fb41cc3d" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/42603fe4-7a0e-430d-bea2-12da02cd865e" width="200" height="400"/> |
 
-| 모집글 업로드                                                                                                                                    | 모집글 상세                                                                                                                                      | 모집글 수정                                                                                                                                        | 모집글 삭제                                                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/2aed31ca-5607-486b-bdea-efebd2f22a6f" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/f0aab59b-f552-4dff-9744-f6bd31696bc7" width="200" height="400"/> | 테<img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/6408cbff-378f-4058-8cd0-2e721b59181f" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/47f37662-0fc8-4079-b319-eaad68a6a5c2" width="200" height="400"/> |
+|                                                                  모집글 업로드                                                                   |                                                                   모집글 상세                                                                    |                                                                      모집글                                                                      |                                                                   모집글 삭제                                                                    |
+| :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/2aed31ca-5607-486b-bdea-efebd2f22a6f" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/f0aab59b-f552-4dff-9744-f6bd31696bc7" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/6408cbff-378f-4058-8cd0-2e721b59181f" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/47f37662-0fc8-4079-b319-eaad68a6a5c2" width="200" height="400"/> |
 
-| 캘린더                                                                                                                                           |
-| ------------------------------------------------------------------------------------------------------------------------------------------------ |
+|                                                                      캘린더                                                                      |
+| :----------------------------------------------------------------------------------------------------------------------------------------------: |
 | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/3be57c84-97ca-4316-b939-aa5ab983763b" width="200" height="400"/> |
 
-| 커뮤니티                                                                                                                                         | 커뮤니티 업로드                                                                                                                                   | 커뮤니티 댓글                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/a2caf1c8-1965-4274-ac5b-fda1c8fca23b" width="200" height="400"/> | <img src="(https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/3a741d8e-c290-49c9-8088-0e1e7db646a5" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/2175f277-c672-40e4-99a0-ed022822b74b" width="200" height="400"/> |
+|                                                                     커뮤니티                                                                     |                                                                 커뮤니티 업로드                                                                  |                                                                  커뮤니티 댓글                                                                   |
+| :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/a2caf1c8-1965-4274-ac5b-fda1c8fca23b" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/3a741d8e-c290-49c9-8088-0e1e7db646a5" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/2175f277-c672-40e4-99a0-ed022822b74b" width="200" height="400"/> |
 
-| 마이페이지                                                                                                                                       | 404                                                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+|                                                                    마이페이지                                                                    |                                                                       404                                                                        |
+| :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
 | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/ea2c76b0-52ff-4aed-8a06-4b93340db881" width="200" height="400"/> | <img src="https://github.com/FRONTENDSCHOOL7/final-21-FitBuddy/assets/139687655/19047fa2-f9f3-4eba-ae38-123aacc15305" width="200" height="400"/> |
 
 ## <span id="important">7. 핵심 코드</span>
@@ -307,22 +223,6 @@ const transformProducts = (products, selectedSport) => {
 ```
 
 ## <span id="convention">8. 컨벤션</span>
-
-### Git-flow
-
-기본적으로 5가지 브랜치를 활용하는 Git-flow 전략이 일방적이나, 프로젝트 규모에 맞춰 3가지로 축소하여 사용했습니다.
-
-- `main` : 최종 배포하기 위한 브랜치
-- `develop` : 기능 구현, 버그 수정과 같은 기능을 합쳐 확인하기 위한 브랜치
-- `feature` : 세부 기능 작업들을 위한 브랜치
-  - 각 브랜치의 이름은 `feat/세부기능`으로 이름 지어 어떠한 기능의 브랜치인지를 알 수 있도록 했습니다.
-  - push 완료 후에는 해당 브랜치를 develop으로 merge하여 역할 별로 진행한 기능을 확인하며 구현했습니다. 안녕
-- `bug/fix` : 기존에 발견된 버그들을 해결하기 위한 전용 브랜치
-  - 버그 수정 작업을 완료한 후에는 **`develop`** 브랜치로 merge하여 수정된 기능을 전체와 통합 테스트할 수 있습니다.
-  - 브랜치 이름은 **`bugfix/버그이름`**으로 지어서 어떤 버그를 수정하는지 쉽게 식별할 수 있게 합니다.
-- `refactoring` : 코드의 효율성, 가독성, 구조적 개선을 위한 리팩토링 작업을 위한 브랜치
-  - 리팩토링은 새로운 기능 추가 없이 기존 코드를 더욱 깔끔하고 효율적으로 만들기 위한 작업을 말합니다.
-  - 이름은 **`refactor/리팩토링대상`**으로 지어서 어떤 부분에 대한 리팩토링인지 알 수 있도록 합니다.
 
 ### Branch name 컨벤션
 
