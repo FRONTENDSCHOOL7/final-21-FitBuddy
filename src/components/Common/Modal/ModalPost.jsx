@@ -9,13 +9,17 @@ import { postsState } from '../../../Recoil/communityAtom';
 import { DeleteBtn, StyledModal } from './style/StyledModalPost';
 import { deleteComment } from '../../../api/commentApi';
 
-export default function ModalEditAndDel(props) {
+export default function ModalEditAndDel({
+  postId,
+  isPostorJoin,
+  commentId,
+  removeComment,
+  visible,
+}) {
   const [alertVisible, setAlertVisible] = useState(false);
-  const [posts, setPosts] = useRecoilState(postsState);
+  const setPosts = useRecoilState(postsState);
 
-  const postId = props.postId;
   const navigate = useNavigate();
-  const isPostorJoin = props.isPostorJoin;
   const token = localStorage.getItem('token');
 
   const showModal = () => {
@@ -35,8 +39,8 @@ export default function ModalEditAndDel(props) {
         return res;
       }
       if (isPostorJoin === 'Comment') {
-        const res = await deleteComment(postId, props.commentId);
-        props.removeComment(props.commentId);
+        const res = await deleteComment(postId, commentId);
+        removeComment(commentId);
         return res;
       }
     } catch (error) {
@@ -53,7 +57,7 @@ export default function ModalEditAndDel(props) {
     }
   };
   return (
-    <StyledModal visible={props.visible}>
+    <StyledModal visible={visible}>
       {isPostorJoin !== 'Comment' && <DeleteBtn onClick={handleEditPost}>피드 수정</DeleteBtn>}
       {isPostorJoin === 'Comment' ? (
         <DeleteBtn onClick={showModal}>댓글 삭제</DeleteBtn>

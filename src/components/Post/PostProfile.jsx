@@ -109,32 +109,43 @@ const HeartCount = styled.p`
   padding-top: 3px;
 `;
 
-export default function PostProfile(props) {
-  const [heartCount, setHeartCount] = useState(props.heartCount || 0);
-  const [isHearted, setIsHearted] = useState(props.hearted);
+export default function PostProfile({
+  heartCount,
+  hearted,
+  postId,
+  content,
+  accountname,
+  username,
+  authorId,
+  authorImage,
+  image,
+  commentLength,
+  updatedAt,
+}) {
+  const [heartCounty, setHeartCounty] = useState(heartCount || 0);
+  const [isHearted, setIsHearted] = useState(hearted);
   const textAreaRef = useRef(null);
   const [isShowReadMore, setIsShowReadMore] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const checkComments = useRecoilValue(commentPreview);
-  const comments = checkComments[props.postId] || [];
+  const comments = checkComments[postId] || [];
   const setCommentPreviewState = useSetRecoilState(commentPreview);
   const [animate, setAnimate] = useState(false);
   const heart = useRef();
 
   const navigate = useNavigate();
   const token = useRecoilValue(userTokenAtom);
-  const postId = props.postId;
 
   //좋아요
   const like = async () => {
     await postLike(postId, token);
-    setHeartCount(heartCount + 1);
+    setHeartCounty(heartCounty + 1);
     setIsHearted(true);
   };
 
   const cancellike = async () => {
     await postUnlike(postId, token);
-    setHeartCount(heartCount - 1);
+    setHeartCounty(heartCounty - 1);
     setIsHearted(false);
   };
 
@@ -149,7 +160,7 @@ export default function PostProfile(props) {
 
   // 댓글 상세 페이지 이동
   const handleReply = () => {
-    navigate(`/feedReply/${props.postId}`, { state: { postId: props.postId } });
+    navigate(`/feedReply/${postId}`, { state: { postId: postId } });
   };
 
   //더보기
@@ -160,7 +171,7 @@ export default function PostProfile(props) {
     } else {
       setIsShowReadMore(false);
     }
-  }, [props.content]);
+  }, [content]);
   const toggleReadMore = () => {
     setExpanded((prevExpanded) => !prevExpanded);
   };
@@ -181,20 +192,20 @@ export default function PostProfile(props) {
   };
 
   useEffect(() => {
-    fetchCommentsForPost(props.postId);
-  }, [props.postId]);
+    fetchCommentsForPost(postId);
+  }, [postId]);
 
   return (
     <StyledDiv>
       <div className='community'>
         <PostCommunity
-          accountname={props.accountname}
-          username={props.username}
-          postId={props.postId}
-          authorId={props.authorId}
-          authorImage={props.authorImage}
+          accountname={accountname}
+          username={username}
+          postId={postId}
+          authorId={authorId}
+          authorImage={authorImage}
         />
-        <PlaceHolder type='Ractangle' src={props.image} />
+        <PlaceHolder type='Ractangle' src={image} />
         <div className='reaction'>
           <HeartIcon
             ref={heart}
@@ -207,14 +218,14 @@ export default function PostProfile(props) {
             animate={animate}
             onAnimationEnd={() => setAnimate(false)}
           >
-            {heartCount}
+            {heartCounty}
           </HeartCount>
           <img src={circle} alt='comment' />
-          <p style={{ color: 'white', paddingTop: '3px' }}>{props.commentLength}</p>
+          <p style={{ color: 'white', paddingTop: '3px' }}>{commentLength}</p>
         </div>
         <div>
           <StyleTextArea ref={textAreaRef} expanded={expanded}>
-            {props.content}
+            {content}
           </StyleTextArea>
         </div>
         {isShowReadMore && (
@@ -223,7 +234,7 @@ export default function PostProfile(props) {
           </Button>
         )}
       </div>
-      <p className='date'>{props.updatedAt}</p>
+      <p className='date'>{updatedAt}</p>
       <StyleComment>
         {comments &&
           comments.map((comment, index) => (
@@ -235,7 +246,7 @@ export default function PostProfile(props) {
             />
           ))}
         <CommentButton onClick={handleReply}>
-          {props.commentLength > 0 ? `댓글 ${props.commentLength}개 모두 보기` : '댓글 작성하기'}
+          {commentLength > 0 ? `댓글 ${commentLength}개 모두 보기` : '댓글 작성하기'}
         </CommentButton>
       </StyleComment>
     </StyledDiv>

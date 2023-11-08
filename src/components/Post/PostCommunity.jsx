@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import person from '../../assets/icons/icon-person.svg';
 import editIcon from '../../assets/icons/icon_edit.svg';
 import ModalEditAndDel from '../Common/Modal/ModalPost';
 import userTokenAtom from '../../Recoil/userTokenAtom';
@@ -8,9 +6,9 @@ import { useRecoilState } from 'recoil';
 import PlaceHolder from '../Common/Placeholder/PlaceHolder';
 import { StyledOverlay, StyledPost, StyledPostEdit } from '../../components/Post/StyledPost';
 
-export default function PostCommunity(props) {
+export default function PostCommunity({ authorImage, username, accountname, authorId, postId }) {
   const [modal, setModal] = useState(false);
-  const [userToken, setUserToken] = useRecoilState(userTokenAtom);
+  const [userToken] = useRecoilState(userTokenAtom);
   const toggleModal = () => {
     setModal(!modal);
   };
@@ -18,19 +16,19 @@ export default function PostCommunity(props) {
   return (
     <>
       <StyledPost>
-        <PlaceHolder type='Person' src={props.authorImage} />
+        <PlaceHolder type='Person' src={authorImage} />
         <div>
-          <p className='username'>{props.username}</p>
-          <p className='accountname'>@{props.accountname}</p>
+          <p className='username'>{username}</p>
+          <p className='accountname'>@{accountname}</p>
         </div>
-        {userToken && userToken._id === props.authorId && (
+        {userToken && userToken._id === authorId && (
           <StyledPostEdit onClick={toggleModal}>
             <img src={editIcon} alt='editIcon' />
           </StyledPostEdit>
         )}
         <StyledOverlay visible={modal} onClick={toggleModal} />
       </StyledPost>
-      {modal && <ModalEditAndDel visible={modal} postId={props.postId} isPostorJoin='Post' />}
+      {modal && <ModalEditAndDel visible={modal} postId={postId} isPostorJoin='Post' />}
     </>
   );
 }

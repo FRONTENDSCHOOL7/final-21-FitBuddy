@@ -1,13 +1,13 @@
 import { StyledButton } from './style/StyledCategoryButton';
 
-export default function CategoryButton(props) {
+export default function CategoryButton({ placeholder, onChange, name, onClick }) {
   return (
     <StyledButton
       type='button'
-      placeholder={props.placeholder}
-      onChange={props.onChange}
-      name={props.name}
-      onClick={props.onClick}
+      placeholder={placeholder}
+      onChange={onChange}
+      name={name}
+      onClick={onClick}
     />
   );
 }
