@@ -17,14 +17,14 @@ const StyledCalendarContent = styled.div`
   }
 `;
 
-export default function CalendarContent(props) {
+export default function CalendarContent({ emoji, title, time }) {
   return (
     <StyledCalendarContent>
       <p>
-        <i>{props.emoji}</i>
-        {props.title}
+        <i>{emoji}</i>
+        {title}
       </p>
-      <div>{props.time}</div>
+      <div>{time}</div>
     </StyledCalendarContent>
   );
 }

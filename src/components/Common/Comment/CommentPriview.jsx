@@ -25,15 +25,16 @@ const StyledP = styled.p`
   }
 `;
 
-export default function CommentPriview(props) {
+export default function CommentPriview({ commentAuthorImage, name, content }) {
   return (
     <CommentWrapper>
       <img
-        src={props.commentAuthorImage ? props.commentAuthorImage : avatar}
+        src={commentAuthorImage ? commentAuthorImage : avatar}
         style={{ width: '20px', height: '20px', borderRadius: '20px' }}
+        alt='comment'
       />
-      <StyledP className='name'>{props.name}</StyledP>
-      <StyledP className='contents'>{props.content}</StyledP>
+      <StyledP className='name'>{name}</StyledP>
+      <StyledP className='contents'>{content}</StyledP>
     </CommentWrapper>
   );
 }

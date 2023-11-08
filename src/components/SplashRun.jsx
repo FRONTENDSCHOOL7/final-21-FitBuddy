@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import man from '../assets/image/man-white.png';
 import hand1 from '../assets/image/hand1-white.png';
-import hand2 from '../assets/image/hand2-white.png';
 import foot11 from '../assets/image/foot1-1-white.png';
 import foot12 from '../assets/image/foot1-2-white.png';
 import foot13 from '../assets/image/foot1-3-white.png';
@@ -171,32 +170,32 @@ export default function SplashRun() {
   return (
     <Section>
       <Run>
-        <img src={man} />
+        <img src={man} alt='man' />
 
         <Hand1>
-          <img src={hand1} />
+          <img src={hand1} alt='hand1' />
         </Hand1>
 
         <Hand2>
-          <img src={hand1} />
+          <img src={hand1} alt='hand1' />
         </Hand2>
 
         <Foot1>
-          <img src={foot11} />
+          <img src={foot11} alt='foot11' />
           <Foot2>
-            <img src={foot12} />
+            <img src={foot12} alt='foot12' />
             <Foot3>
-              <img src={foot13} />
+              <img src={foot13} alt='foot13' />
             </Foot3>
           </Foot2>
         </Foot1>
 
         <Foot4>
-          <img src={foot21} />
+          <img src={foot21} alt='foot21' />
           <Foot5>
-            <img src={foot22} />
+            <img src={foot22} alt='foot22' />
             <Foot6>
-              <img src={foot23} />
+              <img src={foot23} alt='foot23' />
             </Foot6>
           </Foot5>
         </Foot4>
