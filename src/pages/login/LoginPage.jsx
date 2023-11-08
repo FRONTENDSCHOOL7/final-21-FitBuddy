@@ -34,10 +34,12 @@ export default function LoginPage({ marginBottom }) {
     setUserTokenAtom(token);
   };
   const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+    const newEmail = e.target.value;
+
+    setEmail(newEmail);
 
     const regex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; // eslint-disable-line
-    if (regex.test(email)) {
+    if (regex.test(newEmail)) {
       setEmailValid(true);
     } else {
       setEmailValid(false);
