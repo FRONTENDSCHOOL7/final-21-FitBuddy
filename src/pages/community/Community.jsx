@@ -72,6 +72,7 @@ export default function Community(props) {
       .map((item) => {
         const date = new Date(item.updatedAt);
         const dated = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+        console.log(item);
         return (
           <PostProfile
             key={item._id}

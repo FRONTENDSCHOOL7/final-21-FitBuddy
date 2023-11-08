@@ -125,51 +125,24 @@ export default function PostProfile(props) {
   const token = useRecoilValue(userTokenAtom);
   const postId = props.postId;
 
-  // const handleToggleLike = async () => {
-  //   if (isHearted) {
-  //     setHeartCount((prevCount) => prevCount - 1);
-  //     setIsHearted(false);
-  //     try {
-  //       const response = await postUnlike(postId, token);
-  //       setHeartCount(response.post.heartCount);
-  //       setIsHearted(response.post.hearted);
-  //     } catch (error) {
-  //       setIsHearted(true);
-  //     }
-  //   } else {
-  //     setIsHearted(true);
-  //     setHeartCount((prevCount) => prevCount + 1);
-  //     try {
-  //       const response = await postLike(postId, token);
-  //       setHeartCount(response.post.heartCount);
-  //       setIsHearted(response.post.hearted);
-  //     } catch (error) {
-  //       setIsHearted(false);
-  //       console.log(error.message);
-  //     }
-  //   }
-  //   setAnimate(!animate);
-  //   setTimeout(() => setAnimate(!animate), 500);
-  // };
-
   //좋아요
   const like = async () => {
-    await postLike({ token, postId });
+    await postLike(postId, token);
     setHeartCount(heartCount + 1);
     setIsHearted(true);
   };
 
   const cancellike = async () => {
-    await postUnlike({ token, postId });
+    await postUnlike(postId, token);
     setHeartCount(heartCount - 1);
     setIsHearted(false);
   };
 
   const handleToggleLike = async () => {
     if (isHearted) {
-      await cancellike();
+      cancellike();
     } else if (!isHearted) {
-      await like();
+      like();
     }
     setAnimate(true);
   };

@@ -19,12 +19,10 @@ export default function PostCommunity(props) {
     <>
       <StyledPost>
         <PlaceHolder type='Person' src={props.authorImage} />
-
         <div>
           <p className='username'>{props.username}</p>
           <p className='accountname'>@{props.accountname}</p>
         </div>
-
         {userToken && userToken._id === props.authorId && (
           <StyledPostEdit onClick={toggleModal}>
             <img src={editIcon} alt='editIcon' />
