@@ -1,22 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import NavTopDetails from '../../components/Common/Nav/NavTopDetails';
+import NavBottom from '../../components/Common/Nav/NavBottom';
 import InputComment from '../../components/Common/Input/InputComment';
 import CommentList from '../../components/Common/Comment/CommentList';
-import { getCommentList } from '../../api/commentApi';
+import { getCommentList, uploadComment } from '../../api/commentApi';
+import { useParams } from 'react-router-dom';
+import { commentCount, commentPreview } from '../../Recoil/commentCount';
+import { useRecoilState } from 'recoil';
 import { useLocation } from 'react-router-dom';
 import { CommentSection } from './StyledCommunity';
 
 export default function CommunityComment(props) {
   const [comments, setComments] = useState([]);
   const [inputValue, setInputValue] = useState('');
+  // const { postId } = useParams();
+  const [replyCount, setReplyCount] = useRecoilState(commentCount);
+  const [commentPreviewState, setCommentPreviewState] = useRecoilState(commentPreview);
   const location = useLocation();
   const postId = location.state && location.state.postId;
 
+  //댓글 전체보기
   const fetchFeeds = () => {
     getCommentList(postId)
       .then((data) => {
         if (data && Array.isArray(data.comments)) {
           setComments(data.comments);
+          setReplyCount(data.comments.length);
+          setCommentPreviewState((prev) => ({
+            ...prev,
+            [postId]: data.comments.slice(0, 2),
+          }));
         } else {
           console.error('에러', data);
         }
@@ -25,16 +38,13 @@ export default function CommunityComment(props) {
         console.error(error);
       });
   };
-
   useEffect(() => {
     fetchFeeds();
   }, []);
-
   // 댓글 작성
   const handleInput = (e) => {
     setInputValue(e.target.value);
   };
-
   const handlePostComments = async (e) => {
     e.preventDefault();
     const comments = {
@@ -47,6 +57,7 @@ export default function CommunityComment(props) {
 
   const updateComment = async (postId, comment) => {
     try {
+      const res = await uploadComment(postId, comment);
       setInputValue('');
       fetchFeeds();
     } catch (error) {
@@ -54,11 +65,17 @@ export default function CommunityComment(props) {
       alert('댓글 실패');
     }
   };
-
   //댓삭 리렌더링
   const removeState = (commentId) => {
     setComments((prev) => prev.filter((comment) => comment.id !== commentId));
   };
+
+  //
+  const firstTwoComments = comments.slice(0, 2).map((comment) => ({
+    accountname: comment.author.username,
+    content: comment.content,
+  }));
+
   return (
     <>
       <NavTopDetails title='댓글' />
@@ -67,7 +84,6 @@ export default function CommunityComment(props) {
           const time = new Date(item.createdAt);
           let hours = time.getHours();
           const minutes = time.getMinutes();
-
           let period = 'AM';
           if (hours >= 12) {
             period = 'PM';
@@ -77,7 +93,6 @@ export default function CommunityComment(props) {
           } else if (hours === 0) {
             hours = 12;
           }
-
           const timed = `${hours.toString().padStart(2, '0')}:${minutes
             .toString()
             .padStart(2, '0')} ${period}`;
