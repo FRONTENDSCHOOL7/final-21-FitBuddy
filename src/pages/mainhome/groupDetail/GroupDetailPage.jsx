@@ -27,7 +27,7 @@ export default function GroupDetailPage({ uid }) {
   // const [user, setUser] = useState('');
   const [joinUser, setJoinUser] = useState([]);
   const [disabled, setDisabled] = useState(false);
-
+  const [myId, setMyId] = useState('');
   const { addDocument, response } = useFirestore('FitBuddyGroup');
   const { documents, err } = useCollection('FitBuddyGroup', ['postId', '==', groupId]);
 
@@ -43,6 +43,22 @@ export default function GroupDetailPage({ uid }) {
 
     fetchData();
   }, [groupId]);
+
+  useEffect(() => {
+    if (documents) {
+      setPeople(documents.length + 1);
+    }
+  }, [documents]);
+
+  useEffect(() => {
+    getMyInfo()
+      .then((data) => {
+        setMyId(data.user._id);
+      })
+      .catch((error) => {
+        console.error('Error fetching profiles:', error);
+      });
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -88,17 +104,14 @@ export default function GroupDetailPage({ uid }) {
         let isUserJoined = false;
         //저자와 내가 다른 사람일 때
         if (data.user._id !== authorId) {
-          isUserJoined = true;
-          alert('참여 완료!');
-          setPeople((prevPeople) => prevPeople + 1);
           if (documents) {
             documents.forEach((document) => {
               if (document.postId === groupId) {
-                if (document.user._id !== data.user._id) {
+                if (document.user._id !== data.user._id && document.user._id !== myId) {
                   if (people < result.attendees) {
                     isUserJoined = true;
                     alert('참여 완료!');
-                    setPeople((prevPeople) => prevPeople + 1);
+                    console.log('upPeople', people);
                   } else {
                     isUserJoined = false;
                     alert('모집 인원이 가득 찼습니다');
@@ -109,6 +122,11 @@ export default function GroupDetailPage({ uid }) {
                 }
               }
             });
+          }
+          if (documents.length === 0) {
+            isUserJoined = true;
+            alert('참여 완료!');
+            console.log('DownPeople', people);
           }
         } else {
           console.log('포스트 작성자입니다');
@@ -185,6 +203,7 @@ export default function GroupDetailPage({ uid }) {
           {documents &&
             documents
               .filter((document) => document.postId === groupId)
+
               .map((document) => {
                 const myImg = document.user.image;
                 const myName = document.user.username;
