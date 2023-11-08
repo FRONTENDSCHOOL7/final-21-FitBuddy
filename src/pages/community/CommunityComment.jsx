@@ -9,6 +9,7 @@ import { commentCount, commentPreview } from '../../Recoil/commentCount';
 import { useRecoilState } from 'recoil';
 import { useLocation } from 'react-router-dom';
 import { CommentSection } from './StyledCommunity';
+import userTokenAtom from '../../Recoil/userTokenAtom';
 
 export default function CommunityComment(props) {
   const [comments, setComments] = useState([]);
@@ -18,6 +19,7 @@ export default function CommunityComment(props) {
   const [commentPreviewState, setCommentPreviewState] = useRecoilState(commentPreview);
   const location = useLocation();
   const postId = location.state && location.state.postId;
+  const [userToken, setUserToken] = useRecoilState(userTokenAtom);
 
   //댓글 전체보기
   const fetchFeeds = () => {

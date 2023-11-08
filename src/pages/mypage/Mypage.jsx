@@ -21,7 +21,7 @@ import {
   StyledTextarea,
   TitleWithEdit,
 } from './StyledMypage';
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState } from 'recoil';
 import userTokenAtom from '../../Recoil/userTokenAtom';
 
 export default function Mypage() {
@@ -33,7 +33,7 @@ export default function Mypage() {
   const [editedAccountName, setEditedAccountName] = useState('');
 
   const navigate = useNavigate();
-  const setUserTokenAtom = useSetRecoilState(userTokenAtom);
+  const [userToken, setUserToken] = useRecoilState(userTokenAtom);
 
   // 프로필 정보 불러오기
   useEffect(() => {
@@ -59,6 +59,8 @@ export default function Mypage() {
     };
     try {
       await editProfile(editData); // API 호출을 기다립니다.
+      const updatedToken = { ...userToken, user: { ...userToken.user, image: image } };
+      setUserToken(updatedToken);
     } catch (error) {
       console.error('프로필 업데이트 실패:', error);
       alert('프로필 업데이트에 실패했습니다.');
@@ -125,7 +127,7 @@ export default function Mypage() {
 
   // 로그아웃
   const handleLogout = () => {
-    setUserTokenAtom({});
+    setUserToken(null);
     localStorage.removeItem('recoil-persist');
     localStorage.removeItem('token');
     alert('로그아웃 되었습니다!');
