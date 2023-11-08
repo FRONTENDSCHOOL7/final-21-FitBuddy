@@ -70,6 +70,9 @@ export default function GroupDetailPage({ uid }) {
     }
   } else {
   }
+  console.log(result);
+  console.log(groupData);
+  // 이전 handleGroupJoin 내용
   const handleGroupJoin = async (event) => {
     event.preventDefault();
     try {
@@ -87,18 +90,21 @@ export default function GroupDetailPage({ uid }) {
                   alert('참여 완료!');
                   setPeople((prevPeople) => prevPeople + 1);
                 } else {
-                  isUserJoined = false;
-                  alert('모집 인원이 가득 찼습니다');
+                  // isUserJoined = false;
+                  // alert('모집 인원이 가득 찼습니다');
+                  console.log('모집 인원이 가득 찼습니다');
                 }
               } else {
-                isUserJoined = false;
-                alert('이미 참여 중입니다');
+                // isUserJoined = false;
+                // alert('이미 참여 중입니다');
+                console.log('이미 참여 중입니다');
               }
             });
           }
         } else {
-          isUserJoined = false;
-          alert('포스트 작성자입니다');
+          // isUserJoined = false;
+          // alert('포스트 작성자입니다');
+          console.log('포스트 작성자입니다');
         }
 
         if (isUserJoined) {
@@ -111,6 +117,127 @@ export default function GroupDetailPage({ uid }) {
       console.error('Error during handleGroupJoin:', error);
     }
   };
+
+  // 두 번째 useEffect의 initialFetch 함수 내용
+  useEffect(() => {
+    const initialFetch = async () => {
+      try {
+        const user = await getMyInfo();
+        if (user) {
+          console.log('joinUser', user);
+          console.log('그룹아이디', groupId);
+          console.log('내 아이디', user.user._id);
+
+          if (authorId && user) {
+            let isUserJoined = false;
+            console.log('저자', authorId);
+            console.log('나', user.user._id);
+            if (user.user._id !== authorId) {
+              // isUserJoined = true;
+              if (documents) {
+                documents.forEach((document) => {
+                  if (document.user.user._id !== user.user._id) {
+                    if (people < result.attendees) {
+                      // isUserJoined = true;
+                      // alert('참여 완료!');
+                      // setPeople((prevPeople) => prevPeople + 1);
+                    } else {
+                      // isUserJoined = false;
+                      // alert('모집 인원이 가득 찼습니다');
+                    }
+                  } else {
+                    // isUserJoined = false;
+                    // alert('이미 참여 중입니다');
+                  }
+                });
+              }
+            } else {
+              // isUserJoined = false;
+              // alert('포스트 작성자입니다');
+            }
+
+            if (isUserJoined) {
+              addDocument(groupId, {
+                user: user,
+              });
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error during fetching data:', error);
+      }
+    };
+
+    initialFetch();
+  }, [groupId, authorId, documents, people, result.attendees]);
+
+  // const handleGroupJoin = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const user = await getMyInfo();
+  //     if (user) {
+  //       setJoinUser(user);
+  //       // setUser(user._id);
+  //       console.log('joinUser', user);
+  //       console.log('그룹아이디', groupId);
+  //       console.log('내 아이디', user.user._id);
+  //     }
+
+  //     if (authorId && user) {
+  //       let isUserJoined = false;
+  //       console.log('저자', authorId);
+  //       console.log('나', user.user._id);
+  //       if (user.user._id !== authorId) {
+  //         isUserJoined = true;
+  //         if (documents) {
+  //           documents.forEach((document) => {
+  //             if (document.user.user._id !== user.user._id) {
+  //               if (people < result.attendees) {
+  //                 isUserJoined = true;
+  //                 alert('참여 완료!');
+  //                 setPeople((prevPeople) => prevPeople + 1);
+  //               } else {
+  //                 isUserJoined = false;
+  //                 alert('모집 인원이 가득 찼습니다');
+  //               }
+  //             } else {
+  //               isUserJoined = false;
+  //               alert('이미 참여 중입니다');
+  //             }
+  //           });
+  //         }
+  //       } else {
+  //         isUserJoined = false;
+  //         alert('포스트 작성자입니다');
+  //       }
+
+  //       if (isUserJoined) {
+  //         addDocument(groupId, {
+  //           user: user,
+  //         });
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error('Error during handleGroupJoin:', error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const myData = await getMyInfo();
+  //       const user = myData?.user;
+  //       if (user) {
+  //         setJoinUser(user);
+  //         setUser(user._id);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error during fetching data:', error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   return (
     <StyleGroupDetail>
@@ -126,7 +253,10 @@ export default function GroupDetailPage({ uid }) {
         <ul>
           <StyleContent>
             <div className='sport'>
-              <Chip key={result.sport} active='active' sport={result.sport} />
+              {result.sport &&
+                result.sport
+                  .split(',')
+                  .map((sport, index) => <Chip key={index} active='active' sport={sport.trim()} />)}
             </div>
           </StyleContent>
           <StyleContent>
