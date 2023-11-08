@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Iconlocation } from '../../../src/assets/icons/icon-location-fill.svg';
 import { ReactComponent as Iconperson } from '../../../src/assets/icons/icon-person.svg';
@@ -6,6 +6,7 @@ import PlaceHolder from '../Common/Placeholder/PlaceHolder';
 import ButtonImg from '../Common/Buttons/ButtonImg';
 import { useCollection } from '../../hooks/useCollection';
 import userImg from '../../assets/placeholder/Placeholder-avatar.svg';
+import { getProfile } from '../../api/mypageapi';
 
 const StyledCard = styled.div`
   position: relative;
@@ -52,6 +53,37 @@ const EventInfo = styled.div`
 
 export default function Card({ groupId, image, day, time, location, attendees, authorImg, title }) {
   const { documents, err } = useCollection('FitBuddyGroup', ['postId', '==', groupId]);
+  const [profileImages, setProfileImages] = useState({});
+
+  useEffect(() => {
+    const fetchProfileImages = async () => {
+      const imageMap = {};
+      const imageFetchPromises = documents.map(async (document) => {
+        try {
+          const res = await getProfile(document.user.accountname);
+          return { id: document.user._id, image: res.profile.image || userImg };
+        } catch (error) {
+          console.error('Error fetching profile image:', error);
+          return { id: document.user._id, image: userImg };
+        }
+      });
+
+      const images = await Promise.all(imageFetchPromises);
+
+      images.forEach(({ id, image }) => {
+        if (id) {
+          // 여기서 id가 undefined가 아닌지 확인합니다.
+          imageMap[id] = image;
+        }
+      });
+
+      setProfileImages(imageMap);
+    };
+
+    if (documents) {
+      fetchProfileImages();
+    }
+  }, [documents]);
 
   return (
     <StyledCard>
@@ -86,10 +118,10 @@ export default function Card({ groupId, image, day, time, location, attendees, a
               .filter((document) => document.postId === groupId)
               .slice(0, 4)
               .map((document, index) => {
-                const myImg = document.user.image;
+                const myImg = profileImages[document.user._id] || userImg;
                 return (
                   <div className='placeholder-container' key={index}>
-                    <PlaceHolder type='Person' src={myImg ? myImg : userImg} />
+                    <PlaceHolder type='Person' src={myImg} />
                   </div>
                 );
               })}
