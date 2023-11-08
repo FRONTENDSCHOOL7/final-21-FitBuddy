@@ -11,6 +11,7 @@ import { postLike, postUnlike } from '../../api/postApi';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { commentCount, commentPreview } from '../../Recoil/commentCount';
 import { getCommentList } from '../../api/commentApi';
+import userTokenAtom from '../../Recoil/userTokenAtom';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -98,7 +99,7 @@ const popAnimation = keyframes`
 
 const HeartCount = styled.p`
   color: ${({ isHearted }) => (isHearted ? 'var(--color-primary)' : 'var(--color-secondary)')};
-  transition: color 0.3s ease-in-out;
+  transition: color 0.5s ease-in-out;
   animation: ${({ animate }) =>
     animate
       ? css`
@@ -118,33 +119,59 @@ export default function PostProfile(props) {
   const comments = checkComments[props.postId] || [];
   const setCommentPreviewState = useSetRecoilState(commentPreview);
   const [animate, setAnimate] = useState(false);
+  const heart = useRef();
 
   const navigate = useNavigate();
+  const token = useRecoilValue(userTokenAtom);
+  const postId = props.postId;
+
+  // const handleToggleLike = async () => {
+  //   if (isHearted) {
+  //     setHeartCount((prevCount) => prevCount - 1);
+  //     setIsHearted(false);
+  //     try {
+  //       const response = await postUnlike(postId, token);
+  //       setHeartCount(response.post.heartCount);
+  //       setIsHearted(response.post.hearted);
+  //     } catch (error) {
+  //       setIsHearted(true);
+  //     }
+  //   } else {
+  //     setIsHearted(true);
+  //     setHeartCount((prevCount) => prevCount + 1);
+  //     try {
+  //       const response = await postLike(postId, token);
+  //       setHeartCount(response.post.heartCount);
+  //       setIsHearted(response.post.hearted);
+  //     } catch (error) {
+  //       setIsHearted(false);
+  //       console.log(error.message);
+  //     }
+  //   }
+  //   setAnimate(!animate);
+  //   setTimeout(() => setAnimate(!animate), 500);
+  // };
 
   //좋아요
+  const like = async () => {
+    await postLike({ token, postId });
+    setHeartCount(heartCount + 1);
+    setIsHearted(true);
+  };
+
+  const cancellike = async () => {
+    await postUnlike({ token, postId });
+    setHeartCount(heartCount - 1);
+    setIsHearted(false);
+  };
+
   const handleToggleLike = async () => {
     if (isHearted) {
-      setHeartCount((prevCount) => prevCount - 1);
-      setIsHearted(false);
-      try {
-        const response = await postUnlike(props.postId);
-        setHeartCount(response.post.heartCount);
-      } catch (error) {
-        setIsHearted(true);
-      }
-    } else {
-      setIsHearted(true);
-      setHeartCount((prevCount) => prevCount + 1);
-      try {
-        const response = await postLike(props.postId);
-        setHeartCount(response.post.heartCount);
-      } catch (error) {
-        setIsHearted(false);
-        console.log(error.message);
-      }
+      await cancellike();
+    } else if (!isHearted) {
+      await like();
     }
-    setAnimate(!animate);
-    setTimeout(() => setAnimate(!animate), 500);
+    setAnimate(true);
   };
 
   // 댓글 상세 페이지 이동
@@ -196,8 +223,17 @@ export default function PostProfile(props) {
         />
         <PlaceHolder type='Ractangle' src={props.image} />
         <div className='reaction'>
-          <HeartIcon src={isHearted ? heartOn : heartOff} alt='heart' onClick={handleToggleLike} />
-          <HeartCount isHearted={isHearted} animate={animate}>
+          <HeartIcon
+            ref={heart}
+            src={isHearted ? heartOn : heartOff}
+            alt='heart'
+            onClick={handleToggleLike}
+          />
+          <HeartCount
+            isHearted={isHearted}
+            animate={animate}
+            onAnimationEnd={() => setAnimate(false)}
+          >
             {heartCount}
           </HeartCount>
           <img src={circle} alt='comment' />
