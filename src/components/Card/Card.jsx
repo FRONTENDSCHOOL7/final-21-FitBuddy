@@ -2,10 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Iconlocation } from '../../../src/assets/icons/icon-location-fill.svg';
 import { ReactComponent as Iconperson } from '../../../src/assets/icons/icon-person.svg';
-import { ReactComponent as Placeholderimg } from '../../assets/placeholder/Placeholder-img.svg';
 import PlaceHolder from '../Common/Placeholder/PlaceHolder';
-import BasicImg from '../../assets/placeholder/Placeholder-icon.svg';
-import Button_Img from '../../components/Common/Buttons/Button_Img';
+import ButtonImg from '../Common/Buttons/ButtonImg';
 import { useCollection } from '../../hooks/useCollection';
 import userImg from '../../assets/placeholder/Placeholder-avatar.svg';
 
@@ -27,10 +25,6 @@ const StyledimgiconWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
-  /* & > svg:not(:last-child) {
-    margin-top: 5px;
-    margin-right: 5px;
-  } */
 `;
 
 const StylediconWrapper = styled.div`
@@ -38,7 +32,6 @@ const StylediconWrapper = styled.div`
   align-items: center;
   margin-right: 5px;
   & > svg:not(:last-child) {
-    margin-width: 5px;
   }
 `;
 
@@ -57,39 +50,37 @@ const EventInfo = styled.div`
   }
 `;
 
-export default function Card(props) {
-  const groupId = props.groupId;
-  const { documents, err } = useCollection(groupId, null);
+export default function Card({ groupId, image, day, time, location, attendees, authorImg, title }) {
+  const { documents } = useCollection(groupId, null);
 
   return (
     <StyledCard>
       <StyledholderWrapper>
-        <PlaceHolder src={props.image} />
+        <PlaceHolder src={image} />
       </StyledholderWrapper>
       <div>
         <EventInfo>
-          <h3>{props.title}</h3>
+          <h3>{title}</h3>
           <p className='date' style={{ display: 'inline-block' }}>
-            {props.day}
+            {day}
           </p>
           <p className='date' style={{ display: 'inline-block', marginLeft: '5px' }}>
-            {props.time}
+            {time}
           </p>
           <p>
             <StylediconWrapper>
               <Iconlocation style={{ width: '16px', height: '16px' }} />
-              {props.location}
+              {location}
               <Iconperson style={{ width: '16px', height: '16px', marginLeft: '5px' }} />
-              {props.attendees}
+              {attendees}
             </StylediconWrapper>
           </p>
         </EventInfo>
 
         <StyledimgiconWrapper>
           {/* 참여하는 사람 프로필 받아오기, 참여한는 사람 명수 대로 map 돌리기, 대신 3명까지만 */}
-          <PlaceHolder type='Person' src={props.authorImg ? props.authorImg : Button_Img} />
-          {/* <PlaceHolder type='Person' src={props.attendeesImg} />
-          <PlaceHolder type='Person' src={props.attendeesImg} /> */}
+          <PlaceHolder type='Person' src={authorImg ? authorImg : ButtonImg} />
+
           {documents &&
             documents.slice(0, 4).map((document, index) => {
               const myImg = document.user.user.image;
@@ -99,7 +90,6 @@ export default function Card(props) {
                 </div>
               );
             })}
-          {/* {documents && documents.length > 4 && <PlaceHolder type='Person' src={Button_Img} />} */}
         </StyledimgiconWrapper>
       </div>
     </StyledCard>
