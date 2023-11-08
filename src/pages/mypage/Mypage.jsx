@@ -21,7 +21,7 @@ import {
   StyledTextarea,
   TitleWithEdit,
 } from './StyledMypage';
-import { useSetRecoilState, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import userTokenAtom from '../../Recoil/userTokenAtom';
 
 export default function Mypage() {

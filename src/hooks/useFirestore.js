@@ -43,10 +43,8 @@ export const useFirestore = (transaction) => {
       const createdTime = timestamp.fromDate(new Date());
       const docRef = await addDoc(colRef, { ...doc, createdTime });
       dispatch({ type: 'addDoc', payload: docRef });
-      console.log('업로드 완료');
     } catch (e) {
       dispatch({ type: 'error', payload: e.message });
-      console.log('업로드 실패');
     }
   };
 
