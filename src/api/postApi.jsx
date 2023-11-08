@@ -60,7 +60,7 @@ export const postLike = async (postId, token) => {
   }
 };
 //좋아요 취소
-export const postUnlike = async (token, postId) => {
+export const postUnlike = async (postId, token) => {
   try {
     const response = await authInstance.delete(`/post/${postId}/unheart`);
     return response.data;
