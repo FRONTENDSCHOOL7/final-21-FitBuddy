@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import InputLine from '../components/Common/Input/InputLine';
 import ButtonL from '../components/Common/Buttons/ButtonL';
 import logo from '../assets/icons/icon-logo.svg';
-import Button_sns from '../components/Common/Buttons/Button_sns';
+import ButtonSns from '../components/Common/Buttons/ButtonSns';
 import kakao from '../assets/icons/icon-kakao.svg';
 import google from '../assets/icons/icon-google.svg';
 import facebook from '../assets/icons/icon-facebook.svg';
@@ -64,9 +64,9 @@ export default function LoginPage() {
       <StyledButtonL name='로그인' />
       <StyledTextButton>이메일로 회원가입</StyledTextButton>
       <SnsButtonContainer>
-        <Button_sns snsIcon={kakao} />
-        <Button_sns snsIcon={google} />
-        <Button_sns snsIcon={facebook} />
+        <ButtonSns snsIcon={kakao} />
+        <ButtonSns snsIcon={google} />
+        <ButtonSns snsIcon={facebook} />
       </SnsButtonContainer>
     </OnboardWrapper>
   );
