@@ -17,7 +17,7 @@ export const getProfile = async (accountname) => {
 
 //프로필 정보 수정하기
 export const editProfile = async (editData) => {
-  try {
-    const response = await authInstance.put(`/user`, editData);
-  } catch (error) {}
+  const response = await authInstance.put(`/user`, editData);
+
+  return response.data;
 };

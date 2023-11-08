@@ -11,11 +11,9 @@ import { postsState } from '../../Recoil/communityAtom';
 
 export default function Community(props) {
   const [posts, setPosts] = useRecoilState(postsState);
-  const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const fetchPosts = () => {
-    setIsLoading(true);
     getPosts()
       .then((data) => {
         if (data && Array.isArray(data.posts)) {
@@ -23,11 +21,9 @@ export default function Community(props) {
         } else {
           console.error('에러:', data);
         }
-        setIsLoading(false);
       })
       .catch((error) => {
         console.error(error);
-        setIsLoading(false);
       });
   };
 
@@ -72,7 +68,6 @@ export default function Community(props) {
       .map((item) => {
         const date = new Date(item.updatedAt);
         const dated = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
-        console.log(item);
         return (
           <PostProfile
             key={item._id}

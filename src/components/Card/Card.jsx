@@ -52,7 +52,7 @@ const EventInfo = styled.div`
 `;
 
 export default function Card({ groupId, image, day, time, location, attendees, authorImg, title }) {
-  const { documents, err } = useCollection('FitBuddyGroup', ['postId', '==', groupId]);
+  const { documents } = useCollection('FitBuddyGroup', ['postId', '==', groupId]);
   const [profileImages, setProfileImages] = useState({});
 
   useEffect(() => {

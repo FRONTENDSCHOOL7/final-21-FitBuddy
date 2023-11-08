@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { AlertBackground, AlertContent, CloseButton } from './StyledAlertDelete';
 
 // 모달 컴포넌트
@@ -29,16 +28,16 @@ const Alert = ({ isOpen, onClose, handleFeedDelete, children }) => {
     </AlertBackground>
   );
 };
-export default function AlertDelete(props) {
+export default function AlertDelete({ handleFeedDelete, isComment }) {
   const [AlertOpen, setAlertOpen] = useState(true);
   return (
     <div>
       <Alert
         isOpen={AlertOpen}
         onClose={() => setAlertOpen(false)}
-        handleFeedDelete={props.handleFeedDelete}
+        handleFeedDelete={handleFeedDelete}
       >
-        <h3>{props.isComment ? '댓글을 삭제하시겠습니까?' : '피드를 삭제하시겠습니까?'}</h3>
+        <h3>{isComment ? '댓글을 삭제하시겠습니까?' : '피드를 삭제하시겠습니까?'}</h3>
       </Alert>
     </div>
   );

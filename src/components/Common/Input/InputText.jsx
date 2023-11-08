@@ -1,16 +1,16 @@
 import React from 'react';
 import { StyledInput } from './style/StyledInputText';
 
-export default function InputText(props) {
+export default function InputText({ placeholder, onChange, name, value, onClick, autocomplete }) {
   return (
     <StyledInput
       type='text'
-      placeholder={props.placeholder}
-      onChange={props.onChange}
-      name={props.name}
-      value={props.value}
-      onClick={props.onClick}
-      autocomplete={props.autocomplete}
+      placeholder={placeholder}
+      onChange={onChange}
+      name={name}
+      value={value}
+      onClick={onClick}
+      autocomplete={autocomplete}
     />
   );
 }

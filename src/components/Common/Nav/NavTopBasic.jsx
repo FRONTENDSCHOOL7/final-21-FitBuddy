@@ -1,11 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
-import { NavTop, FlexContainer, NavTopTitle } from './NavStyles';
+import { NavTop, NavTopTitle } from './NavStyles';
 
-export default function NavTopBasic(props) {
+export default function NavTopBasic({ title }) {
   return (
     <NavTop>
-      <NavTopTitle type='basic'>{props.title}</NavTopTitle>
+      <NavTopTitle type='basic'>{title}</NavTopTitle>
     </NavTop>
   );
 }

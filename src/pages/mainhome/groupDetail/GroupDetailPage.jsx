@@ -26,10 +26,10 @@ export default function GroupDetailPage({ uid }) {
   const [authorId, setAuthorId] = useState('');
   // const [user, setUser] = useState('');
   const [joinUser, setJoinUser] = useState([]);
-  const [disabled, setDisabled] = useState(false);
+  const disabled = useState(false);
   const [myId, setMyId] = useState('');
-  const { addDocument, response } = useFirestore('FitBuddyGroup');
-  const { documents, err } = useCollection('FitBuddyGroup', ['postId', '==', groupId]);
+  const { addDocument } = useFirestore('FitBuddyGroup');
+  const { documents } = useCollection('FitBuddyGroup', ['postId', '==', groupId]);
   const [profileImages, setProfileImages] = useState({});
   useEffect(() => {
     const fetchData = async () => {
@@ -97,7 +97,6 @@ export default function GroupDetailPage({ uid }) {
       });
 
       setProfileImages(imageMap);
-      console.log(profileImages);
     };
 
     if (documents) {
@@ -136,7 +135,6 @@ export default function GroupDetailPage({ uid }) {
                   if (people < result.attendees) {
                     isUserJoined = true;
                     alert('참여 완료!');
-                    console.log('upPeople', people);
                   } else {
                     isUserJoined = false;
                     alert('모집 인원이 가득 찼습니다');
@@ -153,7 +151,7 @@ export default function GroupDetailPage({ uid }) {
             alert('참여 완료!');
           }
         } else {
-          console.log('포스트 작성자입니다');
+          alert('포스트 작성자입니다.');
         }
         if (isUserJoined) {
           addDocument({

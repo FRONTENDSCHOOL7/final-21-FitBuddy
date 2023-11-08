@@ -7,7 +7,7 @@ import { MypageHeader, MypageWrapper } from './StyledMypage.jsx';
 export default function Mypagemywrite() {
   // const { accountname } = useParams();
   const { accountname = 'gitbuddy98' } = useParams();
-  const [myProduct, setMyProduct] = useState([]);
+  const setMyProduct = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
