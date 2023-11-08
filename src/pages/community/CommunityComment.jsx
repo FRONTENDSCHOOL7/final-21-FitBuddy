@@ -1,25 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import NavTopDetails from '../../components/Common/Nav/NavTopDetails';
-import NavBottom from '../../components/Common/Nav/NavBottom';
 import InputComment from '../../components/Common/Input/InputComment';
 import CommentList from '../../components/Common/Comment/CommentList';
-import { getCommentList, uploadComment } from '../../api/commentApi';
-import { useParams } from 'react-router-dom';
+import { getCommentList } from '../../api/commentApi';
 import { commentCount, commentPreview } from '../../Recoil/commentCount';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { useLocation } from 'react-router-dom';
 import { CommentSection } from './StyledCommunity';
-import userTokenAtom from '../../Recoil/userTokenAtom';
 
 export default function CommunityComment(props) {
   const [comments, setComments] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  // const { postId } = useParams();
-  const [replyCount, setReplyCount] = useRecoilState(commentCount);
-  const [commentPreviewState, setCommentPreviewState] = useRecoilState(commentPreview);
+  const setReplyCount = useRecoilValue(commentCount);
+  const setCommentPreviewState = useRecoilValue(commentPreview);
   const location = useLocation();
   const postId = location.state && location.state.postId;
-  const [userToken, setUserToken] = useRecoilState(userTokenAtom);
 
   //댓글 전체보기
   const fetchFeeds = () => {
@@ -59,7 +54,6 @@ export default function CommunityComment(props) {
 
   const updateComment = async (postId, comment) => {
     try {
-      const res = await uploadComment(postId, comment);
       setInputValue('');
       fetchFeeds();
     } catch (error) {
@@ -71,12 +65,6 @@ export default function CommunityComment(props) {
   const removeState = (commentId) => {
     setComments((prev) => prev.filter((comment) => comment.id !== commentId));
   };
-
-  //
-  const firstTwoComments = comments.slice(0, 2).map((comment) => ({
-    accountname: comment.author.username,
-    content: comment.content,
-  }));
 
   return (
     <>

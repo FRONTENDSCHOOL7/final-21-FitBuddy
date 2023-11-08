@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -9,18 +9,14 @@ import { StyledCalendar } from './StyledCalendar';
 const localizer = momentLocalizer(moment);
 
 export default function Calender() {
-  const [events, setEvents] = useState([
+  const events = [
     {
       title: 'Meeting',
-      start: new Date(2023, 10, 5, 10, 0), // 10 is November in JS Date
+      start: new Date(2023, 10, 5, 10, 0),
       end: new Date(2023, 10, 5, 12, 0),
     },
     // 다른 이벤트들...
-  ]);
-  const addEvent = (title, start, end) => {
-    const newEvent = { title, start, end };
-    setEvents([...events, newEvent]);
-  };
+  ];
 
   return (
     <StyledCalendar>

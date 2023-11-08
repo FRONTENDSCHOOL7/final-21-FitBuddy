@@ -1,8 +1,5 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, Timestamp } from 'firebase/firestore';
-import { getAnalytics } from 'firebase/analytics';
-// import { getAuth } from 'firebase/auth';
-
 const firebaseConfig = {
   apiKey: 'AIzaSyAlQIw2Y6010w_k9EDvSsr-wBqgoGtzJYk',
   authDomain: 'fitbuddy-4814d.firebaseapp.com',

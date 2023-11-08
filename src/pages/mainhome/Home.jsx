@@ -11,8 +11,8 @@ import { CategoryWrapper, StyleAddButton, StyleCards, StyleHome } from './Styled
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [selectedSport, setSelectedSport] = useState('전체');
-  const [authorProfile, setAuthorProfile] = useState([]);
-  const [page, setPage] = useState(1);
+  const setAuthorProfile = useState([]);
+  // const [page, setPage] = useState(1);
 
   const handleSelectSport = (sport) => {
     setSelectedSport(sport);
@@ -39,7 +39,7 @@ export default function Home() {
         window.innerHeight + document.documentElement.scrollTop >=
         document.documentElement.offsetHeight - 50 // 50px 전에 로드 시작
       ) {
-        setPage((prev) => prev + 1); // 페이지 번호 증가
+        // setPage((prev) => prev + 1); // 페이지 번호 증가
       }
     }
     window.addEventListener('scroll', checkScrollEnd);
@@ -95,7 +95,6 @@ export default function Home() {
         if (products) {
           for (const item of products.filter((item) => item.itemName === 'FitBuddy')) {
             const authorData = item.author;
-
             const data = await getProfile(authorData.accountname);
             setAuthorProfile(data);
           }
