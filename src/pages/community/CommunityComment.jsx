@@ -2,17 +2,16 @@ import React, { useState, useEffect } from 'react';
 import NavTopDetails from '../../components/Common/Nav/NavTopDetails';
 import InputComment from '../../components/Common/Input/InputComment';
 import CommentList from '../../components/Common/Comment/CommentList';
-import { getCommentList } from '../../api/commentApi';
-import { commentCount, commentPreview } from '../../Recoil/commentCount';
-import { useRecoilValue } from 'recoil';
+import { getCommentList, uploadComment } from '../../api/commentApi';
+import { commentPreview } from '../../Recoil/commentCount';
+import { useSetRecoilState } from 'recoil';
 import { useLocation } from 'react-router-dom';
 import { CommentSection } from './StyledCommunity';
 
 export default function CommunityComment(props) {
   const [comments, setComments] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const setReplyCount = useRecoilValue(commentCount);
-  const setCommentPreviewState = useRecoilValue(commentPreview);
+  const setCommentPreviewState = useSetRecoilState(commentPreview);
   const location = useLocation();
   const postId = location.state && location.state.postId;
 
@@ -22,7 +21,6 @@ export default function CommunityComment(props) {
       .then((data) => {
         if (data && Array.isArray(data.comments)) {
           setComments(data.comments);
-          setReplyCount(data.comments.length);
           setCommentPreviewState((prev) => ({
             ...prev,
             [postId]: data.comments.slice(0, 2),
@@ -55,6 +53,7 @@ export default function CommunityComment(props) {
   const updateComment = async (postId, comment) => {
     try {
       setInputValue('');
+      await uploadComment(postId, comment);
       fetchFeeds();
     } catch (error) {
       console.error('요청 중 에러 발생:', error.message);
