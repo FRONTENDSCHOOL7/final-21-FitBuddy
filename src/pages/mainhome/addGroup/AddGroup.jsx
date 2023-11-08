@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import InputText from '../../../components/Common/Input/InputText';
 import PlaceHolder from '../../../components/Common/Placeholder/PlaceHolder';
-import Button_L from '../../../components/Common/Buttons/Button_L';
+import ButtonL from '../../../components/Common/Buttons/ButtonL';
 import { PostCreate } from '../../../api/postApi';
 import NavTopBack from '../../../components/Common/Nav/NavTopBack';
 import NavTopDetails from '../../../components/Common/Nav/NavTopDetails';
@@ -51,7 +51,6 @@ export default function AddGroup() {
       body: form,
     });
     const json = await res.json();
-    console.log(baseUrl + json.filename);
     const imageUrl = baseUrl + json.filename;
     setImage(imageUrl);
   };
@@ -77,11 +76,6 @@ export default function AddGroup() {
 
             const sportsFromServer = result.sport.split(', ').filter(Boolean);
             setSelectedSports(sportsFromServer);
-
-            console.log('폼데이터');
-            console.log(formData);
-            console.log('결과값');
-            console.log(result);
           }
         } catch (error) {
           console.error('데이터 불러오기 오류', error);
@@ -122,17 +116,14 @@ export default function AddGroup() {
     const dateRegex = /(\d{4}-\d{2}-\d{2})/;
     const timeRegex = /(\d{1,2})시(\d{1,2})분/;
     // 입력 형식 정규식
-    console.log(formData);
     const datematch = formData.day.replace(/\s/g, '').match(dateRegex); // 입력 값과 정규식 매칭
     const timematch = formData.time.replace(/\s/g, '').match(timeRegex); // 입력 값과 정규식 매칭
 
     if (!datematch) {
-      console.log('날짜 형식이 올바르지 않습니다.');
       return;
     }
 
     if (!timematch) {
-      console.log('시간 형식이 올바르지 않습니다.');
       return;
     }
     try {
@@ -155,16 +146,12 @@ export default function AddGroup() {
             itemImage: image ? image : UploadImg,
           },
         });
-        console.log(response.data);
 
         if (response.status === 200) {
-          console.log('성공');
-          console.log(response.data);
           navigate('/home');
         }
       }
     } catch (err) {
-      console.log('실패');
       console.error(err);
     }
   };
@@ -193,7 +180,6 @@ export default function AddGroup() {
 
   const [disabled, setDisabled] = useState(false);
   const [isKakaoMapOpen, setKakaoMapOpen] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState('');
   const [kakaoData, setKakaoData] = useState({ location: '' });
   const openKakaoMapModal = () => {
     setKakaoMapOpen(true);
@@ -210,7 +196,6 @@ export default function AddGroup() {
   };
 
   useEffect(() => {
-    console.log(formData);
     const isFormValid = Object.values(formData).every((value) => value.trim() !== '');
     setDisabled(!isFormValid);
   }, [formData]);
@@ -381,7 +366,7 @@ export default function AddGroup() {
         </InputBox>
       </div>
       <StyleButtonL>
-        <Button_L
+        <ButtonL
           name={isEditMode ? '수정하기' : '완료'}
           disabled={disabled}
           onClick={handlePostAdd}

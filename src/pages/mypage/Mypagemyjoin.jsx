@@ -35,7 +35,6 @@ export default function Mypagemyjoin() {
       const formattedCreatedAt = `${createdAt.getFullYear()}-${(createdAt.getMonth() + 1)
         .toString()
         .padStart(2, '0')}-${createdAt.getDate().toString().padStart(2, '0')}`;
-      console.log('가공데이터', product.id);
       return {
         createdAt: formattedCreatedAt,
         author: product.author.accountname,
@@ -48,9 +47,7 @@ export default function Mypagemyjoin() {
         // 다른 필요한 정보도 추가할 수 있습니다
       };
     });
-    console.log(processedData);
   } else {
-    console.log('로딩중 ');
   }
 
   return (

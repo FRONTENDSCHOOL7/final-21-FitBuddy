@@ -10,7 +10,7 @@ import { useRecoilState } from 'recoil';
 import { useLocation } from 'react-router-dom';
 import { CommentSection } from './StyledCommunity';
 
-export default function Community_Comment(props) {
+export default function CommunityComment(props) {
   const [comments, setComments] = useState([]);
   const [inputValue, setInputValue] = useState('');
   // const { postId } = useParams();
@@ -61,7 +61,6 @@ export default function Community_Comment(props) {
   const updateComment = async (postId, comment) => {
     try {
       const res = await uploadComment(postId, comment);
-      console.log(res);
       setInputValue('');
       fetchFeeds();
     } catch (error) {
@@ -103,7 +102,6 @@ export default function Community_Comment(props) {
           const timed = `${hours.toString().padStart(2, '0')}:${minutes
             .toString()
             .padStart(2, '0')} ${period}`;
-          console.log('postId', postId);
           return (
             <CommentList
               key={item.id}

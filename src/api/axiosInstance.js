@@ -27,11 +27,9 @@ axiosApi.interceptors.request.use(
         Authorization: `Bearer ${token}`,
       };
     }
-    console.log('intercepter2', config);
     return config;
   },
   (error) => {
-    console.log(error.message);
     return Promise.reject(error);
   },
 );
@@ -57,7 +55,6 @@ authInstance.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.log(error.message);
     return Promise.reject(error);
   },
 );

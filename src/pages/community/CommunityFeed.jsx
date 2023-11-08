@@ -1,21 +1,19 @@
 import React, { useRef, useState, useEffect } from 'react';
 import NavTopDetails from '../../components/Common/Nav/NavTopDetails';
 import ChipsHome from '../../components/Chips/ChipsHome';
-import InputLarge from '../../components/Common/Input/InputLarge';
-import Button_L from '../../components/Common/Buttons/Button_L';
+import ButtonL from '../../components/Common/Buttons/ButtonL';
 import { CommunityWrapper, CategoryTitle, IconBtn } from './StyledCommunity';
 import { useNavigate } from 'react-router-dom';
-import { PostCreate } from '../../api/postApi';
 import { axiosApi } from '../../api/axiosInstance';
 import PlaceHolder from '../../components/Common/Placeholder/PlaceHolder';
 import { putEditPost } from '../../api/postApi';
 import { useParams } from 'react-router-dom';
 import { InputWrapper, StyledActualInput, CharacterCount } from './StyledCommunity';
 
-export default function Community_feed() {
+export default function CommunityFeed() {
   const inputRef = useRef(null);
   const navigate = useNavigate();
-  const [loading, setLoding] = useState(false);
+  const [loading] = useState(false);
   const [image, setImage] = useState('');
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('all');
@@ -24,9 +22,7 @@ export default function Community_feed() {
   const [text, setText] = useState('');
   const [disabled, setDisabled] = useState(true);
 
-  //수정 페이지인지 판별
   const isEditMode = !!postId;
-  console.log(isEditMode);
 
   useEffect(() => {
     if (isEditMode) {
@@ -43,7 +39,7 @@ export default function Community_feed() {
       };
       EditPost();
     }
-  }, [postId]);
+  }, [isEditMode, postId]);
 
   const handleSubmission = async (e) => {
     e.preventDefault();
@@ -62,7 +58,6 @@ export default function Community_feed() {
 
   const updatePost = async (postId, postData) => {
     try {
-      const res = await putEditPost(postId, postData);
       navigate('/community');
     } catch (error) {
       console.error('요청 에러:', error.message);
@@ -86,7 +81,6 @@ export default function Community_feed() {
       body: form,
     });
     const json = await res.json();
-    console.log(baseUrl + json.filename);
     const imageUrl = baseUrl + json.filename;
     setImage(imageUrl);
   };
@@ -103,7 +97,6 @@ export default function Community_feed() {
         console.error('에러:', res.statusText);
       }
       const data = res.data;
-      console.log(data);
       navigate('/community');
 
       if (data.error) {
@@ -132,7 +125,6 @@ export default function Community_feed() {
         ...prevFormData,
         content: extractedContent.trim(), // 이전 데이터에서 content 값을 가져옵니다
       }));
-      console.log(formData.content);
     }
   }, [isEditMode, content]);
 
@@ -198,7 +190,7 @@ export default function Community_feed() {
           </CharacterCount>
         </InputWrapper>
 
-        <Button_L
+        <ButtonL
           type='submit'
           name={isEditMode ? '수정하기' : '완료'}
           marginTop={50}

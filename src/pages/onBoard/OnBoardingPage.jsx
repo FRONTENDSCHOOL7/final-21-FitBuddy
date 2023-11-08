@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ChipsOnboarding from '../../components/Chips/ChipsOnboarding';
 import styled from 'styled-components';
-import Button_L from '../../components/Common/Buttons/Button_L';
+import ButtonL from '../../components/Common/Buttons/ButtonL';
 
 const OnboardTitle = styled.h1`
   font-size: var(--font-size-title);
@@ -19,8 +19,6 @@ const OnboardWrapper = styled.div`
 `;
 
 export default function OnBoardingPage({ name, onClick, selectedSports, setSelectedSports }) {
-  const [selectedSport, setSelectedSport] = useState([]);
-
   const handleSelect = (selectedSport) => {
     // 스포츠가 배열에 이미 있는지 확인
     if (selectedSports.includes(selectedSport)) {
@@ -33,7 +31,6 @@ export default function OnBoardingPage({ name, onClick, selectedSports, setSelec
       setSelectedSports(updatedSports);
     }
   };
-  console.log(selectedSports);
 
   return (
     <div>
@@ -62,7 +59,7 @@ export default function OnBoardingPage({ name, onClick, selectedSports, setSelec
           onSelect={handleSelect}
         />
 
-        <Button_L name='완료' onClick={onClick} />
+        <ButtonL name='완료' onClick={onClick} />
       </OnboardWrapper>
     </div>
   );

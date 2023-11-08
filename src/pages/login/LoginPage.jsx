@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Button_L from '../../components/Common/Buttons/Button_L';
+import ButtonL from '../../components/Common/Buttons/ButtonL';
 import logo from '../../assets/icons/icon-logo.svg';
 import Button_sns from '../../components/Common/Buttons/Button_sns';
 import Button_text from '../../components/Common/Buttons/Button_Text';
@@ -113,7 +113,7 @@ export default function LoginPage({ marginBottom }) {
           />
           <div className='loginValid'>{loginValid}</div>
         </ContentsContainer>
-        <Button_L name='로그인' marginBottom={30} onClick={handleLoginSubmit} />
+        <ButtonL name='로그인' marginBottom={30} onClick={handleLoginSubmit} />
         {/* disabled={notAllow}는 나중에 넣기*/}
         <Button_text
           marginBottom={20}

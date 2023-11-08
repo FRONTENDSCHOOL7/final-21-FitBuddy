@@ -31,8 +31,6 @@ export default function ModalEditAndDel(props) {
       }
       if (isPostorJoin === 'Join') {
         const res = await deleteProduct(postId);
-        console.log(res);
-        console.log('삭제성공');
         navigate('/home');
         return res;
       }

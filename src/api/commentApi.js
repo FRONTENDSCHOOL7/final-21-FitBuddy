@@ -4,7 +4,6 @@ import { authInstance } from './axiosInstance';
 export const uploadComment = async (postId, comment) => {
   try {
     const response = await authInstance.post(`/post/${postId}/comments`, comment);
-    console.log(response);
     return response.data;
   } catch (error) {
     console.error('Error', error);

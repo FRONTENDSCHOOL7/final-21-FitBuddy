@@ -77,16 +77,13 @@ export default function JoinPage() {
           image,
         },
       };
-      console.log(userData);
 
       const response = await postSignUp(userData);
-      console.log(userData);
 
       if (response.status === 200) {
         alert('회원가입 성공');
         navigate('/login');
       } else {
-        console.log('200이아님');
         // 응답 상태가 200이 아닌 경우를 처리
       }
     } catch (err) {
@@ -95,7 +92,6 @@ export default function JoinPage() {
       if (errData === '이미 가입된 이메일 주소 입니다.') {
         setEmailError(true);
         setEmailErrorMessage(errData);
-        console.log('가입되었어');
       } else if (errData === '이미 사용중인 계정 ID입니다.') {
         setIdError(true);
         setIdErrorMessage(errData);

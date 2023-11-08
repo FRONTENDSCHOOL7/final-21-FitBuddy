@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyledButton } from './style/StyledButtonL';
 
-export default function Button_L({
+export default function ButtonL({
   name,
   marginBottom,
   onClick,

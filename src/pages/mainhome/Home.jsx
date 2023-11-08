@@ -23,7 +23,6 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const data = await getProducts();
-        // console.log(data);
 
         setProducts(data.product);
       } catch (error) {
@@ -100,8 +99,6 @@ export default function Home() {
 
             const data = await getProfile(authorData.accountname);
             setAuthorProfile(data);
-
-            console.log('계정 정보 확인', authorData);
           }
         }
       } catch (error) {

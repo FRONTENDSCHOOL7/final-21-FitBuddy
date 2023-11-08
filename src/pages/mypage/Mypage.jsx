@@ -62,7 +62,6 @@ export default function Mypage() {
         setProfiles(data.user.username);
         setIntro(data.user.intro);
         setImage(data.user.image);
-        console.log(data.user);
       })
       .catch((error) => {
         console.error('Error fetching profiles:', error);
@@ -82,7 +81,6 @@ export default function Mypage() {
       body: form,
     });
     const json = await res.json();
-    console.log(baseUrl + json.filename);
     const imageUrl = baseUrl + json.filename;
     setImage(imageUrl);
   };
@@ -167,7 +165,6 @@ export default function Mypage() {
   };
 
   const handleNavigateJoin = () => {
-    console.log('이미지테스트', profiles);
     navigate('/mypagejoin', { state: { image: image, myAccountname: accountName } });
   };
 
