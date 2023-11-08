@@ -64,8 +64,10 @@ export const StyledCalendar = styled.div`
   .rbc-today {
     border-radius: 50%;
     margin-right: 35px;
-    /* margin-top: 3px; */
+
     height: 50px;
+    margin-left: 52px;
+    margin-top: 4px;
     background-color: #a6ff4d;
     color: #141414;
   }
