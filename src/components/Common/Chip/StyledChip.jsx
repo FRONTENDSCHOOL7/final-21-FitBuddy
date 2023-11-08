@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const StyledChip = styled.button`
-  min-width: 63px;
   width: auto;
+  padding: 0 12px;
   height: 33px;
   border: ${({ active }) => (active ? 'none' : '1px solid #fff')};
   border-radius: 16px;

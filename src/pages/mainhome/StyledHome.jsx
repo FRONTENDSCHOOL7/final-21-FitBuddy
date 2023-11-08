@@ -10,6 +10,7 @@ export const StyleHome = styled.div`
   height: 900px;
   max-height: auto;
   overflow-y: auto;
+  padding-bottom: 80px;
 
   .titleIcon {
     max-width: 40%;
@@ -27,7 +28,7 @@ export const CategoryWrapper = styled.div`
   top: 6%;
   gap: 12px;
   margin: 25px 11px 15px 11px;
-  width: 300px;
+  width: 414px;
   overflow-x: auto;
   white-space: nowrap;
 
