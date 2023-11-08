@@ -29,7 +29,7 @@ export const StyledModal = styled.div`
   background-color: var(--color-neutral);
   border-radius: 10px 10px 0px 0px;
   padding: 20px;
-  padding-bottom: 60px;
+  padding-bottom: 30px;
   width: 414px;
   position: fixed;
   z-index: 20;
