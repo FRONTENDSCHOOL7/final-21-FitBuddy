@@ -30,7 +30,7 @@ export default function GroupDetailPage({ uid }) {
   const [myId, setMyId] = useState('');
   const { addDocument, response } = useFirestore('FitBuddyGroup');
   const { documents, err } = useCollection('FitBuddyGroup', ['postId', '==', groupId]);
-
+  const [profileImages, setProfileImages] = useState({});
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,7 +68,6 @@ export default function GroupDetailPage({ uid }) {
 
           const data = await getProfile(authorData.accountname);
           setAuthorProfile(data);
-
           setAuthorId(groupData.product.author._id);
         }
       } catch (error) {
@@ -77,6 +76,34 @@ export default function GroupDetailPage({ uid }) {
     };
     fetchData();
   }, [groupData]);
+  //이미지값 불러오기
+  useEffect(() => {
+    const fetchProfileImages = async () => {
+      const imageMap = {};
+      const imageFetchPromises = documents.map(async (document) => {
+        try {
+          const res = await getProfile(document.user.accountname);
+          return { id: document.user._id, image: res.profile.image || userImg };
+        } catch (error) {
+          console.error('Error fetching profile image:', error);
+          return { id: document.user._id, image: userImg }; // 오류 시 기본 이미지를 할당합니다.
+        }
+      });
+
+      const images = await Promise.all(imageFetchPromises);
+
+      images.forEach(({ id, image }) => {
+        imageMap[id] = image;
+      });
+
+      setProfileImages(imageMap);
+      console.log(profileImages);
+    };
+
+    if (documents) {
+      fetchProfileImages();
+    }
+  }, [documents]);
 
   let result = {};
   if (groupData.product && groupData.product.link) {
@@ -89,8 +116,6 @@ export default function GroupDetailPage({ uid }) {
     }
   } else {
   }
-  console.log(result);
-  console.log(groupData);
   // 이전 handleGroupJoin 내용
   const handleGroupJoin = async (event) => {
     event.preventDefault();
@@ -126,7 +151,6 @@ export default function GroupDetailPage({ uid }) {
           if (documents.length === 0) {
             isUserJoined = true;
             alert('참여 완료!');
-            console.log('DownPeople', people);
           }
         } else {
           console.log('포스트 작성자입니다');
@@ -203,16 +227,15 @@ export default function GroupDetailPage({ uid }) {
           {documents &&
             documents
               .filter((document) => document.postId === groupId)
-
               .map((document) => {
-                const myImg = document.user.image;
+                const myImg = profileImages[document.user._id] || userImg;
                 const myName = document.user.username;
                 return (
                   <StyleJoinMember key={document.id}>
                     <div className='placeholder-container'>
-                      <PlaceHolder type='JoinMember' src={myImg ? myImg : userImg} />
+                      <PlaceHolder type='JoinMember' src={myImg} />
                     </div>
-                    <p>{myName ? myName : '이름없음'}</p>
+                    <p>{myName || '이름없음'}</p>
                   </StyleJoinMember>
                 );
               })}
