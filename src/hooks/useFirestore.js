@@ -24,45 +24,40 @@ const storeReducer = (state, action) => {
   }
 };
 
-export const useFirestore = (groupId) => {
+export const useFirestore = (transaction) => {
+  // response 에는 우리의 요청에 대한 firestore로 부터의 응답을 저장합니다.
+  // 주로 데이터의 저장 성공 또는 요청한 문서 데이터일 것이며, 때문에 객체데이터를 다루는데 유용한 useReducer를 사용합니다.
   const [response, dispatch] = useReducer(storeReducer, initState);
 
-  // 컬랙션의 참조값
-  // const colRef = collection(appFireStore, transaction);
-  // 컬렉션의 참조값
-  const colRef = collection(appFireStore, 'groups', groupId, 'JoinUserInfo');
+  // colRef : 우리가 만들 컬랙션의 참조입니다.
+  const colRef = collection(appFireStore, transaction);
 
-  // const addDocument = async (groupId, doc) => {
-  //   try {
-  //     const createdTime = timestamp.fromDate(new Date());
-  //     // 서브컬렉션의 참조값
-  //     const colRef = collection(appFireStore, 'groups', groupId, 'groupJoin');
-  //     // 도큐먼트의 참조값
-  //     const docRef = await addDoc(colRef, { ...doc, createdTime });
-  //     dispatch({ type: 'addDoc', payload: docRef });
-  //   } catch (error) {
-  //     dispatch({ type: 'error', payload: error.message });
-  //   }
-  // };
-  const addDocument = async (groupId, doc) => {
+  // 컬렉션에 문서를 추가합니다.
+  const addDocument = async (doc) => {
+    dispatch({ type: 'isPending' });
     try {
+      // docRef : 우리가 만들 문서의 참조입니다.
+      // addDoc : 컬렉션에 문서를 추가합니다.
+      // 코드참고 : https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
+
       const createdTime = timestamp.fromDate(new Date());
-      // 서브컬렉션의 참조값
-      const colRef = collection(appFireStore, 'groups', groupId, 'JoinUserInfo');
-      // 도큐먼트의 참조값
       const docRef = await addDoc(colRef, { ...doc, createdTime });
       dispatch({ type: 'addDoc', payload: docRef });
-    } catch (error) {
-      dispatch({ type: 'error', payload: error.message });
+      console.log('업로드 완료');
+    } catch (e) {
+      dispatch({ type: 'error', payload: e.message });
+      console.log('업로드 실패');
     }
   };
 
+  // 컬렉션에서 문서를 제거합니다.
   const deleteDocument = async (id) => {
+    dispatch({ type: 'isPending' });
     try {
       const docRef = await deleteDoc(doc(colRef, id));
       dispatch({ type: 'deleteDoc', payload: docRef });
-    } catch (error) {
-      dispatch({ type: 'error', payload: error.message });
+    } catch (e) {
+      dispatch({ type: 'error', payload: e.message });
     }
   };
 

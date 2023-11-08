@@ -51,7 +51,7 @@ const EventInfo = styled.div`
 `;
 
 export default function Card({ groupId, image, day, time, location, attendees, authorImg, title }) {
-  const { documents } = useCollection(groupId, null);
+  const { documents, err } = useCollection('FitBuddyGroup', ['postId', '==', groupId]);
 
   return (
     <StyledCard>
@@ -82,14 +82,18 @@ export default function Card({ groupId, image, day, time, location, attendees, a
           <PlaceHolder type='Person' src={authorImg ? authorImg : ButtonImg} />
 
           {documents &&
-            documents.slice(0, 4).map((document, index) => {
-              const myImg = document.user.user.image;
-              return (
-                <div className='placeholder-container' key={index}>
-                  <PlaceHolder type='Person' src={myImg ? myImg : userImg} />
-                </div>
-              );
-            })}
+            documents
+              .filter((document) => document.postId === groupId)
+              .slice(0, 4)
+              .map((document, index) => {
+                const myImg = document.user.image;
+                return (
+                  <div className='placeholder-container' key={index}>
+                    <PlaceHolder type='Person' src={myImg ? myImg : userImg} />
+                  </div>
+                );
+              })}
+          {/* {documents && documents.length > 4 && <PlaceHolder type='Person' src={Button_Img} />} */}
         </StyledimgiconWrapper>
       </div>
     </StyledCard>

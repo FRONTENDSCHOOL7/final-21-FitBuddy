@@ -24,9 +24,12 @@ export default function GroupDetailPage({ uid }) {
   const [people, setPeople] = useState(1);
   const [authorProfile, setAuthorProfile] = useState('');
   const [authorId, setAuthorId] = useState('');
-  const { addDocument } = useFirestore(groupId);
-  const { documents } = useCollection(groupId, null);
-  const [disabled] = useState(false);
+  // const [user, setUser] = useState('');
+  const [joinUser, setJoinUser] = useState([]);
+  const [disabled, setDisabled] = useState(false);
+
+  const { addDocument, response } = useFirestore('FitBuddyGroup');
+  const { documents, err } = useCollection('FitBuddyGroup', ['postId', '==', groupId]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,40 +79,44 @@ export default function GroupDetailPage({ uid }) {
   const handleGroupJoin = async (event) => {
     event.preventDefault();
     try {
-      const user = await getMyInfo();
+      const data = await getMyInfo();
+      if (data) {
+        setJoinUser(data.user);
+      }
 
-      if (authorId && user) {
+      if (authorId && joinUser) {
         let isUserJoined = false;
-        if (user.user._id !== authorId) {
+        //저자와 내가 다른 사람일 때
+        if (data.user._id !== authorId) {
           isUserJoined = true;
+          alert('참여 완료!');
+          setPeople((prevPeople) => prevPeople + 1);
           if (documents) {
             documents.forEach((document) => {
-              if (document.user.user._id !== user.user._id) {
-                if (people < result.attendees) {
-                  isUserJoined = true;
-                  alert('참여 완료!');
-                  setPeople((prevPeople) => prevPeople + 1);
+              if (document.postId === groupId) {
+                if (document.user._id !== data.user._id) {
+                  if (people < result.attendees) {
+                    isUserJoined = true;
+                    alert('참여 완료!');
+                    setPeople((prevPeople) => prevPeople + 1);
+                  } else {
+                    isUserJoined = false;
+                    alert('모집 인원이 가득 찼습니다');
+                  }
                 } else {
-                  // isUserJoined = false;
-                  // alert('모집 인원이 가득 찼습니다');
-                  console.log('모집 인원이 가득 찼습니다');
+                  isUserJoined = false;
+                  alert('이미 참여 중입니다');
                 }
-              } else {
-                // isUserJoined = false;
-                // alert('이미 참여 중입니다');
-                console.log('이미 참여 중입니다');
               }
             });
           }
         } else {
-          // isUserJoined = false;
-          // alert('포스트 작성자입니다');
           console.log('포스트 작성자입니다');
         }
-
         if (isUserJoined) {
-          addDocument(groupId, {
-            user: user,
+          addDocument({
+            user: data.user,
+            postId: groupId,
           });
         }
       }
@@ -117,127 +124,6 @@ export default function GroupDetailPage({ uid }) {
       console.error('Error during handleGroupJoin:', error);
     }
   };
-
-  // 두 번째 useEffect의 initialFetch 함수 내용
-  useEffect(() => {
-    const initialFetch = async () => {
-      try {
-        const user = await getMyInfo();
-        if (user) {
-          console.log('joinUser', user);
-          console.log('그룹아이디', groupId);
-          console.log('내 아이디', user.user._id);
-
-          if (authorId && user) {
-            let isUserJoined = false;
-            console.log('저자', authorId);
-            console.log('나', user.user._id);
-            if (user.user._id !== authorId) {
-              // isUserJoined = true;
-              if (documents) {
-                documents.forEach((document) => {
-                  if (document.user.user._id !== user.user._id) {
-                    if (people < result.attendees) {
-                      // isUserJoined = true;
-                      // alert('참여 완료!');
-                      // setPeople((prevPeople) => prevPeople + 1);
-                    } else {
-                      // isUserJoined = false;
-                      // alert('모집 인원이 가득 찼습니다');
-                    }
-                  } else {
-                    // isUserJoined = false;
-                    // alert('이미 참여 중입니다');
-                  }
-                });
-              }
-            } else {
-              // isUserJoined = false;
-              // alert('포스트 작성자입니다');
-            }
-
-            if (isUserJoined) {
-              addDocument(groupId, {
-                user: user,
-              });
-            }
-          }
-        }
-      } catch (error) {
-        console.error('Error during fetching data:', error);
-      }
-    };
-
-    initialFetch();
-  }, [groupId, authorId, documents, people, result.attendees]);
-
-  // const handleGroupJoin = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     const user = await getMyInfo();
-  //     if (user) {
-  //       setJoinUser(user);
-  //       // setUser(user._id);
-  //       console.log('joinUser', user);
-  //       console.log('그룹아이디', groupId);
-  //       console.log('내 아이디', user.user._id);
-  //     }
-
-  //     if (authorId && user) {
-  //       let isUserJoined = false;
-  //       console.log('저자', authorId);
-  //       console.log('나', user.user._id);
-  //       if (user.user._id !== authorId) {
-  //         isUserJoined = true;
-  //         if (documents) {
-  //           documents.forEach((document) => {
-  //             if (document.user.user._id !== user.user._id) {
-  //               if (people < result.attendees) {
-  //                 isUserJoined = true;
-  //                 alert('참여 완료!');
-  //                 setPeople((prevPeople) => prevPeople + 1);
-  //               } else {
-  //                 isUserJoined = false;
-  //                 alert('모집 인원이 가득 찼습니다');
-  //               }
-  //             } else {
-  //               isUserJoined = false;
-  //               alert('이미 참여 중입니다');
-  //             }
-  //           });
-  //         }
-  //       } else {
-  //         isUserJoined = false;
-  //         alert('포스트 작성자입니다');
-  //       }
-
-  //       if (isUserJoined) {
-  //         addDocument(groupId, {
-  //           user: user,
-  //         });
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error('Error during handleGroupJoin:', error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const myData = await getMyInfo();
-  //       const user = myData?.user;
-  //       if (user) {
-  //         setJoinUser(user);
-  //         setUser(user._id);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error during fetching data:', error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   return (
     <StyleGroupDetail>
@@ -297,18 +183,20 @@ export default function GroupDetailPage({ uid }) {
             )}
           </StyleJoinMember>
           {documents &&
-            documents.map((document) => {
-              const myImg = document.user.user.image;
-              const myName = document.user.user.username;
-              return (
-                <StyleJoinMember key={document.id}>
-                  <div className='placeholder-container'>
-                    <PlaceHolder type='JoinMember' src={myImg ? myImg : userImg} />
-                  </div>
-                  <p>{myName ? myName : '이름없음'}</p>
-                </StyleJoinMember>
-              );
-            })}
+            documents
+              .filter((document) => document.postId === groupId)
+              .map((document) => {
+                const myImg = document.user.image;
+                const myName = document.user.username;
+                return (
+                  <StyleJoinMember key={document.id}>
+                    <div className='placeholder-container'>
+                      <PlaceHolder type='JoinMember' src={myImg ? myImg : userImg} />
+                    </div>
+                    <p>{myName ? myName : '이름없음'}</p>
+                  </StyleJoinMember>
+                );
+              })}
         </div>
 
         <h2 className='description'>일정소개</h2>
