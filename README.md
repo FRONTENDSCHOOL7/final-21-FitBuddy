@@ -8,8 +8,8 @@
 
 <b>[핏버디 바로가기] link </b>
 <br>
-Test ID : `gitbuddy98@naver.com` <br>
-Test PW : `gitbuddy98`
+Test ID : `FitBuddy123@gmail.com ` <br>
+Test PW : `FitBuddy123!`
 <br>
 
 </div>
