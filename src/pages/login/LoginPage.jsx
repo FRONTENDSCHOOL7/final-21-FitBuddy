@@ -70,7 +70,7 @@ export default function LoginPage({ marginBottom }) {
   // 컴포넌트가 마운트될 때 로그아웃 로직을 실행합니다.
   useEffect(() => {
     // Recoil 상태를 업데이트하여 사용자 토큰을 null로 설정합니다.
-    setUserToken(null);
+    setUserToken({});
 
     // 로컬 스토리지에서 'recoil-persist'와 'token' 항목을 제거합니다.
     localStorage.removeItem('recoil-persist');

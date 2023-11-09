@@ -26,7 +26,7 @@ export default function GroupDetailPage({ uid }) {
   const [authorId, setAuthorId] = useState('');
   // const [user, setUser] = useState('');
   const [joinUser, setJoinUser] = useState([]);
-  const disabled = useState(false);
+  const [disabled] = useState(false);
   const [myId, setMyId] = useState('');
   const { addDocument } = useFirestore('FitBuddyGroup');
   const { documents } = useCollection('FitBuddyGroup', ['postId', '==', groupId]);
