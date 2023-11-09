@@ -10,7 +10,7 @@ import { LoginWrapper, ContentsContainer, SnsButtonContainer } from './Form.styl
 import { PostLogin } from '../../api/loginApi';
 import { useNavigate } from 'react-router-dom';
 import { LoginInputBox } from './Form.style';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import userTokenAtom from '../../Recoil/userTokenAtom';
 
 export default function LoginPage({ marginBottom }) {
@@ -65,6 +65,19 @@ export default function LoginPage({ marginBottom }) {
       console.error(err);
     }
   };
+  const [, setUserToken] = useRecoilState(userTokenAtom);
+
+  // 컴포넌트가 마운트될 때 로그아웃 로직을 실행합니다.
+  useEffect(() => {
+    // Recoil 상태를 업데이트하여 사용자 토큰을 null로 설정합니다.
+    setUserToken(null);
+
+    // 로컬 스토리지에서 'recoil-persist'와 'token' 항목을 제거합니다.
+    localStorage.removeItem('recoil-persist');
+    localStorage.removeItem('token');
+
+    // 추가적으로 다른 정리 작업이 필요하면 여기에 추가할 수 있습니다.
+  }, [setUserToken]);
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);

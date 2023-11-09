@@ -242,11 +242,7 @@ export default function GroupDetailPage({ uid }) {
         <h2 className='description'>일정소개</h2>
         <p>{result.contents}</p>
         <ComFirmButton>
-          <ButtonL
-            name={disabled ? '참여완료' : '참여하기'}
-            onClick={handleGroupJoin}
-            disabled={disabled}
-          />
+          <ButtonL name={disabled ? '참여완료' : '참여하기'} onClick={handleGroupJoin} />
         </ComFirmButton>
       </div>
     </StyleGroupDetail>
