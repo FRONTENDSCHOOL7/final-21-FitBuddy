@@ -28,6 +28,7 @@ export default function ModalEditAndDel({
   const handleFeedDelete = async () => {
     try {
       if (isPostorJoin === 'Post') {
+        alert('삭제되었습니다.');
         const res = await PostDelete(postId);
         setPosts((prev) => prev.filter((post) => post._id !== postId));
         return res;
