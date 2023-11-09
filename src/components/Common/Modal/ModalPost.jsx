@@ -2,7 +2,7 @@ import React from 'react';
 import AlertDelete from '../Alert/AlertDelete';
 import { useState } from 'react';
 import { PostDelete } from '../../../api/postApi';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { deleteProduct } from '../../../api/productApi';
 import { useNavigate } from 'react-router-dom';
 import { postsState } from '../../../Recoil/communityAtom';
@@ -17,10 +17,9 @@ export default function ModalEditAndDel({
   visible,
 }) {
   const [alertVisible, setAlertVisible] = useState(false);
-  const setPosts = useRecoilState(postsState);
+  const setPosts = useSetRecoilState(postsState);
 
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
 
   const showModal = () => {
     setAlertVisible(true);
@@ -29,7 +28,7 @@ export default function ModalEditAndDel({
   const handleFeedDelete = async () => {
     try {
       if (isPostorJoin === 'Post') {
-        const res = await PostDelete(postId, token);
+        const res = await PostDelete(postId);
         setPosts((prev) => prev.filter((post) => post._id !== postId));
         return res;
       }
