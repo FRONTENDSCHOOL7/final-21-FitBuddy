@@ -6,7 +6,7 @@
 
 <h3>너에게 딱 맞는 운동 버디를 찾고, 운동의 모든 것을 공유해 봐!</h3><br>
 
-<b>[핏버디(https://main--spiffy-kleicha-22273b.netlify.app/) 바로가기]  </b>
+<b>[핏버디](https://main--spiffy-kleicha-22273b.netlify.app/)  </b>
 <br>
 Test ID : `FitBuddy123@gmail.com ` <br>
 Test PW : `FitBuddy123!`
