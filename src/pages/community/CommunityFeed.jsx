@@ -9,7 +9,7 @@ import PlaceHolder from '../../components/Common/Placeholder/PlaceHolder';
 import { putEditPost } from '../../api/postApi';
 import { useParams } from 'react-router-dom';
 import { InputWrapper, StyledActualInput, CharacterCount } from './StyledCommunity';
-
+import { getDetailPost } from '../../api/postApi';
 export default function CommunityFeed() {
   const inputRef = useRef(null);
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ export default function CommunityFeed() {
     if (isEditMode) {
       const EditPost = async () => {
         try {
-          const response = await putEditPost(postId);
+          const response = await getDetailPost(postId);
           if (response) {
             setContent(response.post.content);
             setImage(response.post.image);
@@ -46,7 +46,8 @@ export default function CommunityFeed() {
     const postData = {
       post: {
         content: link,
-        image,
+        image: image,
+        category: category,
       },
     };
     if (isEditMode) {
@@ -58,12 +59,17 @@ export default function CommunityFeed() {
 
   const updatePost = async (postId, postData) => {
     try {
-      navigate('/community');
+      const response = await putEditPost(postId, postData);
+      if (response) {
+        alert('수정되었습니다');
+        navigate('/community');
+      }
     } catch (error) {
       console.error('요청 에러:', error.message);
       alert('게시물 수정 실패');
     }
   };
+
   const handleCategoryChange = (newCategory) => {
     setCategory(newCategory);
   };
