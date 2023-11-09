@@ -137,28 +137,60 @@ export default function PostProfile({
   const token = useRecoilValue(userTokenAtom);
 
   //좋아요
+  // const like = async () => {
+  //   try {
+  //     const response = await postLike(postId, token);
+  //     setHeartCounty(heartCounty);
+  //     setIsHearted(true);
+  //   } catch (error) {}
+  // };
+  // const cancellike = async () => {
+  //   try {
+  //     const response = await postUnlike(postId, token);
+  //     setHeartCounty(response.post.heartCount);
+  //     setIsHearted(false);
+  //   } catch (error) {}
+  // };
   const like = async () => {
     try {
       const response = await postLike(postId, token);
-      setHeartCounty(response.post.heartCount);
-      setIsHearted(true);
-    } catch (error) {}
+      if (response && response.post) {
+        setHeartCounty(heartCounty + 1);
+        setIsHearted(true);
+      } else {
+        console.error('error', response);
+      }
+    } catch (error) {
+      console.error('Error', error);
+    }
   };
+
+  // 좋아요 취소
   const cancellike = async () => {
     try {
       const response = await postUnlike(postId, token);
-      setHeartCounty(response.post.heartCount);
-      setIsHearted(false);
-    } catch (error) {}
+      if (response && response.post) {
+        setHeartCounty(heartCounty - 1);
+        setIsHearted(false);
+      } else {
+        console.error('error', response);
+      }
+    } catch (error) {
+      console.error('Error', error);
+    }
   };
 
   const handleToggleLike = async () => {
-    if (isHearted) {
-      cancellike();
-    } else if (!isHearted) {
-      like();
-    }
     setAnimate(true);
+    if (isHearted) {
+      await cancellike();
+    } else {
+      await like();
+    }
+  };
+
+  const onAnimationEnd = () => {
+    setAnimate(false);
   };
 
   // 댓글 상세 페이지 이동
@@ -216,11 +248,7 @@ export default function PostProfile({
             alt='heart'
             onClick={handleToggleLike}
           />
-          <HeartCount
-            isHearted={isHearted}
-            animate={animate}
-            onAnimationEnd={() => setAnimate(false)}
-          >
+          <HeartCount isHearted={isHearted} animate={animate} onAnimationEnd={onAnimationEnd}>
             {heartCounty}
           </HeartCount>
           <img src={circle} alt='comment' />
