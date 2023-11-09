@@ -26,7 +26,7 @@ export default function GroupDetailPage({ uid }) {
   const [authorId, setAuthorId] = useState('');
   // const [user, setUser] = useState('');
   const [joinUser, setJoinUser] = useState([]);
-  const disabled = useState(false);
+  const [disabled] = useState(false);
   const [myId, setMyId] = useState('');
   const { addDocument } = useFirestore('FitBuddyGroup');
   const { documents } = useCollection('FitBuddyGroup', ['postId', '==', groupId]);
@@ -242,11 +242,7 @@ export default function GroupDetailPage({ uid }) {
         <h2 className='description'>일정소개</h2>
         <p>{result.contents}</p>
         <ComFirmButton>
-          <ButtonL
-            name={disabled ? '참여완료' : '참여하기'}
-            onClick={handleGroupJoin}
-            disabled={disabled}
-          />
+          <ButtonL name={disabled ? '참여완료' : '참여하기'} onClick={handleGroupJoin} />
         </ComFirmButton>
       </div>
     </StyleGroupDetail>
