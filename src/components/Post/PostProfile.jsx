@@ -12,6 +12,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { commentPreview } from '../../Recoil/commentCount';
 import { getCommentList } from '../../api/commentApi';
 import userTokenAtom from '../../Recoil/userTokenAtom';
+import { getDetailPost } from '../../api/postApi';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -136,49 +137,74 @@ export default function PostProfile({
   const navigate = useNavigate();
   const token = useRecoilValue(userTokenAtom);
 
-  //좋아요
-  // const like = async () => {
-  //   try {
-  //     const response = await postLike(postId, token);
-  //     setHeartCounty(heartCounty);
-  //     setIsHearted(true);
-  //   } catch (error) {}
-  // };
-  // const cancellike = async () => {
-  //   try {
-  //     const response = await postUnlike(postId, token);
-  //     setHeartCounty(response.post.heartCount);
-  //     setIsHearted(false);
-  //   } catch (error) {}
-  // };
-  const like = async () => {
+  const fetchPostData = async () => {
     try {
-      const response = await postLike(postId, token);
+      const response = await getDetailPost(postId);
       if (response && response.post) {
-        setHeartCounty(heartCounty + 1);
-        setIsHearted(true);
-      } else {
-        console.error('error', response);
+        setHeartCounty(response.post.heartCount);
+        setIsHearted(response.post.hearted);
       }
     } catch (error) {
-      console.error('Error', error);
+      console.error('Failed to fetch post details:', error);
     }
   };
 
-  // 좋아요 취소
+  useEffect(() => {
+    fetchPostData();
+  }, [postId, token]);
+
+  const like = async () => {
+    try {
+      const response = await postLike(postId, token);
+      if (response && response.data) {
+        setHeartCounty((prevHeartCount) => prevHeartCount + 1);
+        setIsHearted(true);
+      }
+    } catch (error) {
+      console.error('Error liking the post:', error);
+    }
+  };
+
   const cancellike = async () => {
     try {
       const response = await postUnlike(postId, token);
-      if (response && response.post) {
-        setHeartCounty(heartCounty - 1);
+      if (response && response.data) {
+        setHeartCounty((prevHeartCount) => prevHeartCount - 1);
         setIsHearted(false);
-      } else {
-        console.error('error', response);
       }
     } catch (error) {
-      console.error('Error', error);
+      console.error('Error unliking the post:', error);
     }
   };
+
+  // const like = async () => {
+  //   try {
+  //     const response = await postLike(postId, token);
+  //     if (response && response.post) {
+  //       setHeartCounty(heartCounty + 1);
+  //       setIsHearted(true);
+  //     } else {
+  //       console.error('error', response);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error', error);
+  //   }
+  // };
+
+  // // 좋아요 취소
+  // const cancellike = async () => {
+  //   try {
+  //     const response = await postUnlike(postId, token);
+  //     if (response && response.post) {
+  //       setHeartCounty(heartCounty - 1);
+  //       setIsHearted(false);
+  //     } else {
+  //       console.error('error', response);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error', error);
+  //   }
+  // };
 
   const handleToggleLike = async () => {
     setAnimate(true);
@@ -187,6 +213,9 @@ export default function PostProfile({
     } else {
       await like();
     }
+    fetchPostData().finally(() => {
+      setAnimate(false);
+    });
   };
 
   const onAnimationEnd = () => {
