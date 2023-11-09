@@ -12,6 +12,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { commentPreview } from '../../Recoil/commentCount';
 import { getCommentList } from '../../api/commentApi';
 import userTokenAtom from '../../Recoil/userTokenAtom';
+import { getDetailPost } from '../../api/postApi';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -122,7 +123,7 @@ export default function PostProfile({
   commentLength,
   updatedAt,
 }) {
-  const [heartCounty, setHeartCounty] = useState(heartCount || 0);
+  const [heartCounty, setHeartCounty] = useState(heartCount);
   const [isHearted, setIsHearted] = useState(hearted);
   const textAreaRef = useRef(null);
   const [isShowReadMore, setIsShowReadMore] = useState(false);
@@ -136,26 +137,89 @@ export default function PostProfile({
   const navigate = useNavigate();
   const token = useRecoilValue(userTokenAtom);
 
-  //좋아요
+  const fetchPostData = async () => {
+    try {
+      const response = await getDetailPost(postId);
+      if (response && response.post) {
+        setHeartCounty(response.post.heartCount);
+        setIsHearted(response.post.hearted);
+      }
+    } catch (error) {
+      console.error('Failed to fetch post details:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPostData();
+  }, [postId, token]);
+
   const like = async () => {
-    await postLike(postId, token);
-    setHeartCounty(heartCounty + 1);
-    setIsHearted(true);
+    try {
+      const response = await postLike(postId, token);
+      if (response && response.data) {
+        setHeartCounty((prevHeartCount) => prevHeartCount + 1);
+        setIsHearted(true);
+      }
+    } catch (error) {
+      console.error('Error liking the post:', error);
+    }
   };
 
   const cancellike = async () => {
-    await postUnlike(postId, token);
-    setHeartCounty(heartCounty - 1);
-    setIsHearted(false);
+    try {
+      const response = await postUnlike(postId, token);
+      if (response && response.data) {
+        setHeartCounty((prevHeartCount) => prevHeartCount - 1);
+        setIsHearted(false);
+      }
+    } catch (error) {
+      console.error('Error unliking the post:', error);
+    }
   };
 
+  // const like = async () => {
+  //   try {
+  //     const response = await postLike(postId, token);
+  //     if (response && response.post) {
+  //       setHeartCounty(heartCounty + 1);
+  //       setIsHearted(true);
+  //     } else {
+  //       console.error('error', response);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error', error);
+  //   }
+  // };
+
+  // // 좋아요 취소
+  // const cancellike = async () => {
+  //   try {
+  //     const response = await postUnlike(postId, token);
+  //     if (response && response.post) {
+  //       setHeartCounty(heartCounty - 1);
+  //       setIsHearted(false);
+  //     } else {
+  //       console.error('error', response);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error', error);
+  //   }
+  // };
+
   const handleToggleLike = async () => {
-    if (isHearted) {
-      cancellike();
-    } else if (!isHearted) {
-      like();
-    }
     setAnimate(true);
+    if (isHearted) {
+      await cancellike();
+    } else {
+      await like();
+    }
+    fetchPostData().finally(() => {
+      setAnimate(false);
+    });
+  };
+
+  const onAnimationEnd = () => {
+    setAnimate(false);
   };
 
   // 댓글 상세 페이지 이동
@@ -213,11 +277,7 @@ export default function PostProfile({
             alt='heart'
             onClick={handleToggleLike}
           />
-          <HeartCount
-            isHearted={isHearted}
-            animate={animate}
-            onAnimationEnd={() => setAnimate(false)}
-          >
+          <HeartCount isHearted={isHearted} animate={animate} onAnimationEnd={onAnimationEnd}>
             {heartCounty}
           </HeartCount>
           <img src={circle} alt='comment' />
