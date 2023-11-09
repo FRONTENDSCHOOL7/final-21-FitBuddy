@@ -46,7 +46,7 @@ export const PostDelete = async (postId) => {
     return response.data;
   } catch (error) {
     console.error('Error fetching posts:', error);
-    // throw error;
+    throw error;
   }
 };
 
