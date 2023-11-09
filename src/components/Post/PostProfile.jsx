@@ -122,7 +122,7 @@ export default function PostProfile({
   commentLength,
   updatedAt,
 }) {
-  const [heartCounty, setHeartCounty] = useState(heartCount || 0);
+  const [heartCounty, setHeartCounty] = useState(heartCount);
   const [isHearted, setIsHearted] = useState(hearted);
   const textAreaRef = useRef(null);
   const [isShowReadMore, setIsShowReadMore] = useState(false);
@@ -138,15 +138,18 @@ export default function PostProfile({
 
   //좋아요
   const like = async () => {
-    await postLike(postId, token);
-    setHeartCounty(heartCounty + 1);
-    setIsHearted(true);
+    try {
+      const response = await postLike(postId, token);
+      setHeartCounty(response.post.heartCount);
+      setIsHearted(true);
+    } catch (error) {}
   };
-
   const cancellike = async () => {
-    await postUnlike(postId, token);
-    setHeartCounty(heartCounty - 1);
-    setIsHearted(false);
+    try {
+      const response = await postUnlike(postId, token);
+      setHeartCounty(response.post.heartCount);
+      setIsHearted(false);
+    } catch (error) {}
   };
 
   const handleToggleLike = async () => {
