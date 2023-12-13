@@ -4,8 +4,7 @@ export const StyledInput = styled.input`
   border: none;
   color: #fff;
   margin-left: 15px;
-  padding-right: 120px;
-  width: 300px;
+  width: 290px;
 
   &:focus {
     outline: none;
