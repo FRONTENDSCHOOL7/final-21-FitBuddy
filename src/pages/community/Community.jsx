@@ -8,12 +8,15 @@ import { useNavigate } from 'react-router-dom';
 import { getPosts } from '../../api/postApi';
 import { useRecoilState } from 'recoil';
 import { postsState } from '../../Recoil/communityAtom';
+import Skeleton from '../../components/Skeleton/Skeleton';
 
-export default function Community(props) {
+export default function Community() {
   const [posts, setPosts] = useRecoilState(postsState);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchPosts = () => {
+    setIsLoading(true);
     getPosts()
       .then((data) => {
         if (data && Array.isArray(data.posts)) {
@@ -24,6 +27,9 @@ export default function Community(props) {
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -91,6 +97,9 @@ export default function Community(props) {
       <NavTopBasic title='커뮤니티' />
       <ChipsHome selectedCategory={selectedCategory} onCategoryChange={onCategoryChange} />
       {renderFilteredPosts()}
+      {isLoading
+        ? Array.from({ length: 10 }).map((_, index) => <Skeleton key={index} />)
+        : renderFilteredPosts()}
       <CommunityButton onClick={handleButtonClick} />
       <NavBottom />
     </CommunityHome>
