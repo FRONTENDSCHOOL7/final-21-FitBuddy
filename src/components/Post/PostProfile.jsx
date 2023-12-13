@@ -122,6 +122,7 @@ export default function PostProfile({
   image,
   commentLength,
   updatedAt,
+  hide,
 }) {
   const [heartCounty, setHeartCounty] = useState(heartCount);
   const [isHearted, setIsHearted] = useState(hearted);
@@ -176,35 +177,6 @@ export default function PostProfile({
       console.error('Error unliking the post:', error);
     }
   };
-
-  // const like = async () => {
-  //   try {
-  //     const response = await postLike(postId, token);
-  //     if (response && response.post) {
-  //       setHeartCounty(heartCounty + 1);
-  //       setIsHearted(true);
-  //     } else {
-  //       console.error('error', response);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error', error);
-  //   }
-  // };
-
-  // // 좋아요 취소
-  // const cancellike = async () => {
-  //   try {
-  //     const response = await postUnlike(postId, token);
-  //     if (response && response.post) {
-  //       setHeartCounty(heartCounty - 1);
-  //       setIsHearted(false);
-  //     } else {
-  //       console.error('error', response);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error', error);
-  //   }
-  // };
 
   const handleToggleLike = async () => {
     setAnimate(true);
@@ -295,20 +267,22 @@ export default function PostProfile({
         )}
       </div>
       <p className='date'>{updatedAt}</p>
-      <StyleComment>
-        {comments &&
-          comments.map((comment, index) => (
-            <CommentPriview
-              key={index}
-              name={comment.author.username}
-              content={comment.content}
-              commentAuthorImage={comment.author.image}
-            />
-          ))}
-        <CommentButton onClick={handleReply}>
-          {commentLength > 0 ? `댓글 ${commentLength}개 모두 보기` : '댓글 작성하기'}
-        </CommentButton>
-      </StyleComment>
+      {!hide && (
+        <StyleComment>
+          {comments &&
+            comments.map((comment, index) => (
+              <CommentPriview
+                key={index}
+                name={comment.author.username}
+                content={comment.content}
+                commentAuthorImage={comment.author.image}
+              />
+            ))}
+          <CommentButton onClick={handleReply}>
+            {commentLength > 0 ? `댓글 ${commentLength}개 모두 보기` : '댓글 작성하기'}
+          </CommentButton>
+        </StyleComment>
+      )}
     </StyledDiv>
   );
 }
