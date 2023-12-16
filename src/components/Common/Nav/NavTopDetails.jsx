@@ -2,11 +2,15 @@ import React from 'react';
 import { BackIcon, NavTop, FlexContainer, CustomNavTopTitle } from './NavStyles';
 import { useNavigate } from 'react-router-dom';
 
-export default function NavTopDetails({ title }) {
+export default function NavTopDetails({ title, currentStep, setCurrentStep }) {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate(-1);
+    if (currentStep === 0) {
+      navigate(-1);
+    } else {
+      setCurrentStep(currentStep - 1);
+    }
   };
 
   return (

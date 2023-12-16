@@ -48,6 +48,7 @@ export const BackIcon = styled.div`
   width: 30px;
   height: 30px;
   margin-right: auto;
+  margin-left: 10px;
   cursor: pointer;
   background-image: url(${backIcon});
   background-repeat: no-repeat;
@@ -65,6 +66,7 @@ export const NavTop = styled.div`
   margin: 10px 0px -10px 0;
   display: flex;
   align-items: center;
+  /* margin-bottom: ${({ margin }) => margin || '10px'}; */
   /* border: 1px solid red; */
 
   /* flex-direction: ${(props) => (props.direction === 'column' ? 'column' : 'row')}; */
@@ -94,6 +96,7 @@ export const CustomNavTopTitle = styled.div`
   align-items: center;
   justify-content: center;
   font-size: var(--font-size-xl);
+  font-weight: 600;
   flex: 1;
   text-align: center;
   color: var(--color-secondary);

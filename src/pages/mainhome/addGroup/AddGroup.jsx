@@ -19,8 +19,22 @@ import {
   InputBox,
   Overlay,
   ImageBtn,
+  StyledInputName,
+  ProgressBarContainer,
+  ProgressBar,
+  StyledInputRequireName,
+  StyledTwoInputs,
+  InputContainer,
+  CounterInputBox,
+  InputCreaseButton,
+  InputPersonnel,
 } from './StyledAddGroup';
 import CategoryButton from '../../../components/Common/Input/CategoryButton';
+import InputLarge from '../../../components/Common/Input/InputLarge';
+import iconCalendar from '../../../assets/icons/icon-calendar.svg';
+import iconSearch from '../../../assets/icons/icon-search2.svg';
+import iconDown from '../../../assets/icons/icon-down.svg';
+
 export default function AddGroup() {
   const inputRef = useRef(null);
   const [image, setImage] = useState('');
@@ -29,6 +43,7 @@ export default function AddGroup() {
   const [showOnBoarding, setShowOnBoarding] = useState(false);
   const [selectedSports, setSelectedSports] = useState([]);
   const { postId } = useParams();
+  const [currentStep, setCurrentStep] = useState(0);
 
   //수정 페이지인지 판별
   const isEditMode = !!postId;
@@ -154,6 +169,7 @@ export default function AddGroup() {
     cost: '',
     contents: '',
   });
+  console.log(formData);
 
   const link = `
   title: ${formData.title},
@@ -182,7 +198,9 @@ export default function AddGroup() {
   };
 
   useEffect(() => {
-    const isFormValid = Object.values(formData).every((value) => value.trim() !== '');
+    const isFormValid = Object.values(formData).every((value) => {
+      return typeof value === 'string' ? value.trim() !== '' : String(value).trim() !== '';
+    });
     setDisabled(!isFormValid);
   }, [formData]);
   useEffect(() => {
@@ -218,6 +236,16 @@ export default function AddGroup() {
       inputRef.current.click();
     }
   };
+  const handleNextStep = () => {
+    setCurrentStep(currentStep + 1);
+  };
+  const increment = () => {
+    setFormData({ ...formData, attendees: Number(formData.attendees) + 1 });
+  };
+
+  const decrement = () => {
+    setFormData({ ...formData, attendees: Math.max(0, Number(formData.attendees) - 1) });
+  };
 
   useEffect(() => {}, [selectedSports]);
 
@@ -225,56 +253,79 @@ export default function AddGroup() {
 
   return (
     <StyledAddGroup>
-      <NavTopDetails title={isEditMode ? '그룹 만들기 수정' : '핏버디 그룹 만들기'} />
-      <div style={{ position: 'relative' }}>
-        <PlaceHolder type='Photo' src={image} />
-        <input
-          ref={inputRef}
-          type='file'
-          accept='image/*'
-          onChange={handleChangeImage}
-          id='file'
-          style={{ display: 'none' }}
-        />
-        <ImageBtn onClick={handleCategory} htmlFor='file' />
-      </div>
-      <div className='inputs'>
-        <InputBox>
-          <p>제목</p>
-          <InputText
-            name='title'
-            placeholder='제목을 입력해주세요'
-            onChange={handleInputChange}
-            value={formData.title}
+      <NavTopDetails
+        title={isEditMode ? '그룹 만들기 수정' : '핏버디 그룹 만들기'}
+        currentStep={currentStep}
+        setCurrentStep={setCurrentStep}
+      />
+      <ProgressBarContainer>
+        <ProgressBar step={currentStep + 1} />
+      </ProgressBarContainer>
+      {currentStep === 0 && (
+        <div style={{ position: 'relative' }}>
+          <StyledInputName>이미지 등록 (선택)</StyledInputName>
+          <PlaceHolder type='Ractangle' src={image} />
+          <input
+            ref={inputRef}
+            type='file'
+            accept='image/*'
+            onChange={handleChangeImage}
+            id='file'
+            style={{ display: 'none' }}
           />
-        </InputBox>
-        <InputBox>
-          <p>운동종목</p>
-          <div className='categoryflex'>
-            <div style={{ gap: '12px', display: 'flex' }}>
-              {selectedSports.map((sport, index) => (
-                <Chip key={index} sport={sport} />
-              ))}
-            </div>
-            {selectedSports.length > 0 ? (
-              <CategoryButton
-                name='sport'
-                placeholder='운동종목을 입력해주세요'
+          <ImageBtn onClick={handleCategory} htmlFor='file' />
+        </div>
+      )}
+      <div className='inputs'>
+        {currentStep === 0 && (
+          <>
+            <InputBox>
+              <StyledInputRequireName>제목</StyledInputRequireName>
+              <InputText
+                name='title'
+                placeholder='제목을 입력해주세요'
                 onChange={handleInputChange}
-                onClick={handleOpenOnBoarding}
-                value={formData.sport}
+                value={formData.title}
               />
-            ) : (
-              <InputButton
-                name='sport'
-                placeholder='운동종목을 입력해주세요'
+            </InputBox>
+            <InputBox>
+              <StyledInputRequireName>운동종목</StyledInputRequireName>
+              <div className='categoryflex'>
+                <div style={{ gap: '12px', display: 'flex' }}>
+                  {selectedSports.map((sport, index) => (
+                    <Chip key={index} sport={sport} />
+                  ))}
+                </div>
+                {selectedSports.length > 0 ? (
+                  <CategoryButton
+                    name='sport'
+                    placeholder='운동종목을 입력해주세요'
+                    onChange={handleInputChange}
+                    onClick={handleOpenOnBoarding}
+                    value={formData.sport}
+                  />
+                ) : (
+                  <InputButton
+                    name='sport'
+                    placeholder='운동종목을 입력해주세요'
+                    onChange={handleInputChange}
+                    onClick={handleOpenOnBoarding}
+                    value={formData.sport}
+                  />
+                )}
+              </div>
+            </InputBox>
+            <InputBox>
+              <StyledInputName>상세 설명 (선택)</StyledInputName>
+              <InputLarge
+                name='contents'
+                placeholder='일정 내용을 입력해주세요'
                 onChange={handleInputChange}
-                onClick={handleOpenOnBoarding}
-                value={formData.sport}
+                value={formData.contents}
               />
-            )}
-          </div>
-        </InputBox>
+            </InputBox>
+          </>
+        )}
         <Modal
           isOpen={showOnBoarding}
           onRequestClose={handleOpenOnBoarding}
@@ -286,78 +337,99 @@ export default function AddGroup() {
             setSelectedSports={setSelectedSports}
           />
         </Modal>
+        {currentStep === 1 && (
+          <>
+            <StyledInputRequireName>날짜와 시간</StyledInputRequireName>
+            <StyledTwoInputs>
+              <InputContainer>
+                <InputText
+                  name='day'
+                  placeholder='날짜를 입력해주세요'
+                  onChange={handleInputChange}
+                  value={formData.day}
+                />
+                <img src={iconCalendar} alt='calendar' />
+              </InputContainer>
 
-        <InputBox>
-          <p>날짜</p>
-          <InputText
-            name='day'
-            placeholder='날짜를 입력해주세요(20XX-XX-XX)'
-            onChange={handleInputChange}
-            value={formData.day}
-          />
-          {dateError && <p style={{ color: '#FF5B5B' }}>{dateError}</p>}
-        </InputBox>
-        <InputBox>
-          <p>시간</p>
-          <InputText
-            name='time'
-            placeholder='시간을 입력해주세요(XX시 XX분)'
-            onChange={handleInputChange}
-            value={formData.time}
-          />
-          {timeError && <p style={{ color: '#FF5B5B' }}>{timeError}</p>}
-        </InputBox>
-        <InputBox>
-          <p>장소</p>
-          <InputText
-            name='location'
-            placeholder='장소를 입력해주세요'
-            onChange={handleInputChange}
-            value={formData.location}
-            onClick={openKakaoMapModal}
-            autocomplete='off'
-          />
-        </InputBox>
+              {dateError && <p style={{ color: '#FF5B5B' }}>{dateError}</p>}
+              <InputContainer>
+                <InputText
+                  name='time'
+                  placeholder='시간을 입력해주세요'
+                  onChange={handleInputChange}
+                  value={formData.time}
+                />
+                <img src={iconDown} alt='calendar' />
+              </InputContainer>
+            </StyledTwoInputs>
+            <InputBox>
+              <StyledInputName>장소</StyledInputName>
+              <InputContainer>
+                <InputText
+                  name='location'
+                  placeholder='장소를 입력해주세요'
+                  onChange={handleInputChange}
+                  value={formData.location}
+                  onClick={openKakaoMapModal}
+                  autocomplete='off'
+                />
+                <img src={iconSearch} alt='search' />
+              </InputContainer>
+            </InputBox>
+          </>
+        )}
         {isKakaoMapOpen && (
           <Overlay>
             <KakaoMap onRequestClose={closeKakaoMapModal} onSelectLocation={handleLocationSelect} />
           </Overlay>
         )}
-        <InputBox>
-          <p>인원</p>
-          <InputText
-            name='attendees'
-            placeholder='인원을 입력해주세요'
-            onChange={handleInputChange}
-            value={formData.attendees}
-          />
-        </InputBox>
-        <InputBox>
-          <p>비용</p>
-          <InputText
-            name='cost'
-            placeholder='비용을 입력해주세요'
-            onChange={handleInputChange}
-            value={formData.cost}
-          />
-        </InputBox>
-        <InputBox>
-          <p>일정소개</p>
-          <InputText
-            name='contents'
-            placeholder='일정 내용을 입력해주세요'
-            onChange={handleInputChange}
-            value={formData.contents}
-          />
-        </InputBox>
+        {currentStep === 2 && (
+          <>
+            <InputBox>
+              <StyledInputRequireName>최대 참여인원</StyledInputRequireName>
+              <CounterInputBox>
+                <InputCreaseButton onClick={decrement}>-</InputCreaseButton>
+                <InputPersonnel
+                  name='attendees'
+                  onChange={handleInputChange}
+                  value={formData.attendees}
+                  placeholder='0'
+                  autocomplete='off'
+                />
+                <InputCreaseButton onClick={increment}>+</InputCreaseButton>
+              </CounterInputBox>
+            </InputBox>
+            <InputBox>
+              <StyledInputName>예상 비용(선택)</StyledInputName>
+              <InputContainer>
+                <InputText
+                  name='cost'
+                  placeholder='비용을 입력해주세요'
+                  onChange={handleInputChange}
+                  value={formData.cost}
+                />
+                <p>원</p>
+              </InputContainer>
+            </InputBox>
+          </>
+        )}
       </div>
-      <StyleButtonL>
-        <ButtonL
-          name={isEditMode ? '수정하기' : '완료'}
-          disabled={disabled}
-          onClick={handlePostAdd}
-        />
-      </StyleButtonL>
+      {/* <StyleCompleteButton> */}
+      {currentStep !== 2 && (
+        <StyleButtonL>
+          <ButtonL name='다음' onClick={handleNextStep} />
+        </StyleButtonL>
+      )}
+      {currentStep === 2 && (
+        <StyleButtonL>
+          <ButtonL
+            name={isEditMode ? '수정하기' : '완료'}
+            disabled={disabled}
+            onClick={handlePostAdd}
+          />
+        </StyleButtonL>
+      )}
+      {/* </StyleCompleteButton> */}
     </StyledAddGroup>
   );
 }

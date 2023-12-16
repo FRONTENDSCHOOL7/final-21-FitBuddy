@@ -7,17 +7,19 @@ export const StyledAddGroup = styled.div`
   position: relative;
   flex-direction: column;
   align-items: center;
+  height: 95vh;
   background-color: var(--color-bg);
-  height: 900px;
   padding-left: 22px;
   padding-right: 22px;
   font-size: 14px;
 
   .inputs {
     display: flex;
+    min-width: 360px;
+
     flex-direction: column;
     gap: 17px;
-    margin-top: 36px;
+    margin-top: 20px;
     margin-bottom: 38px;
     max-height: 400px;
     overflow-y: auto;
@@ -26,9 +28,108 @@ export const StyledAddGroup = styled.div`
     }
   }
 `;
+export const ProgressBarContainer = styled.div`
+  width: 100%;
+  background-color: #ddd;
+  margin-bottom: 32px;
+  height: 1px;
+`;
+
+export const ProgressBar = styled.div`
+  width: ${({ step }) => (step / 3) * 100}%;
+  background-color: #a6ff4d;
+  height: 100%;
+`;
+export const StyledInputName = styled.p`
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+`;
+export const StyledInputRequireName = styled.p`
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  &::after {
+    content: '*';
+    color: #a6ff4d;
+    margin-left: 4px;
+  }
+`;
+
+export const StyleCompleteButton = styled.div`
+  margin-top: auto;
+`;
+export const StyledTwoInputs = styled.div`
+  display: flex;
+  gap: 15px;
+
+  /* img {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    right: 52%;
+    bottom: 20%;
+  } */
+`;
+export const InputContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  img {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    right: 0%;
+  }
+  p {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    right: 0%;
+    color: #fff;
+  }
+`;
+export const InputPersonnel = styled.input`
+  display: flex;
+  width: 60%;
+  align-items: center;
+  text-align: center;
+  background-color: #141414;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  outline: none;
+  &::placeholder {
+    color: #fff;
+  }
+`;
+export const CounterInputBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 360px;
+  height: 46px;
+  padding: 9px 45px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin-bottom: 43px;
+`;
+export const InputCreaseButton = styled.button`
+  font-size: 20px;
+  font-weight: 600;
+  background-color: #141414;
+  color: #fff;
+  border: none;
+`;
 export const StyleButtonL = styled.div`
   position: absolute;
   bottom: 10px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
 `;
 export const InputBox = styled.div`
   display: flex;
@@ -104,10 +205,10 @@ export const StyledKakaoMap = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  overflowy: auto;
-  backgroundcolor: #fff;
-  boxshadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  zindex: 1000;
+  overflow-y: auto;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
   font-family: 'Pretendard';
 
   .header {
