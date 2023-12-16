@@ -1,21 +1,24 @@
 import React from 'react';
-import { CarouselWrapper, CarouselImages, StylediconWrapper } from './StyledCarousel';
+import {
+  CarouselWrapper,
+  StylediconWrapper,
+  HorizontalAlignWrapper,
+  TimeWrapper,
+} from './StyledCarousel';
 import PlaceHolder from '../Common/Placeholder/PlaceHolder';
 import { ReactComponent as Iconlocation } from '../../../src/assets/icons/icon-location-fill.svg';
 import { ReactComponent as Iconperson } from '../../../src/assets/icons/icon-person.svg';
 
-function Carousel({ groupId, image, day, time, location, attendees, authorImg, title }) {
+function Carousel({ image, day, time, location, attendees, title }) {
   return (
     <CarouselWrapper>
       <PlaceHolder src={image} type='Carousel' />
       <div>
         <h3>{title}</h3>
-        <p className='date' style={{ display: 'inline-block' }}>
-          {day}
-        </p>
-        <p className='date' style={{ display: 'inline-block', marginLeft: '5px' }}>
-          {time}
-        </p>
+        <HorizontalAlignWrapper>
+          <TimeWrapper>{day}</TimeWrapper>
+          <p>{time}</p>
+        </HorizontalAlignWrapper>
         <p>
           <StylediconWrapper>
             <Iconlocation style={{ width: '16px', height: '16px' }} />
