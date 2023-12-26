@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
-export const StyledInput = styled.input`
-  padding: 18px 20px 71px 16px;
-  width: 400px;
+export const StyledInput = styled.textarea`
+  padding: 10px 20px 141px 16px;
   align-items: center;
   border-radius: 8px;
   border: 2px solid #8f8f8f;
