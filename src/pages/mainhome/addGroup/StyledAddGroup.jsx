@@ -16,7 +16,7 @@ export const StyledAddGroup = styled.div`
   .inputs {
     display: flex;
     min-width: 360px;
-
+    min-height: 500px;
     flex-direction: column;
     gap: 17px;
     margin-top: 20px;

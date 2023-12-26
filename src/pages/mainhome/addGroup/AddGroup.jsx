@@ -34,6 +34,11 @@ import InputLarge from '../../../components/Common/Input/InputLarge';
 import iconCalendar from '../../../assets/icons/icon-calendar.svg';
 import iconSearch from '../../../assets/icons/icon-search2.svg';
 import iconDown from '../../../assets/icons/icon-down.svg';
+import InputDate from '../../../components/Common/Input/InputDate';
+import InputTime from '../../../components/Common/Input/InputTime';
+import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { format } from 'date-fns';
 
 export default function AddGroup() {
   const inputRef = useRef(null);
@@ -158,17 +163,20 @@ export default function AddGroup() {
       console.error(err);
     }
   };
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const formattedDate = format(selectedDate, 'yyyy-MM-dd');
 
   const [formData, setFormData] = useState({
     title: '',
     sport: '',
     time: '',
-    day: '',
+    day: formattedDate,
     location: '',
     attendees: '',
     cost: '',
     contents: '',
   });
+  console.log(formattedDate);
   console.log(formData);
 
   const link = `
@@ -219,16 +227,16 @@ export default function AddGroup() {
       [name]: value,
     });
 
-    if (name === 'day') {
-      const dateRegex = /(\d{4}-\d{2}-\d{2})/;
-      const isValidDate = dateRegex.test(value);
-      setDateError(isValidDate ? '' : '날짜 형식이 올바르지 않습니다.');
-    } else if (name === 'time') {
-      const timeRegex = /(\d{1,2})시(\d{1,2})분/;
-      const timeValue = value.replace(/\s/g, '');
-      const isValidTime = timeRegex.test(timeValue);
-      setTimeError(isValidTime ? '' : '시간 형식이 올바르지 않습니다.');
-    }
+    // if (name === 'day') {
+    //   const dateRegex = /(\d{4}-\d{2}-\d{2})/;
+    //   const isValidDate = dateRegex.test(value);
+    //   setDateError(isValidDate ? '' : '날짜 형식이 올바르지 않습니다.');
+    // } else if (name === 'time') {
+    //   const timeRegex = /(\d{1,2})시(\d{1,2})분/;
+    //   const timeValue = value.replace(/\s/g, '');
+    //   const isValidTime = timeRegex.test(timeValue);
+    //   setTimeError(isValidTime ? '' : '시간 형식이 올바르지 않습니다.');
+    // }
   };
 
   const handleCategory = () => {
@@ -342,22 +350,37 @@ export default function AddGroup() {
             <StyledInputRequireName>날짜와 시간</StyledInputRequireName>
             <StyledTwoInputs>
               <InputContainer>
-                <InputText
+                {/* <InputDate
                   name='day'
                   placeholder='날짜를 입력해주세요'
                   onChange={handleInputChange}
                   value={formData.day}
+                  autocomplete='off'
+                /> */}
+                <ReactDatePicker
+                  name='day'
+                  dateFormat='yyyy-MM-dd'
+                  shouldCloseOnSelect
+                  minDate={new Date('2000-01-01')}
+                  maxDate={new Date()}
+                  selected={selectedDate}
+                  value={formattedDate}
+                  onChange={(date) => {
+                    setSelectedDate(date);
+                  }}
                 />
+
                 <img src={iconCalendar} alt='calendar' />
               </InputContainer>
 
               {dateError && <p style={{ color: '#FF5B5B' }}>{dateError}</p>}
               <InputContainer>
-                <InputText
+                <InputTime
                   name='time'
                   placeholder='시간을 입력해주세요'
                   onChange={handleInputChange}
                   value={formData.time}
+                  autoComplete='off'
                 />
                 <img src={iconDown} alt='calendar' />
               </InputContainer>
@@ -371,7 +394,7 @@ export default function AddGroup() {
                   onChange={handleInputChange}
                   value={formData.location}
                   onClick={openKakaoMapModal}
-                  autocomplete='off'
+                  autoComplete='off'
                 />
                 <img src={iconSearch} alt='search' />
               </InputContainer>
@@ -407,6 +430,7 @@ export default function AddGroup() {
                   placeholder='비용을 입력해주세요'
                   onChange={handleInputChange}
                   value={formData.cost}
+                  autocomplete='off'
                 />
                 <p>원</p>
               </InputContainer>
