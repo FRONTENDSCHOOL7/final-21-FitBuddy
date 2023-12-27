@@ -20,6 +20,7 @@ import AuthRoute from './AuthRoute';
 import NonAuthRoute from './NonAuthRoute';
 import { useRecoilState } from 'recoil';
 import userTokenAtom from '../Recoil/userTokenAtom';
+import ProfilePage from '../pages/profilepage/Profilepage';
 
 const Router = () => {
   // const { userToken } = useContext(AuthContextStore);
@@ -43,7 +44,8 @@ const Router = () => {
           <Route path='/group/:groupId' element={<GroupDetailPage />} />
           <Route path='/calender' element={<Calender />} />
           <Route path='/community' element={<Community />} />
-          <Route path='/mypage' element={<Mypage />} />
+          {/* <Route path='/mypage' element={<Mypage />} /> */}
+          <Route path='/mypage' element={<ProfilePage />} />
           <Route path='/feedWrite' element={<CommunityFeed />} />
           <Route path='/feedReply/:postId' element={<CommunityComment />} />
           <Route path='/mypagejoin' element={<Mypagemyjoin />} />

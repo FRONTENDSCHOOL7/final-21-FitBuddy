@@ -17,6 +17,10 @@ export const StyledPlaceHolder = styled.img.attrs((props) => ({
       ? '42px'
       : props.type === 'JoinMember'
       ? '60px'
+      : props.type === 'Carousel'
+      ? '140px'
+      : props.type === 'ProfileImage'
+      ? '110px'
       : '100px'};
   height: ${(props) =>
     props.type === 'Ractangle'
@@ -31,6 +35,10 @@ export const StyledPlaceHolder = styled.img.attrs((props) => ({
       ? '42px'
       : props.type === 'JoinMember'
       ? '60px'
+      : props.type === 'Carousel'
+      ? '90px'
+      : props.type === 'ProfileImage'
+      ? '110px'
       : '100px'};
   border-radius: ${(props) =>
     props.type === 'Person'
@@ -41,6 +49,8 @@ export const StyledPlaceHolder = styled.img.attrs((props) => ({
       ? '20px'
       : props.type === 'Photo'
       ? '8px'
+      : props.type === 'ProfileImage'
+      ? '50px'
       : '8px'};
   background-color: #f2f2f2;
   display: flex;

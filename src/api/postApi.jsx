@@ -17,6 +17,17 @@ export const getPosts = async (postData) => {
   }
 };
 
+//특정 유저 게시글 보기
+export const getUserPosts = async (accountname) => {
+  try {
+    const response = await authInstance.get(`/post/${accountname}/userpost`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    throw error;
+  }
+};
+
 export const getDetailPost = async (postId) => {
   try {
     const response = await authInstance.get(`/post/${postId}`);
