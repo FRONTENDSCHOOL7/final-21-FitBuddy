@@ -7,13 +7,32 @@ import { commentPreview } from '../../Recoil/commentCount';
 import { useSetRecoilState } from 'recoil';
 import { useLocation } from 'react-router-dom';
 import { CommentSection } from './StyledCommunity';
+import PostProfile from '../../components/Post/PostProfile';
+import { getDetailPost } from '../../api/postApi';
 
 export default function CommunityComment(props) {
   const [comments, setComments] = useState([]);
   const [inputValue, setInputValue] = useState('');
+  const [postDetails, setPostDetails] = useState(null);
   const setCommentPreviewState = useSetRecoilState(commentPreview);
   const location = useLocation();
   const postId = location.state && location.state.postId;
+
+  useEffect(() => {
+    const fetchPostDetails = async () => {
+      try {
+        const response = await getDetailPost(postId);
+        if (response && response.post) {
+          setPostDetails(response.post);
+        }
+      } catch (error) {
+        console.error('게시물 상세 정보를 가져오는 중 에러 발생:', error);
+      }
+    };
+
+    fetchPostDetails();
+    fetchFeeds();
+  }, [postId]);
 
   //댓글 전체보기
   const fetchFeeds = () => {
@@ -68,6 +87,21 @@ export default function CommunityComment(props) {
   return (
     <>
       <NavTopDetails title='댓글' />
+      {postDetails && (
+        <PostProfile
+          heartCount={postDetails.heartCount}
+          hearted={postDetails.hearted}
+          postId={postId}
+          content={postDetails.content}
+          accountname={postDetails.author.username}
+          username={postDetails.author.username}
+          authorId={postDetails.author._id}
+          authorImage={postDetails.author.image}
+          image={postDetails.image}
+          commentLength={comments.length}
+          hide={true}
+        />
+      )}
       <CommentSection>
         {[...comments].reverse().map((item) => {
           const time = new Date(item.createdAt);
@@ -106,7 +140,6 @@ export default function CommunityComment(props) {
         value={inputValue}
         onClick={handlePostComments}
       />
-      {/* <NavBottom /> */}
     </>
   );
 }

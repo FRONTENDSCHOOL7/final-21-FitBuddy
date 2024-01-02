@@ -8,26 +8,39 @@ import { useNavigate } from 'react-router-dom';
 import { getPosts } from '../../api/postApi';
 import { useRecoilState } from 'recoil';
 import { postsState } from '../../Recoil/communityAtom';
+import Skeleton from '../../components/Skeleton/Skeleton';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
-export default function Community(props) {
+export default function Community() {
   const [posts, setPosts] = useRecoilState(postsState);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const postsPerPage = 8;
+
+  console.log(posts);
 
   const fetchPosts = () => {
-    getPosts()
+    getPosts(page, postsPerPage)
       .then((data) => {
         if (data && Array.isArray(data.posts)) {
-          setPosts(data.posts);
+          setPosts((prevPosts) => [...prevPosts, ...data.posts]);
+          setPage((prevPage) => prevPage + 1);
         } else {
           console.error('에러:', data);
         }
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
-  useEffect(fetchPosts, []);
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   const navigate = useNavigate();
   const handleButtonClick = () => {
@@ -86,11 +99,16 @@ export default function Community(props) {
         );
       });
   };
+
   return (
     <CommunityHome>
       <NavTopBasic title='커뮤니티' />
       <ChipsHome selectedCategory={selectedCategory} onCategoryChange={onCategoryChange} />
-      {renderFilteredPosts()}
+      {isLoading && Array.from({ length: 8 }).map((_, index) => <Skeleton key={index} />)}
+
+      <InfiniteScroll dataLength={posts.length} next={fetchPosts} hasMore={true}>
+        {renderFilteredPosts()}
+      </InfiniteScroll>
       <CommunityButton onClick={handleButtonClick} />
       <NavBottom />
     </CommunityHome>

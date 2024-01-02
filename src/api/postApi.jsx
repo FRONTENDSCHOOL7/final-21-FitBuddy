@@ -7,15 +7,26 @@ export const PostCreate = async (postData) => {
 };
 
 //게시글 전체보기
-export const getPosts = async (postData) => {
+export const getPosts = async () => {
   try {
-    const response = await authInstance.get('/post/?limit=500&skip=0', { data: postData });
+    const response = await authInstance.get(`/post/?limit=500`);
     return response.data;
   } catch (error) {
     console.error('Error fetching posts:', error);
     throw error;
   }
 };
+
+// export const getPosts = async (page = 0, limit = 10) => {
+//   try {
+//     const skip = page * limit;
+//     const response = await authInstance.get(`/post/?limit=${limit}&skip=${skip}`);
+//     return response.data;
+//   } catch (error) {
+//     console.error('Error fetching posts:', error);
+//     throw error;
+//   }
+// };
 
 export const getDetailPost = async (postId) => {
   try {

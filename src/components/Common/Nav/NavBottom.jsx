@@ -25,7 +25,7 @@ export default function NavBottom() {
       case '/mypage':
         return 3;
       default:
-        if (location.pathname.includes('/feedReply/')) return 2;
+        if (location.pathname.includes('/feedReply/')) return 2; //현재 경로에 feedReply가 있으면 커뮤니티로 위치
         if (location.pathname.includes('/mypagejoin')) return 3;
         return 0;
     }
