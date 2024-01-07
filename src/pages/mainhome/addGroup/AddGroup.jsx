@@ -34,11 +34,11 @@ import InputLarge from '../../../components/Common/Input/InputLarge';
 import iconCalendar from '../../../assets/icons/icon-calendar.svg';
 import iconSearch from '../../../assets/icons/icon-search2.svg';
 import iconDown from '../../../assets/icons/icon-down.svg';
-import InputDate from '../../../components/Common/Input/InputDate';
 import InputTime from '../../../components/Common/Input/InputTime';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
+import { ko } from 'date-fns/esm/locale';
 
 export default function AddGroup() {
   const inputRef = useRef(null);
@@ -350,21 +350,15 @@ export default function AddGroup() {
             <StyledInputRequireName>날짜와 시간</StyledInputRequireName>
             <StyledTwoInputs>
               <InputContainer>
-                {/* <InputDate
-                  name='day'
-                  placeholder='날짜를 입력해주세요'
-                  onChange={handleInputChange}
-                  value={formData.day}
-                  autocomplete='off'
-                /> */}
                 <ReactDatePicker
                   name='day'
                   dateFormat='yyyy-MM-dd'
                   shouldCloseOnSelect
                   minDate={new Date('2000-01-01')}
-                  maxDate={new Date()}
+                  maxDate={new Date('2050-01-01')}
                   selected={selectedDate}
                   value={formattedDate}
+                  locale={ko}
                   onChange={(date) => {
                     setSelectedDate(date);
                   }}
@@ -377,7 +371,6 @@ export default function AddGroup() {
               <InputContainer>
                 <InputTime
                   name='time'
-                  placeholder='시간을 입력해주세요'
                   onChange={handleInputChange}
                   value={formData.time}
                   autoComplete='off'

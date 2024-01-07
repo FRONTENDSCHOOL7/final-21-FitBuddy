@@ -11,5 +11,6 @@ export const StyledInput = styled.textarea`
 
   &:focus {
     outline: none;
+    border: 2px solid #a6ff4d;
   }
 `;
